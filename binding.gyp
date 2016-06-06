@@ -43,7 +43,6 @@
 		'<(Rose_lib)'+"\\p28e2.lib",
 		'<(Rose_lib)'+"\\rosemath.lib",
 		'<(Rose_lib)'+"\\rose.lib",
-		'<(Rose_lib)'+"\\stkey.lib",
 		'<(Rose_lib)'+"\\dtnurbsc.lib",
 		'<(Rose_lib)'+"\\vcf2c.lib",
 		"opengl32.lib",
