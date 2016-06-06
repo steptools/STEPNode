@@ -33,4 +33,7 @@ private:
     ~Finder() { delete _find; };
 public:
     static NAN_MODULE_INIT(Init);
+
+	//long GetMainWorkplan();
+	static NAN_METHOD(GetMainWorkplan);
 };

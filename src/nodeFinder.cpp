@@ -46,8 +46,20 @@ NAN_MODULE_INIT(Finder::Init)
     tpl->SetClassName(Nan::New("Finder").ToLocalChecked());
     tpl->InstanceTemplate()->SetInternalFieldCount(1);
 
+	Nan::SetPrototypeMethod(tpl, "GetMainWorkplan", GetMainWorkplan);
+
     constructor().Reset(Nan::GetFunction(tpl).ToLocalChecked());
     Nan::Set(target, Nan::New("Finder").ToLocalChecked(), Nan::GetFunction(tpl).ToLocalChecked());
 
 }
 
+NAN_METHOD(Finder::GetMainWorkplan) {
+	Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+	if (find == 0) //Throw Exception
+		return;
+	if (!info[0]->IsUndefined()) //Function shouldn't get any arguments.
+		return;
+	long l = 1;//functioncall(); //TODO: FIXME
+	info.GetReturnValue().Set(l);
+	return;
+}
