@@ -17,6 +17,7 @@
 // limitations under the License.
 
 #include "nodeFinder.h"
+#include "nodeUtils.h"
 
 Finder *Finder::_singleton = nullptr;
 
