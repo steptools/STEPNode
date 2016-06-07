@@ -1,11 +1,10 @@
 var StepNC = require('./build/Release/StepNC');
 
-var ms = new StepNC.machineState("model.stpnc");
-var keystr = ms.GetKeystateJSON();
-
 var finder = new StepNC.Finder();
-finder.Open238("model.stpnc");
+finder.OpenProject("model.stpnc");
 console.log(finder.GetMainWorkplan());
+console.log(finder.GetFeatureID(89325));
+finder.SaveAsP21("model2.stpnc");
 //console.log(keystr);
 //var key = JSON.parse(keystr);
 //console.log(key.geom[0].shell);

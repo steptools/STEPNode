@@ -36,6 +36,7 @@ public:
 
     //int GetMainWorkplan();
     static NAN_METHOD(GetMainWorkplan);
+
     //long GetFeatureID(long ws_id);
     static NAN_METHOD(GetFeatureID);
 
