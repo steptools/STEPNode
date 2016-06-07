@@ -37,8 +37,13 @@ public:
 
     //int GetToolId(string tool_number)
     static NAN_METHOD(GetToolId);
+
+    //string GetToolIdentifier(string tool_number)
+    static NAN_METHOD(GetToolIdentifier);
+
     //string GetToolNumber(int id)
     static NAN_METHOD(GetToolNumber);
+
     static NAN_METHOD(OpenProject);
 
     //void SaveAsModules(v8::String file_name);

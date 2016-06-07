@@ -52,6 +52,7 @@ NAN_MODULE_INIT(AptStepMaker::Init)
     tpl->InstanceTemplate()->SetInternalFieldCount(1);
 
     Nan::SetPrototypeMethod(tpl, "GetToolId", GetToolId);
+    Nan::SetPrototypeMethod(tpl, "GetToolIdentifier", GetToolIdentifier);
     Nan::SetPrototypeMethod(tpl, "GetToolNumber", GetToolNumber);
     Nan::SetPrototypeMethod(tpl, "OpenProject", OpenProject);
     Nan::SetPrototypeMethod(tpl, "SaveAsModules", SaveAsModules);
@@ -77,6 +78,24 @@ NAN_METHOD(AptStepMaker::GetToolId)
     if (!apt->_apt->get_tool_id(tlNum, tl_id)) //TODO: Handle error
 	return;
     info.GetReturnValue().Set(tl_id);
+    return;
+}
+
+NAN_METHOD(AptStepMaker::GetToolIdentifier)
+{
+    AptStepMaker * apt = Nan::ObjectWrap::Unwrap<AptStepMaker>(info.This());
+    if (apt == 0) //Throw Exception
+	return;
+    if (info.Length() != 1) //Function should get one argument.
+	return;
+    if (!info[0]->IsString())
+	return;
+    char * toolNum = 0;
+    size_t toolNumLength = v8StringToChar(info[0], toolNum);
+    const char * toolID = 0;
+    if (!apt->_apt->get_tool_identifier(toolNum, toolID)) // TODO: Handle error
+	return;
+    info.GetReturnValue().Set(CharTov8String((char *)toolNum));
     return;
 }
 
