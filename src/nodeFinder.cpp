@@ -52,6 +52,7 @@ NAN_MODULE_INIT(Finder::Init)
 	Nan::SetPrototypeMethod(tpl, "GetFeatureName", GetFeatureName);
 	Nan::SetPrototypeMethod(tpl, "GetMainWorkplan", GetMainWorkplan);
 	Nan::SetPrototypeMethod(tpl, "GetProcessFeed", GetProcessFeed);
+	Nan::SetPrototypeMethod(tpl, "GetProcessFeedUnit", GetProcessFeedUnit);
 	Nan::SetPrototypeMethod(tpl, "OpenProject", OpenProject);
 	Nan::SetPrototypeMethod(tpl, "SaveAsModules", SaveAsModules);
 	Nan::SetPrototypeMethod(tpl, "SaveAsP21", SaveAsP21);
@@ -177,6 +178,22 @@ NAN_METHOD(Finder::GetProcessFeed) {
     if (!find->_find->feed_speed(ws_id, feed, dummy)) //Throw Exception
 	return;
     info.GetReturnValue().Set(feed);
+}
+
+NAN_METHOD(Finder::GetProcessFeedUnit) {
+    Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (info.Length() != 1) //Throw Exception
+	return;
+    if (info[0]->IsUndefined()) //Throw Exception
+	return;
+    if (!info[0]->IsInt32()) //Throw Exception
+	return;
+    const char* unit = "";
+    const char* dummy = "";
+    int ws_id = info[0]->Int32Value();
+    if (!find->_find->feed_speed_unit(ws_id, (const char*&)unit, (const char*&)dummy)) //Throw Exception
+	return;
+    info.GetReturnValue().Set(CharTov8String((char *)unit));
 }
 
 NAN_METHOD(Finder::OpenProject) {
