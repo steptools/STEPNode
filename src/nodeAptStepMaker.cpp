@@ -51,12 +51,52 @@ NAN_MODULE_INIT(AptStepMaker::Init)
     tpl->SetClassName(Nan::New("AptStepMaker").ToLocalChecked());
     tpl->InstanceTemplate()->SetInternalFieldCount(1);
 
+    Nan::SetPrototypeMethod(tpl, "GetToolEID", GetToolEID);
+    Nan::SetPrototypeMethod(tpl, "GetToolIdentifier", GetToolIdentifier);
     Nan::SetPrototypeMethod(tpl, "GetToolNumber", GetToolNumber);
     Nan::SetPrototypeMethod(tpl, "OpenProject", OpenProject);
+    Nan::SetPrototypeMethod(tpl, "SaveAsModules", SaveAsModules);
+    Nan::SetPrototypeMethod(tpl, "SaveAsP21", SaveAsP21);
 
     constructor().Reset(Nan::GetFunction(tpl).ToLocalChecked());
     Nan::Set(target, Nan::New("AptStepMaker").ToLocalChecked(), Nan::GetFunction(tpl).ToLocalChecked());
 
+}
+
+NAN_METHOD(AptStepMaker::GetToolEID)
+{
+    AptStepMaker * apt = Nan::ObjectWrap::Unwrap<AptStepMaker>(info.This());
+    if (apt == 0) //Throw exception
+	return;
+    if (info.Length() != 1) //Function should get one argument.
+	return;
+    if (!info[0]->IsString())
+	return;
+    char * toolNum = 0;
+    size_t toolNumLen = v8StringToChar(info[0], toolNum);
+    int toolEID;
+    if (!apt->_apt->get_tool_id(toolNum, toolEID)) //TODO: Handle error
+	return;
+    info.GetReturnValue().Set(toolEID);
+    return;
+}
+
+NAN_METHOD(AptStepMaker::GetToolIdentifier)
+{
+    AptStepMaker * apt = Nan::ObjectWrap::Unwrap<AptStepMaker>(info.This());
+    if (apt == 0) //Throw Exception
+	return;
+    if (info.Length() != 1) //Function should get one argument.
+	return;
+    if (!info[0]->IsString())
+	return;
+    char * toolNum = 0;
+    size_t toolNumLength = v8StringToChar(info[0], toolNum);
+    const char * toolID = 0;
+    if (!apt->_apt->get_tool_identifier(toolNum, toolID)) // TODO: Handle error
+	return;
+    info.GetReturnValue().Set(CharTov8String((char *)toolNum));
+    return;
 }
 
 NAN_METHOD(AptStepMaker::GetToolNumber)
@@ -89,4 +129,44 @@ NAN_METHOD(AptStepMaker::OpenProject) {
     if (!apt->_apt->read_238_file(fname)) //TODO: Handle Error.
 	return;
     return; //Success finding, return.
+}
+
+NAN_METHOD(AptStepMaker::SaveAsModules)
+{
+    AptStepMaker * apt = Nan::ObjectWrap::Unwrap<AptStepMaker>(info.This());
+    if (apt == 0) //Throw Exception
+	return;
+
+    if (!info[0]->IsUndefined())
+	return;
+
+    if (!info[0]->IsString())
+	return;
+
+    char* file_name_utf8;
+    v8StringToChar(info[0], file_name_utf8);
+
+
+    if (!apt->_apt->save_file(file_name_utf8, true)) //Throw Exception
+	return;
+}
+
+NAN_METHOD(AptStepMaker::SaveAsP21)
+{
+    AptStepMaker * apt = Nan::ObjectWrap::Unwrap<AptStepMaker>(info.This());
+    if (apt == 0) //Throw Exception
+	return;
+
+    if (!info[0]->IsUndefined())
+	return;
+
+    if (!info[0]->IsString())
+	return;
+
+    char* file_name_utf8;
+    v8StringToChar(info[0], file_name_utf8);
+
+
+    if (!apt->_apt->save_file(file_name_utf8, false)) //Throw Exception
+	return;
 }
