@@ -36,7 +36,8 @@ public:
 
     //void APIUnitsFeed(System::String^ units);
     static NAN_METHOD(APIUnitsFeed);
-
+    static NAN_METHOD(APIUnitsInches);
+    static NAN_METHOD(APIUnitsMM);
     //int GetMainWorkplan();
     static NAN_METHOD(GetMainWorkplan);
 
