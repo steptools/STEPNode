@@ -48,6 +48,7 @@ NAN_MODULE_INIT(Finder::Init)
 	Nan::SetPrototypeMethod(tpl, "APIUnitsFeed", APIUnitsFeed);
 	Nan::SetPrototypeMethod(tpl, "APIUnitsSpeed", APIUnitsSpeed);
 	Nan::SetPrototypeMethod(tpl, "GetFaceEdgeCount", GetFaceEdgeCount);
+	Nan::SetPrototypeMethod(tpl, "GetFaceEdgeNextPoint", GetFaceEdgeCount);
 	Nan::SetPrototypeMethod(tpl, "GetFeatureID", GetFeatureID);
 	Nan::SetPrototypeMethod(tpl, "GetFeatureName", GetFeatureName);
 	Nan::SetPrototypeMethod(tpl, "GetMainWorkplan", GetMainWorkplan);
@@ -100,7 +101,7 @@ NAN_METHOD(Finder::GetFaceEdgeCount)
     Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
     if (find == 0) //Throw Exception
 	return;
-    if (!info[0]->IsUndefined()) //Needs one arg
+    if (info[0]->IsUndefined()) //Needs one arg
 	return;
 
     int count = 0;
@@ -109,6 +110,38 @@ NAN_METHOD(Finder::GetFaceEdgeCount)
 	return;
 
     info.GetReturnValue().Set(count);
+    return;
+}
+
+//{ret_x1:double, ret_y1:double, ret_z1:double, ret_x2:double, ret_y2:double, ret_z2:double}
+NAN_METHOD(Finder::GetFaceEdgeNextPoint)
+{
+    Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (find == 0) //Throw Exception
+	return;
+    if (info.Length() < 8) //Needs 8 arg
+	return;
+
+    double x1 = 0.0;
+    double y1 = 0.0;
+    double z1 = 0.0;
+    double x2 = 0.0;
+    double y2 = 0.0;
+    double z2 = 0.0;
+
+    if (!find->_find->next_face_edge_point(Nan::To<int32_t>(info[0]).FromJust(),
+	Nan::To<int32_t>(info[1]).FromJust(), x1, y1, z1, x2, y2, z2)) //Throw Exception
+	return;
+
+    v8::Local<v8::Object> jsonReturn = Nan::New<v8::Object>();
+    jsonReturn->Set(CharTov8String("ret_x1"), info[2]);
+    jsonReturn->Set(CharTov8String("ret_y1"), info[3]);
+    jsonReturn->Set(CharTov8String("ret_z1"), info[4]);
+    jsonReturn->Set(CharTov8String("ret_x2"), info[5]);
+    jsonReturn->Set(CharTov8String("ret_y2"), info[6]);
+    jsonReturn->Set(CharTov8String("ret_z2"), info[7]);
+
+    info.GetReturnValue().Set(jsonReturn);
     return;
 }
 
