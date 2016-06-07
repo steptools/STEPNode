@@ -35,8 +35,8 @@ public:
     static apt2step* getApt();
     static NAN_MODULE_INIT(Init);
 
-    //int GetToolId(string tool_number)
-    static NAN_METHOD(GetToolId);
+    //int GetToolEID(string tool_number)
+    static NAN_METHOD(GetToolEID);
 
     //string GetToolIdentifier(string tool_number)
     static NAN_METHOD(GetToolIdentifier);
