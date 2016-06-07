@@ -115,5 +115,6 @@ NAN_METHOD(Finder::APIUnitsInch)() {
 	if (!find->api_unit_inch()) {
 	    return; //throw error
 	}
+	return;
 
 }
