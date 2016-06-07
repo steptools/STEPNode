@@ -43,6 +43,9 @@ public:
     //int GetMainWorkplan();
     static NAN_METHOD(GetMainWorkplan);
 
+    //long Finder::GetFaceEdgeCount(long face_id);
+    static NAN_METHOD(GetFaceEdgeCount);
+
     //string GetFeatureName(long id)
     static NAN_METHOD(GetFeatureName);
 
