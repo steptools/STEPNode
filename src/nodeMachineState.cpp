@@ -36,11 +36,11 @@ StixSimGeomType GeomTypeFromString(char* typ)
     }
 }
 
-NAN_METHOD(machineState::New) 
+NAN_METHOD(machineState::New)
 {
-    if (info.IsConstructCall()) 
+    if (info.IsConstructCall())
     {
-	if (info[0]->IsUndefined()) 
+	if (info[0]->IsUndefined())
 	{
 	    return;
 	}
@@ -52,14 +52,14 @@ NAN_METHOD(machineState::New)
 	ms->Wrap(info.This());
 	info.GetReturnValue().Set(info.This());
     }
-    else 
+    else
     {
 	return;
     }
 }
 
 
-NAN_METHOD(machineState::LoadMachine) 
+NAN_METHOD(machineState::LoadMachine)
 {
     machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
     if (!ms || !(ms->_ms)) return;
@@ -70,7 +70,7 @@ NAN_METHOD(machineState::LoadMachine)
     delete[] b;
 }
 
-NAN_METHOD(machineState::NextWS) 
+NAN_METHOD(machineState::NextWS)
 {
     machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
     if (!ms || !(ms->_ms)) return;
@@ -78,8 +78,8 @@ NAN_METHOD(machineState::NextWS)
     ms->_ms->GoToNextWS();
     return;
 }
-    
-NAN_METHOD(machineState::AdvanceState) 
+
+NAN_METHOD(machineState::AdvanceState)
 {
     machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
     if (!ms || !(ms->_ms)) return;
@@ -88,13 +88,13 @@ NAN_METHOD(machineState::AdvanceState)
     info.GetReturnValue().Set(rtnval);
 }
 
-NAN_METHOD(machineState::GetGeometryJSON) 
+NAN_METHOD(machineState::GetGeometryJSON)
 {
     machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
     if (!ms || !(ms->_ms)) return;
     //This function has a 2 argument and a no argument version.
-    if (info[0]->IsUndefined()) 
-    { 
+    if (info[0]->IsUndefined())
+    {
 	ms->_ms->GetGeometryJSON();
 	char* rtn = ms->_ms->strbuff()->ro_str();
 	info.GetReturnValue().Set(CharTov8String(rtn));
@@ -109,7 +109,7 @@ NAN_METHOD(machineState::GetGeometryJSON)
 	char * id;
 	v8StringToChar(info[0], id);
 	RoseObject * obj = ms->_ms->FindObjectByID(id);
-	if (!obj) 
+	if (!obj)
 	{
 	    delete[] id;
 	    return; //No Object Associated with given ID
@@ -125,7 +125,7 @@ NAN_METHOD(machineState::GetGeometryJSON)
     }
 }
 
-NAN_METHOD(machineState::GetDeltaJSON) 
+NAN_METHOD(machineState::GetDeltaJSON)
 {
     machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
     if (!ms || !(ms->_ms)) return;
@@ -136,7 +136,7 @@ NAN_METHOD(machineState::GetDeltaJSON)
     return;
 }
 
-NAN_METHOD(machineState::GetKeystateJSON) 
+NAN_METHOD(machineState::GetKeystateJSON)
 {
     machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
     if (!ms || !(ms->_ms)) return;
@@ -147,7 +147,7 @@ NAN_METHOD(machineState::GetKeystateJSON)
     return;
 }
 
-NAN_MODULE_INIT(machineState::Init) 
+NAN_MODULE_INIT(machineState::Init)
 {
     v8::Local<v8::FunctionTemplate> tpl = Nan::New<v8::FunctionTemplate>(New);
     tpl->SetClassName(Nan::New("machineState").ToLocalChecked());
