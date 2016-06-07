@@ -46,6 +46,7 @@ NAN_MODULE_INIT(Finder::Init)
 	tpl->InstanceTemplate()->SetInternalFieldCount(1);
 
 	Nan::SetPrototypeMethod(tpl, "APIUnitsFeed", APIUnitsFeed);
+	Nan::SetPrototypeMethod(tpl, "APIUnitsSpeed", APIUnitsSpeed);
 	Nan::SetPrototypeMethod(tpl, "GetFeatureID", GetFeatureID);
 	Nan::SetPrototypeMethod(tpl, "GetFeatureName", GetFeatureName);
 	Nan::SetPrototypeMethod(tpl, "GetMainWorkplan", GetMainWorkplan);
@@ -61,7 +62,7 @@ NAN_METHOD(Finder::APIUnitsFeed) {
     Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
     if (!find) //Throw Exception
 	return;
-    if (info.Length() > 1) //Function takes one argument
+    if (info.Length() != 1) //Function takes one argument
 	return;
     if (info[0]->IsUndefined()) //Argument should exist
 	return;
@@ -70,6 +71,23 @@ NAN_METHOD(Finder::APIUnitsFeed) {
     char * b;
     size_t len = v8StringToChar(info[0], b);
     if (!find->_find->api_unit_feed(b)) //Throw Exception
+	return;
+    delete[] b;
+}
+
+NAN_METHOD(Finder::APIUnitsSpeed) {
+    Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (!find) //Throw Exception
+	return;
+    if (info.Length() != 1) //Function takes one argument
+	return;
+    if (info[0]->IsUndefined()) //Argument should exist
+	return;
+    if (!info[0]->IsString()) //Throw Exception
+	return;
+    char * b;
+    size_t len = v8StringToChar(info[0], b);
+    if (!find->_find->api_unit_speed(b)) //Throw Exception
 	return;
     delete[] b;
 }
@@ -153,9 +171,8 @@ NAN_METHOD(Finder::SaveAsModules)
     if (!info[0]->IsString())
 	return;
 
-    v8::Local<v8::String> file_name = info[0]->ToString();
     char* file_name_utf8;
-    v8StringToChar(file_name, file_name_utf8);
+    v8StringToChar(info[0], file_name_utf8);
 
 
     if (!find->_find->save_file(file_name_utf8, true)) //Throw Exception
@@ -174,9 +191,8 @@ NAN_METHOD(Finder::SaveAsP21)
 	if (!info[0]->IsString())
 		return;
 
-	v8::Local<v8::String> file_name = info[0]->ToString();
 	char* file_name_utf8;
-	v8StringToChar(file_name, file_name_utf8);
+	v8StringToChar(info[0], file_name_utf8);
 
 
 	if (!find->_find->save_file(file_name_utf8, false)) //Throw Exception

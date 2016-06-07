@@ -37,6 +37,9 @@ public:
     //void APIUnitsFeed(System::String^ units);
     static NAN_METHOD(APIUnitsFeed);
 
+    //void APIUnitsSpeed(System::String^ units);
+    static NAN_METHOD(APIUnitsSpeed);
+
     //int GetMainWorkplan();
     static NAN_METHOD(GetMainWorkplan);
 
