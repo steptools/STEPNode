@@ -51,6 +51,7 @@ NAN_MODULE_INIT(AptStepMaker::Init)
     tpl->SetClassName(Nan::New("AptStepMaker").ToLocalChecked());
     tpl->InstanceTemplate()->SetInternalFieldCount(1);
 
+    Nan::SetPrototypeMethod(tpl, "GetToolId", GetToolId);
     Nan::SetPrototypeMethod(tpl, "GetToolNumber", GetToolNumber);
     Nan::SetPrototypeMethod(tpl, "OpenProject", OpenProject);
     Nan::SetPrototypeMethod(tpl, "SaveAsModules", SaveAsModules);
@@ -59,6 +60,24 @@ NAN_MODULE_INIT(AptStepMaker::Init)
     constructor().Reset(Nan::GetFunction(tpl).ToLocalChecked());
     Nan::Set(target, Nan::New("AptStepMaker").ToLocalChecked(), Nan::GetFunction(tpl).ToLocalChecked());
 
+}
+
+NAN_METHOD(AptStepMaker::GetToolId)
+{
+    AptStepMaker * apt = Nan::ObjectWrap::Unwrap<AptStepMaker>(info.This());
+    if (apt == 0) //Throw exception
+	return;
+    if (info.Length() != 1) //Function should get one argument.
+	return;
+    if (!info[0]->IsString())
+	return;
+    char * tlNum = 0;
+    size_t tlNumLength = v8StringToChar(info[0], tlNum);
+    int tl_id;
+    if (!apt->_apt->get_tool_id(tlNum, tl_id)) //TODO: Handle error
+	return;
+    info.GetReturnValue().Set(tl_id);
+    return;
 }
 
 NAN_METHOD(AptStepMaker::GetToolNumber)
