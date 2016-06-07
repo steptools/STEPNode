@@ -104,3 +104,22 @@ NAN_METHOD(Finder::SaveAsP21)
 	if (!find->_find->save_file(file_name_utf8, false)) //Throw Exception
 		return;
 }
+
+NAN_METHOD(Finder::GetFeatureID){
+    Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This()); 
+
+    if(info.Length() != 1)
+	return;
+    if(info[0]->IsUndefined())
+	return;
+    if (!info[0]->IsInt32())
+	return;
+
+    int feature_id = 0;
+
+    if (!find->_find->feature_id(info[0]->Int32Value(), feature_id))
+	return;
+
+    info.GetReturnValue().Set(feature_id);
+    return;	
+}
