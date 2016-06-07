@@ -45,9 +45,11 @@ NAN_MODULE_INIT(Finder::Init)
 	tpl->SetClassName(Nan::New("Finder").ToLocalChecked());
 	tpl->InstanceTemplate()->SetInternalFieldCount(1);
 
+	Nan::SetPrototypeMethod(tpl, "GetFeatureID", GetFeatureID);
 	Nan::SetPrototypeMethod(tpl, "GetMainWorkplan", GetMainWorkplan);
-	Nan::SetPrototypeMethod(tpl, "SaveAsP21", SaveAsP21);
 	Nan::SetPrototypeMethod(tpl, "OpenProject", OpenProject);
+	Nan::SetPrototypeMethod(tpl, "SaveAsP21", SaveAsP21);
+	Nan::SetPrototypeMethod(tpl, "SaveAsModules", SaveAsModules);
 
 	constructor().Reset(Nan::GetFunction(tpl).ToLocalChecked());
 	Nan::Set(target, Nan::New("Finder").ToLocalChecked(), Nan::GetFunction(tpl).ToLocalChecked());
@@ -101,20 +103,4 @@ NAN_METHOD(Finder::SaveAsP21)
 
 	if (!find->_find->save_file(file_name_utf8, false)) //Throw Exception
 		return;
-}
-
-NAN_METHOD(Finder::APIUnitsInch)() {
-
-	Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
-	if (find == 0) {
-	    return; // Throw Exception
-	}
-	if (!(info[0]->isUndefined())) {
-	    return; //Throw Exeption
-	}
-	if (!find->api_unit_inch()) {
-	    return; //throw error
-	}
-	return;
-
 }
