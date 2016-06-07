@@ -48,13 +48,14 @@ NAN_MODULE_INIT(Finder::Init)
 	Nan::SetPrototypeMethod(tpl, "APIUnitMM", APIUnitMM);
 	Nan::SetPrototypeMethod(tpl, "APIUnitsNative", APIUnitsNative);
 	Nan::SetPrototypeMethod(tpl, "APIUnitsFeed", APIUnitsFeed);
+	Nan::SetPrototypeMethod(tpl, "APIUnitsSpeed", APIUnitsSpeed);
+	Nan::SetPrototypeMethod(tpl, "GetFaceEdgeCount", GetFaceEdgeCount);
 	Nan::SetPrototypeMethod(tpl, "GetFeatureID", GetFeatureID);
+	Nan::SetPrototypeMethod(tpl, "GetFeatureName", GetFeatureName);
 	Nan::SetPrototypeMethod(tpl, "GetMainWorkplan", GetMainWorkplan);
 	Nan::SetPrototypeMethod(tpl, "OpenProject", OpenProject);
-	Nan::SetPrototypeMethod(tpl, "SaveAsP21", SaveAsP21);
 	Nan::SetPrototypeMethod(tpl, "SaveAsModules", SaveAsModules);
-	
-
+	Nan::SetPrototypeMethod(tpl, "SaveAsP21", SaveAsP21);
 	constructor().Reset(Nan::GetFunction(tpl).ToLocalChecked());
 	Nan::Set(target, Nan::New("Finder").ToLocalChecked(), Nan::GetFunction(tpl).ToLocalChecked());
 }
@@ -63,7 +64,7 @@ NAN_METHOD(Finder::APIUnitsFeed) {
     Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
     if (!find) //Throw Exception
 	return;
-    if (info.Length() > 1) //Function takes one argument
+    if (info.Length() != 1) //Function takes one argument
 	return;
     if (info[0]->IsUndefined()) //Argument should exist
 	return;
@@ -122,6 +123,79 @@ NAN_METHOD(Finder::APIUnitsNative) {
     }
     return;
 }
+
+NAN_METHOD(Finder::APIUnitsSpeed) {
+    Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (!find) //Throw Exception
+	return;
+    if (info.Length() != 1) //Function takes one argument
+	return;
+    if (info[0]->IsUndefined()) //Argument should exist
+	return;
+    if (!info[0]->IsString()) //Throw Exception
+	return;
+    char * b;
+    size_t len = v8StringToChar(info[0], b);
+    if (!find->_find->api_unit_speed(b)) //Throw Exception
+	return;
+    delete[] b;
+}
+
+NAN_METHOD(Finder::GetFaceEdgeCount)
+{
+    Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (find == 0) //Throw Exception
+	return;
+    if (!info[0]->IsUndefined()) //Needs one arg
+	return;
+
+    int count = 0;
+    double dummy1, dummy2, dummy3;
+    if (!find->_find->first_face_edge_point(info[0]->Int32Value(), count, dummy1, dummy2, dummy3))
+	return;
+
+    info.GetReturnValue().Set(count);
+    return;
+}
+
+NAN_METHOD(Finder::GetFeatureID) {
+    Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+
+    if (info.Length() != 1)
+	return;
+    if (info[0]->IsUndefined())
+	return;
+    if (!info[0]->IsInt32())
+	return;
+
+    int feature_id = 0;
+
+    if (!find->_find->feature_id(info[0]->Int32Value(), feature_id))
+	return;
+
+    info.GetReturnValue().Set(feature_id);
+    return;
+}
+
+NAN_METHOD(Finder::GetFeatureName) {
+    Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+
+    if (info.Length() != 1)
+	return;
+    if (info[0]->IsUndefined())
+	return;
+    if (!info[0]->IsInt32())
+	return;
+
+    const char * name = 0;
+
+    if (!find->_find->feature_name(info[0]->Int32Value(), name))
+	return;
+
+    info.GetReturnValue().Set(CharTov8String((char *)name));
+    return;
+}
+
 NAN_METHOD(Finder::GetMainWorkplan) {
 	Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
 	if (find == 0) //Throw Exception
@@ -163,9 +237,8 @@ NAN_METHOD(Finder::SaveAsModules)
     if (!info[0]->IsString())
 	return;
 
-    v8::Local<v8::String> file_name = info[0]->ToString();
     char* file_name_utf8;
-    v8StringToChar(file_name, file_name_utf8);
+    v8StringToChar(info[0], file_name_utf8);
 
 
     if (!find->_find->save_file(file_name_utf8, true)) //Throw Exception
@@ -184,9 +257,8 @@ NAN_METHOD(Finder::SaveAsP21)
 	if (!info[0]->IsString())
 		return;
 
-	v8::Local<v8::String> file_name = info[0]->ToString();
 	char* file_name_utf8;
-	v8StringToChar(file_name, file_name_utf8);
+	v8StringToChar(info[0], file_name_utf8);
 
 
 	if (!find->_find->save_file(file_name_utf8, false)) //Throw Exception
@@ -212,3 +284,4 @@ NAN_METHOD(Finder::GetFeatureID){
     return;	
 }
 
+}
