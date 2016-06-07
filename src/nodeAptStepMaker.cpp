@@ -17,7 +17,7 @@
 // limitations under the License.
 
 #include "nodeAptStepMaker.h"
-
+#include "nodeUtils.h"
 AptStepMaker* AptStepMaker::_singleton = nullptr;
 
 apt2step* AptStepMaker::getApt() {
