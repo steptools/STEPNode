@@ -110,3 +110,22 @@ NAN_METHOD(AptStepMaker::Rapid) {
     if (!apt->m_maker->rapid())
 		THROW_ERROR(t);
 }
+
+NAN_METHOD(AptStepMaker::Rawpiece) {
+	AptStepMaker * apt = Nan::ObjectWrap::Unwrap<AptStepMaker>(info.This());
+	if (apt == 0) //Throw Exception
+		return;
+	if (info.Length() != 1) //Function requires exactly one argument.
+		return;
+	if (!info[0]->IsString()) //Requires rawpiece filename
+		return;
+	char * filename = v8StringToChar(info[0], filename);
+	MARSHAL_WIDE_TO_UTF8(filename,filename_utf8);
+
+    Trace t(apt->tc, "Rawpiece");
+    t.addParam(BPARAM(filename));
+
+    if (!apt->m_maker->rawpiece(AS_UTF8(filename))) //Throw exception
+		return;
+	
+}
