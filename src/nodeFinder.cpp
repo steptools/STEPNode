@@ -47,6 +47,7 @@ NAN_MODULE_INIT(Finder::Init)
 
 	Nan::SetPrototypeMethod(tpl, "APIUnitsFeed", APIUnitsFeed);
 	Nan::SetPrototypeMethod(tpl, "APIUnitsSpeed", APIUnitsSpeed);
+	Nan::SetPrototypeMethod(tpl, "GetExecutableDistance", GetExecutableDistance);
 	Nan::SetPrototypeMethod(tpl, "GetFaceEdgeCount", GetFaceEdgeCount);
 	Nan::SetPrototypeMethod(tpl, "GetFeatureID", GetFeatureID);
 	Nan::SetPrototypeMethod(tpl, "GetFeatureName", GetFeatureName);
@@ -92,6 +93,89 @@ NAN_METHOD(Finder::APIUnitsSpeed) {
     if (!find->_find->api_unit_speed(b)) //Throw Exception
 	return;
     delete[] b;
+}
+
+NAN_METHOD(Finder::GetExecutableDistance)
+{
+    Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (find == 0) // Throw exception
+	return;
+    
+    if (info.Length() != 1) // incorrect number of arguments
+	return;
+
+    if (!info[0]->IsNumber()) // invalid argument
+	return;
+
+    // get this executable's id
+    int64_t exe_id = info[0]->IntegerValue();
+
+    // keep a total value
+    double rtn_distance = 0.0;
+
+    // get the nested executables
+    rose_uint_vector nested_list;
+    if (!find->_find->nested_executable_all_enabled(exe_id, nested_list))   // error in cpp
+	return;
+
+    for (uint i = 0; i < nested_list.size(); i++)
+    {
+	// check if the executable is a workingstep
+	int is_ws;
+	if (!find->_find->is_workingstep(nested_list[i], is_ws))    // error in cpp
+	    return;
+
+	int is_enabled;
+	if (!find->_find->is_enabled(nested_list[i], is_enabled))    // error in cpp
+	    return;
+	
+	// for non-workingsteps, continue iterating through sublists
+	if (!is_ws && is_enabled)
+	{
+	    v8::Local<v8::Value> argv = Nan::New<v8::Number>(nested_list[i]);
+
+	    // recursively call GetExecutableDistance for the nested executable
+	    // and store the value so we can add it to our total
+	    double subDist = Nan::MakeCallback(info.This(), "GetExecutableDistance", 1, &argv)->NumberValue();
+
+	    rtn_distance += subDist;
+	}
+	else if (is_enabled)
+	{
+	    // get all paths in workstep and calculate distance
+	    rose_uint_vector path_list;
+	    if (!find->_find->all_path(nested_list[i], path_list))  // error in cpp
+		return;
+
+	    for (uint j = 0; j < path_list.size(); j++)
+	    {
+		// iterate over all curves in each path
+		rose_uint_vector curve_list;
+		if (!find->_find->all_curve(path_list[i], curve_list))	// error in cpp
+		    return;
+
+		for (uint k = 0; k < curve_list.size() - 1; k++)
+		{
+		    RoseReal3DArray point_list;
+		    if (!find->_find->all_points(curve_list[i], point_list))	// error in cpp
+			return;
+
+		    // calculate distance between points and add to running total
+		    RosePoint point_a = point_list.as_point(k);
+		    RosePoint point_b = point_list.as_point(k+1);
+
+		    rtn_distance += rose_pt_distance(point_a, point_b);
+		}
+
+		// TODO: figure out if we need to add distance between curves
+	    }
+	}
+    }
+
+    // now set return value as total distance
+    info.GetReturnValue().Set(rtn_distance);
+
+    return;
 }
 
 NAN_METHOD(Finder::GetFaceEdgeCount)

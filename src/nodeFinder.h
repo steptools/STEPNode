@@ -40,6 +40,9 @@ public:
     //void APIUnitsSpeed(System::String^ units);
     static NAN_METHOD(APIUnitsSpeed);
 
+    // double GetExecutableDistance(System::Int64 exe_id)
+    static NAN_METHOD(GetExecutableDistance);
+
     //int GetMainWorkplan();
     static NAN_METHOD(GetMainWorkplan);
 
