@@ -46,6 +46,7 @@ NAN_MODULE_INIT(Finder::Init)
     tpl->InstanceTemplate()->SetInternalFieldCount(1);
 
     Nan::SetPrototypeMethod(tpl, "GetMainWorkplan", GetMainWorkplan);
+    Nan::SetPrototypeMethod(tpl, "SaveAsModules", SaveAsModules);
     Nan::SetPrototypeMethod(tpl, "SaveAsP21", SaveAsP21);
     Nan::SetPrototypeMethod(tpl, "OpenProject", OpenProject);
     Nan::SetPrototypeMethod(tpl, "APIUnitsFeed", APIUnitsFeed);
@@ -100,6 +101,27 @@ NAN_METHOD(Finder::OpenProject) {
     return; //Success finding, return.
 }
 
+NAN_METHOD(Finder::SaveAsModules)
+{
+    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (find == 0) //Throw Exception
+	return;
+
+    if (!info[0]->IsUndefined())
+	return;
+
+    if (!info[0]->IsString())
+	return;
+
+    v8::Local<v8::String> file_name = info[0]->ToString();
+    char* file_name_utf8;
+    v8StringToChar(file_name, file_name_utf8);
+
+
+    if (!find->_find->save_file(file_name_utf8, true)) //Throw Exception
+	return;
+}
+
 NAN_METHOD(Finder::SaveAsP21)
 {
     Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
@@ -120,4 +142,3 @@ NAN_METHOD(Finder::SaveAsP21)
     if (!find->_find->save_file(file_name_utf8, false)) //Throw Exception
 	return;
 }
-
