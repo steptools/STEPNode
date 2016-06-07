@@ -40,6 +40,9 @@ public:
     //int GetMainWorkplan();
     static NAN_METHOD(GetMainWorkplan);
 
+    //string GetFeatureName(long id)
+    static NAN_METHOD(GetFeatureName);
+
     //long GetFeatureID(long ws_id);
     static NAN_METHOD(GetFeatureID);
 
