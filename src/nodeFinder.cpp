@@ -46,6 +46,7 @@ NAN_MODULE_INIT(Finder::Init)
 	tpl->InstanceTemplate()->SetInternalFieldCount(1);
 
 	Nan::SetPrototypeMethod(tpl, "APIUnitsFeed", APIUnitsFeed);
+	Nan::SetPrototypeMethod(tpl, "GetFaceEdgeCount", GetFaceEdgeCount);
 	Nan::SetPrototypeMethod(tpl, "GetFeatureID", GetFeatureID);
 	Nan::SetPrototypeMethod(tpl, "GetMainWorkplan", GetMainWorkplan);
 	Nan::SetPrototypeMethod(tpl, "OpenProject", OpenProject);
@@ -71,6 +72,23 @@ NAN_METHOD(Finder::APIUnitsFeed) {
     if (!find->_find->api_unit_feed(b)) //Throw Exception
 	return;
     delete[] b;
+}
+
+NAN_METHOD(Finder::GetFaceEdgeCount)
+{
+    Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (find == 0) //Throw Exception
+	return;
+    if (!info[0]->IsUndefined()) //Needs one arg
+	return;
+
+    int count = 0;
+    double dummy1, dummy2, dummy3;
+    if (!find->_find->first_face_edge_point(info[0]->Int32Value(), count, dummy1, dummy2, dummy3))
+	return;
+
+    info.GetReturnValue().Set(count);
+    return;
 }
 
 NAN_METHOD(Finder::GetMainWorkplan) {
