@@ -103,3 +103,17 @@ NAN_METHOD(Finder::SaveAsP21)
 		return;
 }
 
+NAN_METHOD(Finder::APIUnitsInch)() {
+
+	Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+	if (find == 0) {
+	    return; // Throw Exception
+	}
+	if (!(info[0]->isUndefined())) {
+	    return; //Throw Exeption
+	}
+	if (!find->api_unit_inch()) {
+	    return; //throw error
+	}
+
+}
