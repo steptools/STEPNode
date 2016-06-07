@@ -137,7 +137,7 @@ NAN_METHOD(AptStepMaker::SaveAsModules)
     if (apt == 0) //Throw Exception
 	return;
 
-    if (!info[0]->IsUndefined())
+    if (info[0]->IsUndefined())
 	return;
 
     if (!info[0]->IsString())
@@ -157,7 +157,7 @@ NAN_METHOD(AptStepMaker::SaveAsP21)
     if (apt == 0) //Throw Exception
 	return;
 
-    if (!info[0]->IsUndefined())
+    if (info[0]->IsUndefined())
 	return;
 
     if (!info[0]->IsString())
