@@ -44,7 +44,7 @@ NAN_MODULE_INIT(Finder::Init)
 	v8::Local<v8::FunctionTemplate> tpl = Nan::New<v8::FunctionTemplate>(New);
 	tpl->SetClassName(Nan::New("Finder").ToLocalChecked());
 	tpl->InstanceTemplate()->SetInternalFieldCount(1);
-
+	Nan::SetPrototypeMethod(tpl, "APIUnitsNative", APIUnitsNative);
 	Nan::SetPrototypeMethod(tpl, "APIUnitsFeed", APIUnitsFeed);
 	Nan::SetPrototypeMethod(tpl, "GetFeatureID", GetFeatureID);
 	Nan::SetPrototypeMethod(tpl, "GetMainWorkplan", GetMainWorkplan);
@@ -192,6 +192,22 @@ NAN_METHOD(Finder::APIUnitsMM) {
 	return; //Throw Exeption
     }
     if (!find->api_unit_mm()) {
+	return; //throw error
+    }
+    return;
+}
+
+NAN_METHOD(Finder::APIUnitsNative) {
+
+    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+
+    if (find == 0) {
+	return; // Throw Exception
+    }
+    if (!(info[0]->isUndefined())) { // function has 0 arguements
+	return; //Throw Exeption
+    }
+    if (!find->api_unit_native()) {
 	return; //throw error
     }
     return;

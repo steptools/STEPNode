@@ -40,7 +40,7 @@ public:
     static NAN_METHOD(APIUnitsMM);
     //int GetMainWorkplan();
     static NAN_METHOD(GetMainWorkplan);
-
+    static NAN_METHOD(APIUnitsNative);
     //long GetFeatureID(long ws_id);
     static NAN_METHOD(GetFeatureID);
 
