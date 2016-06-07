@@ -53,8 +53,15 @@ NAN_MODULE_INIT(AptStepMaker::Init)
 
 	Nan::SetPrototypeMethod(tpl, "GetToolNumber", GetToolNumber);
 
+<<<<<<< HEAD
 	constructor().Reset(Nan::GetFunction(tpl).ToLocalChecked());
 	Nan::Set(target, Nan::New("AptStepMaker").ToLocalChecked(), Nan::GetFunction(tpl).ToLocalChecked());
+=======
+	Nan::SetPrototypeMethod(tpl, "GetToolNumber", GetToolNumber);
+
+    constructor().Reset(Nan::GetFunction(tpl).ToLocalChecked());
+    Nan::Set(target, Nan::New("AptStepMaker").ToLocalChecked(), Nan::GetFunction(tpl).ToLocalChecked());
+>>>>>>> adc65511ab624f17710db6baffd79f997dc55736
 
 }
 
