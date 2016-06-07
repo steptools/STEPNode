@@ -18,7 +18,6 @@
 
 #include "nodeFinder.h"
 #include "nodeUtils.h"
-
 Finder *Finder::_singleton = nullptr;
 
 NAN_METHOD(Finder::New)
@@ -59,7 +58,10 @@ NAN_METHOD(Finder::GetMainWorkplan) {
 		return;
 	if (!info[0]->IsUndefined()) //Function shouldn't get any arguments.
 		return;
-	long l = 1;//functioncall(); //TODO: FIXME
-	info.GetReturnValue().Set(l);
+	int rtn = 0;
+	int sz;
+	if (!find->_find->main(rtn, sz))
+		return;//Error in c++ code
+	info.GetReturnValue().Set(rtn);
 	return;
 }
