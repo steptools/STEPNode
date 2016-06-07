@@ -34,6 +34,9 @@ private:
 public:
     static NAN_MODULE_INIT(Init);
 
+    //void APIUnitsFeed(System::String^ units);
+    static NAN_METHOD(APIUnitsFeed);
+
     //int GetMainWorkplan();
     static NAN_METHOD(GetMainWorkplan);
 
@@ -42,6 +45,9 @@ public:
 
     //void Open238(String file_name);
     static NAN_METHOD(OpenProject);
+
+    //void SaveAsModules(v8::String file_name);
+    static NAN_METHOD(SaveAsModules);
 
     //void SaveAsP21(v8::String file_name);
     static NAN_METHOD(SaveAsP21);
