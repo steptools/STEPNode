@@ -52,6 +52,9 @@ public:
     //long GetFeatureID(long ws_id);
     static NAN_METHOD(GetFeatureID);
 
+    //double GetProcessFeed (long ws_id);
+    static NAN_METHOD(GetProcessFeed);
+
     //void Open238(String file_name);
     static NAN_METHOD(OpenProject);
 
