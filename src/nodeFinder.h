@@ -37,8 +37,14 @@ public:
     //int GetMainWorkplan();
     static NAN_METHOD(GetMainWorkplan);
 
+    //long GetFeatureID(long ws_id);
+    static NAN_METHOD(GetFeatureID);
+
     //void Open238(String file_name);
     static NAN_METHOD(OpenProject);
+
+    //void SaveAsModules(v8::String file_name);
+    static NAN_METHOD(SaveAsModules);
 
     //void SaveAsP21(v8::String file_name);
     static NAN_METHOD(SaveAsP21);
