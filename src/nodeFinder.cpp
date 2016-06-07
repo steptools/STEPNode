@@ -52,6 +52,7 @@ NAN_MODULE_INIT(Finder::Init)
 	Nan::SetPrototypeMethod(tpl, "GetFeatureName", GetFeatureName);
 	Nan::SetPrototypeMethod(tpl, "GetMainWorkplan", GetMainWorkplan);
 	Nan::SetPrototypeMethod(tpl, "GetProcessFeed", GetProcessFeed);
+	Nan::SetPrototypeMethod(tpl, "GetProcessUnit", GetProcessUnit);
 	Nan::SetPrototypeMethod(tpl, "OpenProject", OpenProject);
 	Nan::SetPrototypeMethod(tpl, "SaveAsModules", SaveAsModules);
 	Nan::SetPrototypeMethod(tpl, "SaveAsP21", SaveAsP21);
@@ -164,6 +165,22 @@ NAN_METHOD(Finder::GetMainWorkplan) {
 }
 
 NAN_METHOD(Finder::GetProcessFeed) {
+    Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (info.Length() != 1) //Throw Exception
+	return;
+    if (info[0]->IsUndefined()) //Throw Exception
+	return;
+    if (!info[0]->IsInt32()) //Throw Exception
+	return;
+    double feed = 0.0;
+    double dummy;
+    int ws_id = info[0]->Int32Value();
+    if (!find->_find->feed_speed(ws_id, feed, dummy)) //Throw Exception
+	return;
+    info.GetReturnValue().Set(feed);
+}
+
+NAN_METHOD(Finder::GetProcessUnit) {
     Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
     if (info.Length() != 1) //Throw Exception
 	return;
