@@ -37,11 +37,17 @@ public:
     //void APIUnitsFeed(System::String^ units);
     static NAN_METHOD(APIUnitsFeed);
 
+    //void APIUnitsSpeed(System::String^ units);
+    static NAN_METHOD(APIUnitsSpeed);
+
     //int GetMainWorkplan();
     static NAN_METHOD(GetMainWorkplan);
 
     //long Finder::GetFaceEdgeCount(long face_id);
     static NAN_METHOD(GetFaceEdgeCount);
+
+    //string GetFeatureName(long id)
+    static NAN_METHOD(GetFeatureName);
 
     //long GetFeatureID(long ws_id);
     static NAN_METHOD(GetFeatureID);
