@@ -34,4 +34,5 @@ private:
 public:
     static apt2step* getApt();
     static NAN_MODULE_INIT(Init);
+	static NAN_METHOD(OpenProject);
 };
