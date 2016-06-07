@@ -62,7 +62,7 @@ NAN_METHOD(AptStepMaker::OpenProject) {
 	AptStepMaker* apt = Nan::ObjectWrap::Unwrap<AptStepMaker>(info.This());
 	if (apt == 0) //Throw Exception
 		return;
-	if (info.Length != 1) //Function should get one argument.
+	if (info.Length() != 1) //Function should get one argument.
 		return;
 	if (!info[0]->IsString())
 		return;

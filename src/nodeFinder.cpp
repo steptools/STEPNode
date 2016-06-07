@@ -71,7 +71,7 @@ NAN_METHOD(Finder::OpenProject) {
 	Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
 	if (find == 0) //Throw Exception
 		return;
-	if (info.Length != 1) //Function should get one argument.
+	if (info.Length() != 1) //Function should get one argument.
 		return;
 	if (!info[0]->IsString())
 		return;
