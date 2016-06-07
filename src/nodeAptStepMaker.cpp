@@ -109,9 +109,9 @@ NAN_METHOD(AptStepMaker::GetToolNumber)
 	return;
     if (!info[0]->IsInt32())
 	return;
-    int id = info[0]->Int32Value();
-    const char * tlNum;
-    if (!apt->_apt->get_tool_number(id, tlNum)) //TODO: Handle Error
+    Nan::Maybe<int32_t> id = Nan::To<int32_t>(info[0]);
+    const char * tlNum = 0;
+    if (!apt->_apt->get_tool_number(id.FromJust(), tlNum)) //TODO: Handle Error
 	return;
     info.GetReturnValue().Set(CharTov8String((char *)tlNum));
     return;
