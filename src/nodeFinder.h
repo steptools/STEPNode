@@ -58,11 +58,30 @@ public:
     //long Finder::GetFaceEdgeCount(long face_id);
     static NAN_METHOD(GetFaceEdgeCount);
 
+    //void Finder::GetFaceEdgeNextPoint(
+    /*
+    System::Int64 face_id,
+    System::Int64 index,
+    [System::Runtime::InteropServices::Out] double %ret_x1,
+    [System::Runtime::InteropServices::Out] double %ret_y1,
+    [System::Runtime::InteropServices::Out] double %ret_z1,
+    [System::Runtime::InteropServices::Out] double %ret_x2,
+    [System::Runtime::InteropServices::Out] double %ret_y2,
+    [System::Runtime::InteropServices::Out] double %ret_z2
+    */ //);
+    static NAN_METHOD(GetFaceEdgeNextPoint);
+
     //string GetFeatureName(long id)
     static NAN_METHOD(GetFeatureName);
 
     //long GetFeatureID(long ws_id);
     static NAN_METHOD(GetFeatureID);
+
+    //double GetProcessFeed (long ws_id);
+    static NAN_METHOD(GetProcessFeed);
+
+    //string GetProcessFeedUnit (long ws_id);
+    static NAN_METHOD(GetProcessFeedUnit);
 
     //void Open238(String file_name);
     static NAN_METHOD(OpenProject);
