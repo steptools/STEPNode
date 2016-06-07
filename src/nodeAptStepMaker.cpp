@@ -18,7 +18,6 @@
 
 #include "nodeAptStepMaker.h"
 #include "nodeUtils.h"
-#include <apt.h>
 #include <Trace.h>
 
 AptStepMaker* AptStepMaker::_singleton = nullptr;
@@ -84,6 +83,22 @@ NAN_METHOD(AptStepMaker::GetToolNumber)
     //return v8_tlNum;
 }
 
+NAN_METHOD(AptStepMaker::NewProject) {
+	AptStepMaker * apt = Nan::ObjectWrap::Unwrap<AptStepMaker>(info.This());
+	if (apt == 0) //Throw Exception
+		return;
+	if (info.Length() != 1) //Requires a new project name
+		return;
+	if (!info[0]->IsString())
+		return;
+	char * projname = 0;
+	ssize_t projnamelen = v8StringToChar(info[0], projname);
+
+    if (!apt->_apt->new_project(projname)) //Throw
+		return;
+	return; // SUCCESS
+}
+
 NAN_METHOD(AptStepMaker::OpenProject) {
     AptStepMaker* apt = Nan::ObjectWrap::Unwrap<AptStepMaker>(info.This());
     if (apt == 0) //Throw Exception
@@ -107,7 +122,7 @@ NAN_METHOD(AptStepMaker::Rapid) {
 		return;
 		
 	Trace t(apt->tc, "Rapid");
-    if (!apt->m_maker->rapid())
+    if (!apt->_apt->rapid())
 		THROW_ERROR(t);
 }
 
