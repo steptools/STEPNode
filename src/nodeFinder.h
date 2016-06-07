@@ -54,4 +54,7 @@ public:
 
     //void SaveAsP21(v8::String file_name);
     static NAN_METHOD(SaveAsP21);
+
+    //bool GetFeatureOutsideProfileClosedCircular(feature_id, prof_id, depth, diameter, x,y,z)
+    static NAN_METHOD(GetFeatureOutsideProfileClosedCircular);
 };

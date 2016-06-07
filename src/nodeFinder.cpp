@@ -48,6 +48,7 @@ NAN_MODULE_INIT(Finder::Init)
 	Nan::SetPrototypeMethod(tpl, "APIUnitsFeed", APIUnitsFeed);
 	Nan::SetPrototypeMethod(tpl, "GetFeatureID", GetFeatureID);
 	Nan::SetPrototypeMethod(tpl, "GetFeatureName", GetFeatureName);
+	Nan::SetPrototypeMethod(tpl, "GetFeatureOutsideProfileClosedCircular", GetFeatureOutsideProfileClosedCircular);
 	Nan::SetPrototypeMethod(tpl, "GetMainWorkplan", GetMainWorkplan);
 	Nan::SetPrototypeMethod(tpl, "OpenProject", OpenProject);
 	Nan::SetPrototypeMethod(tpl, "SaveAsModules", SaveAsModules);
@@ -86,7 +87,9 @@ NAN_METHOD(Finder::GetFeatureID) {
 
     int feature_id = 0;
 
-    if (!find->_find->feature_id(info[0]->Int32Value(), feature_id))
+    Nan::Maybe<int32_t> t = Nan::To<int32_t>(info[0]);
+
+    if (!find->_find->feature_id(t.FromJust(), feature_id))
 	return;
 
     info.GetReturnValue().Set(feature_id);
@@ -104,12 +107,46 @@ NAN_METHOD(Finder::GetFeatureName) {
 	return;
 
     const char * name = 0;
-
-    if (!find->_find->feature_name(info[0]->Int32Value(), name))
+    Nan::Maybe<int32_t> t = Nan::To<int32_t>(info[0]);
+    if (!find->_find->feature_name(t.FromJust(), name))
 	return;
 
     info.GetReturnValue().Set(CharTov8String((char *)name));
     return;
+}
+
+//{rtn: bool, profile_id: long, depth: double, diameter: double, x: double, y: double, z: double}
+NAN_METHOD(Finder::GetFeatureOutsideProfileClosedCircular) {
+    Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+
+    if (info.Length() != 1)
+	return;
+    if (info[0]->IsUndefined())
+	return;
+    if (!info[0]->IsInt32())
+	return;
+    Nan::Maybe<int32_t> t = Nan::To<int32_t>(info[0]);
+    int profile_id = 0;
+    double depth = 0.0;
+    double diameter = 0.0;
+    double x = 0.0;
+    double y = 0.0;
+    double z = 0.0;
+
+
+    if (!find->_find->is_circular_outside_profile(t.FromJust(), profile_id, depth, diameter, x, y, z))
+	return;
+
+    v8::Local<v8::Object> obj = Nan::New<v8::Object>();
+    Nan::Set(obj, CharTov8String("rtn"), Nan::New(true)); //Add case to check if profile_id was found
+    Nan::Set(obj, CharTov8String("profile_id"), Nan::New(profile_id));
+    Nan::Set(obj, CharTov8String("depth"), Nan::New(depth));
+    Nan::Set(obj, CharTov8String("diameter"), Nan::New(diameter));
+    Nan::Set(obj, CharTov8String("x"), Nan::New(x));
+    Nan::Set(obj, CharTov8String("y"), Nan::New(y));
+    Nan::Set(obj, CharTov8String("z"), Nan::New(z));
+
+    info.GetReturnValue().Set(obj);
 }
 
 NAN_METHOD(Finder::GetMainWorkplan) {
