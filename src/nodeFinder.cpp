@@ -41,12 +41,37 @@ NAN_METHOD(Finder::New)
 
 NAN_MODULE_INIT(Finder::Init)
 {
-    v8::Local<v8::FunctionTemplate> tpl = Nan::New<v8::FunctionTemplate>(New);
-    tpl->SetClassName(Nan::New("Finder").ToLocalChecked());
-    tpl->InstanceTemplate()->SetInternalFieldCount(1);
+	v8::Local<v8::FunctionTemplate> tpl = Nan::New<v8::FunctionTemplate>(New);
+	tpl->SetClassName(Nan::New("Finder").ToLocalChecked());
+	tpl->InstanceTemplate()->SetInternalFieldCount(1);
 
-    constructor().Reset(Nan::GetFunction(tpl).ToLocalChecked());
-    Nan::Set(target, Nan::New("Finder").ToLocalChecked(), Nan::GetFunction(tpl).ToLocalChecked());
+	constructor().Reset(Nan::GetFunction(tpl).ToLocalChecked());
+	Nan::Set(target, Nan::New("Finder").ToLocalChecked(), Nan::GetFunction(tpl).ToLocalChecked());
+	Nan::SetPrototypeMethod(tpl, "SaveAsP21", SaveAsP21);
 
+}
+
+NAN_METHOD(Finder::SaveAsP21)
+{
+	Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+	if (find == 0) //Throw Exception
+		return;
+
+	if (!info[0]->IsUndefined())
+		return;
+
+	if (!info[0]->IsString())
+		return;
+
+	v8::String file_name=(v8::String)info[0];
+	char* file_name_utf8;
+
+	v8StringToChar(file_name, file_name_utf8);
+
+	//MARSHAL_WIDE_TO_UTF8(file_name, file_name_utf8);
+
+
+	if (!find->_find->save_file(AS_UTF8(file_name), false)) //Throw Exception
+		return;
 }
 

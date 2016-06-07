@@ -33,4 +33,7 @@ private:
     ~Finder() { delete _find; };
 public:
     static NAN_MODULE_INIT(Init);
+
+	//void SaveAsP21(v8::String file_name)
+	static NAN_METHOD(SaveAsP21);
 };
