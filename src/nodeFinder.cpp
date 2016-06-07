@@ -47,6 +47,7 @@ NAN_MODULE_INIT(Finder::Init)
 
 	Nan::SetPrototypeMethod(tpl, "APIUnitsFeed", APIUnitsFeed);
 	Nan::SetPrototypeMethod(tpl, "APIUnitsSpeed", APIUnitsSpeed);
+	Nan::SetPrototypeMethod(tpl, "GetFaceEdgeCount", GetFaceEdgeCount);
 	Nan::SetPrototypeMethod(tpl, "GetFeatureID", GetFeatureID);
 	Nan::SetPrototypeMethod(tpl, "GetFeatureName", GetFeatureName);
 	Nan::SetPrototypeMethod(tpl, "GetMainWorkplan", GetMainWorkplan);
@@ -90,6 +91,23 @@ NAN_METHOD(Finder::APIUnitsSpeed) {
     if (!find->_find->api_unit_speed(b)) //Throw Exception
 	return;
     delete[] b;
+}
+
+NAN_METHOD(Finder::GetFaceEdgeCount)
+{
+    Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (find == 0) //Throw Exception
+	return;
+    if (!info[0]->IsUndefined()) //Needs one arg
+	return;
+
+    int count = 0;
+    double dummy1, dummy2, dummy3;
+    if (!find->_find->first_face_edge_point(info[0]->Int32Value(), count, dummy1, dummy2, dummy3))
+	return;
+
+    info.GetReturnValue().Set(count);
+    return;
 }
 
 NAN_METHOD(Finder::GetFeatureID) {
