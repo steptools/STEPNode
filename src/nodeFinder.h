@@ -34,8 +34,14 @@ private:
 public:
     static NAN_MODULE_INIT(Init);
 
+    //void APIUnitsFeed(System::String^ units);
+    static NAN_METHOD(APIUnitsFeed);
+
     //int GetMainWorkplan();
     static NAN_METHOD(GetMainWorkplan);
+
+    //string GetFeatureName(long id)
+    static NAN_METHOD(GetFeatureName);
 
     //long GetFeatureID(long ws_id);
     static NAN_METHOD(GetFeatureID);
