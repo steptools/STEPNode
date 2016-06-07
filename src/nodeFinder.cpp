@@ -113,64 +113,90 @@ NAN_METHOD(Finder::GetExecutableDistance)
     // keep a total value
     double rtn_distance = 0.0;
 
-    // get the nested executables
-    rose_uint_vector nested_list;
-    if (!find->_find->nested_executable_all_enabled(exe_id, nested_list))   // error in cpp
-	return;
-
-    for (uint i = 0; i < nested_list.size(); i++)
-    {
-	// check if the executable is a workingstep
-	int is_ws;
-	if (!find->_find->is_workingstep(nested_list[i], is_ws))    // error in cpp
-	    return;
-
-	int is_enabled;
-	if (!find->_find->is_enabled(nested_list[i], is_enabled))    // error in cpp
-	    return;
-	
-	// for non-workingsteps, continue iterating through sublists
-	if (!is_ws && is_enabled)
-	{
-	    v8::Local<v8::Value> argv = Nan::New<v8::Number>(nested_list[i]);
-
-	    // recursively call GetExecutableDistance for the nested executable
-	    // and store the value so we can add it to our total
-	    double subDist = Nan::MakeCallback(info.This(), "GetExecutableDistance", 1, &argv)->NumberValue();
-
-	    rtn_distance += subDist;
-	}
-	else if (is_enabled)
-	{
-	    // get all paths in workstep and calculate distance
-	    rose_uint_vector path_list;
-	    if (!find->_find->all_path(nested_list[i], path_list))  // error in cpp
+	// check if it's a workplan or not
+	int is_workplan;
+	if (!find->_find->is_workplan((int)exe_id, is_workplan))	// error in cpp
 		return;
 
-	    for (uint j = 0; j < path_list.size(); j++)
-	    {
-		// iterate over all curves in each path
-		rose_uint_vector curve_list;
-		if (!find->_find->all_curve(path_list[i], curve_list))	// error in cpp
-		    return;
+	// and whether it's selective
+	int is_selective;
+	if (!find->_find->is_selective((int)exe_id, is_selective))	// error in cpp
+		return;
 
-		for (uint k = 0; k < curve_list.size() - 1; k++)
-		{
-		    RoseReal3DArray point_list;
-		    if (!find->_find->all_points(curve_list[i], point_list))	// error in cpp
+	if (is_selective || is_workplan)
+	{
+		// get the nested executables
+		rose_uint_vector nested_list;
+		if (!find->_find->nested_executable_all_enabled((int) exe_id, nested_list))   // error in cpp
 			return;
 
-		    // calculate distance between points and add to running total
-		    RosePoint point_a = point_list.as_point(k);
-		    RosePoint point_b = point_list.as_point(k+1);
+		for (uint i = 0; i < nested_list.size(); i++)
+		{
+			// get the distance of this nested executable
+			v8::Local<v8::Value> argv = Nan::New<v8::Number>(nested_list[i]);
 
-		    rtn_distance += rose_pt_distance(point_a, point_b);
+			// recursively call GetExecutableDistance for the nested executable
+			// and store the value so we can add it to our total
+			double subDist = Nan::MakeCallback(info.This(), "GetExecutableDistance", 1, &argv)->NumberValue();
+
+			rtn_distance += subDist;
 		}
-
-		// TODO: figure out if we need to add distance between curves
-	    }
 	}
-    }
+	// this must be a workingstep or some other thing we can't deal with
+	else
+	{
+		// check if the executable is a workingstep
+		int is_ws;
+		if (!find->_find->is_workingstep((int) exe_id, is_ws))    // error in cpp
+			return;
+
+		if (is_ws)
+		{
+			// get all paths in workstep and calculate distance
+			rose_uint_vector path_list;
+			if (!find->_find->all_path((int) exe_id, path_list))  // error in cpp
+				return;
+
+			for (uint j = 0; j < path_list.size(); j++)
+			{
+				RoseBoolean is_rapid;
+				if (!find->_find->path_rapid(path_list[j], is_rapid)) // error in cpp
+					return;
+
+				// only count distance if it's not rapid
+				if (!is_rapid)
+				{
+					// iterate over all curves in each path
+					rose_uint_vector curve_list;
+					if (!find->_find->all_curve(path_list[j], curve_list))	// error in cpp
+						return;
+
+					for (uint k = 0; k < curve_list.size(); k++)
+					{
+						RoseReal3DArray point_list;
+						if (!find->_find->all_points(curve_list[k], point_list))	// error in cpp
+							return;
+
+						uint n;
+						for (n = 0; n < point_list.size() - 1; n++)
+						{
+							// calculate distance between points and add to running total
+							RosePoint point_a = point_list.as_point(n);
+							RosePoint point_b = point_list.as_point(n + 1);
+
+							rtn_distance += rose_pt_distance(point_a, point_b);
+						}
+					}
+
+				}
+			}
+		}
+		else
+		{
+			// this must be some other type of executable we don't know about
+			return;
+		}
+	}
 
     // now set return value as total distance
     info.GetReturnValue().Set(rtn_distance);
