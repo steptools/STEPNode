@@ -45,6 +45,7 @@ NAN_MODULE_INIT(Finder::Init)
 	tpl->SetClassName(Nan::New("Finder").ToLocalChecked());
 	tpl->InstanceTemplate()->SetInternalFieldCount(1);
 
+	Nan::SetPrototypeMethod(tpl, "APIUnitsFeed", APIUnitsFeed);
 	Nan::SetPrototypeMethod(tpl, "GetFeatureID", GetFeatureID);
 	Nan::SetPrototypeMethod(tpl, "GetMainWorkplan", GetMainWorkplan);
 	Nan::SetPrototypeMethod(tpl, "OpenProject", OpenProject);
@@ -53,6 +54,23 @@ NAN_MODULE_INIT(Finder::Init)
 
 	constructor().Reset(Nan::GetFunction(tpl).ToLocalChecked());
 	Nan::Set(target, Nan::New("Finder").ToLocalChecked(), Nan::GetFunction(tpl).ToLocalChecked());
+}
+
+NAN_METHOD(Finder::APIUnitsFeed) {
+    Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (!find) //Throw Exception
+	return;
+    if (info.Length() > 1) //Function takes one argument
+	return;
+    if (info[0]->IsUndefined()) //Argument should exist
+	return;
+    if (!info[0]->IsString()) //Throw Exception
+	return;
+    char * b;
+    size_t len = v8StringToChar(info[0], b);
+    if (!find->_find->api_unit_feed(b)) //Throw Exception
+	return;
+    delete[] b;
 }
 
 NAN_METHOD(Finder::GetMainWorkplan) {
