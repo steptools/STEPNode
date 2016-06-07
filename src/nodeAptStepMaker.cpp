@@ -53,11 +53,15 @@ NAN_MODULE_INIT(AptStepMaker::Init)
     tpl->SetClassName(Nan::New("AptStepMaker").ToLocalChecked());
     tpl->InstanceTemplate()->SetInternalFieldCount(1);
 
-    Nan::SetPrototypeMethod(tpl, "OpenProject", OpenProject);
-
     Nan::SetPrototypeMethod(tpl, "GetToolNumber", GetToolNumber);
 	
-	Nan::SetPrototypeMethod(tpl, "Rapid", GetToolNumber);
+	Nan::SetPrototypeMethod(tpl, "OpenProject", OpenProject);
+	
+	Nan::SetPrototypeMethod(tpl, "ProbeOperation", ProbeOperation);
+	
+	Nan::SetPrototypeMethod(tpl, "Rapid", Rapid);
+	
+	Nan::SetPrototypeMethod(tpl, "Rawpiece", Rawpiece);
 
     constructor().Reset(Nan::GetFunction(tpl).ToLocalChecked());
     Nan::Set(target, Nan::New("AptStepMaker").ToLocalChecked(), Nan::GetFunction(tpl).ToLocalChecked());
@@ -114,16 +118,27 @@ NAN_METHOD(AptStepMaker::OpenProject) {
     return; //Success finding, return.
 }
 
+NAN_METHOD(AptStepMaker::ProbeOperation) {
+	AptStepMaker* apt = Nan::ObjectWrap::Unwrap<AptStepMaker>(info.This());
+	if (apt == 0) //Throw Exception
+		return;
+	if (info.Length() != 3) // Three arguments: x, y, and z
+		return;
+	if (!info[0]->IsInteger() || !info[1]->IsInteger() || !info[2]->IsInteger())
+		return;
+	if (!apt->_apt->probe_operation(info[0], info[1], info[2])
+		return;
+	
+}
+
 NAN_METHOD(AptStepMaker::Rapid) {
 	AptStepMaker * apt = Nan::ObjectWrap::Unwrap<AptStepMaker>(info.This());
 	if (apt == 0) //Throw Exception
 		return;
 	if (info.Length() != 0) //Function requires no arguments.
 		return;
-		
-	Trace t(apt->tc, "Rapid");
     if (!apt->_apt->rapid())
-		THROW_ERROR(t);
+		return;
 }
 
 NAN_METHOD(AptStepMaker::Rawpiece) {
