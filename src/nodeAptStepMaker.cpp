@@ -53,8 +53,8 @@ NAN_MODULE_INIT(AptStepMaker::Init)
 
     Nan::SetPrototypeMethod(tpl, "GetToolNumber", GetToolNumber);
     Nan::SetPrototypeMethod(tpl, "OpenProject", OpenProject);
-    Nan::SetPrototypeMethod(tpl, "SaveAsP21", SaveAsP21);
     Nan::SetPrototypeMethod(tpl, "SaveAsModules", SaveAsModules);
+    Nan::SetPrototypeMethod(tpl, "SaveAsP21", SaveAsP21);
 
     constructor().Reset(Nan::GetFunction(tpl).ToLocalChecked());
     Nan::Set(target, Nan::New("AptStepMaker").ToLocalChecked(), Nan::GetFunction(tpl).ToLocalChecked());
