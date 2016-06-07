@@ -61,7 +61,7 @@ NAN_METHOD(Finder::APIUnitsFeed) {
     Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
     if (!find) //Throw Exception
 	return;
-    if (info.Length() > 1) //Function takes one argument
+    if (info.Length() != 1) //Function takes one argument
 	return;
     if (info[0]->IsUndefined()) //Argument should exist
 	return;
@@ -78,7 +78,7 @@ NAN_METHOD(Finder::APIUnitsSpeed) {
     Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
     if (!find) //Throw Exception
 	return;
-    if (info.Length() > 1) //Function takes one argument
+    if (info.Length() != 1) //Function takes one argument
 	return;
     if (info[0]->IsUndefined()) //Argument should exist
 	return;
