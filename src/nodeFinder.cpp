@@ -17,26 +17,26 @@
 // limitations under the License.
 
 #include "nodeFinder.h"
-
+#include "nodeUtils.h"
 Finder *Finder::_singleton = nullptr;
 
 NAN_METHOD(Finder::New)
 {
-    if (info.IsConstructCall())
-    {
-	if (!info[0]->IsUndefined())
+	if (info.IsConstructCall())
 	{
-	    return;
+		if (!info[0]->IsUndefined())
+		{
+			return;
+		}
+		if (_singleton == nullptr)
+			_singleton = new Finder();
+		_singleton->Wrap(info.This());
+		info.GetReturnValue().Set(info.This());
 	}
-	if (_singleton == nullptr)
-	    _singleton = new Finder();
-	_singleton->Wrap(info.This());
-	info.GetReturnValue().Set(info.This());
-    }
-    else
-    {
-	return;
-    }
+	else
+	{
+		return;
+	}
 }
 
 NAN_MODULE_INIT(Finder::Init)
@@ -45,10 +45,25 @@ NAN_MODULE_INIT(Finder::Init)
 	tpl->SetClassName(Nan::New("Finder").ToLocalChecked());
 	tpl->InstanceTemplate()->SetInternalFieldCount(1);
 
-	constructor().Reset(Nan::GetFunction(tpl).ToLocalChecked());
-	Nan::Set(target, Nan::New("Finder").ToLocalChecked(), Nan::GetFunction(tpl).ToLocalChecked());
+	Nan::SetPrototypeMethod(tpl, "GetMainWorkplan", GetMainWorkplan);
 	Nan::SetPrototypeMethod(tpl, "SaveAsP21", SaveAsP21);
 
+	constructor().Reset(Nan::GetFunction(tpl).ToLocalChecked());
+	Nan::Set(target, Nan::New("Finder").ToLocalChecked(), Nan::GetFunction(tpl).ToLocalChecked());
+}
+
+NAN_METHOD(Finder::GetMainWorkplan) {
+	Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+	if (find == 0) //Throw Exception
+		return;
+	if (!info[0]->IsUndefined()) //Function shouldn't get any arguments.
+		return;
+	int rtn = 0;
+	int sz;
+	if (!find->_find->main(rtn, sz))
+		return;//Error in c++ code
+	info.GetReturnValue().Set(rtn);
+	return;
 }
 
 NAN_METHOD(Finder::SaveAsP21)
@@ -63,15 +78,11 @@ NAN_METHOD(Finder::SaveAsP21)
 	if (!info[0]->IsString())
 		return;
 
-	v8::String file_name=(v8::String)info[0];
+	v8::Local<v8::String> file_name = info[0]->ToString();
 	char* file_name_utf8;
-
 	v8StringToChar(file_name, file_name_utf8);
 
-	//MARSHAL_WIDE_TO_UTF8(file_name, file_name_utf8);
 
-
-	if (!find->_find->save_file(AS_UTF8(file_name), false)) //Throw Exception
+	if (!find->_find->save_file(file_name_utf8, false)) //Throw Exception
 		return;
 }
-
