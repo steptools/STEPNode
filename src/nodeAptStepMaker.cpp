@@ -53,6 +53,8 @@ NAN_MODULE_INIT(AptStepMaker::Init)
 
     Nan::SetPrototypeMethod(tpl, "GetToolNumber", GetToolNumber);
     Nan::SetPrototypeMethod(tpl, "OpenProject", OpenProject);
+    Nan::SetPrototypeMethod(tpl, "SaveAsP21", SaveAsP21);
+    Nan::SetPrototypeMethod(tpl, "SaveAsModules", SaveAsModules);
 
     constructor().Reset(Nan::GetFunction(tpl).ToLocalChecked());
     Nan::Set(target, Nan::New("AptStepMaker").ToLocalChecked(), Nan::GetFunction(tpl).ToLocalChecked());
@@ -89,4 +91,46 @@ NAN_METHOD(AptStepMaker::OpenProject) {
     if (!apt->_apt->read_238_file(fname)) //TODO: Handle Error.
 	return;
     return; //Success finding, return.
+}
+
+NAN_METHOD(AptStepMaker::SaveAsModules)
+{
+    AptStepMaker * apt = Nan::ObjectWrap::Unwrap<AptStepMaker>(info.This());
+    if (apt == 0) //Throw Exception
+	return;
+
+    if (!info[0]->IsUndefined())
+	return;
+
+    if (!info[0]->IsString())
+	return;
+
+    v8::Local<v8::String> file_name = info[0]->ToString();
+    char* file_name_utf8;
+    v8StringToChar(file_name, file_name_utf8);
+
+
+    if (!apt->_apt->save_file(file_name_utf8, true)) //Throw Exception
+	return;
+}
+
+NAN_METHOD(AptStepMaker::SaveAsP21)
+{
+    AptStepMaker * apt = Nan::ObjectWrap::Unwrap<AptStepMaker>(info.This());
+    if (apt == 0) //Throw Exception
+	return;
+
+    if (!info[0]->IsUndefined())
+	return;
+
+    if (!info[0]->IsString())
+	return;
+
+    v8::Local<v8::String> file_name = info[0]->ToString();
+    char* file_name_utf8;
+    v8StringToChar(file_name, file_name_utf8);
+
+
+    if (!apt->_apt->save_file(file_name_utf8, false)) //Throw Exception
+	return;
 }
