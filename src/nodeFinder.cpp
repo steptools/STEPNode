@@ -48,6 +48,7 @@ NAN_MODULE_INIT(Finder::Init)
 	Nan::SetPrototypeMethod(tpl, "GetMainWorkplan", GetMainWorkplan);
 	Nan::SetPrototypeMethod(tpl, "GetFeatureID", GetFeatureID);
 	Nan::SetPrototypeMethod(tpl, "SaveAsP21", SaveAsP21);
+	Nan::SetPrototypeMethod(tpl, "OpenProject", OpenProject);
 
 
     constructor().Reset(Nan::GetFunction(tpl).ToLocalChecked());
@@ -90,6 +91,21 @@ NAN_METHOD(Finder::GetFeatureID){
 	return;	
 }
 
+NAN_METHOD(Finder::OpenProject) {
+	Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+	if (find == 0) //Throw Exception
+		return;
+	if (info.Length() != 1) //Function should get one argument.
+		return;
+	if (!info[0]->IsString())
+		return;
+	char * fname = 0;
+	ssize_t fnamelen = v8StringToChar(info[0], fname);
+	if(!find->_find->search(fname)) //TODO: Handle Error.
+		return;
+	return; //Success finding, return.
+}
+
 NAN_METHOD(Finder::SaveAsP21)
 {
 	Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
@@ -110,3 +126,4 @@ NAN_METHOD(Finder::SaveAsP21)
 	if (!find->_find->save_file(file_name_utf8, false)) //Throw Exception
 		return;
 }
+
