@@ -49,8 +49,8 @@ NAN_MODULE_INIT(Finder::Init)
 	Nan::SetPrototypeMethod(tpl, "GetFeatureID", GetFeatureID);
 	Nan::SetPrototypeMethod(tpl, "GetMainWorkplan", GetMainWorkplan);
 	Nan::SetPrototypeMethod(tpl, "OpenProject", OpenProject);
-	Nan::SetPrototypeMethod(tpl, "SaveAsP21", SaveAsP21);
 	Nan::SetPrototypeMethod(tpl, "SaveAsModules", SaveAsModules);
+	Nan::SetPrototypeMethod(tpl, "SaveAsP21", SaveAsP21);
 
 	constructor().Reset(Nan::GetFunction(tpl).ToLocalChecked());
 	Nan::Set(target, Nan::New("Finder").ToLocalChecked(), Nan::GetFunction(tpl).ToLocalChecked());
@@ -114,9 +114,8 @@ NAN_METHOD(Finder::SaveAsModules)
     if (!info[0]->IsString())
 	return;
 
-    v8::Local<v8::String> file_name = info[0]->ToString();
     char* file_name_utf8;
-    v8StringToChar(file_name, file_name_utf8);
+    v8StringToChar(info[0], file_name_utf8);
 
 
     if (!find->_find->save_file(file_name_utf8, true)) //Throw Exception
@@ -135,9 +134,8 @@ NAN_METHOD(Finder::SaveAsP21)
 	if (!info[0]->IsString())
 		return;
 
-	v8::Local<v8::String> file_name = info[0]->ToString();
 	char* file_name_utf8;
-	v8StringToChar(file_name, file_name_utf8);
+	v8StringToChar(info[0], file_name_utf8);
 
 
 	if (!find->_find->save_file(file_name_utf8, false)) //Throw Exception
