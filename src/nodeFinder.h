@@ -48,6 +48,9 @@ public:
 
     //void APIUnitsSpeed(System::String^ units);
     static NAN_METHOD(APIUnitsSpeed);
+    
+    //System::int64 Finder::GetCompoundFeatureCount(system::int64 compound_id)'
+    static NAN_METHOD(GetCompoundFeatureCount);
 
     //int GetMainWorkplan();
     static NAN_METHOD(GetMainWorkplan);

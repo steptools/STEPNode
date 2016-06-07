@@ -49,6 +49,7 @@ NAN_MODULE_INIT(Finder::Init)
 	Nan::SetPrototypeMethod(tpl, "APIUnitsNative", APIUnitsNative);
 	Nan::SetPrototypeMethod(tpl, "APIUnitsFeed", APIUnitsFeed);
 	Nan::SetPrototypeMethod(tpl, "APIUnitsSpeed", APIUnitsSpeed);
+	Nan::SetPrototypeMethod(tpl, "GetCompoundFeatureCount", GetCompoundFeatureCount);
 	Nan::SetPrototypeMethod(tpl, "GetFaceEdgeCount", GetFaceEdgeCount);
 	Nan::SetPrototypeMethod(tpl, "GetFeatureID", GetFeatureID);
 	Nan::SetPrototypeMethod(tpl, "GetFeatureName", GetFeatureName);
@@ -139,6 +140,32 @@ NAN_METHOD(Finder::APIUnitsSpeed) {
     if (!find->_find->api_unit_speed(b)) //Throw Exception
 	return;
     delete[] b;
+}
+
+NAN_METHOD(Finder::GetCompoundFeatureCount) {
+
+    Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (find == 0) {
+	return; //Throw an exception
+    }
+    if (info.Length() != 1) { // Needs one argument
+	return; // Throw an exception
+    }
+    if (!info[0]->IsInt32()) { // argument of wrong type
+	return; //Throw exception
+    }
+    int size = 0;
+    int feature_id = 0;
+    double x;
+    double y;
+    double z;
+
+    if (!find->_find->first_feature_in_compound(info[0]->Int32Value(), feature_id, size, x, y, z)) {
+	return; //throw Error
+    }
+
+    info.GetReturnValue().Set(size);
+    return;
 }
 
 NAN_METHOD(Finder::GetFaceEdgeCount)
