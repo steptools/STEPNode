@@ -34,6 +34,9 @@ private:
 public:
     static NAN_MODULE_INIT(Init);
 
-	//long GetMainWorkplan();
+	//int GetMainWorkplan();
 	static NAN_METHOD(GetMainWorkplan);
+
+	//void Open238(String file_name);
+	static NAN_METHOD(OpenProject);
 };
