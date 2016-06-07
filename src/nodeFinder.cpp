@@ -325,7 +325,7 @@ NAN_METHOD(Finder::SaveAsModules)
     if (find == 0) //Throw Exception
 	return;
 
-    if (!info[0]->IsUndefined())
+    if (info[0]->IsUndefined())
 	return;
 
     if (!info[0]->IsString())
@@ -345,7 +345,7 @@ NAN_METHOD(Finder::SaveAsP21)
 	if (find == 0) //Throw Exception
 		return;
 
-	if (!info[0]->IsUndefined())
+	if (info[0]->IsUndefined())
 		return;
 
 	if (!info[0]->IsString())
