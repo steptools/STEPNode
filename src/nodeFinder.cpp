@@ -46,6 +46,7 @@ NAN_MODULE_INIT(Finder::Init)
 	tpl->InstanceTemplate()->SetInternalFieldCount(1);
 
 	Nan::SetPrototypeMethod(tpl, "APIUnitsFeed", APIUnitsFeed);
+	Nan::SetPrototypeMethod(tpl, "APIUnitsSpeed", APIUnitsSpeed);
 	Nan::SetPrototypeMethod(tpl, "GetFeatureID", GetFeatureID);
 	Nan::SetPrototypeMethod(tpl, "GetMainWorkplan", GetMainWorkplan);
 	Nan::SetPrototypeMethod(tpl, "OpenProject", OpenProject);
@@ -60,7 +61,7 @@ NAN_METHOD(Finder::APIUnitsFeed) {
     Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
     if (!find) //Throw Exception
 	return;
-    if (info.Length() > 1) //Function takes one argument
+    if (info.Length() != 1) //Function takes one argument
 	return;
     if (info[0]->IsUndefined()) //Argument should exist
 	return;
@@ -69,6 +70,23 @@ NAN_METHOD(Finder::APIUnitsFeed) {
     char * b;
     size_t len = v8StringToChar(info[0], b);
     if (!find->_find->api_unit_feed(b)) //Throw Exception
+	return;
+    delete[] b;
+}
+
+NAN_METHOD(Finder::APIUnitsSpeed) {
+    Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (!find) //Throw Exception
+	return;
+    if (info.Length() != 1) //Function takes one argument
+	return;
+    if (info[0]->IsUndefined()) //Argument should exist
+	return;
+    if (!info[0]->IsString()) //Throw Exception
+	return;
+    char * b;
+    size_t len = v8StringToChar(info[0], b);
+    if (!find->_find->api_unit_speed(b)) //Throw Exception
 	return;
     delete[] b;
 }
