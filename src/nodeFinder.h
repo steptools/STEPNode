@@ -22,20 +22,22 @@
 
 class Finder : public Nan::ObjectWrap {
 private:
-    finder * _find;
-    static Finder* _singleton;
-    static NAN_METHOD(New);
-    static inline Nan::Persistent<v8::Function> & constructor() {
-	static Nan::Persistent<v8::Function> my_constructor;
-	return my_constructor;
-    }
-    Finder() { _find = new finder(); };
-    ~Finder() { delete _find; };
+	finder * _find;
+	static Finder* _singleton;
+	static NAN_METHOD(New);
+	static inline Nan::Persistent<v8::Function> & constructor() {
+		static Nan::Persistent<v8::Function> my_constructor;
+		return my_constructor;
+	}
+	Finder() { _find = new finder(); };
+	~Finder() { delete _find; };
 public:
-    static NAN_MODULE_INIT(Init);
+	static NAN_MODULE_INIT(Init);
 
 	//long GetMainWorkplan();
 	static NAN_METHOD(GetMainWorkplan);
     //long GetFeatureID(long ws_id);
     static NAN_METHOD(GetFeatureID);
+	//void SaveAsP21(v8::String file_name);
+	static NAN_METHOD(SaveAsP21);
 };

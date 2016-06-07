@@ -21,35 +21,41 @@
 AptStepMaker* AptStepMaker::_singleton = nullptr;
 
 apt2step* AptStepMaker::getApt() {
-    if (_singleton == nullptr)
-	_singleton = new AptStepMaker(); 
-    return _singleton->_apt;
+	if (_singleton == nullptr)
+		_singleton = new AptStepMaker();
+	return _singleton->_apt;
 }
 
 NAN_METHOD(AptStepMaker::New)
 {
-    if (info.IsConstructCall())
-    {
-	if (!info[0]->IsUndefined())
+	if (info.IsConstructCall())
 	{
-	    return;
+		if (!info[0]->IsUndefined())
+		{
+			return;
+		}
+		if (_singleton == nullptr)
+			_singleton = new AptStepMaker();
+		_singleton->Wrap(info.This());
+		info.GetReturnValue().Set(info.This());
 	}
-	if (_singleton == nullptr)
-	    _singleton = new AptStepMaker();
-	_singleton->Wrap(info.This());
-	info.GetReturnValue().Set(info.This());
-    }
-    else
-    {
-	return;
-    }
+	else
+	{
+		return;
+	}
 }
 
 NAN_MODULE_INIT(AptStepMaker::Init)
 {
-    v8::Local<v8::FunctionTemplate> tpl = Nan::New<v8::FunctionTemplate>(New);
-    tpl->SetClassName(Nan::New("AptStepMaker").ToLocalChecked());
-    tpl->InstanceTemplate()->SetInternalFieldCount(1);
+	v8::Local<v8::FunctionTemplate> tpl = Nan::New<v8::FunctionTemplate>(New);
+	tpl->SetClassName(Nan::New("AptStepMaker").ToLocalChecked());
+	tpl->InstanceTemplate()->SetInternalFieldCount(1);
+
+	Nan::SetPrototypeMethod(tpl, "GetToolNumber", GetToolNumber);
+
+
+	constructor().Reset(Nan::GetFunction(tpl).ToLocalChecked());
+	Nan::Set(target, Nan::New("AptStepMaker").ToLocalChecked(), Nan::GetFunction(tpl).ToLocalChecked());
 
 	Nan::SetPrototypeMethod(tpl, "GetToolNumber", GetToolNumber);
 
