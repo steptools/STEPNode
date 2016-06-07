@@ -18,6 +18,9 @@
 
 #include "nodeAptStepMaker.h"
 #include "nodeUtils.h"
+#include <apt.h>
+#include <Trace.h>
+
 AptStepMaker* AptStepMaker::_singleton = nullptr;
 
 apt2step* AptStepMaker::getApt() {
@@ -51,8 +54,11 @@ NAN_MODULE_INIT(AptStepMaker::Init)
     tpl->SetClassName(Nan::New("AptStepMaker").ToLocalChecked());
     tpl->InstanceTemplate()->SetInternalFieldCount(1);
 
-    Nan::SetPrototypeMethod(tpl, "GetToolNumber", GetToolNumber);
     Nan::SetPrototypeMethod(tpl, "OpenProject", OpenProject);
+
+    Nan::SetPrototypeMethod(tpl, "GetToolNumber", GetToolNumber);
+	
+	Nan::SetPrototypeMethod(tpl, "Rapid", GetToolNumber);
 
     constructor().Reset(Nan::GetFunction(tpl).ToLocalChecked());
     Nan::Set(target, Nan::New("AptStepMaker").ToLocalChecked(), Nan::GetFunction(tpl).ToLocalChecked());
@@ -62,18 +68,20 @@ NAN_MODULE_INIT(AptStepMaker::Init)
 NAN_METHOD(AptStepMaker::GetToolNumber)
 {
     AptStepMaker * apt = Nan::ObjectWrap::Unwrap<AptStepMaker>(info.This());
-    if (apt == 0) //Throw Exception
-	return;
-    if (info.Length() != 1) //Function should get one argument.
-	return;
+    if (!apt || !(apt->_apt)) return;
     if (!info[0]->IsInt32())
-	return;
+	return; // Throw error
+
     int id = info[0]->Int32Value();
     const char * tlNum;
-    if (!apt->_apt->get_tool_number(id, tlNum)) //TODO: Handle Error
-	return;
-    info.GetReturnValue().Set(CharTov8String((char *)tlNum));
-    return;
+
+    if (!apt->_apt->get_tool_number(id, tlNum))
+	return; // Throw error
+
+    char* v8_tlNum;
+    //size_t tlNum_len = v8StringToChar(, tlNum);
+
+    //return v8_tlNum;
 }
 
 NAN_METHOD(AptStepMaker::OpenProject) {
@@ -89,4 +97,16 @@ NAN_METHOD(AptStepMaker::OpenProject) {
     if (!apt->_apt->read_238_file(fname)) //TODO: Handle Error.
 	return;
     return; //Success finding, return.
+}
+
+NAN_METHOD(AptStepMaker::Rapid) {
+	AptStepMaker * apt = Nan::ObjectWrap::Unwrap<AptStepMaker>(info.This());
+	if (apt == 0) //Throw Exception
+		return;
+	if (info.Length() != 0) //Function requires no arguments.
+		return;
+		
+	Trace t(apt->tc, "Rapid");
+    if (!apt->m_maker->rapid())
+		THROW_ERROR(t);
 }

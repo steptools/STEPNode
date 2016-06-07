@@ -38,4 +38,5 @@ public:
     //string GetToolNumber(int id)
     static NAN_METHOD(GetToolNumber);
     static NAN_METHOD(OpenProject);
+	static NAN_METHOD(Rapid);
 };
