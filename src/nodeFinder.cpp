@@ -174,7 +174,7 @@ NAN_METHOD(Finder::GetProcessFeed) {
     double feed = 0.0;
     double dummy;
     int ws_id = info[0]->Int32Value();
-    if (!find->_find->feed_speed((int)ws_id, feed, dummy)) //Throw Exception
+    if (!find->_find->feed_speed(ws_id, feed, dummy)) //Throw Exception
 	return;
     info.GetReturnValue().Set(feed);
 }
