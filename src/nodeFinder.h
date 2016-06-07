@@ -37,8 +37,20 @@ public:
     //void APIUnitsFeed(System::String^ units);
     static NAN_METHOD(APIUnitsFeed);
 
+    //void APIUnitsInches();
+    static NAN_METHOD(APIUnitsInches);
+
+    //void APIUnitsMM();
+    static NAN_METHOD(APIUnitsMM);
+
+    //void APIUnitsNative();
+    static NAN_METHOD(APIUnitsNative);
+
     //void APIUnitsSpeed(System::String^ units);
     static NAN_METHOD(APIUnitsSpeed);
+    
+    //System::int64 Finder::GetCompoundFeatureCount(system::int64 compound_id)'
+    static NAN_METHOD(GetCompoundFeatureCount);
 
     //int GetMainWorkplan();
     static NAN_METHOD(GetMainWorkplan);
