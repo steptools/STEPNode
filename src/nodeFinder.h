@@ -37,6 +37,15 @@ public:
     //void APIUnitsFeed(System::String^ units);
     static NAN_METHOD(APIUnitsFeed);
 
+    //void APIUnitsInches();
+    static NAN_METHOD(APIUnitsInches);
+
+    //void APIUnitsMM();
+    static NAN_METHOD(APIUnitsMM);
+
+    //void APIUnitsNative();
+    static NAN_METHOD(APIUnitsNative);
+
     //void APIUnitsSpeed(System::String^ units);
     static NAN_METHOD(APIUnitsSpeed);
 

@@ -44,7 +44,9 @@ NAN_MODULE_INIT(Finder::Init)
 	v8::Local<v8::FunctionTemplate> tpl = Nan::New<v8::FunctionTemplate>(New);
 	tpl->SetClassName(Nan::New("Finder").ToLocalChecked());
 	tpl->InstanceTemplate()->SetInternalFieldCount(1);
-
+	Nan::SetPrototypeMethod(tpl, "APIUnitInches", APIUnitInches);
+	Nan::SetPrototypeMethod(tpl, "APIUnitMM", APIUnitMM);
+	Nan::SetPrototypeMethod(tpl, "APIUnitsNative", APIUnitsNative);
 	Nan::SetPrototypeMethod(tpl, "APIUnitsFeed", APIUnitsFeed);
 	Nan::SetPrototypeMethod(tpl, "APIUnitsSpeed", APIUnitsSpeed);
 	Nan::SetPrototypeMethod(tpl, "GetFaceEdgeCount", GetFaceEdgeCount);
@@ -55,7 +57,6 @@ NAN_MODULE_INIT(Finder::Init)
 	Nan::SetPrototypeMethod(tpl, "OpenProject", OpenProject);
 	Nan::SetPrototypeMethod(tpl, "SaveAsModules", SaveAsModules);
 	Nan::SetPrototypeMethod(tpl, "SaveAsP21", SaveAsP21);
-
 	constructor().Reset(Nan::GetFunction(tpl).ToLocalChecked());
 	Nan::Set(target, Nan::New("Finder").ToLocalChecked(), Nan::GetFunction(tpl).ToLocalChecked());
 }
@@ -75,6 +76,53 @@ NAN_METHOD(Finder::APIUnitsFeed) {
     if (!find->_find->api_unit_feed(b)) //Throw Exception
 	return;
     delete[] b;
+}
+NAN_METHOD(Finder::APIUnitsInch) {
+
+    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (find == 0) {
+	return; // Throw Exception
+    }
+    if (!(info[0]->isUndefined())) { // function has 0 arguements
+	return; //Throw Exeption
+    }
+    if (!find->api_unit_inch()) {
+	return; //throw error
+    }
+    return;
+
+}
+
+NAN_METHOD(Finder::APIUnitsMM) {
+
+    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+
+    if (find == 0) {
+	return; // Throw Exception
+    }
+    if (!(info[0]->isUndefined())) { // function has 0 arguements
+	return; //Throw Exeption
+    }
+    if (!find->api_unit_mm()) {
+	return; //throw error
+    }
+    return;
+}
+
+NAN_METHOD(Finder::APIUnitsNative) {
+
+    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+
+    if (find == 0) {
+	return; // Throw Exception
+    }
+    if (!(info[0]->isUndefined())) { // function has 0 arguements
+	return; //Throw Exeption
+    }
+    if (!find->api_unit_native()) {
+	return; //throw error
+    }
+    return;
 }
 
 NAN_METHOD(Finder::APIUnitsSpeed) {
@@ -232,4 +280,25 @@ NAN_METHOD(Finder::SaveAsP21)
 
 	if (!find->_find->save_file(file_name_utf8, false)) //Throw Exception
 		return;
+}
+
+NAN_METHOD(Finder::GetFeatureID){
+    Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This()); 
+
+    if(info.Length() != 1)
+	return;
+    if(info[0]->IsUndefined())
+	return;
+    if (!info[0]->IsInt32())
+	return;
+
+    int feature_id = 0;
+
+    if (!find->_find->feature_id(info[0]->Int32Value(), feature_id))
+	return;
+
+    info.GetReturnValue().Set(feature_id);
+    return;	
+}
+
 }
