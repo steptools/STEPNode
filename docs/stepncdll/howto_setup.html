@@ -1,0 +1,171 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+   <TITLE>Setup for STEP-NC DLL Projects</TITLE>
+   <link rel="stylesheet" type="text/css" href="../pkgcss/style.css">
+</HEAD>
+
+<BODY>
+<TABLE class=pagehead><TR>
+<TD class=logo>Setup for STEP-NC DLL Projects</TD>
+<TD class=quicklinks>
+  <A HREF="http://www.steptools.com">[www.steptools.com]</a>
+  <A HREF="../index.html">[STEP-NC Machine]</A>
+  <A HREF="index.html">[STEP-NC DLL]</A>
+</TD></TR>
+</TABLE>
+<div class=bktoc>
+<FORM class=bksearch method=GET action="http://www.google.com/search">
+Search STEP Tools Web Support<br>
+<INPUT TYPE=text name=q size=22 maxlength=255 value="">
+<INPUT TYPE=hidden name=q value="site:www.steptools.com/support">
+<INPUT class=button type=submit name=sa VALUE="Google">
+</FORM>
+<ul>
+<li><a href="#oview">Overview</a>
+<li><a href="#create">Adjusting the Solution Platform</a>
+<li><a href="#singleref">Add Reference &mdash; Single Platform</a>
+<li><a href="#dualref">Add Reference &mdash; Dual 32bit and 64bit Platforms</a>
+<li><a href="#cxxnative">C++ Applications</a>
+<li><a href="#toolbox">Adding GeomView to the Toolbox</a>
+</ul>
+</div>
+<div class=main>
+<h2><a name=oview></a>Overview</h2>
+
+<P>We have provided STEP-NC <a href="howto_start.html">sample
+projects</a> for C#, Visual Basic, and C++.  The easiest way to start
+is to just take one of those projects and expand them with your own
+code.  This section shows how to configure a brand new Visual Studio
+project for use with the STEP-NC DLL.
+
+
+<P>The STEP-NC DLL has 32bit and 64bit versions.  A project that uses
+only one version can <a href="#singleref">add a reference to one of
+the DLLs</a> and <a href="#create">make sure that the solution
+platform matches</a> (i.e. x86 for stepnc_x86, and x64 for
+stepnc_x64).  For a project with both 32bit and 64bit
+versions, <a href="#dualref">manually add conditional references to
+the DLL</a> as described below.
+
+<P>The STEP-NC DLL is installed in the Global Assembly Cache (GAC) so
+your application will work on any computer has STEP-NC Machine
+installed.
+
+
+<!-- ================================ -->
+<h2 class=rule>
+<a name=create></a>Adjust the Solution Platform</h2>
+
+<P>First, create your project.
+
+<P>Next, open the project settings and change the .NET Framework
+target to 2.0.  Visual Basic or C# projects have a simple dropdown,
+while C++/CLI applications <a name=cxxnative>require other steps.</a>
+The STEP-NC DLL use .NET 2.0 for compatibility with machine tool
+controls.
+
+
+<p>The STEP-NC DLL has 32bit and 64bit versions, but new VB or C#
+projects default to "AnyCPU" as the solution platform.  Right click on
+the Solution and open the Configuration Manager.  Under platforms,
+select "New" to add "x86" or "x64".  Next, select "Edit" and remove
+the "Any CPU" platform.
+
+<div class=figure><img src="images/solplat.png"></div>
+
+<p>Adding x86/x64 to your solution also adds them in the project, but
+if you have a complex series of sub-projects, you may need to cycle
+through them to make sure that they all match.
+
+<P>If you are creating a C++ application, go to the project properties
+dialog and make sure that under the "General" category, the "Common
+Language Runtime Support" is enabled (set to <b>/clr</b>).  Also for
+C++ projects, the 32bit platform is called "win32" rather than "x86"
+
+
+<!-- ================================ -->
+<h2 class=rule>
+<a name=singleref></a>Add Reference &mdash; Single Platform</h2>
+
+<P>The last task is to add a reference to the STEP-NC DLL.  If your
+project only builds one platform (32bit OR 64bit), you can just
+right-click on the project and select "Add Reference ...".
+Choose <b>Browse</b> and then navigate to the STEP-NC Machine
+installation directory and pick the appropriate version of the DLL.
+
+<p>If your project needs to build both 32bit AND 64bit versions,
+follow the instructions in the next section.
+
+<div class=figure><img src="images/addref.png"></div>
+
+<P>After adding the reference, the <b>STEPNCLib</b> namespace is now
+available and you can begin using the DLL classes in your code.
+
+
+<!-- ================================ -->
+<h2 class=rule>
+<a name=dualref></a>Add Reference &mdash; Dual 32bit and 64bit Platforms</h2>
+
+<p>A project that needs build both 32bit and 64bit versions must use a
+conditional reference to use the 32bit STEP-NC DLL for the "x86"
+platform and the 64bit DLL for the "x64" platform.  Unfortunately, the
+Visual Studio has no dialog interface for conditional references, so
+we must manually few lines of XML directly to the project file.
+
+<P>Save and close your solution (<b>File | Save All</b>, then <b>File
+| Close Solution</b>).  Next open the XML source for the project file
+(<b>File | Open | File ...</b> and then select the ".vbproj",
+".csproj", or ".vcxproj" file).
+
+
+<P>Insert the following at the end of the file, just above the final
+<b>&lt;/Project&gt;</b> tag:
+
+<pre class=code>
+&lt;ItemGroup&gt;
+&lt;Reference Include="stepnc" Condition="$(Platform) == 'x86'"&gt;
+  &lt;HintPath&gt;$(ProgramFiles)\STEP Tools\STEP-NC Machine\stepnc_x86.dll&lt;/HintPath&gt;
+&lt;/Reference&gt;
+&lt;Reference Include="stepnc" Condition="$(Platform) == 'x64'"&gt;
+  &lt;HintPath&gt;$(ProgramFiles)\STEP Tools\STEP-NC Machine\stepnc_x64.dll&lt;/HintPath&gt;
+&lt;/Reference&gt;
+&lt;/ItemGroup&gt;
+</pre>
+
+<P>After adding these references, the <b>STEPNCLib</b> namespace is
+now available in both platform configurations and you can begin using
+the DLL classes in your code.
+
+
+<!-- ================================ -->
+<h2 class=rule>
+<a name=cxxnative></a>C++ Applications</h2>
+
+<P>When using C++/CLI, there are a few more details to deal with.
+Unfortunately, Visual Studio has no user interface for setting the
+framework target to .NET 2.0.  Open the *.vcxproj XML file in a text
+editor, as described above.  Then find the "Globals" property group
+and change the target framework version to v2.0 as shown below.  You
+may need to add the entire line if it is not present.
+
+<pre class=code>
+  &lt;PropertyGroup Label="Globals"&gt;
+    &lt;TargetFrameworkVersion&gt;v2.0&lt;/TargetFrameworkVersion&gt;
+</pre>
+
+<p>Save the XML, then open the project with Visual Studio.  In the
+project properties dialog, find the <b>Platform Toolset</b> entry and
+change it to v90 (VC2008).  Recent Visual C++ compilers only produce
+native code for the .NET 4.0 framework, and this change makes Visual
+Studio call the older compiler to generate 2.0 compatible code.
+
+<div class=figure><img src="images/toolchain.png"></div>
+
+
+</div>
+<div class="copyright">
+  Copyright &copy; 2016 STEP Tools Inc. All Rights Reserved.<br> 
+</div>
+</BODY>
+</HTML>
