@@ -161,7 +161,7 @@ NAN_METHOD(Finder::GetCompoundFeatureCount) {
     if (info.Length() != 1) { // Needs one argument
 	return; // Throw an exception
     }
-    if (!info[0]->IsInt32()) { // argument of wrong type
+    if (!info[0]->IsNumber()) { // argument of wrong type
 	return; //Throw exception
     }
     int size = 0;
@@ -170,7 +170,7 @@ NAN_METHOD(Finder::GetCompoundFeatureCount) {
     double y;
     double z;
 
-    if (!find->_find->first_feature_in_compound(info[0]->Int32Value(), feature_id, size, x, y, z)) {
+    if (!find->_find->first_feature_in_compound(info[0]->IntegerValue(), feature_id, size, x, y, z)) {
 	return; //throw Error
     }
 
@@ -401,14 +401,14 @@ NAN_METHOD(Finder::GetSelectiveExecutableCount) {
     if (find == 0) {
 	return; //throw exception
     }
-    if (info[0]->IsUndefined()) {
+    if (info.Length() != 1) {
 	return; //throw exception
     }
-    if (!info[0]->IsInt32()) {
+    if (!info[0]->IsNumber()) {
 	return; // Throw exception
     }
     int count = 0;
-    int sl_id = info[0]->Int32Value();
+    int sl_id = info[0]->IntegerValue();
     if (!(find->_find->selective_executable_count(sl_id, count))) {
 	return; // throw error
     }

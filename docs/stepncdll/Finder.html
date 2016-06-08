@@ -7498,7 +7498,7 @@ System::String^ <b>GetProjectName</b> ();
 string <b>GetProjectName</b> ();
 </pre>
 <pre class = "cpp">
-RoseBoolean project(
+RoseBoolean <b>project</b>(
   const char* &prj_name,
   const char* &wpk_name
   );
@@ -7565,11 +7565,23 @@ Get the id of a workpiece in the setup of a workplan.
 <h2 class=rule>
 <a name=GetSelectiveExecutableNext></a>
 <a name=GetSelectiveExecutableCount></a>GetSelectiveExecutableCount/Next/All/AllEnabled()</h2>
-<pre>
+<pre class = "dotnet">
 System::Int64 <b>GetSelectiveExecutableCount</b> (
 	System::Int64 sl_id
 	);
-
+</pre>
+<pre class = "nodejs">
+int <b>GetSelectiveExecutableCount</b> (
+  int sl_id
+  );
+</pre>
+<pre class = "cpp">
+RoseBoolean <b>selective_executable_count</b>(
+  int sl_id,
+  int count
+  );
+</pre>
+<pre>
 System::Int64 <b>GetSelectiveExecutableNext</b> (
 	System::Int64 sl_id,
 	System::Int64 index
