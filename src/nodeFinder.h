@@ -55,8 +55,11 @@ public:
     // double GetExecutableDistance(long exe_id)
     static NAN_METHOD(GetExecutableDistance);
 
-	// string GetExecutableDistanceUnit(long exe_id)
-	static NAN_METHOD(GetExecutableDistanceUnit);
+    // string GetExecutableDistanceUnit(long exe_id)
+    static NAN_METHOD(GetExecutableDistanceUnit);
+
+    // string GetExecutableName(int exe_id)
+    static NAN_METHOD(GetExecutableName);
 
     //int GetMainWorkplan();
     static NAN_METHOD(GetMainWorkplan);
@@ -64,17 +67,7 @@ public:
     //long Finder::GetFaceEdgeCount(long face_id);
     static NAN_METHOD(GetFaceEdgeCount);
 
-    //void Finder::GetFaceEdgeNextPoint(
-    /*
-    System::Int64 face_id,
-    System::Int64 index,
-    [System::Runtime::InteropServices::Out] double %ret_x1,
-    [System::Runtime::InteropServices::Out] double %ret_y1,
-    [System::Runtime::InteropServices::Out] double %ret_z1,
-    [System::Runtime::InteropServices::Out] double %ret_x2,
-    [System::Runtime::InteropServices::Out] double %ret_y2,
-    [System::Runtime::InteropServices::Out] double %ret_z2
-    */ //);
+    //void Finder::GetFaceEdgeNextPoint(needs to be fixed);
     static NAN_METHOD(GetFaceEdgeNextPoint);
 
     //string GetFeatureName(long id)
