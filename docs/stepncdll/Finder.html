@@ -11479,14 +11479,39 @@ value.
 <h2 class=rule>
 <a name=GetWorkplanToolNext></a>
 <a name=GetWorkplanToolCount></a>GetWorkplanToolCount/Next()</h2>
-<pre>
+<pre class = "dotnet">
 System::Int64 <b>GetWorkplanToolCount</b> (
 	System::Int64 wp_id
 	);
-
+</pre>
+<pre class = "nodejs">
+int <b>GetWorkplanToolCount</b> (
+	int wp_id
+	);
+</pre>
+<pre class = "cpp">
+RoseBoolean <b>wp_tool_count</b> (
+	int wp_id, 
+	int &size
+	);
+</pre>
+<pre class = "dotnet">
 System::Int64 <b>GetWorkplanToolNext</b> (
 	System::Int64 wp_id,
 	System::Int64 index
+	);
+</pre>
+<pre class = "nodejs">
+int <b>GetWorkplanToolNext</b> (
+	int wp_id,
+	int index
+	);
+</pre>
+<pre class = "cpp">
+RoseBoolean <b>wp_tool_next</b> (
+	int wp_id, 
+	int index, 
+	int &tl_id
 	);
 </pre>
 
