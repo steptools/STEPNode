@@ -37,8 +37,8 @@ public:
     //void APIUnitsFeed(System::String^ units);
     static NAN_METHOD(APIUnitsFeed);
 
-    //void APIUnitsInches();
-    static NAN_METHOD(APIUnitsInches);
+    //void APIUnitsInch();
+    static NAN_METHOD(APIUnitsInch);
 
     //void APIUnitsMM();
     static NAN_METHOD(APIUnitsMM);
@@ -52,11 +52,8 @@ public:
     //System::int64 Finder::GetCompoundFeatureCount(system::int64 compound_id)'
     static NAN_METHOD(GetCompoundFeatureCount);
 
-    // double GetExecutableDistance(long exe_id)
+    // double GetExecutableDistance(System::Int64 exe_id)
     static NAN_METHOD(GetExecutableDistance);
-
-	// string GetExecutableDistanceUnit(long exe_id)
-	static NAN_METHOD(GetExecutableDistanceUnit);
 
     //int GetMainWorkplan();
     static NAN_METHOD(GetMainWorkplan);

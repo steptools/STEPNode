@@ -44,14 +44,13 @@ NAN_MODULE_INIT(Finder::Init)
 	v8::Local<v8::FunctionTemplate> tpl = Nan::New<v8::FunctionTemplate>(New);
 	tpl->SetClassName(Nan::New("Finder").ToLocalChecked());
 	tpl->InstanceTemplate()->SetInternalFieldCount(1);
-	Nan::SetPrototypeMethod(tpl, "APIUnitsInches", APIUnitsInches);
+	Nan::SetPrototypeMethod(tpl, "APIUnitsInch", APIUnitsInch);
 	Nan::SetPrototypeMethod(tpl, "APIUnitsMM", APIUnitsMM);
 	Nan::SetPrototypeMethod(tpl, "APIUnitsNative", APIUnitsNative);
 	Nan::SetPrototypeMethod(tpl, "APIUnitsFeed", APIUnitsFeed);
 	Nan::SetPrototypeMethod(tpl, "APIUnitsSpeed", APIUnitsSpeed);
 	Nan::SetPrototypeMethod(tpl, "GetCompoundFeatureCount", GetCompoundFeatureCount);
 	Nan::SetPrototypeMethod(tpl, "GetExecutableDistance", GetExecutableDistance);
-	Nan::SetPrototypeMethod(tpl, "GetExecutableDistanceUnit", GetExecutableDistanceUnit);
 	Nan::SetPrototypeMethod(tpl, "GetFaceEdgeCount", GetFaceEdgeCount);
 	Nan::SetPrototypeMethod(tpl, "GetFaceEdgeNextPoint", GetFaceEdgeCount);
 	Nan::SetPrototypeMethod(tpl, "GetFeatureID", GetFeatureID);
@@ -83,7 +82,7 @@ NAN_METHOD(Finder::APIUnitsFeed) {
 	return;
     delete[] b;
 }
-NAN_METHOD(Finder::APIUnitsInches) {
+NAN_METHOD(Finder::APIUnitsInch) {
 
     Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
     if (find == 0) {
@@ -202,35 +201,6 @@ NAN_METHOD(Finder::GetExecutableDistance)
 		return;
 
 	info.GetReturnValue().Set(distance);
-	return;
-}
-
-NAN_METHOD(Finder::GetExecutableDistanceUnit)
-{
-	Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
-	if (find == 0) // Throw exception
-		return;
-
-	if (info.Length() != 1) // incorrect number of arguments
-		return;
-
-	if (!info[0]->IsNumber()) // invalid argument
-		return;
-
-	// get this executable's id
-	int64_t exe_id = info[0]->IntegerValue();
-
-    const char *dist_unit = 0;
-    double over_time, base_time, distance;
-    const char *str2;
-
-	if (!find->_find->compute_best_feed_time(
-		(int)exe_id, distance, base_time, over_time, dist_unit, str2
-		))
-		return;
-
-	info.GetReturnValue().Set(CharTov8String((char*) dist_unit));
-
 	return;
 }
 
