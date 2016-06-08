@@ -52,6 +52,9 @@ public:
     //System::int64 Finder::GetCompoundFeatureCount(system::int64 compound_id)'
     static NAN_METHOD(GetCompoundFeatureCount);
 
+    // double GetExecutableDistance(System::Int64 exe_id)
+    static NAN_METHOD(GetExecutableDistance);
+
     //int GetMainWorkplan();
     static NAN_METHOD(GetMainWorkplan);
 

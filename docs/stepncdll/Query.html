@@ -1,0 +1,2089 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+   <TITLE>Query Programming Class</TITLE>
+   <link rel="stylesheet" type="text/css" href="../pkgcss/style.css">
+</HEAD>
+
+<BODY>
+<TABLE class=pagehead><TR>
+<TD class=logo>Query</TD>
+<TD class=quicklinks>
+  <A HREF="http://www.steptools.com">[www.steptools.com]</a>
+  <A HREF="../index.html">[STEP-NC Machine]</A>
+  <A HREF=index.html>[STEP-NC DLL]</a>
+</TD></TR>
+</TABLE>
+
+<div class=bktoc>
+<FORM class=bksearch method=GET action="http://www.google.com/search">
+Search STEP Tools Web Support<br>
+<INPUT TYPE=text name=q size=22 maxlength=255 value="">
+<INPUT TYPE=hidden name=q value="site:www.steptools.com/support">
+<INPUT class=button type=submit name=sa VALUE="Google">
+</FORM>
+<ul>
+<li><a href=#oview>Overview</a>
+<li><a href=#arc>arc()</a>
+<li><a href=#getAngleUnit>getAngleUnit()</a>
+<li><a href=#getAxis>getAxis()</a>
+<li><a href=#getAxisCount>getAxisCount()</a>
+<li><a href=#getCoolant>getCoolant()</a>
+<li><a href=#getCurve>getCurve()</a>
+<li><a href=#getCurveCount>getCurveCount()</a>
+<li><a href=#getDrillPoint>getDrillPoint()</a>
+<li><a href=#getDrillPointCount>getDrillPointCount()</a>
+<li><a href=#getFace>getFace()</a>
+<li><a href=#getFaceCount>getFaceCount()</a>
+<li><a href=#getFaceEdgePoint>getFaceEdgePoint()</a>
+<li><a href=#getFaceEdgePointCount>getFaceEdgePointCount()</a>
+<li><a href=#getFeature>getFeature()</a>
+<li><a href=#getFeatureCount>getFeatureCount()</a>
+<li><a href=#getFeatureDepth>getFeatureDepth()</a>
+<li><a href=#getFeatureId>getFeatureId()</a>
+<li><a href=#getFeatureInCompound>getFeatureInCompound()</a>
+<li><a href=#getFeatureInCompoundCount>getFeatureInCompoundCount()</a>
+<li><a href=#getFeatureInCompoundLocation>getFeatureInCompoundLocation()</a>
+<li><a href=#getFeaturePathProfile>getFeaturePathProfile()</a>
+<li><a href=#getFeatureType>getFeatureType()</a>
+<li><a href=#getFeedSpeed>getFeedSpeed()</a>
+<li><a href=#getFeedUnit>getFeedUnit()</a>
+<li><a href=#getLengthUnit>getLengthUnit()</a>
+<li><a href=#getLengthValue>getLengthValue()</a>
+<li><a href=#getLowerValue>getLowerValue()</a>
+<li><a href=#getMainWorkplan>getMainWorkplan()</a>
+<li><a href=#getMaterial>getMaterial()</a>
+<li><a href=#getMaterialCount>getMaterialCount()</a>
+<li><a href=#getMillingParameters>getMillingParameters()</a>
+<li><a href=#getMillingType>getMillingType()</a>
+<li><a href=#getNumberOfBosses>getNumberOfBosses()</a>
+<li><a href=#getOperationType>getOperationType()</a>
+<li><a href=#getPath>getPath()</a>
+<li><a href=#getPathCount>getPathCount()</a>
+<li><a href=#getPathDirection>getPathDirection()</a>
+<li><a href=#getPlacement>getPlacement()</a>
+<li><a href=#getPoint>getPoint()</a>
+<li><a href=#getPointCount>getPointCount()</a>
+<li><a href=#getPointId>getPointId()</a>
+<li><a href=#getPrecision>getPrecision()</a>
+<li><a href=#getProbeResult>getProbeResult()</a>
+<li><a href=#getProfileZCoordinate>getProfileZCoordinate()</a>
+<li><a href=#getProjectName>getProjectName()</a>
+<li><a href=#getRawpieceMaterial>getRawpieceMaterial()</a>
+<li><a href=#getRawpieceUnits>getRawpieceUnits()</a>
+<li><a href=#getRetractPlane>getRetractPlane()</a>
+<li><a href=#getSecurityPlane>getSecurityPlane()</a>
+<li><a href=#getSpeedUnit>getSpeedUnit()</a>
+<li><a href=#getTechnology>getTechnology()</a>
+<li><a href=#getTechnologyCount>getTechnologyCount()</a>
+<li><a href=#getTool>getTool()</a>
+<li><a href=#getToolAngle>getToolAngle()</a>
+<li><a href=#getToolById>getToolById()</a>
+<li><a href=#getToolByIdentifier>getToolByIdentifier()</a>
+<li><a href=#getToolByNumber>getToolByNumber()</a>
+<li><a href=#getToolCAMIdentifier>getToolCAMIdentifier()</a>
+<li><a href=#getToolCAMInfo>getToolCAMInfo()</a>
+<li><a href=#getToolCornerRadius>getToolCornerRadius()</a>
+<li><a href=#getToolCount>getToolCount()</a>
+<li><a href=#getToolDiameter>getToolDiameter()</a>
+<li><a href=#getToolHeight>getToolHeight()</a>
+<li><a href=#getToolHorizontalDistance>getToolHorizontalDistance()</a>
+<li><a href=#getToolIdentifier>getToolIdentifier()</a>
+<li><a href=#getToolParams>getToolParams()</a>
+<li><a href=#getToolVeritcalDistance>getToolVeritcalDistance()</a>
+<li><a href=#getToolpathTechnology>getToolpathTechnology()</a>
+<li><a href=#getToolpathTechnologyId>getToolpathTechnologyId()</a>
+<li><a href=#getUnit>getUnit()</a>
+<li><a href=#getUpperValue>getUpperValue()</a>
+<li><a href=#getValue>getValue()</a>
+<li><a href=#getWorkingstep>getWorkingstep()</a>
+<li><a href=#getWorkingstepName>getWorkingstepName()</a>
+<li><a href=#getWorkpieceName>getWorkpieceName()</a>
+<li><a href=#getWorkplanName>getWorkplanName()</a>
+<li><a href=#getWorkplanSize>getWorkplanSize()</a>
+<li><a href=#getinfoBlockRawpiece>getinfoBlockRawpiece()</a>
+<li><a href=#getinfoBoringOperation>getinfoBoringOperation()</a>
+<li><a href=#getinfoBottomAndSideMillingOperation>getinfoBottomAndSideMillingOperation()</a>
+<li><a href=#getinfoChamfer>getinfoChamfer()</a>
+<li><a href=#getinfoCircularBoss>getinfoCircularBoss()</a>
+<li><a href=#getinfoCircularOutsideProfile>getinfoCircularOutsideProfile()</a>
+<li><a href=#getinfoClosedCircularPocket>getinfoClosedCircularPocket()</a>
+<li><a href=#getinfoClosedPathOutsideProfile>getinfoClosedPathOutsideProfile()</a>
+<li><a href=#getinfoClosedPathPocket>getinfoClosedPathPocket()</a>
+<li><a href=#getinfoClosedPocket>getinfoClosedPocket()</a>
+<li><a href=#getinfoClosedRectangularPocket>getinfoClosedRectangularPocket()</a>
+<li><a href=#getinfoCylinderRawpiece>getinfoCylinderRawpiece()</a>
+<li><a href=#getinfoCylindricalEdges>getinfoCylindricalEdges()</a>
+<li><a href=#getinfoCylindricalFace>getinfoCylindricalFace()</a>
+<li><a href=#getinfoDisplayFunction>getinfoDisplayFunction()</a>
+<li><a href=#getinfoDrillingOperation>getinfoDrillingOperation()</a>
+<li><a href=#getinfoEdgeRound>getinfoEdgeRound()</a>
+<li><a href=#getinfoFinishOrRough>getinfoFinishOrRough()</a>
+<li><a href=#getinfoFreeformMillingOperation>getinfoFreeformMillingOperation()</a>
+<li><a href=#getinfoHoleConicalBottom>getinfoHoleConicalBottom()</a>
+<li><a href=#getinfoHoleFlatBottom>getinfoHoleFlatBottom()</a>
+<li><a href=#getinfoHoleFlatWithRadiusBottom>getinfoHoleFlatWithRadiusBottom()</a>
+<li><a href=#getinfoHoleSphericalBottom>getinfoHoleSphericalBottom()</a>
+<li><a href=#getinfoHoleTaperAngle>getinfoHoleTaperAngle()</a>
+<li><a href=#getinfoHoleThroughBottom>getinfoHoleThroughBottom()</a>
+<li><a href=#getinfoLinearOutsideProfile>getinfoLinearOutsideProfile()</a>
+<li><a href=#getinfoMultistepDrillingOperation>getinfoMultistepDrillingOperation()</a>
+<li><a href=#getinfoNestedWorkplan>getinfoNestedWorkplan()</a>
+<li><a href=#getinfoOpenPartialCircularPocket>getinfoOpenPartialCircularPocket()</a>
+<li><a href=#getinfoOpenPathOutsideProfile>getinfoOpenPathOutsideProfile()</a>
+<li><a href=#getinfoOpenPathPocket>getinfoOpenPathPocket()</a>
+<li><a href=#getinfoOpenPocket>getinfoOpenPocket()</a>
+<li><a href=#getinfoOpenRectangularPocket>getinfoOpenRectangularPocket()</a>
+<li><a href=#getinfoOutsideProfile>getinfoOutsideProfile()</a>
+<li><a href=#getinfoPartialCircularOutsideProfile>getinfoPartialCircularOutsideProfile()</a>
+<li><a href=#getinfoPathBoss>getinfoPathBoss()</a>
+<li><a href=#getinfoPlanarFace>getinfoPlanarFace()</a>
+<li><a href=#getinfoPlanarMillingOperation>getinfoPlanarMillingOperation()</a>
+<li><a href=#getinfoPocketFlatBottom>getinfoPocketFlatBottom()</a>
+<li><a href=#getinfoPocketRadiusedBottom>getinfoPocketRadiusedBottom()</a>
+<li><a href=#getinfoPocketThroughBottom>getinfoPocketThroughBottom()</a>
+<li><a href=#getinfoProbingWorkingstep>getinfoProbingWorkingstep()</a>
+<li><a href=#getinfoProfileAtEnd>getinfoProfileAtEnd()</a>
+<li><a href=#getinfoProfileAtStart>getinfoProfileAtStart()</a>
+<li><a href=#getinfoReamingOperation>getinfoReamingOperation()</a>
+<li><a href=#getinfoRectangularBoss>getinfoRectangularBoss()</a>
+<li><a href=#getinfoRectangularOutsideProfile>getinfoRectangularOutsideProfile()</a>
+<li><a href=#getinfoRoundHole>getinfoRoundHole()</a>
+<li><a href=#getinfoRoundedEnd>getinfoRoundedEnd()</a>
+<li><a href=#getinfoRoundedUProfile>getinfoRoundedUProfile()</a>
+<li><a href=#getinfoSideMillingOperation>getinfoSideMillingOperation()</a>
+<li><a href=#getinfoSlot>getinfoSlot()</a>
+<li><a href=#getinfoSlotEnd>getinfoSlotEnd()</a>
+<li><a href=#getinfoSquareUProfile>getinfoSquareUProfile()</a>
+<li><a href=#getinfoStep>getinfoStep()</a>
+<li><a href=#getinfoTappingOperation>getinfoTappingOperation()</a>
+<li><a href=#getinfoWorkingstep>getinfoWorkingstep()</a>
+<li><a href=#hasTolerance>hasTolerance()</a>
+<li><a href=#location>location()</a>
+<li><a href=#newSearch>newSearch()</a>
+<li><a href=#project>project()</a>
+<li><a href=#reset>reset()</a>
+<li><a href=#saveFile>saveFile()</a>
+<li><a href=#search>search()</a>
+<li><a href=#search224>search224()</a>
+<li><a href=#setAngleUnit>setAngleUnit()</a>
+<li><a href=#setFeedUnit>setFeedUnit()</a>
+<li><a href=#setLengthUnit>setLengthUnit()</a>
+<li><a href=#setSpeedUnit>setSpeedUnit()</a>
+<li><a href=#startPoint>startPoint()</a>
+<li><a href=#validatePlanarFace>validatePlanarFace()</a>
+<li><a href=#workplan>workplan()</a>
+
+</ul>
+</div>
+<div class=main>
+
+<h2><a name=oview></a>Overview</h2>
+<p>
+The <b>Query</b> class
+</p>
+
+
+<h2 class=rule><a name=arc></a>arc()</h2>
+<pre>
+void <b>arc</b> (
+	System::Int64 arc,
+	[System::Runtime::InteropServices::Out] double %new_x,
+	[System::Runtime::InteropServices::Out] double %new_y,
+	[System::Runtime::InteropServices::Out] double %new_z,
+	[System::Runtime::InteropServices::Out] double %cx,
+	[System::Runtime::InteropServices::Out] double %cy,
+	[System::Runtime::InteropServices::Out] double %cz,
+	[System::Runtime::InteropServices::Out] double %radius,
+	[System::Runtime::InteropServices::Out] System::Boolean %is_ccw
+	);
+</pre>
+
+<P>The <b>arc()</b> function 
+
+
+<h2 class=rule><a name=getAngleUnit></a>getAngleUnit()</h2>
+<pre>
+System::String^ <b>getAngleUnit</b> ();
+</pre>
+
+<P>The <b>getAngleUnit()</b> function 
+
+
+<h2 class=rule><a name=getAxis></a>getAxis()</h2>
+<pre>
+void <b>getAxis</b> (
+	System::Int64 obj,
+	System::Int64 index,
+	[System::Runtime::InteropServices::Out] System::Int64 %axis_id
+	);
+</pre>
+
+<P>The <b>getAxis()</b> function 
+
+
+<h2 class=rule><a name=getAxisCount></a>getAxisCount()</h2>
+<pre>
+System::Int64 <b>getAxisCount</b> (
+	System::Int64 obj
+	);
+</pre>
+
+<P>The <b>getAxisCount()</b> function 
+
+
+<h2 class=rule><a name=getCoolant></a>getCoolant()</h2>
+<pre>
+void <b>getCoolant</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] System::String^ %coolant
+	);
+</pre>
+
+<P>The <b>getCoolant()</b> function 
+
+
+<h2 class=rule><a name=getCurve></a>getCurve()</h2>
+<pre>
+void <b>getCurve</b> (
+	System::Int64 obj,
+	System::Int64 index,
+	[System::Runtime::InteropServices::Out] System::Int64 %curve,
+	[System::Runtime::InteropServices::Out] System::Boolean %is_arc
+	);
+</pre>
+
+<P>The <b>getCurve()</b> function 
+
+
+<h2 class=rule><a name=getCurveCount></a>getCurveCount()</h2>
+<pre>
+System::Int64 <b>getCurveCount</b> (
+	System::Int64 obj
+	);
+</pre>
+
+<P>The <b>getCurveCount()</b> function 
+
+
+<h2 class=rule><a name=getDrillPoint></a>getDrillPoint()</h2>
+<pre>
+void <b>getDrillPoint</b> (
+	System::Int64 obj,
+	unsigned index,
+	[System::Runtime::InteropServices::Out] double %x,
+	[System::Runtime::InteropServices::Out] double %y,
+	[System::Runtime::InteropServices::Out] double %z
+	);
+</pre>
+
+<P>The <b>getDrillPoint()</b> function 
+
+
+<h2 class=rule><a name=getDrillPointCount></a>getDrillPointCount()</h2>
+<pre>
+System::Int64 <b>getDrillPointCount</b> (
+	System::Int64 obj
+	);
+</pre>
+
+<P>The <b>getDrillPointCount()</b> function 
+
+
+<h2 class=rule><a name=getFace></a>getFace()</h2>
+<pre>
+void <b>getFace</b> (
+	System::Int64 obj,
+	System::Int64 index,
+	[System::Runtime::InteropServices::Out] System::Int64 %face_id
+	);
+</pre>
+
+<P>The <b>getFace()</b> function 
+
+
+<h2 class=rule><a name=getFaceCount></a>getFaceCount()</h2>
+<pre>
+System::Int64 <b>getFaceCount</b> (
+	System::Int64 obj
+	);
+</pre>
+
+<P>The <b>getFaceCount()</b> function 
+
+
+<h2 class=rule><a name=getFaceEdgePoint></a>getFaceEdgePoint()</h2>
+<pre>
+void <b>getFaceEdgePoint</b> (
+	System::Int64 shape_obj,
+	System::Int64 index,
+	[System::Runtime::InteropServices::Out] double %x1,
+	[System::Runtime::InteropServices::Out] double %y1,
+	[System::Runtime::InteropServices::Out] double %z1,
+	[System::Runtime::InteropServices::Out] double %x2,
+	[System::Runtime::InteropServices::Out] double %y2,
+	[System::Runtime::InteropServices::Out] double %z2
+	);
+</pre>
+
+<P>The <b>getFaceEdgePoint()</b> function 
+
+
+<h2 class=rule><a name=getFaceEdgePointCount></a>getFaceEdgePointCount()</h2>
+<pre>
+System::Int64 <b>getFaceEdgePointCount</b> (
+	System::Int64 obj
+	);
+</pre>
+
+<P>The <b>getFaceEdgePointCount()</b> function 
+
+
+<h2 class=rule><a name=getFeature></a>getFeature()</h2>
+<pre>
+void <b>getFeature</b> (
+	System::Int64 index,
+	[System::Runtime::InteropServices::Out] System::Int64 %feature_id
+	);
+</pre>
+
+<P>The <b>getFeature()</b> function 
+
+
+<h2 class=rule><a name=getFeatureCount></a>getFeatureCount()</h2>
+<pre>
+System::Int64 <b>getFeatureCount</b> ();
+</pre>
+
+<P>The <b>getFeatureCount()</b> function 
+
+
+<h2 class=rule><a name=getFeatureDepth></a>getFeatureDepth()</h2>
+<pre>
+void <b>getFeatureDepth</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] System::Int64 %depth
+	);
+</pre>
+
+<P>The <b>getFeatureDepth()</b> function 
+
+
+<h2 class=rule><a name=getFeatureId></a>getFeatureId()</h2>
+<pre>
+void <b>getFeatureId</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] System::Int64 %feature_id
+	);
+</pre>
+
+<P>The <b>getFeatureId()</b> function 
+
+
+<h2 class=rule><a name=getFeatureInCompound></a>getFeatureInCompound()</h2>
+<pre>
+void <b>getFeatureInCompound</b> (
+	System::Int64 obj,
+	System::Int64 index,
+	[System::Runtime::InteropServices::Out] System::Int64 %feature_id
+	);
+</pre>
+
+<P>The <b>getFeatureInCompound()</b> function 
+
+
+<h2 class=rule><a name=getFeatureInCompoundCount></a>getFeatureInCompoundCount()</h2>
+<pre>
+System::Int64 <b>getFeatureInCompoundCount</b> (
+	System::Int64 obj
+	);
+</pre>
+
+<P>The <b>getFeatureInCompoundCount()</b> function 
+
+
+<h2 class=rule><a name=getFeatureInCompoundLocation></a>getFeatureInCompoundLocation()</h2>
+<pre>
+void <b>getFeatureInCompoundLocation</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] double %x,
+	[System::Runtime::InteropServices::Out] double %y,
+	[System::Runtime::InteropServices::Out] double %z
+	);
+</pre>
+
+<P>The <b>getFeatureInCompoundLocation()</b> function 
+
+
+<h2 class=rule><a name=getFeaturePathProfile></a>getFeaturePathProfile()</h2>
+<pre>
+void <b>getFeaturePathProfile</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] System::Int64 %profile_id
+	);
+</pre>
+
+<P>The <b>getFeaturePathProfile()</b> function 
+
+
+<h2 class=rule><a name=getFeatureType></a>getFeatureType()</h2>
+<pre>
+void <b>getFeatureType</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] System::String^ %type
+	);
+</pre>
+
+<P>The <b>getFeatureType()</b> function 
+
+
+<h2 class=rule><a name=getFeedSpeed></a>getFeedSpeed()</h2>
+<pre>
+void <b>getFeedSpeed</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] System::Int64 %feed,
+	[System::Runtime::InteropServices::Out] System::Int64 %speed
+	);
+</pre>
+
+<P>The <b>getFeedSpeed()</b> function 
+
+
+<h2 class=rule><a name=getFeedUnit></a>getFeedUnit()</h2>
+<pre>
+System::String^ <b>getFeedUnit</b> ();
+</pre>
+
+<P>The <b>getFeedUnit()</b> function 
+
+
+<h2 class=rule><a name=getLengthUnit></a>getLengthUnit()</h2>
+<pre>
+System::String^ <b>getLengthUnit</b> ();
+</pre>
+
+<P>The <b>getLengthUnit()</b> function 
+
+
+<h2 class=rule><a name=getLengthValue></a>getLengthValue()</h2>
+<pre>
+double <b>getLengthValue</b> (
+	System::Int64 obj
+	);
+</pre>
+
+<P>The <b>getLengthValue()</b> function 
+
+
+<h2 class=rule><a name=getLowerValue></a>getLowerValue()</h2>
+<pre>
+double <b>getLowerValue</b> (
+	System::Int64 ri
+	);
+</pre>
+
+<P>The <b>getLowerValue()</b> function 
+
+
+<h2 class=rule><a name=getMainWorkplan></a>getMainWorkplan()</h2>
+<pre>
+void <b>getMainWorkplan</b> (
+	[System::Runtime::InteropServices::Out] System::Int64 %ret,
+	[System::Runtime::InteropServices::Out] System::Int64 %size
+	);
+</pre>
+
+<P>The <b>getMainWorkplan()</b> function 
+
+
+<h2 class=rule><a name=getMaterial></a>getMaterial()</h2>
+<pre>
+void <b>getMaterial</b> (
+	[System::Runtime::InteropServices::Out] System::String^ %name,
+	[System::Runtime::InteropServices::Out] System::Int64 %wp_id
+	);
+</pre>
+
+<P>The <b>getMaterial()</b> function 
+
+
+<h2 class=rule><a name=getMaterialCount></a>getMaterialCount()</h2>
+<pre>
+System::Int64 <b>getMaterialCount</b> ();
+</pre>
+
+<P>The <b>getMaterialCount()</b> function 
+
+
+<h2 class=rule><a name=getMillingParameters></a>getMillingParameters()</h2>
+<pre>
+void <b>getMillingParameters</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] System::Int64 %bottom_allowance,
+	[System::Runtime::InteropServices::Out] System::Int64 %side_allowance,
+	[System::Runtime::InteropServices::Out] System::Int64 %axial_depth,
+	[System::Runtime::InteropServices::Out] System::Int64 %radial_depth
+	);
+</pre>
+
+<P>The <b>getMillingParameters()</b> function 
+
+
+<h2 class=rule><a name=getMillingType></a>getMillingType()</h2>
+<pre>
+void <b>getMillingType</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] System::String^ %type
+	);
+</pre>
+
+<P>The <b>getMillingType()</b> function 
+
+
+<h2 class=rule><a name=getNumberOfBosses></a>getNumberOfBosses()</h2>
+<pre>
+void <b>getNumberOfBosses</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] System::Int64 %number
+	);
+</pre>
+
+<P>The <b>getNumberOfBosses()</b> function 
+
+
+<h2 class=rule><a name=getOperationType></a>getOperationType()</h2>
+<pre>
+void <b>getOperationType</b> (
+	System::Int64 wp_obj,
+	System::Int64 index,
+	[System::Runtime::InteropServices::Out] System::String^ %type
+	);
+</pre>
+
+<P>The <b>getOperationType()</b> function 
+
+
+<h2 class=rule><a name=getPath></a>getPath()</h2>
+<pre>
+void <b>getPath</b> (
+	System::Int64 obj,
+	System::Int64 index,
+	[System::Runtime::InteropServices::Out] System::Int64 %path,
+	[System::Runtime::InteropServices::Out] System::Boolean %is_contact
+	);
+</pre>
+
+<P>The <b>getPath()</b> function 
+
+
+<h2 class=rule><a name=getPathCount></a>getPathCount()</h2>
+<pre>
+System::Int64 <b>getPathCount</b> (
+	System::Int64 obj
+	);
+</pre>
+
+<P>The <b>getPathCount()</b> function 
+
+
+<h2 class=rule><a name=getPathDirection></a>getPathDirection()</h2>
+<pre>
+void <b>getPathDirection</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] System::Int64 %path_id,
+	[System::Runtime::InteropServices::Out] double %i,
+	[System::Runtime::InteropServices::Out] double %j,
+	[System::Runtime::InteropServices::Out] double %k
+	);
+</pre>
+
+<P>The <b>getPathDirection()</b> function 
+
+
+<h2 class=rule><a name=getPlacement></a>getPlacement()</h2>
+<pre>
+void <b>getPlacement</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] double %x,
+	[System::Runtime::InteropServices::Out] double %y,
+	[System::Runtime::InteropServices::Out] double %z,
+	[System::Runtime::InteropServices::Out] double %i,
+	[System::Runtime::InteropServices::Out] double %j,
+	[System::Runtime::InteropServices::Out] double %k,
+	[System::Runtime::InteropServices::Out] double %a,
+	[System::Runtime::InteropServices::Out] double %b,
+	[System::Runtime::InteropServices::Out] double %c
+	);
+</pre>
+
+<P>The <b>getPlacement()</b> function 
+
+
+<h2 class=rule><a name=getPoint></a>getPoint()</h2>
+<pre>
+void <b>getPoint</b> (
+	System::Int64 poly,
+	System::Int64 index,
+	[System::Runtime::InteropServices::Out] double %x,
+	[System::Runtime::InteropServices::Out] double %y,
+	[System::Runtime::InteropServices::Out] double %z
+	);
+</pre>
+
+<P>The <b>getPoint()</b> function 
+
+
+<h2 class=rule><a name=getPointCount></a>getPointCount()</h2>
+<pre>
+System::Int64 <b>getPointCount</b> (
+	System::Int64 poly
+	);
+</pre>
+
+<P>The <b>getPointCount()</b> function 
+
+
+<h2 class=rule><a name=getPointId></a>getPointId()</h2>
+<pre>
+void <b>getPointId</b> (
+	System::Int64 poly,
+	System::Int64 index,
+	[System::Runtime::InteropServices::Out] System::Int64 %point_id
+	);
+</pre>
+
+<P>The <b>getPointId()</b> function 
+
+
+<h2 class=rule><a name=getPrecision></a>getPrecision()</h2>
+<pre>
+System::Int64 <b>getPrecision</b> (
+	System::Int64 ri
+	);
+</pre>
+
+<P>The <b>getPrecision()</b> function 
+
+
+<h2 class=rule><a name=getProbeResult></a>getProbeResult()</h2>
+<pre>
+void <b>getProbeResult</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] System::String^ %name,
+	[System::Runtime::InteropServices::Out] double %x,
+	[System::Runtime::InteropServices::Out] double %y,
+	[System::Runtime::InteropServices::Out] double %z,
+	[System::Runtime::InteropServices::Out] double %i,
+	[System::Runtime::InteropServices::Out] double %j,
+	[System::Runtime::InteropServices::Out] double %k,
+	[System::Runtime::InteropServices::Out] System::Int64 %expected_value,
+	[System::Runtime::InteropServices::Out] double %measured_value
+	);
+</pre>
+
+<P>The <b>getProbeResult()</b> function 
+
+
+<h2 class=rule><a name=getProfileZCoordinate></a>getProfileZCoordinate()</h2>
+<pre>
+void <b>getProfileZCoordinate</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] double %z
+	);
+</pre>
+
+<P>The <b>getProfileZCoordinate()</b> function 
+
+
+<h2 class=rule><a name=getProjectName></a>getProjectName()</h2>
+<pre>
+System::String^ <b>getProjectName</b> ();
+</pre>
+
+<P>The <b>getProjectName()</b> function 
+
+
+<h2 class=rule><a name=getRawpieceMaterial></a>getRawpieceMaterial()</h2>
+<pre>
+void <b>getRawpieceMaterial</b> (
+	System::Int64 index,
+	[System::Runtime::InteropServices::Out] System::String^ %name,
+	[System::Runtime::InteropServices::Out] System::Int64 %wp_id
+	);
+</pre>
+
+<P>The <b>getRawpieceMaterial()</b> function 
+
+
+<h2 class=rule><a name=getRawpieceUnits></a>getRawpieceUnits()</h2>
+<pre>
+void <b>getRawpieceUnits</b> (
+	[System::Runtime::InteropServices::Out] System::String^ %name
+	);
+</pre>
+
+<P>The <b>getRawpieceUnits()</b> function 
+
+
+<h2 class=rule><a name=getRetractPlane></a>getRetractPlane()</h2>
+<pre>
+void <b>getRetractPlane</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] System::Int64 %value
+	);
+</pre>
+
+<P>The <b>getRetractPlane()</b> function 
+
+
+<h2 class=rule><a name=getSecurityPlane></a>getSecurityPlane()</h2>
+<pre>
+void <b>getSecurityPlane</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] double %z_value
+	);
+</pre>
+
+<P>The <b>getSecurityPlane()</b> function 
+
+
+<h2 class=rule><a name=getSpeedUnit></a>getSpeedUnit()</h2>
+<pre>
+System::String^ <b>getSpeedUnit</b> ();
+</pre>
+
+<P>The <b>getSpeedUnit()</b> function 
+
+
+<h2 class=rule><a name=getTechnology></a>getTechnology()</h2>
+<pre>
+void <b>getTechnology</b> (
+	System::Int64 index,
+	[System::Runtime::InteropServices::Out] System::Int64 %tech_id,
+	[System::Runtime::InteropServices::Out] System::Int64 %feed,
+	[System::Runtime::InteropServices::Out] System::Int64 %speed
+	);
+</pre>
+
+<P>The <b>getTechnology()</b> function 
+
+
+<h2 class=rule><a name=getTechnologyCount></a>getTechnologyCount()</h2>
+<pre>
+void <b>getTechnologyCount</b> (
+	[System::Runtime::InteropServices::Out] System::Int64 %count
+	);
+</pre>
+
+<P>The <b>getTechnologyCount()</b> function 
+
+
+<h2 class=rule><a name=getTool></a>getTool()</h2>
+<pre>
+System::Int64 <b>getTool</b> (
+	System::Int64 index
+	);
+</pre>
+
+<P>The <b>getTool()</b> function 
+
+
+<h2 class=rule><a name=getToolAngle></a>getToolAngle()</h2>
+<pre>
+System::Int64 <b>getToolAngle</b> (
+	System::Int64 obj
+	);
+</pre>
+
+<P>The <b>getToolAngle()</b> function 
+
+
+<h2 class=rule><a name=getToolById></a>getToolById()</h2>
+<pre>
+System::Int64 <b>getToolById</b> (
+	System::String^ its_id
+	);
+</pre>
+
+<P>The <b>getToolById()</b> function 
+
+
+<h2 class=rule><a name=getToolByIdentifier></a>getToolByIdentifier()</h2>
+<pre>
+System::Int64 <b>getToolByIdentifier</b> (
+	System::String^ identifier
+	);
+</pre>
+
+<P>The <b>getToolByIdentifier()</b> function 
+
+
+<h2 class=rule><a name=getToolByNumber></a>getToolByNumber()</h2>
+<pre>
+System::Int64 <b>getToolByNumber</b> (
+	System::Int64 number
+	);
+</pre>
+
+<P>The <b>getToolByNumber()</b> function 
+
+
+<h2 class=rule><a name=getToolCAMIdentifier></a>getToolCAMIdentifier()</h2>
+<pre>
+System::String^ <b>getToolCAMIdentifier</b> (
+	System::Int64 obj
+	);
+</pre>
+
+<P>The <b>getToolCAMIdentifier()</b> function 
+
+
+<h2 class=rule><a name=getToolCAMInfo></a>getToolCAMInfo()</h2>
+<pre>
+void <b>getToolCAMInfo</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] System::String^ %identifier
+	);
+</pre>
+
+<P>The <b>getToolCAMInfo()</b> function 
+
+
+<h2 class=rule><a name=getToolCornerRadius></a>getToolCornerRadius()</h2>
+<pre>
+System::Int64 <b>getToolCornerRadius</b> (
+	System::Int64 obj
+	);
+</pre>
+
+<P>The <b>getToolCornerRadius()</b> function 
+
+
+<h2 class=rule><a name=getToolCount></a>getToolCount()</h2>
+<pre>
+System::Int64 <b>getToolCount</b> ();
+</pre>
+
+<P>The <b>getToolCount()</b> function 
+
+
+<h2 class=rule><a name=getToolDiameter></a>getToolDiameter()</h2>
+<pre>
+System::Int64 <b>getToolDiameter</b> (
+	System::Int64 obj
+	);
+</pre>
+
+<P>The <b>getToolDiameter()</b> function 
+
+
+<h2 class=rule><a name=getToolHeight></a>getToolHeight()</h2>
+<pre>
+System::Int64 <b>getToolHeight</b> (
+	System::Int64 obj
+	);
+</pre>
+
+<P>The <b>getToolHeight()</b> function 
+
+
+<h2 class=rule><a name=getToolHorizontalDistance></a>getToolHorizontalDistance()</h2>
+<pre>
+System::Int64 <b>getToolHorizontalDistance</b> (
+	System::Int64 obj
+	);
+</pre>
+
+<P>The <b>getToolHorizontalDistance()</b> function 
+
+
+<h2 class=rule><a name=getToolIdentifier></a>getToolIdentifier()</h2>
+<pre>
+System::String^ <b>getToolIdentifier</b> (
+	System::Int64 obj
+	);
+</pre>
+
+<P>The <b>getToolIdentifier()</b> function 
+
+
+<h2 class=rule><a name=getToolParams></a>getToolParams()</h2>
+<pre>
+void <b>getToolParams</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] System::String^ %its_id,
+	[System::Runtime::InteropServices::Out] System::Int64 %tool_diameter,
+	[System::Runtime::InteropServices::Out] System::Int64 %tool_radius,
+	[System::Runtime::InteropServices::Out] System::Int64 %horizontal_distance,
+	[System::Runtime::InteropServices::Out] System::Int64 %vertical_distance,
+	[System::Runtime::InteropServices::Out] System::Int64 %tip_hangle,
+	[System::Runtime::InteropServices::Out] System::Int64 %angle,
+	[System::Runtime::InteropServices::Out] System::Int64 %height
+	);
+</pre>
+
+<P>The <b>getToolParams()</b> function 
+
+
+<h2 class=rule><a name=getToolVeritcalDistance></a>getToolVeritcalDistance()</h2>
+<pre>
+System::Int64 <b>getToolVeritcalDistance</b> (
+	System::Int64 obj
+	);
+</pre>
+
+<P>The <b>getToolVeritcalDistance()</b> function 
+
+
+<h2 class=rule><a name=getToolpathTechnology></a>getToolpathTechnology()</h2>
+<pre>
+void <b>getToolpathTechnology</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] System::Int64 %feed,
+	[System::Runtime::InteropServices::Out] System::Int64 %speed,
+	[System::Runtime::InteropServices::Out] System::Boolean %is_rapid,
+	[System::Runtime::InteropServices::Out] System::Boolean %coolant_on
+	);
+</pre>
+
+<P>The <b>getToolpathTechnology()</b> function 
+
+
+<h2 class=rule><a name=getToolpathTechnologyId></a>getToolpathTechnologyId()</h2>
+<pre>
+void <b>getToolpathTechnologyId</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] System::Int64 %tech_id
+	);
+</pre>
+
+<P>The <b>getToolpathTechnologyId()</b> function 
+
+
+<h2 class=rule><a name=getUnit></a>getUnit()</h2>
+<pre>
+System::String^ <b>getUnit</b> (
+	System::Int64 obj
+	);
+</pre>
+
+<P>The <b>getUnit()</b> function 
+
+
+<h2 class=rule><a name=getUpperValue></a>getUpperValue()</h2>
+<pre>
+double <b>getUpperValue</b> (
+	System::Int64 ri
+	);
+</pre>
+
+<P>The <b>getUpperValue()</b> function 
+
+
+<h2 class=rule><a name=getValue></a>getValue()</h2>
+<pre>
+double <b>getValue</b> (
+	System::Int64 obj
+	);
+</pre>
+
+<P>The <b>getValue()</b> function 
+
+
+<h2 class=rule><a name=getWorkingstep></a>getWorkingstep()</h2>
+<pre>
+void <b>getWorkingstep</b> (
+	System::Int64 obj,
+	System::Int64 index,
+	[System::Runtime::InteropServices::Out] System::Int64 %ws_id
+	);
+</pre>
+
+<P>The <b>getWorkingstep()</b> function 
+
+
+<h2 class=rule><a name=getWorkingstepName></a>getWorkingstepName()</h2>
+<pre>
+void <b>getWorkingstepName</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] System::String^ %name
+	);
+</pre>
+
+<P>The <b>getWorkingstepName()</b> function 
+
+
+<h2 class=rule><a name=getWorkpieceName></a>getWorkpieceName()</h2>
+<pre>
+System::String^ <b>getWorkpieceName</b> ();
+</pre>
+
+<P>The <b>getWorkpieceName()</b> function 
+
+
+<h2 class=rule><a name=getWorkplanName></a>getWorkplanName()</h2>
+<pre>
+System::String^ <b>getWorkplanName</b> (
+	System::Int64 obj
+	);
+</pre>
+
+<P>The <b>getWorkplanName()</b> function 
+
+
+<h2 class=rule><a name=getWorkplanSize></a>getWorkplanSize()</h2>
+<pre>
+System::Int64 <b>getWorkplanSize</b> (
+	System::Int64 obj
+	);
+</pre>
+
+<P>The <b>getWorkplanSize()</b> function 
+
+
+<h2 class=rule><a name=getinfoBlockRawpiece></a>getinfoBlockRawpiece()</h2>
+<pre>
+void <b>getinfoBlockRawpiece</b> (
+	[System::Runtime::InteropServices::Out] System::String^ %name,
+	[System::Runtime::InteropServices::Out] System::Int64 %wp_id,
+	[System::Runtime::InteropServices::Out] double %x,
+	[System::Runtime::InteropServices::Out] double %y,
+	[System::Runtime::InteropServices::Out] double %z,
+	[System::Runtime::InteropServices::Out] System::Int64 %length,
+	[System::Runtime::InteropServices::Out] System::Int64 %width,
+	[System::Runtime::InteropServices::Out] System::Int64 %height
+	);
+</pre>
+
+<P>The <b>getinfoBlockRawpiece()</b> function 
+
+
+<h2 class=rule><a name=getinfoBoringOperation></a>getinfoBoringOperation()</h2>
+<pre>
+void <b>getinfoBoringOperation</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] System::Boolean %is_boring,
+	[System::Runtime::InteropServices::Out] System::Int64 %cutting_depth,
+	[System::Runtime::InteropServices::Out] System::Int64 %dwell_time_bottom,
+	[System::Runtime::InteropServices::Out] System::Int64 %feed_on_retract,
+	[System::Runtime::InteropServices::Out] System::Int64 %previous_diameter,
+	[System::Runtime::InteropServices::Out] double %waiting_x,
+	[System::Runtime::InteropServices::Out] double %waiting_y,
+	[System::Runtime::InteropServices::Out] double %waiting_z,
+	[System::Runtime::InteropServices::Out] System::Int64 %depth_of_test_cut
+	);
+</pre>
+
+<P>The <b>getinfoBoringOperation()</b> function 
+
+
+<h2 class=rule><a name=getinfoBottomAndSideMillingOperation></a>getinfoBottomAndSideMillingOperation()</h2>
+<pre>
+void <b>getinfoBottomAndSideMillingOperation</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] System::Boolean %is_milling,
+	[System::Runtime::InteropServices::Out] System::Boolean %is_rough,
+	[System::Runtime::InteropServices::Out] System::Int64 %bottom_allowance,
+	[System::Runtime::InteropServices::Out] System::Int64 %side_allowance,
+	[System::Runtime::InteropServices::Out] System::Int64 %axial_depth,
+	[System::Runtime::InteropServices::Out] System::Int64 %radial_depth
+	);
+</pre>
+
+<P>The <b>getinfoBottomAndSideMillingOperation()</b> function 
+
+
+<h2 class=rule><a name=getinfoChamfer></a>getinfoChamfer()</h2>
+<pre>
+void <b>getinfoChamfer</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] System::Int64 %chamfer_face_id,
+	[System::Runtime::InteropServices::Out] System::Int64 %first_face_offset,
+	[System::Runtime::InteropServices::Out] System::Int64 %first_face_angle,
+	[System::Runtime::InteropServices::Out] System::Int64 %first_face_id,
+	[System::Runtime::InteropServices::Out] System::Int64 %second_face_id
+	);
+</pre>
+
+<P>The <b>getinfoChamfer()</b> function 
+
+
+<h2 class=rule><a name=getinfoCircularBoss></a>getinfoCircularBoss()</h2>
+<pre>
+void <b>getinfoCircularBoss</b> (
+	System::Int64 obj,
+	System::Int64 index,
+	[System::Runtime::InteropServices::Out] System::Int64 %profile_id,
+	[System::Runtime::InteropServices::Out] System::Int64 %height,
+	[System::Runtime::InteropServices::Out] System::Int64 %diameter,
+	[System::Runtime::InteropServices::Out] double %x,
+	[System::Runtime::InteropServices::Out] double %y,
+	[System::Runtime::InteropServices::Out] double %z
+	);
+</pre>
+
+<P>The <b>getinfoCircularBoss()</b> function 
+
+
+<h2 class=rule><a name=getinfoCircularOutsideProfile></a>getinfoCircularOutsideProfile()</h2>
+<pre>
+void <b>getinfoCircularOutsideProfile</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] System::Int64 %profile_id,
+	[System::Runtime::InteropServices::Out] System::Int64 %depth,
+	[System::Runtime::InteropServices::Out] System::Int64 %diameter,
+	[System::Runtime::InteropServices::Out] double %x,
+	[System::Runtime::InteropServices::Out] double %y,
+	[System::Runtime::InteropServices::Out] double %z
+	);
+</pre>
+
+<P>The <b>getinfoCircularOutsideProfile()</b> function 
+
+
+<h2 class=rule><a name=getinfoClosedCircularPocket></a>getinfoClosedCircularPocket()</h2>
+<pre>
+void <b>getinfoClosedCircularPocket</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] System::Int64 %profile_id,
+	[System::Runtime::InteropServices::Out] System::Int64 %depth,
+	[System::Runtime::InteropServices::Out] System::Int64 %diameter,
+	[System::Runtime::InteropServices::Out] double %x,
+	[System::Runtime::InteropServices::Out] double %y,
+	[System::Runtime::InteropServices::Out] double %z
+	);
+</pre>
+
+<P>The <b>getinfoClosedCircularPocket()</b> function 
+
+
+<h2 class=rule><a name=getinfoClosedPathOutsideProfile></a>getinfoClosedPathOutsideProfile()</h2>
+<pre>
+void <b>getinfoClosedPathOutsideProfile</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] System::Int64 %profile_id,
+	[System::Runtime::InteropServices::Out] System::Int64 %depth,
+	[System::Runtime::InteropServices::Out] double %x,
+	[System::Runtime::InteropServices::Out] double %y,
+	[System::Runtime::InteropServices::Out] double %z
+	);
+</pre>
+
+<P>The <b>getinfoClosedPathOutsideProfile()</b> function 
+
+
+<h2 class=rule><a name=getinfoClosedPathPocket></a>getinfoClosedPathPocket()</h2>
+<pre>
+void <b>getinfoClosedPathPocket</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] System::Int64 %profile_id,
+	[System::Runtime::InteropServices::Out] System::Int64 %depth,
+	[System::Runtime::InteropServices::Out] double %x,
+	[System::Runtime::InteropServices::Out] double %y,
+	[System::Runtime::InteropServices::Out] double %z
+	);
+</pre>
+
+<P>The <b>getinfoClosedPathPocket()</b> function 
+
+
+<h2 class=rule><a name=getinfoClosedPocket></a>getinfoClosedPocket()</h2>
+<pre>
+void <b>getinfoClosedPocket</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] System::Int64 %path_id,
+	[System::Runtime::InteropServices::Out] System::Int64 %depth,
+	[System::Runtime::InteropServices::Out] double %x,
+	[System::Runtime::InteropServices::Out] double %y,
+	[System::Runtime::InteropServices::Out] double %z,
+	[System::Runtime::InteropServices::Out] System::Int64 %num_boss
+	);
+</pre>
+
+<P>The <b>getinfoClosedPocket()</b> function 
+
+
+<h2 class=rule><a name=getinfoClosedRectangularPocket></a>getinfoClosedRectangularPocket()</h2>
+<pre>
+void <b>getinfoClosedRectangularPocket</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] System::Int64 %profile_id,
+	[System::Runtime::InteropServices::Out] System::Int64 %depth,
+	[System::Runtime::InteropServices::Out] System::Int64 %length,
+	[System::Runtime::InteropServices::Out] System::Int64 %width,
+	[System::Runtime::InteropServices::Out] System::Int64 %orthogonal_radius,
+	[System::Runtime::InteropServices::Out] double %x,
+	[System::Runtime::InteropServices::Out] double %y,
+	[System::Runtime::InteropServices::Out] double %z
+	);
+</pre>
+
+<P>The <b>getinfoClosedRectangularPocket()</b> function 
+
+
+<h2 class=rule><a name=getinfoCylinderRawpiece></a>getinfoCylinderRawpiece()</h2>
+<pre>
+void <b>getinfoCylinderRawpiece</b> (
+	[System::Runtime::InteropServices::Out] System::String^ %name,
+	[System::Runtime::InteropServices::Out] System::Int64 %wp_id,
+	[System::Runtime::InteropServices::Out] double %x,
+	[System::Runtime::InteropServices::Out] double %y,
+	[System::Runtime::InteropServices::Out] double %z,
+	[System::Runtime::InteropServices::Out] System::Int64 %diameter,
+	[System::Runtime::InteropServices::Out] System::Int64 %length
+	);
+</pre>
+
+<P>The <b>getinfoCylinderRawpiece()</b> function 
+
+
+<h2 class=rule><a name=getinfoCylindricalEdges></a>getinfoCylindricalEdges()</h2>
+<pre>
+void <b>getinfoCylindricalEdges</b> (
+	System::Int64 fr,
+	double radius,
+	[System::Runtime::InteropServices::Out] System::Boolean %is_ok,
+	[System::Runtime::InteropServices::Out] double %x1,
+	[System::Runtime::InteropServices::Out] double %y1,
+	[System::Runtime::InteropServices::Out] double %z1,
+	[System::Runtime::InteropServices::Out] double %x2,
+	[System::Runtime::InteropServices::Out] double %y2,
+	[System::Runtime::InteropServices::Out] double %z2,
+	[System::Runtime::InteropServices::Out] double %x3,
+	[System::Runtime::InteropServices::Out] double %y3,
+	[System::Runtime::InteropServices::Out] double %z3,
+	[System::Runtime::InteropServices::Out] double %x4,
+	[System::Runtime::InteropServices::Out] double %y4,
+	[System::Runtime::InteropServices::Out] double %z4
+	);
+</pre>
+
+<P>The <b>getinfoCylindricalEdges()</b> function 
+
+
+<h2 class=rule><a name=getinfoCylindricalFace></a>getinfoCylindricalFace()</h2>
+<pre>
+void <b>getinfoCylindricalFace</b> (
+	System::Int64 fr,
+	[System::Runtime::InteropServices::Out] System::Boolean %is_ok,
+	[System::Runtime::InteropServices::Out] System::Boolean %is_cyl,
+	[System::Runtime::InteropServices::Out] System::Int64 %loop_count,
+	[System::Runtime::InteropServices::Out] double %x,
+	[System::Runtime::InteropServices::Out] double %y,
+	[System::Runtime::InteropServices::Out] double %z,
+	[System::Runtime::InteropServices::Out] double %i,
+	[System::Runtime::InteropServices::Out] double %j,
+	[System::Runtime::InteropServices::Out] double %k,
+	[System::Runtime::InteropServices::Out] double %a,
+	[System::Runtime::InteropServices::Out] double %b,
+	[System::Runtime::InteropServices::Out] double %c
+	);
+</pre>
+
+<P>The <b>getinfoCylindricalFace()</b> function 
+
+
+<h2 class=rule><a name=getinfoDisplayFunction></a>getinfoDisplayFunction()</h2>
+<pre>
+void <b>getinfoDisplayFunction</b> (
+	System::Int64 obj,
+	System::Int64 index,
+	[System::Runtime::InteropServices::Out] System::Int64 %dm_id,
+	[System::Runtime::InteropServices::Out] System::String^ %name,
+	[System::Runtime::InteropServices::Out] System::String^ %msg
+	);
+</pre>
+
+<P>The <b>getinfoDisplayFunction()</b> function 
+
+
+<h2 class=rule><a name=getinfoDrillingOperation></a>getinfoDrillingOperation()</h2>
+<pre>
+void <b>getinfoDrillingOperation</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] System::Boolean %is_drilling,
+	[System::Runtime::InteropServices::Out] System::Int64 %cutting_depth,
+	[System::Runtime::InteropServices::Out] System::Int64 %dwell_time_bottom,
+	[System::Runtime::InteropServices::Out] System::Int64 %feed_on_retract,
+	[System::Runtime::InteropServices::Out] System::Int64 %previous_diameter
+	);
+</pre>
+
+<P>The <b>getinfoDrillingOperation()</b> function 
+
+
+<h2 class=rule><a name=getinfoEdgeRound></a>getinfoEdgeRound()</h2>
+<pre>
+void <b>getinfoEdgeRound</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] System::Int64 %edge_round_face_id,
+	[System::Runtime::InteropServices::Out] System::Int64 %radius,
+	[System::Runtime::InteropServices::Out] System::Int64 %first_face_offset,
+	[System::Runtime::InteropServices::Out] System::Int64 %first_face_id,
+	[System::Runtime::InteropServices::Out] System::Int64 %second_face_offset,
+	[System::Runtime::InteropServices::Out] System::Int64 %second_face_id
+	);
+</pre>
+
+<P>The <b>getinfoEdgeRound()</b> function 
+
+
+<h2 class=rule><a name=getinfoFinishOrRough></a>getinfoFinishOrRough()</h2>
+<pre>
+void <b>getinfoFinishOrRough</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] System::Boolean %is_finish,
+	[System::Runtime::InteropServices::Out] System::Boolean %is_rough
+	);
+</pre>
+
+<P>The <b>getinfoFinishOrRough()</b> function 
+
+
+<h2 class=rule><a name=getinfoFreeformMillingOperation></a>getinfoFreeformMillingOperation()</h2>
+<pre>
+void <b>getinfoFreeformMillingOperation</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] System::Boolean %is_milling
+	);
+</pre>
+
+<P>The <b>getinfoFreeformMillingOperation()</b> function 
+
+
+<h2 class=rule><a name=getinfoHoleConicalBottom></a>getinfoHoleConicalBottom()</h2>
+<pre>
+void <b>getinfoHoleConicalBottom</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] System::Int64 %bottom_id,
+	[System::Runtime::InteropServices::Out] System::Int64 %tip_angle,
+	[System::Runtime::InteropServices::Out] System::Int64 %tip_radius
+	);
+</pre>
+
+<P>The <b>getinfoHoleConicalBottom()</b> function 
+
+
+<h2 class=rule><a name=getinfoHoleFlatBottom></a>getinfoHoleFlatBottom()</h2>
+<pre>
+void <b>getinfoHoleFlatBottom</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] System::Int64 %bottom_id
+	);
+</pre>
+
+<P>The <b>getinfoHoleFlatBottom()</b> function 
+
+
+<h2 class=rule><a name=getinfoHoleFlatWithRadiusBottom></a>getinfoHoleFlatWithRadiusBottom()</h2>
+<pre>
+void <b>getinfoHoleFlatWithRadiusBottom</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] System::Int64 %bottom_id,
+	[System::Runtime::InteropServices::Out] System::Int64 %corner_radius
+	);
+</pre>
+
+<P>The <b>getinfoHoleFlatWithRadiusBottom()</b> function 
+
+
+<h2 class=rule><a name=getinfoHoleSphericalBottom></a>getinfoHoleSphericalBottom()</h2>
+<pre>
+void <b>getinfoHoleSphericalBottom</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] System::Int64 %bottom_id,
+	[System::Runtime::InteropServices::Out] System::Int64 %radius
+	);
+</pre>
+
+<P>The <b>getinfoHoleSphericalBottom()</b> function 
+
+
+<h2 class=rule><a name=getinfoHoleTaperAngle></a>getinfoHoleTaperAngle()</h2>
+<pre>
+void <b>getinfoHoleTaperAngle</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] System::Int64 %ret
+	);
+</pre>
+
+<P>The <b>getinfoHoleTaperAngle()</b> function 
+
+
+<h2 class=rule><a name=getinfoHoleThroughBottom></a>getinfoHoleThroughBottom()</h2>
+<pre>
+void <b>getinfoHoleThroughBottom</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] System::Int64 %bottom_id
+	);
+</pre>
+
+<P>The <b>getinfoHoleThroughBottom()</b> function 
+
+
+<h2 class=rule><a name=getinfoLinearOutsideProfile></a>getinfoLinearOutsideProfile()</h2>
+<pre>
+void <b>getinfoLinearOutsideProfile</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] System::Int64 %profile_id,
+	[System::Runtime::InteropServices::Out] System::Int64 %depth,
+	[System::Runtime::InteropServices::Out] System::Int64 %length,
+	[System::Runtime::InteropServices::Out] double %x,
+	[System::Runtime::InteropServices::Out] double %y,
+	[System::Runtime::InteropServices::Out] double %z
+	);
+</pre>
+
+<P>The <b>getinfoLinearOutsideProfile()</b> function 
+
+
+<h2 class=rule><a name=getinfoMultistepDrillingOperation></a>getinfoMultistepDrillingOperation()</h2>
+<pre>
+void <b>getinfoMultistepDrillingOperation</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] System::Boolean %is_multistep_drilling,
+	[System::Runtime::InteropServices::Out] System::Int64 %cutting_depth,
+	[System::Runtime::InteropServices::Out] System::Int64 %dwell_time_bottom,
+	[System::Runtime::InteropServices::Out] System::Int64 %feed_on_retract,
+	[System::Runtime::InteropServices::Out] System::Int64 %previous_diameter,
+	[System::Runtime::InteropServices::Out] System::Int64 %depth_of_step,
+	[System::Runtime::InteropServices::Out] System::Int64 %first_depth,
+	[System::Runtime::InteropServices::Out] System::Int64 %retract_distance,
+	[System::Runtime::InteropServices::Out] System::Int64 %dwell_time_step
+	);
+</pre>
+
+<P>The <b>getinfoMultistepDrillingOperation()</b> function 
+
+
+<h2 class=rule><a name=getinfoNestedWorkplan></a>getinfoNestedWorkplan()</h2>
+<pre>
+void <b>getinfoNestedWorkplan</b> (
+	System::Int64 obj,
+	System::Int64 index,
+	[System::Runtime::InteropServices::Out] System::Int64 %wp_id2,
+	[System::Runtime::InteropServices::Out] System::String^ %name
+	);
+</pre>
+
+<P>The <b>getinfoNestedWorkplan()</b> function 
+
+
+<h2 class=rule><a name=getinfoOpenPartialCircularPocket></a>getinfoOpenPartialCircularPocket()</h2>
+<pre>
+void <b>getinfoOpenPartialCircularPocket</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] System::Int64 %profile_id,
+	[System::Runtime::InteropServices::Out] System::Int64 %depth,
+	[System::Runtime::InteropServices::Out] System::Int64 %radius,
+	[System::Runtime::InteropServices::Out] System::Int64 %sweep_angle,
+	[System::Runtime::InteropServices::Out] double %x,
+	[System::Runtime::InteropServices::Out] double %y,
+	[System::Runtime::InteropServices::Out] double %z
+	);
+</pre>
+
+<P>The <b>getinfoOpenPartialCircularPocket()</b> function 
+
+
+<h2 class=rule><a name=getinfoOpenPathOutsideProfile></a>getinfoOpenPathOutsideProfile()</h2>
+<pre>
+void <b>getinfoOpenPathOutsideProfile</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] System::Int64 %profile_id,
+	[System::Runtime::InteropServices::Out] System::Int64 %depth,
+	[System::Runtime::InteropServices::Out] double %x,
+	[System::Runtime::InteropServices::Out] double %y,
+	[System::Runtime::InteropServices::Out] double %z
+	);
+</pre>
+
+<P>The <b>getinfoOpenPathOutsideProfile()</b> function 
+
+
+<h2 class=rule><a name=getinfoOpenPathPocket></a>getinfoOpenPathPocket()</h2>
+<pre>
+void <b>getinfoOpenPathPocket</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] System::Int64 %profile_id,
+	[System::Runtime::InteropServices::Out] System::Int64 %depth,
+	[System::Runtime::InteropServices::Out] double %x,
+	[System::Runtime::InteropServices::Out] double %y,
+	[System::Runtime::InteropServices::Out] double %z
+	);
+</pre>
+
+<P>The <b>getinfoOpenPathPocket()</b> function 
+
+
+<h2 class=rule><a name=getinfoOpenPocket></a>getinfoOpenPocket()</h2>
+<pre>
+void <b>getinfoOpenPocket</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] System::Int64 %path_id,
+	[System::Runtime::InteropServices::Out] System::Int64 %depth,
+	[System::Runtime::InteropServices::Out] double %x,
+	[System::Runtime::InteropServices::Out] double %y,
+	[System::Runtime::InteropServices::Out] double %z,
+	[System::Runtime::InteropServices::Out] System::Int64 %num_boss
+	);
+</pre>
+
+<P>The <b>getinfoOpenPocket()</b> function 
+
+
+<h2 class=rule><a name=getinfoOpenRectangularPocket></a>getinfoOpenRectangularPocket()</h2>
+<pre>
+void <b>getinfoOpenRectangularPocket</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] System::Int64 %profile_id,
+	[System::Runtime::InteropServices::Out] System::Int64 %depth,
+	[System::Runtime::InteropServices::Out] System::Int64 %length,
+	[System::Runtime::InteropServices::Out] System::Int64 %width,
+	[System::Runtime::InteropServices::Out] System::Int64 %orthogonal_radius,
+	[System::Runtime::InteropServices::Out] double %x,
+	[System::Runtime::InteropServices::Out] double %y,
+	[System::Runtime::InteropServices::Out] double %z
+	);
+</pre>
+
+<P>The <b>getinfoOpenRectangularPocket()</b> function 
+
+
+<h2 class=rule><a name=getinfoOutsideProfile></a>getinfoOutsideProfile()</h2>
+<pre>
+void <b>getinfoOutsideProfile</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] System::Int64 %path_id,
+	[System::Runtime::InteropServices::Out] System::Int64 %depth,
+	[System::Runtime::InteropServices::Out] double %x,
+	[System::Runtime::InteropServices::Out] double %y,
+	[System::Runtime::InteropServices::Out] double %z
+	);
+</pre>
+
+<P>The <b>getinfoOutsideProfile()</b> function 
+
+
+<h2 class=rule><a name=getinfoPartialCircularOutsideProfile></a>getinfoPartialCircularOutsideProfile()</h2>
+<pre>
+void <b>getinfoPartialCircularOutsideProfile</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] System::Int64 %profile_id,
+	[System::Runtime::InteropServices::Out] System::Int64 %depth,
+	[System::Runtime::InteropServices::Out] System::Int64 %radius,
+	[System::Runtime::InteropServices::Out] System::Int64 %sweep_angle,
+	[System::Runtime::InteropServices::Out] double %x,
+	[System::Runtime::InteropServices::Out] double %y,
+	[System::Runtime::InteropServices::Out] double %z
+	);
+</pre>
+
+<P>The <b>getinfoPartialCircularOutsideProfile()</b> function 
+
+
+<h2 class=rule><a name=getinfoPathBoss></a>getinfoPathBoss()</h2>
+<pre>
+void <b>getinfoPathBoss</b> (
+	System::Int64 obj,
+	System::Int64 index,
+	[System::Runtime::InteropServices::Out] System::Int64 %profile_id,
+	[System::Runtime::InteropServices::Out] System::Int64 %height,
+	[System::Runtime::InteropServices::Out] double %x,
+	[System::Runtime::InteropServices::Out] double %y,
+	[System::Runtime::InteropServices::Out] double %z
+	);
+</pre>
+
+<P>The <b>getinfoPathBoss()</b> function 
+
+
+<h2 class=rule><a name=getinfoPlanarFace></a>getinfoPlanarFace()</h2>
+<pre>
+void <b>getinfoPlanarFace</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] System::Int64 %profile_id,
+	[System::Runtime::InteropServices::Out] System::Int64 %depth,
+	[System::Runtime::InteropServices::Out] System::Int64 %length,
+	[System::Runtime::InteropServices::Out] System::Int64 %width,
+	[System::Runtime::InteropServices::Out] double %x,
+	[System::Runtime::InteropServices::Out] double %y,
+	[System::Runtime::InteropServices::Out] double %z
+	);
+</pre>
+
+<P>The <b>getinfoPlanarFace()</b> function 
+
+
+<h2 class=rule><a name=getinfoPlanarMillingOperation></a>getinfoPlanarMillingOperation()</h2>
+<pre>
+void <b>getinfoPlanarMillingOperation</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] System::Boolean %is_milling,
+	[System::Runtime::InteropServices::Out] System::Boolean %is_rough,
+	[System::Runtime::InteropServices::Out] System::Int64 %bottom_allowance,
+	[System::Runtime::InteropServices::Out] System::Int64 %axial_depth
+	);
+</pre>
+
+<P>The <b>getinfoPlanarMillingOperation()</b> function 
+
+
+<h2 class=rule><a name=getinfoPocketFlatBottom></a>getinfoPocketFlatBottom()</h2>
+<pre>
+void <b>getinfoPocketFlatBottom</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] System::Int64 %bottom_id,
+	[System::Runtime::InteropServices::Out] System::Int64 %planar_radius
+	);
+</pre>
+
+<P>The <b>getinfoPocketFlatBottom()</b> function 
+
+
+<h2 class=rule><a name=getinfoPocketRadiusedBottom></a>getinfoPocketRadiusedBottom()</h2>
+<pre>
+void <b>getinfoPocketRadiusedBottom</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] System::Int64 %bottom_id,
+	[System::Runtime::InteropServices::Out] System::Int64 %radius,
+	[System::Runtime::InteropServices::Out] double %x,
+	[System::Runtime::InteropServices::Out] double %y,
+	[System::Runtime::InteropServices::Out] double %z
+	);
+</pre>
+
+<P>The <b>getinfoPocketRadiusedBottom()</b> function 
+
+
+<h2 class=rule><a name=getinfoPocketThroughBottom></a>getinfoPocketThroughBottom()</h2>
+<pre>
+void <b>getinfoPocketThroughBottom</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] System::Int64 %bottom_id
+	);
+</pre>
+
+<P>The <b>getinfoPocketThroughBottom()</b> function 
+
+
+<h2 class=rule><a name=getinfoProbingWorkingstep></a>getinfoProbingWorkingstep()</h2>
+<pre>
+void <b>getinfoProbingWorkingstep</b> (
+	System::Int64 obj,
+	System::Int64 index,
+	[System::Runtime::InteropServices::Out] System::Int64 %ws_id,
+	[System::Runtime::InteropServices::Out] System::String^ %name
+	);
+</pre>
+
+<P>The <b>getinfoProbingWorkingstep()</b> function 
+
+
+<h2 class=rule><a name=getinfoProfileAtEnd></a>getinfoProfileAtEnd()</h2>
+<pre>
+void <b>getinfoProfileAtEnd</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] System::Boolean %profile_at_end
+	);
+</pre>
+
+<P>The <b>getinfoProfileAtEnd()</b> function 
+
+
+<h2 class=rule><a name=getinfoProfileAtStart></a>getinfoProfileAtStart()</h2>
+<pre>
+void <b>getinfoProfileAtStart</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] System::Boolean %profile_at_start
+	);
+</pre>
+
+<P>The <b>getinfoProfileAtStart()</b> function 
+
+
+<h2 class=rule><a name=getinfoReamingOperation></a>getinfoReamingOperation()</h2>
+<pre>
+void <b>getinfoReamingOperation</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] System::Boolean %is_reaming,
+	[System::Runtime::InteropServices::Out] System::Int64 %cutting_depth,
+	[System::Runtime::InteropServices::Out] System::Int64 %dwell_time_bottom,
+	[System::Runtime::InteropServices::Out] System::Int64 %feed_on_retract,
+	[System::Runtime::InteropServices::Out] System::Int64 %previous_diameter,
+	[System::Runtime::InteropServices::Out] double %waiting_x,
+	[System::Runtime::InteropServices::Out] double %waiting_y,
+	[System::Runtime::InteropServices::Out] double %waiting_z,
+	[System::Runtime::InteropServices::Out] System::Int64 %depth_of_test_cut
+	);
+</pre>
+
+<P>The <b>getinfoReamingOperation()</b> function 
+
+
+<h2 class=rule><a name=getinfoRectangularBoss></a>getinfoRectangularBoss()</h2>
+<pre>
+void <b>getinfoRectangularBoss</b> (
+	System::Int64 obj,
+	System::Int64 index,
+	[System::Runtime::InteropServices::Out] System::Int64 %profile_id,
+	[System::Runtime::InteropServices::Out] System::Int64 %height,
+	[System::Runtime::InteropServices::Out] System::Int64 %length,
+	[System::Runtime::InteropServices::Out] System::Int64 %width,
+	[System::Runtime::InteropServices::Out] double %x,
+	[System::Runtime::InteropServices::Out] double %y,
+	[System::Runtime::InteropServices::Out] double %z
+	);
+</pre>
+
+<P>The <b>getinfoRectangularBoss()</b> function 
+
+
+<h2 class=rule><a name=getinfoRectangularOutsideProfile></a>getinfoRectangularOutsideProfile()</h2>
+<pre>
+void <b>getinfoRectangularOutsideProfile</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] System::Int64 %profile_id,
+	[System::Runtime::InteropServices::Out] System::Int64 %depth,
+	[System::Runtime::InteropServices::Out] System::Int64 %length,
+	[System::Runtime::InteropServices::Out] System::Int64 %width,
+	[System::Runtime::InteropServices::Out] double %x,
+	[System::Runtime::InteropServices::Out] double %y,
+	[System::Runtime::InteropServices::Out] double %z
+	);
+</pre>
+
+<P>The <b>getinfoRectangularOutsideProfile()</b> function 
+
+
+<h2 class=rule><a name=getinfoRoundHole></a>getinfoRoundHole()</h2>
+<pre>
+void <b>getinfoRoundHole</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] System::Int64 %profile_id,
+	[System::Runtime::InteropServices::Out] System::Int64 %depth,
+	[System::Runtime::InteropServices::Out] System::Int64 %diameter,
+	[System::Runtime::InteropServices::Out] double %x,
+	[System::Runtime::InteropServices::Out] double %y,
+	[System::Runtime::InteropServices::Out] double %z
+	);
+</pre>
+
+<P>The <b>getinfoRoundHole()</b> function 
+
+
+<h2 class=rule><a name=getinfoRoundedEnd></a>getinfoRoundedEnd()</h2>
+<pre>
+void <b>getinfoRoundedEnd</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] System::Int64 %profile_id,
+	[System::Runtime::InteropServices::Out] System::Int64 %depth,
+	[System::Runtime::InteropServices::Out] System::Int64 %radius,
+	[System::Runtime::InteropServices::Out] System::Int64 %sweep_angle,
+	[System::Runtime::InteropServices::Out] double %x,
+	[System::Runtime::InteropServices::Out] double %y,
+	[System::Runtime::InteropServices::Out] double %z
+	);
+</pre>
+
+<P>The <b>getinfoRoundedEnd()</b> function 
+
+
+<h2 class=rule><a name=getinfoRoundedUProfile></a>getinfoRoundedUProfile()</h2>
+<pre>
+void <b>getinfoRoundedUProfile</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] System::Int64 %width
+	);
+</pre>
+
+<P>The <b>getinfoRoundedUProfile()</b> function 
+
+
+<h2 class=rule><a name=getinfoSideMillingOperation></a>getinfoSideMillingOperation()</h2>
+<pre>
+void <b>getinfoSideMillingOperation</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] System::Boolean %is_milling,
+	[System::Runtime::InteropServices::Out] System::Boolean %is_rough,
+	[System::Runtime::InteropServices::Out] System::Int64 %side_allowance,
+	[System::Runtime::InteropServices::Out] System::Int64 %axial_depth,
+	[System::Runtime::InteropServices::Out] System::Int64 %radial_depth
+	);
+</pre>
+
+<P>The <b>getinfoSideMillingOperation()</b> function 
+
+
+<h2 class=rule><a name=getinfoSlot></a>getinfoSlot()</h2>
+<pre>
+void <b>getinfoSlot</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] System::Int64 %profile_id,
+	[System::Runtime::InteropServices::Out] System::Int64 %start_id,
+	[System::Runtime::InteropServices::Out] System::Int64 %end_id,
+	[System::Runtime::InteropServices::Out] System::Int64 %depth,
+	[System::Runtime::InteropServices::Out] double %x,
+	[System::Runtime::InteropServices::Out] double %y,
+	[System::Runtime::InteropServices::Out] double %z
+	);
+</pre>
+
+<P>The <b>getinfoSlot()</b> function 
+
+
+<h2 class=rule><a name=getinfoSlotEnd></a>getinfoSlotEnd()</h2>
+<pre>
+void <b>getinfoSlotEnd</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] System::String^ %type,
+	[System::Runtime::InteropServices::Out] System::Int64 %first_radius,
+	[System::Runtime::InteropServices::Out] System::Int64 %second_radius
+	);
+</pre>
+
+<P>The <b>getinfoSlotEnd()</b> function 
+
+
+<h2 class=rule><a name=getinfoSquareUProfile></a>getinfoSquareUProfile()</h2>
+<pre>
+void <b>getinfoSquareUProfile</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] double %width,
+	[System::Runtime::InteropServices::Out] System::Int64 %first_radius,
+	[System::Runtime::InteropServices::Out] System::Int64 %first_angle,
+	[System::Runtime::InteropServices::Out] System::Int64 %second_radius,
+	[System::Runtime::InteropServices::Out] System::Int64 %second_angle
+	);
+</pre>
+
+<P>The <b>getinfoSquareUProfile()</b> function 
+
+
+<h2 class=rule><a name=getinfoStep></a>getinfoStep()</h2>
+<pre>
+void <b>getinfoStep</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] System::Int64 %profile_id,
+	[System::Runtime::InteropServices::Out] System::Int64 %profile_angle,
+	[System::Runtime::InteropServices::Out] System::Int64 %profile_radius,
+	[System::Runtime::InteropServices::Out] System::Int64 %tilt_angle,
+	[System::Runtime::InteropServices::Out] System::Int64 %depth,
+	[System::Runtime::InteropServices::Out] double %x,
+	[System::Runtime::InteropServices::Out] double %y,
+	[System::Runtime::InteropServices::Out] double %z
+	);
+</pre>
+
+<P>The <b>getinfoStep()</b> function 
+
+
+<h2 class=rule><a name=getinfoTappingOperation></a>getinfoTappingOperation()</h2>
+<pre>
+void <b>getinfoTappingOperation</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] System::Boolean %is_tapping,
+	[System::Runtime::InteropServices::Out] System::Int64 %cutting_depth,
+	[System::Runtime::InteropServices::Out] System::Int64 %compensation_chuck_required,
+	[System::Runtime::InteropServices::Out] System::Int64 %dwell_time_bottom,
+	[System::Runtime::InteropServices::Out] System::Int64 %feed_on_retract,
+	[System::Runtime::InteropServices::Out] System::Int64 %previous_diameter
+	);
+</pre>
+
+<P>The <b>getinfoTappingOperation()</b> function 
+
+
+<h2 class=rule><a name=getinfoWorkingstep></a>getinfoWorkingstep()</h2>
+<pre>
+void <b>getinfoWorkingstep</b> (
+	System::Int64 obj,
+	System::Int64 index,
+	[System::Runtime::InteropServices::Out] System::Int64 %ws_id,
+	[System::Runtime::InteropServices::Out] System::String^ %name
+	);
+</pre>
+
+<P>The <b>getinfoWorkingstep()</b> function 
+
+
+<h2 class=rule><a name=hasTolerance></a>hasTolerance()</h2>
+<pre>
+void <b>hasTolerance</b> (
+	System::Int64 ri
+	);
+</pre>
+
+<P>The <b>hasTolerance()</b> function 
+
+
+<h2 class=rule><a name=location></a>location()</h2>
+<pre>
+void <b>location</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] System::Int64 %ax,
+	[System::Runtime::InteropServices::Out] double %x,
+	[System::Runtime::InteropServices::Out] double %y,
+	[System::Runtime::InteropServices::Out] double %z
+	);
+</pre>
+
+<P>The <b>location()</b> function 
+
+
+<h2 class=rule><a name=newSearch></a>newSearch()</h2>
+<pre>
+void <b>newSearch</b> (
+	System::String^ name
+	);
+</pre>
+
+<P>The <b>newSearch()</b> function 
+
+
+<h2 class=rule><a name=project></a>project()</h2>
+<pre>
+void <b>project</b> (
+	[System::Runtime::InteropServices::Out] System::String^ %prj_name,
+	[System::Runtime::InteropServices::Out] System::String^ %wpk_name
+	);
+</pre>
+
+<P>The <b>project()</b> function 
+
+
+<h2 class=rule><a name=reset></a>reset()</h2>
+<pre>
+void <b>reset</b> ();
+</pre>
+
+<P>The <b>reset()</b> function 
+
+
+<h2 class=rule><a name=saveFile></a>saveFile()</h2>
+<pre>
+void <b>saveFile</b> (
+	System::String^ filename,
+	System::Boolean asModules
+	);
+</pre>
+
+<P>The <b>saveFile()</b> function 
+
+
+<h2 class=rule><a name=search></a>search()</h2>
+<pre>
+void <b>search</b> (
+	System::String^ name,
+	System::Boolean force_p21
+	);
+</pre>
+
+<P>The <b>search()</b> function 
+
+
+<h2 class=rule><a name=search224></a>search224()</h2>
+<pre>
+void <b>search224</b> (
+	System::String^ name,
+	System::Boolean force_p21
+	);
+</pre>
+
+<P>The <b>search224()</b> function 
+
+
+<h2 class=rule><a name=setAngleUnit></a>setAngleUnit()</h2>
+<pre>
+void <b>setAngleUnit</b> (
+	System::String^ u
+	);
+</pre>
+
+<P>The <b>setAngleUnit()</b> function 
+
+
+<h2 class=rule><a name=setFeedUnit></a>setFeedUnit()</h2>
+<pre>
+void <b>setFeedUnit</b> (
+	System::String^ u
+	);
+</pre>
+
+<P>The <b>setFeedUnit()</b> function 
+
+
+<h2 class=rule><a name=setLengthUnit></a>setLengthUnit()</h2>
+<pre>
+void <b>setLengthUnit</b> (
+	System::String^ u
+	);
+</pre>
+
+<P>The <b>setLengthUnit()</b> function 
+
+
+<h2 class=rule><a name=setSpeedUnit></a>setSpeedUnit()</h2>
+<pre>
+void <b>setSpeedUnit</b> (
+	System::String^ u
+	);
+</pre>
+
+<P>The <b>setSpeedUnit()</b> function 
+
+
+<h2 class=rule><a name=startPoint></a>startPoint()</h2>
+<pre>
+void <b>startPoint</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] double %x,
+	[System::Runtime::InteropServices::Out] double %y,
+	[System::Runtime::InteropServices::Out] double %z
+	);
+</pre>
+
+<P>The <b>startPoint()</b> function 
+
+
+<h2 class=rule><a name=validatePlanarFace></a>validatePlanarFace()</h2>
+<pre>
+void <b>validatePlanarFace</b> (
+	System::Int64 rep_obj,
+	[System::Runtime::InteropServices::Out] System::Boolean %is_ok,
+	[System::Runtime::InteropServices::Out] System::Boolean %is_plane,
+	[System::Runtime::InteropServices::Out] System::Int64 %loop_count,
+	[System::Runtime::InteropServices::Out] double %x,
+	[System::Runtime::InteropServices::Out] double %y,
+	[System::Runtime::InteropServices::Out] double %z,
+	[System::Runtime::InteropServices::Out] double %i,
+	[System::Runtime::InteropServices::Out] double %j,
+	[System::Runtime::InteropServices::Out] double %k,
+	[System::Runtime::InteropServices::Out] double %a,
+	[System::Runtime::InteropServices::Out] double %b,
+	[System::Runtime::InteropServices::Out] double %c
+	);
+</pre>
+
+<P>The <b>validatePlanarFace()</b> function 
+
+
+<h2 class=rule><a name=workplan></a>workplan()</h2>
+<pre>
+void <b>workplan</b> (
+	System::Int64 obj,
+	[System::Runtime::InteropServices::Out] System::Int64 %size,
+	[System::Runtime::InteropServices::Out] System::String^ %name
+	);
+</pre>
+
+<P>The <b>workplan()</b> function 
+
+
+</div>
+
+<div class="copyright">
+  Copyright &copy; 2016 STEP Tools Inc. All Rights Reserved.<br>
+</div>
+</BODY>
+</HTML>

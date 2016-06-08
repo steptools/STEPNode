@@ -50,6 +50,7 @@ NAN_MODULE_INIT(Finder::Init)
 	Nan::SetPrototypeMethod(tpl, "APIUnitsFeed", APIUnitsFeed);
 	Nan::SetPrototypeMethod(tpl, "APIUnitsSpeed", APIUnitsSpeed);
 	Nan::SetPrototypeMethod(tpl, "GetCompoundFeatureCount", GetCompoundFeatureCount);
+	Nan::SetPrototypeMethod(tpl, "GetExecutableDistance", GetExecutableDistance);
 	Nan::SetPrototypeMethod(tpl, "GetFaceEdgeCount", GetFaceEdgeCount);
 	Nan::SetPrototypeMethod(tpl, "GetFaceEdgeNextPoint", GetFaceEdgeCount);
 	Nan::SetPrototypeMethod(tpl, "GetFeatureID", GetFeatureID);
@@ -146,6 +147,8 @@ NAN_METHOD(Finder::APIUnitsSpeed) {
     delete[] b;
 }
 
+
+
 NAN_METHOD(Finder::GetCompoundFeatureCount) {
 
     Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
@@ -170,6 +173,35 @@ NAN_METHOD(Finder::GetCompoundFeatureCount) {
 
     info.GetReturnValue().Set(size);
     return;
+}
+
+NAN_METHOD(Finder::GetExecutableDistance)
+{
+	Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+	if (find == 0) // Throw exception
+		return;
+
+	if (info.Length() != 1) // incorrect number of arguments
+		return;
+
+	if (!info[0]->IsNumber()) // invalid argument
+		return;
+
+	// get this executable's id
+	int64_t exe_id = info[0]->IntegerValue();
+
+	double distance = 0.0;
+	double over_time, base_time;
+
+	const char *str1, *str2;
+
+	if (!find->_find->compute_best_feed_time(
+		(int)exe_id, distance, base_time, over_time, str1, str2
+		))	// cpp error
+		return;
+
+	info.GetReturnValue().Set(distance);
+	return;
 }
 
 NAN_METHOD(Finder::GetFaceEdgeCount)
@@ -362,7 +394,7 @@ NAN_METHOD(Finder::SaveAsModules)
     if (find == 0) //Throw Exception
 	return;
 
-    if (!info[0]->IsUndefined())
+    if (info[0]->IsUndefined())
 	return;
 
     if (!info[0]->IsString())
@@ -382,7 +414,7 @@ NAN_METHOD(Finder::SaveAsP21)
 	if (find == 0) //Throw Exception
 		return;
 
-	if (!info[0]->IsUndefined())
+	if (info[0]->IsUndefined())
 		return;
 
 	if (!info[0]->IsString())
