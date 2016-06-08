@@ -94,6 +94,9 @@ public:
     //string GetWorkplanName();
     static NAN_METHOD(GetWorkplanName);
 
+    //int GetWorkplanSize();
+    static NAN_METHOD(GetWorkplanSize);
+
     //int GetSelectiveExecutableCount( int sl_id)
     static NAN_METHOD(GetSelectiveExecutableCount);
 
