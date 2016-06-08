@@ -4897,9 +4897,22 @@ name of an executable.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetMaterialName></a>GetMaterialName()</h2>
-<pre>
+    <pre class="dotnet">
 System::String^ <b>GetMaterialName</b> (
 	System::Int64 wp_id
+	);
+</pre>
+
+    <pre class="nodejs">
+string <b>GetMaterialName</b> (
+	int wp_id
+	);
+</pre>
+
+    <pre class="cpp">
+RoseBoolean <b>material</b> (
+	int wp_id,
+	const char * &name
 	);
 </pre>
 
@@ -11337,14 +11350,39 @@ of objects.
 <h2 class=rule>
 <a name=GetWorkplanProcessFeatureNext></a>
 <a name=GetWorkplanProcessFeatureCount></a>GetWorkplanProcessFeatureCount/Next()</h2>
-<pre>
+<pre class = "dotnet">
 System::Int64 <b>GetWorkplanProcessFeatureCount</b> (
 	System::Int64 wp_id
 	);
-
+</pre>
+<pre class = "nodejs">
+int <b>GetWorkplanProcessFeatureCount</b> (
+	int wp_id
+	);
+</pre>
+<pre class = "cpp">
+RoseBoolean <b>wp_process_feature_count</b> (
+	int wp_id, 
+	int &size
+	);
+</pre>
+<pre class = "dotnet">
 System::Int64 <b>GetWorkplanProcessFeatureNext</b> (
 	System::Int64 wp_id,
 	System::Int64 index
+	);
+</pre>
+<pre class = "nodejs">
+int <b>GetWorkplanProcessFeatureNext</b> (
+	int wp_id,
+	int index
+	);
+</pre>
+<pre class = "cpp">
+RoseBoolean <b>wp_process_feature_next</b> (
+	int wp_id, 
+	int index, 
+	int &fe_id
 	);
 </pre>
 
@@ -11455,14 +11493,39 @@ value.
 <h2 class=rule>
 <a name=GetWorkplanToolNext></a>
 <a name=GetWorkplanToolCount></a>GetWorkplanToolCount/Next()</h2>
-<pre>
+<pre class = "dotnet">
 System::Int64 <b>GetWorkplanToolCount</b> (
 	System::Int64 wp_id
 	);
-
+</pre>
+<pre class = "nodejs">
+int <b>GetWorkplanToolCount</b> (
+	int wp_id
+	);
+</pre>
+<pre class = "cpp">
+RoseBoolean <b>wp_tool_count</b> (
+	int wp_id, 
+	int &size
+	);
+</pre>
+<pre class = "dotnet">
 System::Int64 <b>GetWorkplanToolNext</b> (
 	System::Int64 wp_id,
 	System::Int64 index
+	);
+</pre>
+<pre class = "nodejs">
+int <b>GetWorkplanToolNext</b> (
+	int wp_id,
+	int index
+	);
+</pre>
+<pre class = "cpp">
+RoseBoolean <b>wp_tool_next</b> (
+	int wp_id, 
+	int index, 
+	int &tl_id
 	);
 </pre>
 
@@ -12021,9 +12084,22 @@ workplan that leads to all other executables.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=IsWorkplanWIthSetupAndFixture></a>IsWorkplanWIthSetupAndFixture()</h2>
-<pre>
+    <pre class="dotnet">
 System::Boolean <b>IsWorkplanWIthSetupAndFixture</b> (
 	System::Int64 exe_id
+	);
+</pre>
+
+    <pre class="nodejs">
+Boolean <b>IsWorkplanWIthSetupAndFixture</b> (
+	int exe_id
+	);
+</pre>
+
+    <pre class="cpp">
+RoseBoolean <b>is_workplan_with_setup_and_fixture</b> (
+	int exe_id,
+	int &flag
 	);
 </pre>
 
@@ -12033,9 +12109,22 @@ System::Boolean <b>IsWorkplanWIthSetupAndFixture</b> (
 <!-- ================================ -->
 <h2 class=rule>
 <a name=IsWorkplanWithSetup></a>IsWorkplanWithSetup()</h2>
-<pre>
+    <pre class="dotnet">
 System::Boolean <b>IsWorkplanWithSetup</b> (
 	System::Int64 exe_id
+	);
+</pre>
+
+    <pre class="nodejs">
+Boolean <b>IsWorkplanWithSetup</b> (
+	int exe_id
+	);
+</pre>
+
+    <pre class="cpp">
+RoseBoolean <b>is_workplan_with_setup</b> (
+	int exe_id,
+	int &flag
 	);
 </pre>
 
@@ -12057,9 +12146,22 @@ true if an executable is a workplan with a setup.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=IsWorkplanWithSetupAndFixtureMount></a>IsWorkplanWithSetupAndFixtureMount()</h2>
-<pre>
+    <pre class="dotnet">
 System::Boolean <b>IsWorkplanWithSetupAndFixtureMount</b> (
 	System::Int64 exe_id
+	);
+</pre>
+
+    <pre class="nodejs">
+Boolean <b>IsWorkplanWithSetupAndFixtureMount</b> (
+	int exe_id
+	);
+</pre>
+
+    <pre class="cpp">
+RoseBoolean <b>is_workplan_with_setup_and_fixture_mount</b> (
+	int exe_id,
+	int &flag
 	);
 </pre>
 
@@ -12083,9 +12185,22 @@ true if an executable is a workplan with a setup and a fixture.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=IsWorkplanWithSetupAndWorkpieceMount></a>IsWorkplanWithSetupAndWorkpieceMount()</h2>
-<pre>
+    <pre class="dotnet">
 System::Boolean <b>IsWorkplanWithSetupAndWorkpieceMount</b> (
 	System::Int64 exe_id
+	);
+</pre>
+
+    <pre class="nodejs">
+Boolean <b>IsWorkplanWithSetupAndWorkpieceMount</b> (
+	int exe_id
+	);
+</pre>
+
+    <pre class="cpp">
+RoseBoolean <b>is_workplan_with_setup_and_workpiece_mount</b> (
+	int exe_id,
+	int &flag
 	);
 </pre>
 

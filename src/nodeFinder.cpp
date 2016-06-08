@@ -66,6 +66,7 @@ NAN_MODULE_INIT(Finder::Init)
 	Nan::SetPrototypeMethod(tpl, "GetFeatureName", GetFeatureName);
 	Nan::SetPrototypeMethod(tpl, "GetFeatureOutsideProfileClosedCircular", GetFeatureOutsideProfileClosedCircular);
 	Nan::SetPrototypeMethod(tpl, "GetMainWorkplan", GetMainWorkplan);
+	Nan::SetPrototypeMethod(tpl, "GetMaterialName", GetMaterialName);
 	Nan::SetPrototypeMethod(tpl, "GetNestedExecutableCount", GetNestedExecutableCount);
 	Nan::SetPrototypeMethod(tpl, "GetNestedExecutableNext", GetNestedExecutableNext);
 	Nan::SetPrototypeMethod(tpl, "GetProcessFeed", GetProcessFeed);
@@ -73,12 +74,20 @@ NAN_MODULE_INIT(Finder::Init)
 	Nan::SetPrototypeMethod(tpl, "GetProjectName", GetProjectName);
 	Nan::SetPrototypeMethod(tpl, "GetWorkingstep", GetWorkingstep);
 	Nan::SetPrototypeMethod(tpl, "GetWorkplanName", GetWorkplanName);
+	Nan::SetPrototypeMethod(tpl, "GetWorkplanProcessFeatureCount", GetWorkplanProcessFeatureCount);
+	Nan::SetPrototypeMethod(tpl, "GetWorkplanProcessFeatureNext", GetWorkplanProcessFeatureNext);
 	Nan::SetPrototypeMethod(tpl, "GetWorkplanSize", GetWorkplanSize);
+	Nan::SetPrototypeMethod(tpl, "GetWorkplanToolCount", GetWorkplanToolCount);
+	Nan::SetPrototypeMethod(tpl, "GetWorkplanToolNext", GetWorkplanToolNext);
 	Nan::SetPrototypeMethod(tpl, "GetSelectiveExecutableCount", GetSelectiveExecutableCount);
 	Nan::SetPrototypeMethod(tpl, "IsEnabled", IsEnabled);
 	Nan::SetPrototypeMethod(tpl, "IsSelective", IsSelective);
 	Nan::SetPrototypeMethod(tpl, "IsWorkingstep", IsWorkingstep);
 	Nan::SetPrototypeMethod(tpl, "IsWorkplan", IsWorkplan);
+	Nan::SetPrototypeMethod(tpl, "IsWorkplanWIthSetupAndFixture", IsWorkplanWIthSetupAndFixture);
+	Nan::SetPrototypeMethod(tpl, "IsWorkplanWithSetup", IsWorkplanWithSetup);
+	Nan::SetPrototypeMethod(tpl, "IsWorkplanWithSetupAndFixtureMount", IsWorkplanWithSetupAndFixtureMount);
+	Nan::SetPrototypeMethod(tpl, "IsWorkplanWithSetupAndWorkpieceMount", IsWorkplanWithSetupAndWorkpieceMount);
 	Nan::SetPrototypeMethod(tpl, "OpenProject", OpenProject);
 	Nan::SetPrototypeMethod(tpl, "SaveAsModules", SaveAsModules);
 	Nan::SetPrototypeMethod(tpl, "SaveAsP21", SaveAsP21);
@@ -438,6 +447,10 @@ NAN_METHOD(Finder::GetFaceEdgeCount)
     Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
     if (find == 0) //Throw Exception
 	return;
+
+    if (info.Length() != 1)
+	return; 
+    
     if (info[0]->IsUndefined()) //Needs one arg
 	return;
 
@@ -456,7 +469,7 @@ NAN_METHOD(Finder::GetFaceEdgeNextPoint)
     Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
     if (find == 0) //Throw Exception
 	return;
-    if (info.Length() < 2) //Needs 2 args
+    if (info.Length() != 2) //Needs 2 args
 	return;
 
     double x1 = 0.0;
@@ -570,6 +583,30 @@ NAN_METHOD(Finder::GetMainWorkplan) {
     return;
 }
 
+NAN_METHOD(Finder::GetMaterialName)
+{
+    Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (find == 0) //Throw Exception
+	return;
+
+    if (info.Length() != 1)
+	return;
+
+    if (info[0]->IsUndefined()) //Needs one arg
+	return;
+
+    if (!info[0]->IsInt32())
+	return;
+
+    const char* name = 0;
+    if (!find->_find->material(Nan::To<int32_t>(info[0]).FromJust(), name)) //Throw Exception
+	return;
+
+
+    info.GetReturnValue().Set(CharTov8String((char *)name));
+    return;
+}
+
 NAN_METHOD(Finder::GetNestedExecutableCount)
 {
     Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
@@ -621,6 +658,7 @@ NAN_METHOD(Finder::GetProcessFeed) {
     if (!find->_find->feed_speed(ws_id.FromJust(), feed, dummy)) //Throw Exception
 	return;
     info.GetReturnValue().Set(feed);
+    return;
 }
 
 NAN_METHOD(Finder::GetProcessFeedUnit) {
@@ -637,6 +675,7 @@ NAN_METHOD(Finder::GetProcessFeedUnit) {
     if (!find->_find->feed_speed_unit(ws_id.FromJust(), (const char*&)unit, (const char*&)dummy)) //Throw Exception
 	return;
     info.GetReturnValue().Set(CharTov8String((char *)unit));
+    return;
 }
 
 NAN_METHOD(Finder::GetProjectName) {
@@ -714,6 +753,44 @@ NAN_METHOD(Finder::GetWorkplanName) {
     if (!find->_find->workplan(wp_id.FromJust(), nSize, (const char*&)wp_name)) //Throw Exception
 	return;
     info.GetReturnValue().Set(CharTov8String((char *)wp_name));
+    return;
+}
+
+NAN_METHOD(Finder::GetWorkplanProcessFeatureCount) {
+    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (find == 0) //Throw Exception
+	return;
+    if (info.Length() != 1) //Throw Exception
+	return;
+    if (!info[0]->IsInt32()) //Throw Exception
+	return;
+
+    int size = 0;
+    Nan::Maybe<int32_t> wp_id = Nan::To<int32_t>(info[0]);
+    if (!find->_find->wp_process_feature_count(wp_id.FromJust(), size)) //Throw Exception
+	return;
+    info.GetReturnValue().Set(size);
+    return;
+}
+
+NAN_METHOD(Finder::GetWorkplanProcessFeatureNext) {
+    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (find == 0) //Throw Exception
+	return;
+    if (info.Length() != 2) //Throw Exception
+	return;
+    if (!info[0]->IsInt32()) //Throw Exception
+	return;
+    if (!info[1]->IsInt32()) //Throw Exception
+	return;
+
+    int fe_id = 0;
+    Nan::Maybe<int32_t> wp_id = Nan::To<int32_t>(info[0]);
+    Nan::Maybe<int32_t> index = Nan::To<int32_t>(info[1]);
+    if (!find->_find->wp_process_feature_next(wp_id.FromJust(), index.FromJust(), fe_id)) //Throw Exception
+	return;
+    info.GetReturnValue().Set(fe_id);
+    return;
 }
 
 NAN_METHOD(Finder::GetWorkplanSize) {
@@ -731,6 +808,44 @@ NAN_METHOD(Finder::GetWorkplanSize) {
     if (!find->_find->workplan(wp_id.FromJust(), size, (const char*&)szName))
 	return;
     info.GetReturnValue().Set(size);
+    return;
+}
+
+NAN_METHOD(Finder::GetWorkplanToolCount) {
+    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (find == 0) //Throw Exception
+	return;
+    if (info.Length() != 1) //Throw Exception
+	return;
+    if (!info[0]->IsInt32()) //Throw Exception
+	return;
+
+    int size = 0;
+    Nan::Maybe<int32_t> wp_id = Nan::To<int32_t>(info[0]);
+    if (!find->_find->wp_tool_count(wp_id.FromJust(), size)) //Throw Exception
+	return;
+    info.GetReturnValue().Set(size);
+    return;
+}
+
+NAN_METHOD(Finder::GetWorkplanToolNext) {
+    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (find == 0) //Throw Exception
+	return;
+    if (info.Length() != 2) //Throw Exception
+	return;
+    if (!info[0]->IsInt32()) //Throw Exception
+	return;
+    if (!info[1]->IsInt32()) //Throw Exception
+	return;
+
+    int tl_id = 0;
+    Nan::Maybe<int32_t> wp_id = Nan::To<int32_t>(info[0]);
+    Nan::Maybe<int32_t> index = Nan::To<int32_t>(info[1]);
+    if (!find->_find->wp_tool_next(wp_id.FromJust(), index.FromJust(), tl_id)) //Throw Exception
+	return;
+    info.GetReturnValue().Set(tl_id);
+    return;
 }
 
 NAN_METHOD(Finder::IsEnabled) {
@@ -757,6 +872,9 @@ NAN_METHOD(Finder::IsSelective)
     if (find == 0) //Throw Exception
 	return;
 
+    if (info.Length() != 1)
+	return;
+    
     if (info[0]->IsUndefined())
 	return;
 
@@ -778,6 +896,9 @@ NAN_METHOD(Finder::IsWorkingstep)
     if (find == 0) //Throw Exception
 	return;
 
+    if (info.Length() != 1)
+	return; 
+    
     if (info[0]->IsUndefined())
 	return;
 
@@ -799,6 +920,9 @@ NAN_METHOD(Finder::IsWorkplan)
     if (find == 0) //Throw Exception
 	return;
 
+    if (info.Length() != 1)
+	return; 
+    
     if (info[0]->IsUndefined())
 	return;
 
@@ -808,6 +932,102 @@ NAN_METHOD(Finder::IsWorkplan)
     int flag = 0;
 
     if (!find->_find->is_workplan(Nan::To<int32_t>(info[0]).FromJust(), flag)) //Throw Exception
+	return;
+
+    info.GetReturnValue().Set((flag != 0));
+    return;
+}
+
+NAN_METHOD(Finder::IsWorkplanWIthSetupAndFixture)
+{
+    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (find == 0) //Throw Exception
+	return;
+
+    if (info.Length() != 1)
+	return; 
+    
+    if (info[0]->IsUndefined())
+	return;
+
+    if (!info[0]->IsInt32())
+	return;
+
+    int flag = 0;
+
+    if (!find->_find->is_workplan_with_setup_and_fixture(Nan::To<int32_t>(info[0]).FromJust(), flag)) //Throw Exception
+	return;
+
+    info.GetReturnValue().Set((flag != 0));
+    return;
+}
+
+NAN_METHOD(Finder::IsWorkplanWithSetup)
+{
+    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (find == 0) //Throw Exception
+	return;
+
+    if (info.Length() != 1)
+	return; 
+    
+    if (info[0]->IsUndefined())
+	return;
+
+    if (!info[0]->IsInt32())
+	return;
+
+    int flag = 0;
+
+    if (!find->_find->is_workplan_with_setup(Nan::To<int32_t>(info[0]).FromJust(), flag)) //Throw Exception
+	return;
+
+    info.GetReturnValue().Set((flag != 0));
+    return;
+}
+
+NAN_METHOD(Finder::IsWorkplanWithSetupAndFixtureMount)
+{
+    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (find == 0) //Throw Exception
+	return;
+
+    if (info.Length() != 1)
+	return; 
+    
+    if (info[0]->IsUndefined())
+	return;
+
+    if (!info[0]->IsInt32())
+	return;
+
+    int flag = 0;
+
+    if (!find->_find->is_workplan_with_setup_and_fixture_mount(Nan::To<int32_t>(info[0]).FromJust(), flag)) //Throw Exception
+	return;
+
+    info.GetReturnValue().Set((flag != 0));
+    return;
+}
+
+NAN_METHOD(Finder::IsWorkplanWithSetupAndWorkpieceMount)
+{
+    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (find == 0) //Throw Exception
+	return;
+
+    if (info.Length() != 1)
+	return; 
+    
+    if (info[0]->IsUndefined())
+	return;
+
+    if (!info[0]->IsInt32())
+	return;
+
+    int flag = 0;
+
+    if (!find->_find->is_workplan_with_setup_and_workpiece_mount(Nan::To<int32_t>(info[0]).FromJust(), flag)) //Throw Exception
 	return;
 
     info.GetReturnValue().Set((flag != 0));
@@ -835,6 +1055,9 @@ NAN_METHOD(Finder::SaveAsModules)
     if (find == 0) //Throw Exception
 	return;
 
+    if (info.Length() != 1)
+	return; 
+    
     if (info[0]->IsUndefined())
 	return;
 
@@ -855,6 +1078,9 @@ NAN_METHOD(Finder::SaveAsP21)
 	if (find == 0) //Throw Exception
 		return;
 
+	if (info.Length() != 1)
+	    return; 
+	
 	if (info[0]->IsUndefined())
 		return;
 
