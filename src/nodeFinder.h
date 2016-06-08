@@ -64,6 +64,9 @@ public:
     // string GetExecutableType(int exe_id)
     static NAN_METHOD(GetExecutableType);
 
+    // int GetExecutableWorkpieceAsIs(int exe_id)
+    static NAN_METHOD(GetExecutableWorkpieceAsIs);
+
     // int GetExecutableWorkpieceRemoval(int exe_id)
     static NAN_METHOD(GetExecutableWorkpieceRemoval);
 
