@@ -2,9 +2,9 @@ var StepNC = require('./build/Release/StepNC');
 
 var finder = new StepNC.Finder();
 finder.OpenProject("model.stpnc");
-var a = 94989;
+var a = 89308;
 
-console.log(finder.GetExecutableName(finder.GetWorkingstep(a, 0)));
+console.log(finder.GetWorkingstepName(a));
 
 process.exit();
 
