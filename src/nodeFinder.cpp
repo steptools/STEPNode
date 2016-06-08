@@ -456,7 +456,7 @@ NAN_METHOD(Finder::GetProjectName) {
     if (find == 0) {
 	return; //throw exception
     }
-    if (info[0]->IsUndefined()) {
+    if (!info[0]->IsUndefined()) {
 	return; //throw exception
     }
     const char * prj_name = 0;
