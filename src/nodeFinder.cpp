@@ -433,7 +433,7 @@ NAN_METHOD(Finder::GetNestedExecutableAll)
     Nan::Maybe<int32_t> wp_id = Nan::To<int32_t>(info[0]);
     v8::Local<v8::Array> exes = Nan::New<v8::Array>();
     rose_uint_vector tmp;
-    if (!find->_find->nested_executable_all(wp_id.FromJust(), tmp))
+    if (!find->_find->nested_executable_all(wp_id.FromJust(), tmp)) //TODO: Handle error
 	return;
     for (unsigned i = 0; i < tmp.size(); i++)
     {
