@@ -268,11 +268,14 @@ NAN_METHOD(Finder::GetExecutableWorkpieceRemoval)
     if (info.Length() != 1) // incorrect number of arguments
 	return;
 
-    long exe_id = info[0]->IntegerValue();
+    if (!info[0]->IsInt32())	// invalid argument
+	return;
+
+    Nan::Maybe<int32_t> exe_id = Nan::To<int32_t>(info[0]);
 
     int wp_id = 0;
 
-    if (!find->_find->executable_removal_workpiece((int)exe_id, wp_id))    // error in cpp
+    if (!find->_find->executable_removal_workpiece(exe_id.FromJust(), wp_id))    // error in cpp
 	return;
 
     info.GetReturnValue().Set(wp_id);
