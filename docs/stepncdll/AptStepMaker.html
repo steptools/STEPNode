@@ -3671,10 +3671,21 @@ relationships to other objects.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetToolIdentifier></a>GetToolIdentifier()</h2>
-<pre>
+<pre class="dotnet">
 System::String^ <b>GetToolIdentifier</b> (
 	System::String^ tool_number
 	);
+</pre>
+<pre class="nodejs">
+string <b>GetToolIdentifier</b> (
+    string tool_number
+    );
+</pre>
+<pre class="cpp">
+RoseBoolean <b>get_tool_number</b> (
+    int ws_id,
+    const char * &tool_number
+    );
 </pre>
 
 <P>The <b>GetToolIdentifier()</b> function returns the string
