@@ -7229,7 +7229,7 @@ executables that may be workingsteps.
 <h2 class=rule>
 <a name=GetProcessFeedUnit></a>
 <a name=GetProcessFeed></a>GetProcessFeed() and Unit</h2>
-<pre>
+<pre class = "dotnet">
 double <b>GetProcessFeed</b> (
 	System::Int64 ws_id
 	);
@@ -7237,6 +7237,27 @@ double <b>GetProcessFeed</b> (
 System::String^ <b>GetProcessFeedUnit</b> (
 	System::Int64 ws_id
 	);
+</pre>
+<pre class = "nodejs">
+double <b>GetProcessFeed</b> (
+	int ws_id
+	);
+
+string <b>GetProcessFeedUnit</b> (
+	int ws_id
+	);
+</pre>
+<pre class = "cpp">
+RoseBoolean <b>feed_speed</b> (
+	int ws_id,
+	double &feed, 
+	double &speed
+	);
+
+RoseBoolean <b>feed_speed_unit</b> (
+	int ws_id, 
+	const char * &feed_unit, 
+	const char * &speed_unit);
 </pre>
 
 <P>The <b>GetProcessFeed()</b> function returns the feedrate value of
