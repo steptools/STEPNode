@@ -4,6 +4,7 @@ var finder = new StepNC.Finder();
 finder.OpenProject("model.stpnc");
 var a = 94989;
 
-console.log(finder.GetExecutableWorkpieceAsIsLocal(a));
+console.log(finder.GetExecutableWorkpieceToBe(a));
+console.log(finder.GetExecutableWorkpieceToBeLocal(a));
 
 process.exit();
