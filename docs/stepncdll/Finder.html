@@ -1174,23 +1174,23 @@ System::String^ <b>GetExecutableDistanceUnit</b> (
 
 <pre class="nodejs">
 double <b>GetExecutableDistance</b> (
-    long exe_id
-    );
+	int exe_id
+	);
 
 string <b>GetExecutableDistanceUnit</b> (
-    long exe_id
-    );
+	int exe_id
+	);
 </pre>
 
 <pre class="cpp">
 RoseBoolean <b>compute_best_feed_time</b> (
-    int exe_id,
-    double &distance,
-    double &base_time,
-    double &over_time,
-    const char * &dist_unit,
-    const char * &time_unit
-    );
+	int exe_id,
+	double &distance,
+	double &base_time,
+	double &over_time,
+	const char * &dist_unit,
+	const char * &time_unit
+	);
 </pre>
 
 
@@ -1645,9 +1645,25 @@ an executable.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetFaceEdgeCount></a>GetFaceEdgeCount()</h2>
-<pre>
+    <pre class="dotnet">
 System::Int64 <b>GetFaceEdgeCount</b> (
 	System::Int64 face_id
+	);
+</pre>
+
+    <pre class="nodejs">
+int <b>GetFaceEdgeCount</b> (
+	int face_id
+	);
+</pre>
+
+    <pre class="cpp">
+RoseBoolean <b>first_face_edge_point</b> (
+	int face_id,
+	int & size,
+	double &x,
+	double &y,
+	double &z
 	);
 </pre>
 
@@ -1657,7 +1673,7 @@ System::Int64 <b>GetFaceEdgeCount</b> (
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetFaceEdgeNextPoint></a>GetFaceEdgeNextPoint()</h2>
-<pre>
+    <pre class="dotnet">
 void <b>GetFaceEdgeNextPoint</b> (
 	System::Int64 face_id,
 	System::Int64 index,
@@ -1667,6 +1683,32 @@ void <b>GetFaceEdgeNextPoint</b> (
 	[System::Runtime::InteropServices::Out] double %x2,
 	[System::Runtime::InteropServices::Out] double %y2,
 	[System::Runtime::InteropServices::Out] double %z2
+	);
+</pre>
+
+    <pre class="nodejs">
+void <b>GetFaceEdgeNextPoint</b> (
+	int face_id,
+	int index,
+	double %x1,
+	double %y1,
+	double %z1,
+	double %x2,
+	double %y2,
+	double %z2
+	);
+</pre>
+
+    <pre class="cpp">
+    RoseBoolean <b>next_face_edge_point</b> (
+	int face_id,
+	int index,
+	double &x1,
+	double &y1,
+	double &z1,
+	double &x2,
+	double &y2,
+	double &z2
 	);
 </pre>
 
@@ -11548,12 +11590,24 @@ operation.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=IsSelective></a>IsSelective()</h2>
-<pre>
+    <pre class="dotnet">
 System::Boolean <b>IsSelective</b> (
 	System::Int64 exe_id
 	);
 </pre>
 
+    <pre class="nodejs">
+Boolean <b>IsSelective</b> (
+	int exe_id
+	);
+</pre>
+
+    <pre class="cpp">
+RoseBoolean <b>is_selective</b> (
+	int exe_id,
+	int &flag
+	);
+</pre>
 <P>The <b>IsSelective()</b> function returns true if an executable
 decribes a selective. A selective is a program structure describing a
 list of executables of which one is to be executed at run time.
@@ -11928,6 +11982,19 @@ void <b>SaveAsModules</b> (
 	);
 </pre>
 
+    <pre class="nodejs">
+void <b>SaveAsModules</b> (
+	string file_name
+	);
+</pre>
+
+    <pre class="cpp">
+RoseBoolean <b>save_file</b> (
+	const char * filename,
+	RoseBoolean asModules
+	);
+</pre>
+
 <P>The <b>SaveAsModules()</b> function saves the STEP-NC program as an
 AP-238 file in the XML (Part 28) format. A similar function
 called <a href="#SaveAsPart21">SaveAsPart21</a> save the STEP-NC
@@ -11959,9 +12026,22 @@ Part 21 format files.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=SaveAsP21></a>SaveAsP21()</h2>
-<pre>
+    <pre class="dotnet">
 void <b>SaveAsP21</b> (
 	System::String^ file_name
+	);
+</pre>
+
+    <pre class="nodejs">
+void <b>SaveAsP21</b> (
+	string file_name
+	);
+</pre>
+
+    <pre class="cpp">
+RoseBoolean <b>save_file</b> (
+	const char * filename,
+	RoseBoolean asModules
 	);
 </pre>
 
