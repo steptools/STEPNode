@@ -11448,9 +11448,20 @@ simpler type of tool path which describes the center line of the tool axis
 <!-- ================================ -->
 <h2 class=rule>
 <a name=IsEnabled></a>IsEnabled()</h2>
-<pre>
+<pre class = "dotnet">
 System::Boolean <b>IsEnabled</b> (
 	System::Int64 exe_id
+	);
+</pre>
+<pre class = "nodejs">
+bool <b>IsEnabled</b> (
+	int exe_id
+	);
+</pre>
+<pre class = "cpp">
+RoseBoolean <b>is_enabled</b> (
+	int exe_id, 
+	int &flag
 	);
 </pre>
 
@@ -12063,7 +12074,7 @@ object as well as setting it back to its initial state.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=SaveAsModules></a>SaveAsModules()</h2>
-<pre>
+<pre class="dotnet">
 void <b>SaveAsModules</b> (
 	System::String^ file_name
 	);
