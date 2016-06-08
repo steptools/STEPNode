@@ -487,6 +487,7 @@ NAN_METHOD(Finder::GetProcessFeed) {
     if (!find->_find->feed_speed(ws_id.FromJust(), feed, dummy)) //Throw Exception
 	return;
     info.GetReturnValue().Set(feed);
+    return;
 }
 
 NAN_METHOD(Finder::GetProcessFeedUnit) {
@@ -503,6 +504,7 @@ NAN_METHOD(Finder::GetProcessFeedUnit) {
     if (!find->_find->feed_speed_unit(ws_id.FromJust(), (const char*&)unit, (const char*&)dummy)) //Throw Exception
 	return;
     info.GetReturnValue().Set(CharTov8String((char *)unit));
+    return;
 }
 
 NAN_METHOD(Finder::GetProjectName) {
@@ -559,6 +561,7 @@ NAN_METHOD(Finder::GetWorkplanName) {
     if (!find->_find->workplan(wp_id.FromJust(), nSize, (const char*&)wp_name)) //Throw Exception
 	return;
     info.GetReturnValue().Set(CharTov8String((char *)wp_name));
+    return;
 }
 
 NAN_METHOD(Finder::GetWorkplanSize) {
@@ -576,6 +579,7 @@ NAN_METHOD(Finder::GetWorkplanSize) {
     if (!find->_find->workplan(wp_id.FromJust(), size, (const char*&)szName))
 	return;
     info.GetReturnValue().Set(size);
+    return;
 }
 
 NAN_METHOD(Finder::IsEnabled) {
