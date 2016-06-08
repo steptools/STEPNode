@@ -59,6 +59,7 @@ NAN_MODULE_INIT(Finder::Init)
 	Nan::SetPrototypeMethod(tpl, "GetMainWorkplan", GetMainWorkplan);
 	Nan::SetPrototypeMethod(tpl, "GetProcessFeed", GetProcessFeed);
 	Nan::SetPrototypeMethod(tpl, "GetProcessFeedUnit", GetProcessFeedUnit);
+	Nan::SetPrototypeMethod(tpl, "GetProjectName", GetProjectName);
 	Nan::SetPrototypeMethod(tpl, "IsSelective", IsSelective);
 	Nan::SetPrototypeMethod(tpl, "OpenProject", OpenProject);
 	Nan::SetPrototypeMethod(tpl, "SaveAsModules", SaveAsModules);
@@ -372,6 +373,23 @@ NAN_METHOD(Finder::GetProcessFeedUnit) {
     if (!find->_find->feed_speed_unit(ws_id, (const char*&)unit, (const char*&)dummy)) //Throw Exception
 	return;
     info.GetReturnValue().Set(CharTov8String((char *)unit));
+}
+
+NAN_METHOD(Finder::GetProjectName) {
+    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (find == 0) {
+	return; //throw exception
+    }
+    if (info[0]->IsUndefined()) {
+	return; //throw exception
+    }
+    const char * prj_name = 0;
+    const char * szWP;
+
+    if (!(find->_find->project(prj_name, szWP))) {
+	return; //Throw Error
+    }
+    info.GetReturnValue().Set(CharTov8String((char *)prj_name));
 }
 
 NAN_METHOD(Finder::IsSelective)

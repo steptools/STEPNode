@@ -52,14 +52,11 @@ public:
     //System::int64 GetCompoundFeatureCount(system::int64 compound_id)'
     static NAN_METHOD(GetCompoundFeatureCount);
 
-    // double GetExecutableDistance(System::Int64 exe_id)
-    static NAN_METHOD(GetExecutableDistance);
-
     // double GetExecutableDistance(int exe_id)
     static NAN_METHOD(GetExecutableDistance);
 
-	// string GetExecutableDistanceUnit(int exe_id)
-	static NAN_METHOD(GetExecutableDistanceUnit);
+    // string GetExecutableDistanceUnit(int exe_id)
+    static NAN_METHOD(GetExecutableDistanceUnit);
 
     //int GetMainWorkplan();
     static NAN_METHOD(GetMainWorkplan);
@@ -91,6 +88,9 @@ public:
 
     //string GetProcessFeedUnit (int ws_id);
     static NAN_METHOD(GetProcessFeedUnit);
+
+    //string GetProjectName();
+    static NAN_METHOD(GetProjectName);
 
     //bool IsSelective(long exe_id);
     static NAN_METHOD(IsSelective);
