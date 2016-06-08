@@ -80,6 +80,9 @@ public:
     //long GetFeatureID(long ws_id);
     static NAN_METHOD(GetFeatureID);
 
+    //int GetNestedExecutableCount(int exe_id);
+    static NAN_METHOD(GetNestedExecutableCount);
+
     //double GetProcessFeed (long ws_id);
     static NAN_METHOD(GetProcessFeed);
 
