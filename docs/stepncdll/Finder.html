@@ -821,8 +821,8 @@ the units used by a feedrate in the data.
 <pre class = "dotnet">
 void <b>APIUnitsInch</b> ();
 </pre>
-<ore class = "nodejs">
-  void <v>APIUnitsInch</b> ();
+<pre class = "nodejs">
+  void <b>APIUnitsInch</b> ();
 </pre>
 <pre class = "cpp">
   RoseBoolean <b>api_unit_inch </b> ();
@@ -887,7 +887,7 @@ values to inch.
   void <b>APIUnitsNative</b> ();
 </pre>
 <pre class = "nodejs">
-  void <b>APIUnitsNatie</b> ();
+  void <b>APIUnitsNative</b> ();
 </pre>
 <pre class = "cpp">
   RoseBoolean <b>api_unit_native</b> ();
@@ -988,16 +988,10 @@ turning machine.
 
 <!-- ================================ -->
 <h2 class=rule>
-<a name=GetCompoundFeatureNext></a>
-<a name=GetCompoundFeatureCount></a>GetCompoundFeatureCount/Next()</h2>
+<a name=GetCompoundFeatureCount></a>GetCompoundFeatureCount</h2>
 <pre class = "dotnet">
 System::Int64 <b>GetCompoundFeatureCount</b> (
 	System::Int64 compound_id
-	);
-
-System::Int64 <b>GetCompoundFeatureNext</b> (
-	System::Int64 compound_id,
-	System::Int64 index
 	);
 </pre>
 <pre class = "nodejs">
@@ -1014,6 +1008,14 @@ RoseBoolean <b>first_feature_in_compound</b> (
     double y,
     double z
     );
+</pre>
+<h2 class=rule>
+<a name=GetCompoundFeatureNext></a>GetCompoundFeatureNext</h2>
+<pre class>
+System::Int64 <b>GetCompoundFeatureNext</b> (
+  System::Int64 compound_id,
+  System::Int64 index
+  );
 </pre>
 <P>The <b>GetCompoundFeatureCount()</b> function returns the number of
 features in a compound feature and the <b>GetCompoundFeatureNext()</b>
@@ -1198,18 +1200,10 @@ the type of an executable as a string.
 double <b>GetExecutableDistance</b> (
 	System::Int64 exe_id
 	);
-
-System::String^ <b>GetExecutableDistanceUnit</b> (
-	System::Int64 exe_id
-	);
 </pre>
 
 <pre class="nodejs">
 double <b>GetExecutableDistance</b> (
-	int exe_id
-	);
-
-string <b>GetExecutableDistanceUnit</b> (
 	int exe_id
 	);
 </pre>
@@ -1225,6 +1219,29 @@ RoseBoolean <b>compute_best_feed_time</b> (
 	);
 </pre>
 
+
+<pre class="dotnet">
+System::String^ <b>GetExecutableDistanceUnit</b> (
+	System::Int64 exe_id
+	);
+</pre>
+
+<pre class="nodejs">
+string <b>GetExecutableDistanceUnit</b> (
+	int exe_id
+	);
+</pre>
+
+<pre class="cpp">
+RoseBoolean <b>compute_best_feed_time</b> (
+	int exe_id,
+	double &distance,
+	double &base_time,
+	double &over_time,
+	const char * &dist_unit,
+	const char * &time_unit
+	);
+</pre>
 
 
 <P>The <b>GetExecutableDistance()</b> function returns the total
@@ -1560,9 +1577,22 @@ of an executable.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetExecutableWorkpieceRemoval></a>GetExecutableWorkpieceRemoval()</h2>
-<pre>
+<pre class="dotnet">
 System::Int64 <b>GetExecutableWorkpieceRemoval</b> (
 	System::Int64 exe_id
+	);
+</pre>
+
+<pre class="nodejs">
+int <b>GetExecutableWorkpieceRemoval</b> (
+	int exe_id
+	);
+</pre>
+
+<pre class="cpp">
+RoseBoolean <b>executable_removal_workpiece</b> (
+	int ws_id,
+	int &wp_id
 	);
 </pre>
 
@@ -1706,7 +1736,14 @@ System::Int64 <b>GetFaceEdgeCount</b> (
 </pre>
 
     <pre class="nodejs">
-int <b>GetFaceEdgeCount</b> (
+{
+    "ret_x1":double,
+    "ret_y1":double,
+    "ret_z1":double,
+    "ret_x2":double,
+    "ret_y2":double,
+    "ret_z2":double
+} <b>GetFaceEdgeCount</b> (
 	int face_id
 	);
 </pre>
@@ -7543,7 +7580,7 @@ System::String^ <b>GetProjectName</b> ();
 string <b>GetProjectName</b> ();
 </pre>
 <pre class = "cpp">
-RoseBoolean project(
+RoseBoolean <b>project</b>(
   const char* &prj_name,
   const char* &wpk_name
   );
@@ -7610,11 +7647,23 @@ Get the id of a workpiece in the setup of a workplan.
 <h2 class=rule>
 <a name=GetSelectiveExecutableNext></a>
 <a name=GetSelectiveExecutableCount></a>GetSelectiveExecutableCount/Next/All/AllEnabled()</h2>
-<pre>
+<pre class = "dotnet">
 System::Int64 <b>GetSelectiveExecutableCount</b> (
 	System::Int64 sl_id
 	);
-
+</pre>
+<pre class = "nodejs">
+int <b>GetSelectiveExecutableCount</b> (
+	int sl_id
+	);
+</pre>
+<pre class = "cpp">
+RoseBoolean <b>selective_executable_count</b>(
+	int sl_id,
+	int count
+	);
+</pre>
+<pre>
 System::Int64 <b>GetSelectiveExecutableNext</b> (
 	System::Int64 sl_id,
 	System::Int64 index
@@ -11797,9 +11846,22 @@ workplan that leads to all other executables.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=IsWorkplan></a>IsWorkplan()</h2>
-<pre>
+    <pre class="dotnet">
 System::Boolean <b>IsWorkplan</b> (
 	System::Int64 exe_id
+	);
+</pre>
+
+    <pre class="nodejs">
+Boolean <b>IsWorkplan</b> (
+	int exe_id
+	);
+</pre>
+
+    <pre class="cpp">
+RoseBoolean <b>is_workplan</b> (
+	int exe_id,
+	int &flag
 	);
 </pre>
 

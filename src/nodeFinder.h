@@ -64,6 +64,9 @@ public:
     // string GetExecutableType(int exe_id)
     static NAN_METHOD(GetExecutableType);
 
+    // int GetExecutableWorkpieceRemoval(int exe_id)
+    static NAN_METHOD(GetExecutableWorkpieceRemoval);
+
     //int GetMainWorkplan();
     static NAN_METHOD(GetMainWorkplan);
 
@@ -88,8 +91,13 @@ public:
     //string GetProjectName();
     static NAN_METHOD(GetProjectName);
 
+<<<<<<< HEAD
     //string GetWorkplanName();
     static NAN_METHOD(GetWorkplanName);
+=======
+    //int GetSelectiveExecutableCount( int sl_id)
+    static NAN_METHOD(GetSelectiveExecutableCount);
+>>>>>>> refs/remotes/origin/master
 
     //bool IsEnabled(int exe_id);
     static NAN_METHOD(IsEnabled);
@@ -97,8 +105,11 @@ public:
     //bool IsSelective(long exe_id);
     static NAN_METHOD(IsSelective);
 
-    //bool IsSelective(long exe_id);
+    //bool IsWorkingstep(long exe_id);
     static NAN_METHOD(IsWorkingstep);
+
+    //bool IsWorkplan(long exe_id);
+    static NAN_METHOD(IsWorkplan);
 
     //void Open238(String file_name);
     static NAN_METHOD(OpenProject);
