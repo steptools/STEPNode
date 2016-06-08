@@ -54,7 +54,9 @@ NAN_MODULE_INIT(Finder::Init)
 	Nan::SetPrototypeMethod(tpl, "GetExecutableDistanceUnit", GetExecutableDistanceUnit);
 	Nan::SetPrototypeMethod(tpl, "GetExecutableName", GetExecutableName);
 	Nan::SetPrototypeMethod(tpl, "GetExecutableType", GetExecutableType);
+	Nan::SetPrototypeMethod(tpl, "GetExecutableWorkpieceAsIs", GetExecutableWorkpieceAsIs);
 	Nan::SetPrototypeMethod(tpl, "GetExecutableWorkpieceRemoval", GetExecutableWorkpieceRemoval);
+	Nan::SetPrototypeMethod(tpl, "GetExecutableWorkpieceRemovalLocal", GetExecutableWorkpieceRemovalLocal);
 	Nan::SetPrototypeMethod(tpl, "GetFaceEdgeCount", GetFaceEdgeCount);
 	Nan::SetPrototypeMethod(tpl, "GetFaceEdgeNextPoint", GetFaceEdgeCount);
 	Nan::SetPrototypeMethod(tpl, "GetFeatureID", GetFeatureID);
@@ -287,6 +289,29 @@ NAN_METHOD(Finder::GetExecutableType) {
     return;
 }
 
+NAN_METHOD(Finder::GetExecutableWorkpieceAsIs) 
+{
+    Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (find == 0) // Throw exception
+	return;
+
+    if (info.Length() != 1) // incorrect number of arguments
+	return;
+
+
+    if (!info[0]->IsInt32())// invalid argument
+	return;
+
+    Nan::Maybe<int32_t> exe_id = Nan::To<int32_t>(info[0]);
+    int wp_id = 0;
+
+    if (!find->_find->executable_as_is_workpiece(exe_id.FromJust(), wp_id))// error in cpp
+	return;
+
+    info.GetReturnValue().Set(wp_id);
+    return;
+}
+
 NAN_METHOD(Finder::GetExecutableWorkpieceRemoval)
 {   
     Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
@@ -305,6 +330,31 @@ NAN_METHOD(Finder::GetExecutableWorkpieceRemoval)
     int wp_id = 0;
 
     if (!find->_find->executable_removal_workpiece(exe_id.FromJust(), wp_id))    // error in cpp
+	return;
+
+    info.GetReturnValue().Set(wp_id);
+
+    return;
+}
+
+NAN_METHOD(Finder::GetExecutableWorkpieceRemovalLocal)
+{   
+    Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (find == 0) // Throw exception
+	return;
+
+    if (info.Length() != 1) // incorrect number of arguments
+	return;
+
+
+    if (!info[0]->IsInt32())	// invalid argument
+	return;
+
+    Nan::Maybe<int32_t> exe_id = Nan::To<int32_t>(info[0]);
+
+    int wp_id = 0;
+
+    if (!find->_find->local_executable_removal_workpiece(exe_id.FromJust(), wp_id))    // error in cpp
 	return;
 
     info.GetReturnValue().Set(wp_id);
