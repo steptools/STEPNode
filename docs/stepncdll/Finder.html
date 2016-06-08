@@ -763,7 +763,7 @@ identical because the final feature will be made in one operation.
 
 <!-- ================================ -->
 <h2 class=rule>
-<a name=APIUnitsFeed></a>APIUnitsSpeed()</h2>
+<a name=APIUnitsFeed></a>APIUnitsFeed()</h2>
 <pre class = "dotnet">
 void <b>APIUnitsFeed</b> (
 	System::String^ units
@@ -1200,18 +1200,10 @@ the type of an executable as a string.
 double <b>GetExecutableDistance</b> (
 	System::Int64 exe_id
 	);
-
-System::String^ <b>GetExecutableDistanceUnit</b> (
-	System::Int64 exe_id
-	);
 </pre>
 
 <pre class="nodejs">
 double <b>GetExecutableDistance</b> (
-	int exe_id
-	);
-
-string <b>GetExecutableDistanceUnit</b> (
 	int exe_id
 	);
 </pre>
@@ -1227,6 +1219,29 @@ RoseBoolean <b>compute_best_feed_time</b> (
 	);
 </pre>
 
+
+<pre class="dotnet">
+System::String^ <b>GetExecutableDistanceUnit</b> (
+	System::Int64 exe_id
+	);
+</pre>
+
+<pre class="nodejs">
+string <b>GetExecutableDistanceUnit</b> (
+	int exe_id
+	);
+</pre>
+
+<pre class="cpp">
+RoseBoolean <b>compute_best_feed_time</b> (
+	int exe_id,
+	double &distance,
+	double &base_time,
+	double &over_time,
+	const char * &dist_unit,
+	const char * &time_unit
+	);
+</pre>
 
 
 <P>The <b>GetExecutableDistance()</b> function returns the total
@@ -1562,9 +1577,22 @@ of an executable.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetExecutableWorkpieceRemoval></a>GetExecutableWorkpieceRemoval()</h2>
-<pre>
+<pre class="dotnet">
 System::Int64 <b>GetExecutableWorkpieceRemoval</b> (
 	System::Int64 exe_id
+	);
+</pre>
+
+<pre class="nodejs">
+int <b>GetExecutableWorkpieceRemoval</b> (
+	int exe_id
+	);
+</pre>
+
+<pre class="cpp">
+RoseBoolean <b>executable_removal_workpiece</b> (
+	int ws_id,
+	int &wp_id
 	);
 </pre>
 
@@ -7360,17 +7388,9 @@ executables that may be workingsteps.
 double <b>GetProcessFeed</b> (
 	System::Int64 ws_id
 	);
-
-System::String^ <b>GetProcessFeedUnit</b> (
-	System::Int64 ws_id
-	);
 </pre>
 <pre class = "nodejs">
 double <b>GetProcessFeed</b> (
-	int ws_id
-	);
-
-string <b>GetProcessFeedUnit</b> (
 	int ws_id
 	);
 </pre>
@@ -7380,7 +7400,18 @@ RoseBoolean <b>feed_speed</b> (
 	double &feed, 
 	double &speed
 	);
-
+</pre>
+<pre class = "dotnet">
+System::String^ <b>GetProcessFeedUnit</b> (
+	System::Int64 ws_id
+	);
+</pre>
+<pre class = "nodejs">
+string <b>GetProcessFeedUnit</b> (
+	int ws_id
+	);
+</pre>
+<pre class = "cpp">
 RoseBoolean <b>feed_speed_unit</b> (
 	int ws_id, 
 	const char * &feed_unit, 
@@ -7623,14 +7654,14 @@ System::Int64 <b>GetSelectiveExecutableCount</b> (
 </pre>
 <pre class = "nodejs">
 int <b>GetSelectiveExecutableCount</b> (
-  int sl_id
-  );
+	int sl_id
+	);
 </pre>
 <pre class = "cpp">
 RoseBoolean <b>selective_executable_count</b>(
-  int sl_id,
-  int count
-  );
+	int sl_id,
+	int count
+	);
 </pre>
 <pre>
 System::Int64 <b>GetSelectiveExecutableNext</b> (
@@ -11480,9 +11511,20 @@ simpler type of tool path which describes the center line of the tool axis
 <!-- ================================ -->
 <h2 class=rule>
 <a name=IsEnabled></a>IsEnabled()</h2>
-<pre>
+<pre class = "dotnet">
 System::Boolean <b>IsEnabled</b> (
 	System::Int64 exe_id
+	);
+</pre>
+<pre class = "nodejs">
+bool <b>IsEnabled</b> (
+	int exe_id
+	);
+</pre>
+<pre class = "cpp">
+RoseBoolean <b>is_enabled</b> (
+	int exe_id, 
+	int &flag
 	);
 </pre>
 
