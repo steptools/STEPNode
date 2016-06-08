@@ -76,6 +76,12 @@ public:
     // int GetExecutableWorkpieceRemovalLocal(int exe_id)
     static NAN_METHOD(GetExecutableWorkpieceRemovalLocal);
 
+    // int GetExecutableWorkpieceToBe(int exe_id)
+    static NAN_METHOD(GetExecutableWorkpieceToBe);
+
+    // int GetExecutableWorkpieceToBeLocal(int exe_id)
+    static NAN_METHOD(GetExecutableWorkpieceToBeLocal);
+
     //int GetMainWorkplan();
     static NAN_METHOD(GetMainWorkplan);
 
@@ -132,6 +138,18 @@ public:
 
     //bool IsWorkplan(long exe_id);
     static NAN_METHOD(IsWorkplan);
+
+    //bool IsWorkplanWIthSetupAndFixture(long exe_id);
+    static NAN_METHOD(IsWorkplanWIthSetupAndFixture);
+
+    //bool IsWorkplanWithSetup(long exe_id);
+    static NAN_METHOD(IsWorkplanWithSetup);
+
+    //bool IsWorkplanWithSetupAndFixtureMount(long exe_id);
+    static NAN_METHOD(IsWorkplanWithSetupAndFixtureMount);
+
+    //bool IsWorkplanWithSetupAndWorkpieceMount(long exe_id);
+    static NAN_METHOD(IsWorkplanWithSetupAndWorkpieceMount);
 
     //void Open238(String file_name);
     static NAN_METHOD(OpenProject);
