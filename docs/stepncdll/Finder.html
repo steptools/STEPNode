@@ -4900,24 +4900,50 @@ function cannot pick the material.
 <h2 class=rule>
 <a name=GetNestedExecutableNext></a>
 <a name=GetNestedExecutableCount></a>GetNestedExecutableCount/Next/All/AllEnabled()</h2>
-<pre>
+<pre class="dotnet">
 System::Int64 <b>GetNestedExecutableCount</b> (
 	System::Int64 exe_id
 	);
-
+</pre>
+<pre class="nodejs">
+int <b>GetNestedExecutableCount</b> (
+	int exe_id
+	);
+</pre>
+<pre class="cpp">
+RoseBoolean <b>nested_executable_count</b> (
+	int own_id,
+	int &size
+	);
+</pre>
+<pre class="dotnet">
 System::Int64 <b>GetNestedExecutableNext</b> (
 	System::Int64 wp_id,
 	System::Int64 index
 	);
-
+</pre>
+<pre class="nodejs">
+int <b>GetNestedExecutableNext</b> (
+	int exe_id,
+	int index
+	);
+</pre>
+<pre class="cpp">
+RoseBoolean <b>nested_executable_next</b> (
+	int own_id,
+	int index,
+	int &exe_id
+	);
+</pre>
+<pre class="dotnet">
 System::Collections::Generic::List<System::Int64>^ <b>GetNestedExecutableAll</b> (
 	System::Int64 wp_id
 	);
-
+</pre>
+<pre class="dotnet">
 System::Collections::Generic::List<System::Int64>^ <b>GetNestedExecutableAllEnabled</b> (
 	System::Int64 wp_id
 	);
-
 </pre>
 
 <P>The <b>GetNestedExecutableCount()</b> function returns a count of
@@ -11214,9 +11240,21 @@ by <a href="#GetWorkplanFinalFeatureCount">GetWorkplanFinalFeatureCount</a>
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetWorkplanName></a>GetWorkplanName()</h2>
-<pre>
+<pre class = "dotnet">
 System::String^ <b>GetWorkplanName</b> (
 	System::Int64 wp_id
+	);
+</pre>
+<pre class = "nodejs">
+string <b>GetWorkplanName()</b> (
+	int wp_id
+	);
+</pre>
+<pre class = "cpp">
+RoseBoolean <b>workplan</b> (
+	int wp_id, 
+	int &size, 
+	const char * &name
 	);
 </pre>
 
@@ -11303,9 +11341,21 @@ GetWorkplanFinalFeatureCount
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetWorkplanSize></a>GetWorkplanSize()</h2>
-<pre>
+<pre class = "dotnet">
 System::Int64 <b>GetWorkplanSize</b> (
 	System::Int64 wp_id
+	);
+</pre>
+<pre class = "nodejs">
+int <b>GetWorkplanSize</b> (
+	int wp_id
+	);
+</pre>
+<pre class = "cpp">
+RoseBoolean <b>workplan</b> (
+	int wp_id, 
+	int &size, 
+	const char * &name
 	);
 </pre>
 
