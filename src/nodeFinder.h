@@ -91,6 +91,9 @@ public:
     //string GetProjectName();
     static NAN_METHOD(GetProjectName);
 
+    //int GetSelectiveExecutableCount( int sl_id)
+    static NAN_METHOD(GetSelectiveExecutableCount);
+
     //bool IsEnabled(int exe_id);
     static NAN_METHOD(IsEnabled);
 

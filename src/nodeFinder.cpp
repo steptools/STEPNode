@@ -64,6 +64,7 @@ NAN_MODULE_INIT(Finder::Init)
 	Nan::SetPrototypeMethod(tpl, "GetProcessFeed", GetProcessFeed);
 	Nan::SetPrototypeMethod(tpl, "GetProcessFeedUnit", GetProcessFeedUnit);
 	Nan::SetPrototypeMethod(tpl, "GetProjectName", GetProjectName);
+	Nan::SetPrototypeMethod(tpl, "GetSelectiveExecutableCount", GetSelectiveExecutableCount);
 	Nan::SetPrototypeMethod(tpl, "IsEnabled", IsEnabled);
 	Nan::SetPrototypeMethod(tpl, "IsSelective", IsSelective);
 	Nan::SetPrototypeMethod(tpl, "IsWorkingstep", IsWorkingstep);
@@ -171,7 +172,7 @@ NAN_METHOD(Finder::GetCompoundFeatureCount) {
     if (info.Length() != 1) { // Needs one argument
 	return; // Throw an exception
     }
-    if (!info[0]->IsInt32()) { // argument of wrong type
+    if (!info[0]->IsNumber()) { // argument of wrong type
 	return; //Throw exception
     }
     int size = 0;
@@ -494,7 +495,29 @@ NAN_METHOD(Finder::GetProjectName) {
     if (!(find->_find->project(prj_name, szWP))) {
 	return; //Throw Error
     }
+
     info.GetReturnValue().Set(CharTov8String((char *)prj_name));
+    return;
+}
+
+NAN_METHOD(Finder::GetSelectiveExecutableCount) {
+
+    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (find == 0) {
+	return; //throw exception
+    }
+    if (info.Length() != 1) {
+	return; //throw exception
+    }
+    if (!info[0]->IsNumber()) {
+	return; // Throw exception
+    }
+    int count = 0;
+    if (!(find->_find->selective_executable_count(Nan::To<int32_t>(info[0]).FromJust(), count))) {
+	return; // throw error
+    }
+    info.GetReturnValue().Set(count);
+    return;
 }
 
 NAN_METHOD(Finder::IsEnabled)
