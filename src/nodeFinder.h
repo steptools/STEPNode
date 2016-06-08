@@ -37,8 +37,8 @@ public:
     //void APIUnitsFeed(System::String^ units);
     static NAN_METHOD(APIUnitsFeed);
 
-    //void APIUnitsInches();
-    static NAN_METHOD(APIUnitsInches);
+    //void APIUnitsInch();
+    static NAN_METHOD(APIUnitsInch);
 
     //void APIUnitsMM();
     static NAN_METHOD(APIUnitsMM);
@@ -55,7 +55,8 @@ public:
     // double GetExecutableDistance(int exe_id)
     static NAN_METHOD(GetExecutableDistance);
 
-	static NAN_METHOD(GetExecutableDistanceUnit);
+    // string GetExecutableDistanceUnit(int exe_id)
+    static NAN_METHOD(GetExecutableDistanceUnit);
 
     // string GetExecutableName(int exe_id)
     static NAN_METHOD(GetExecutableName);
@@ -69,7 +70,7 @@ public:
     //long GetFaceEdgeCount(long face_id);
     static NAN_METHOD(GetFaceEdgeCount);
 
-    //void Finder::GetFaceEdgeNextPoint(needs to be fixed);
+    //void GetFaceEdgeNextPoint(int face_id, int index, double %ret_x1, double %ret_y1, double %ret_z1, double %ret_x2, double %ret_y2, double %ret_z2);
     static NAN_METHOD(GetFaceEdgeNextPoint);
 
     //string GetFeatureName(long id)
@@ -84,8 +85,17 @@ public:
     //string GetProcessFeedUnit (int ws_id);
     static NAN_METHOD(GetProcessFeedUnit);
 
+    //string GetProjectName();
+    static NAN_METHOD(GetProjectName);
+
+    //bool IsEnabled (int exe_id);
+    static NAN_METHOD(IsEnabled);
+
     //bool IsSelective(long exe_id);
     static NAN_METHOD(IsSelective);
+
+    //bool IsSelective(long exe_id);
+    static NAN_METHOD(IsWorkingstep);
 
     //void Open238(String file_name);
     static NAN_METHOD(OpenProject);
