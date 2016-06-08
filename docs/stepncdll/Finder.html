@@ -11214,9 +11214,21 @@ by <a href="#GetWorkplanFinalFeatureCount">GetWorkplanFinalFeatureCount</a>
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetWorkplanName></a>GetWorkplanName()</h2>
-<pre>
+<pre class = "dotnet">
 System::String^ <b>GetWorkplanName</b> (
 	System::Int64 wp_id
+	);
+</pre>
+<pre class = "nodejs">
+string <b>GetWorkplanName()</b> (
+	int wp_id
+	);
+</pre>
+<pre class = "cpp">
+RoseBoolean <b>workplan</b> (
+	int wp_id, 
+	int &size, 
+	const char * &name
 	);
 </pre>
 
@@ -11303,9 +11315,21 @@ GetWorkplanFinalFeatureCount
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetWorkplanSize></a>GetWorkplanSize()</h2>
-<pre>
+<pre class = "dotnet">
 System::Int64 <b>GetWorkplanSize</b> (
 	System::Int64 wp_id
+	);
+</pre>
+<pre class = "nodejs">
+int <b>GetWorkplanSize</b> (
+	int wp_id
+	);
+</pre>
+<pre class = "cpp">
+RoseBoolean <b>workplan</b> (
+	int wp_id, 
+	int &size, 
+	const char * &name
 	);
 </pre>
 
