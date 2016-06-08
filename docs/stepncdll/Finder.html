@@ -305,7 +305,7 @@ and no tool is defined then the result returned will be zero.
 <p>A typical Finder object program starts with the main_workplan
 and traverses the nested workplans, and workingsteps in that program extracting
 information and when necessary modifying the information using the other
-objects in the STEP-NC DLL such as Feature and Process. 
+objects in the STEP-NC DLL such as Feature and Process.
 
 <p>In a traversal &ldquo;dead ends&rdquo; are indicated by returning
 null values until the system determines that the application must be
@@ -471,7 +471,7 @@ decode_workingstep function discussed in the last section.
 
 
 <PRE class=code>
-void decode_workingstep (int exe_id) 
+void decode_workingstep (int exe_id)
 {
     int tl_id = Find-&gt;GetWorkingstepTool (exe_id);
 
@@ -532,7 +532,7 @@ about manipulating path objects.
 <p>First some code to visit each toolpath in a workingstep.
 
 <PRE class=code>
-void decode_paths (int ws_id) 
+void decode_paths (int ws_id)
 {
     bool isContact;    // paths can be cutter contact or cutter center
     int count = Find-&gt;GetWorkingstepPathCount (ws_id);
@@ -574,7 +574,7 @@ curves. The axis curve is optional for a tool path so the axis curve is only
 decoded if count2 is greater than zero.
 
 <PRE class=code>
-void decode_path (int path_id) 
+void decode_path (int path_id)
 {
     int count1 = Find-&gt;GetPathCurveCount (path_id);
     int count2 = Find-&gt;GetPathAxisCount (path_id);
@@ -603,7 +603,7 @@ then the functions to decode that polyline will be illustrated in our
 next example.
 
 <PRE class=code>
-void decode_geometry (int path_id, int count) 
+void decode_geometry (int path_id, int count)
 {
     for (int I = 0; I &lt; count; I++) {
         bool isArc;
@@ -627,7 +627,7 @@ two polyline points.
 
 
 <PRE class=code>
-void decode_axis (int path_id, int count) 
+void decode_axis (int path_id, int count)
 {
     for (int I = 0; I &lt; count; I++) {
 	int cve_id = Find-&gt;GetPathAxisNext (path_id, I);
@@ -662,7 +662,7 @@ illustrated by the following code segement.
 
 
 <PRE class=code>
-void decode_process (int path_id) 
+void decode_process (int path_id)
 {
     double f, s;
     int is_rap, co_on;
@@ -785,7 +785,7 @@ functions that return feed values the unit to be used for those
 values. If the value in the AP-238 file is not one of these then it is
 converted to the requested unit.  For example, if the native value is
 &ldquo;ipm&rdquo; and the requested value is &ldquo;ips&rdquo; then
-the native value will be multiplied by 60. 
+the native value will be multiplied by 60.
 
 
 <h3>Arguments</h3>
@@ -937,7 +937,7 @@ RoseBoolean <b>api_unit_speed</b> (
 <P>The <b>APIUnitsSpeed()</b> function tells all of the other
 functions that return speed values the unit to be used for those
 values. If the value in the AP-238 file is not one of these then it is
-converted to the requested unit. 
+converted to the requested unit.
 
 <h3>Arguments</h3>
 <DL class=termdefs>
@@ -1158,7 +1158,7 @@ unit used for the GetExecutableDistance function.
 <UL>
 <li>Project not defined: There is no AP-238 file open.
 <li>Invalid identity  The argument does not identify an executable.
-</UL> 
+</UL>
 
 <!-- ================================ -->
 <h2 class=rule>
@@ -1187,7 +1187,7 @@ the type of an executable as a string.
 <UL>
 <li>Project not defined: There is no AP-238 file open.
 <li>Duplicates: two or more executables contain this executable.
-</UL> 
+</UL>
 
 
 <!-- ================================ -->
@@ -1252,7 +1252,7 @@ string <b>GetExecutableName</b> (
 </pre>
 <pre class="cpp">
 RoseBoolean <b>executable_name</b> (
-	int exe_id, 
+	int exe_id,
 	const char * &name
 	);
 </pre>
@@ -1463,9 +1463,9 @@ Returns an executable in a workplan or selective.
 workplan of a project.
 <li><a href="#GetExecutableType">GetExecutableType</a>: Return the
 type of an executable.
-<li><a href="#IsWorkingstep">IsWorkingstep</a>:  
-<li><a href="#IsNcFunction">IsNcFunction</a>: 
-<li><a href="#IsProgramStructure">IsProgramStructure</a>: 
+<li><a href="#IsWorkingstep">IsWorkingstep</a>:
+<li><a href="#IsNcFunction">IsNcFunction</a>:
+<li><a href="#IsProgramStructure">IsProgramStructure</a>:
 </UL>
 
 <h3>Common Errors</h3>
@@ -1693,14 +1693,12 @@ System::Int64 <b>GetFaceEdgeCount</b> (
 	System::Int64 face_id
 	);
 </pre>
-
-    <pre class="nodejs">
+<pre class="nodejs">
 int <b>GetFaceEdgeCount</b> (
 	int face_id
 	);
 </pre>
-
-    <pre class="cpp">
+<pre class="cpp">
 RoseBoolean <b>first_face_edge_point</b> (
 	int face_id,
 	int & size,
@@ -1709,8 +1707,6 @@ RoseBoolean <b>first_face_edge_point</b> (
 	double &z
 	);
 </pre>
-
-<P>The <b>GetFaceEdgeCount()</b> function 
 
 
 <!-- ================================ -->
@@ -1728,8 +1724,7 @@ void <b>GetFaceEdgeNextPoint</b> (
 	[System::Runtime::InteropServices::Out] double %z2
 	);
 </pre>
-
-    <pre class="nodejs">
+<pre class="nodejs">
 void <b>GetFaceEdgeNextPoint</b> (
 	int face_id,
 	int index,
@@ -1741,8 +1736,7 @@ void <b>GetFaceEdgeNextPoint</b> (
 	double %z2
 	);
 </pre>
-
-    <pre class="cpp">
+<pre class="cpp">
     RoseBoolean <b>next_face_edge_point</b> (
 	int face_id,
 	int index,
@@ -1755,8 +1749,7 @@ void <b>GetFaceEdgeNextPoint</b> (
 	);
 </pre>
 
-<P>The <b>GetFaceEdgeNextPoint()</b> function 
-
+<P>The <b>GetFaceEdgeNextPoint()</b> function
 
 
 <!-- ================================ -->
@@ -2221,7 +2214,7 @@ System::Int64 <b>GetFeatureChamfer</b> (
 <P>The <b>GetFeatureChamfer()</b> function returns the parametric
 definition of a chamfer feature.  The return value is zero if the
 feature is not a chamfer or the chamfer face is not defined by a plane
-with a single loop otherwise returns the identity this plane. 
+with a single loop otherwise returns the identity this plane.
 
 <P>Like an edge round, a chamfer is a transition feature so it is
 different to the other features. A transition feature connects two
@@ -2359,7 +2352,7 @@ implicit descriptions. The implicit description is given by a set of
 geometric faces on the part that contains the feature.
 
 <P>The <b>GetFeatureFaceNext()</b> function iterates over the faces
-and returns the one at a particular index value.  
+and returns the one at a particular index value.
 
 <p>The simplest argument for each function is a feature_id.  However,
 the function will also accept a workingstep_id and in this case the
@@ -2663,7 +2656,7 @@ a hole bottom as one of the following strings.
 <li>&ldquo;FLAT_HOLE_BOTTOM&rdquo;
 <li>&quot;FLAT_WITH_RADIUS_HOLE_BOTTOM&quot;
 <li>&quot;SPHERICAL_HOLE_BOTTOM&quot;.
-<li>&quot;THROUGH_BOTTOM_CONDITION&quot;  
+<li>&quot;THROUGH_BOTTOM_CONDITION&quot;
 </UL>
 
 
@@ -2692,7 +2685,7 @@ A through hole has no parameters.
 <h3>Common Errors</h3>
 <UL>
 <li>Project not defined: There is no AP-238 file open.
-</UL> 
+</UL>
 
 
 <!-- ================================ -->
@@ -2833,12 +2826,12 @@ int <b>GetFeatureID</b> (
 </pre>
 <pre class="cpp">
 RoseBoolean <b>feature_id</b> (
-	int ws_id, 
+	int ws_id,
 	int &feature_id
 	);
 </pre>
 
-<P>The <b>GetFeatureID()</b> function 
+<P>The <b>GetFeatureID()</b> function
 
 
 <!-- ================================ -->
@@ -2856,7 +2849,7 @@ string <b>GetFeatureName</b> (
 </pre>
 <pre class="cpp">
 RoseBoolean <b>feature_name</b> (
-	int ws_or_fe_id, 
+	int ws_or_fe_id,
 	const char * &name
 	);
 </pre>
@@ -3446,10 +3439,10 @@ System::String^ <b>GetFeaturePocketBottomType</b> (
 <P>The <b>GetFeaturePocketBottomType()</b> function returns the type
 of a pocket bottom as one of the following strings:
 <UL>
-<li>&ldquo;unknown&rdquo;, 
+<li>&ldquo;unknown&rdquo;,
 <li>&quot;PLANAR_POCKET_BOTTOM_CONDITION&quot;
 <li>&quot;RADIUSED_POCKET_BOTTOM_CONDITION&quot;
-<li>&quot;THROUGH_POCKET_BOTTOM_CONDITION&quot;.  
+<li>&quot;THROUGH_POCKET_BOTTOM_CONDITION&quot;.
 </UL>
 
 <h3>Arguments</h3>
@@ -3496,7 +3489,7 @@ parameters of a closed circular pocket or false if it is not this
 kind of feature. A closed circular pocket defines material that is to
 be removed from the inside of a part.  Other closed pocket features
 include a closed rectangular pocket and a closed general pocket. A
-closed circular pocket is defined by a diameter and a depth.  
+closed circular pocket is defined by a diameter and a depth.
 
 <p>The direction of the axis of the cylinder is returned by
 the <a href="#GetFeatureAxisDirection">GetFeatureAxisDirection</a> function.
@@ -3897,7 +3890,7 @@ profile.
 <h3>Common Errors</h3>
 <UL>
 <li>Project not defined: There is no AP-238 file open.
-</UL> 
+</UL>
 
 
 <!-- ================================ -->
@@ -3909,7 +3902,7 @@ System::Int64 <b>GetFeatureProfileAtEnd</b> (
 	);
 </pre>
 
-<P>The <b>GetFeatureProfileAtEnd()</b> function 
+<P>The <b>GetFeatureProfileAtEnd()</b> function
 
 
 <!-- ================================ -->
@@ -3921,7 +3914,7 @@ System::Int64 <b>GetFeatureProfileAtStart</b> (
 	);
 </pre>
 
-<P>The <b>GetFeatureProfileAtStart()</b> function 
+<P>The <b>GetFeatureProfileAtStart()</b> function
 
 
 <!-- ================================ -->
@@ -3982,7 +3975,7 @@ System::Int64 <b>GetFeatureProfileSegmentNext</b> (
 <P>The <b>GetFeatureProfileSegmentCount()</b> function returns the
 number of segments in a general profile boundary.  Each segment will
 be a curve that can be manipulated using the functionality provided
-for tool path segments.  
+for tool path segments.
 
 <P>The <b>GetFeatureProfileSegmentNext()</b> function iterates over
 the segments and returns the curve_id for the segment at a requested
@@ -4035,7 +4028,7 @@ Returns a point in the polyline.
 defined:  There is no AP-238 file open.
 <li>Invalid index: The given index is not in the range defined by
 GetFeatureProfileSegmentCount.
-</UL> 
+</UL>
 
 
 <!-- ================================ -->
@@ -4099,7 +4092,7 @@ double <b>GetFeatureProfileZcoordinate</b> (
 	);
 </pre>
 
-<P>The <b>GetFeatureProfileZcoordinate()</b> function 
+<P>The <b>GetFeatureProfileZcoordinate()</b> function
 
 
 <!-- ================================ -->
@@ -4241,7 +4234,7 @@ to be removed from the inside of a part.  A slot is similar to an open
 rectangular pocket, but a slot is machined with special tooling. Like
 an open pocket it is mostly defined by a square u profile. A slot has
 ends that can be open or closed.  The function returns a string
-describing the type of the slot: 
+describing the type of the slot:
 <UL>
 <li>&ldquo;unknown&rdquo;
 <li>&ldquo;flat&rdquo;
@@ -4321,7 +4314,7 @@ type names are returned for the milling features.
     <li> type = &quot;REGION&quot;
     <li> type = &quot;ROUND_HOLE&quot;
     <li> type = &quot;ROUNDED_END&quot;
-    <li> type = &quot;SLOT&quot;  
+    <li> type = &quot;SLOT&quot;
 
     <li> type = &quot;SPHERICAL_CAP&quot;
     <li> type = &quot;STEP&quot;
@@ -4810,24 +4803,50 @@ function cannot pick the material.
 <h2 class=rule>
 <a name=GetNestedExecutableNext></a>
 <a name=GetNestedExecutableCount></a>GetNestedExecutableCount/Next/All/AllEnabled()</h2>
-<pre>
+<pre class="dotnet">
 System::Int64 <b>GetNestedExecutableCount</b> (
 	System::Int64 exe_id
 	);
-
+</pre>
+<pre class="nodejs">
+int <b>GetNestedExecutableCount</b> (
+	int exe_id
+	);
+</pre>
+<pre class="cpp">
+RoseBoolean <b>nested_executable_count</b> (
+	int own_id,
+	int &size
+	);
+</pre>
+<pre class="dotnet">
 System::Int64 <b>GetNestedExecutableNext</b> (
 	System::Int64 wp_id,
 	System::Int64 index
 	);
-
+</pre>
+<pre class="nodejs">
+int <b>GetNestedExecutableNext</b> (
+	int exe_id,
+	int index
+	);
+</pre>
+<pre class="cpp">
+RoseBoolean <b>nested_executable_next</b> (
+	int own_id,
+	int index,
+	int &exe_id
+	);
+</pre>
+<pre class="dotnet">
 System::Collections::Generic::List<System::Int64>^ <b>GetNestedExecutableAll</b> (
 	System::Int64 wp_id
 	);
-
+</pre>
+<pre class="dotnet">
 System::Collections::Generic::List<System::Int64>^ <b>GetNestedExecutableAllEnabled</b> (
 	System::Int64 wp_id
 	);
-
 </pre>
 
 <P>The <b>GetNestedExecutableCount()</b> function returns a count of
@@ -4839,7 +4858,7 @@ Workingsteps are executables.
 
 <p>A workplan contains a list of executables that all should be executed.
 <p>A selective contains a list of executable only one of which should be executed.
-The chosen one will have its <b>enabled</b> flag set. 
+The chosen one will have its <b>enabled</b> flag set.
 
 <P>The <b>GetNestedExecutableNext()</b> function iterates over the
 executables and returns the one at a given index.
@@ -4908,13 +4927,13 @@ contain this type of operation.
 <DT>ws_id <DD> The identity of the workingstep.
 <DT>cutting_depth <DD>[<b>out</b>] See ISO 14649-11 for documentation on
 these parameters
-<DT>dwell_time_bottom<DD>[<b>out</b>] 
-<DT>feed_on_retract<DD>[<b>out</b>] 
-<DT>previous_diameter<DD>[<b>out</b>] 
-<DT>waiting_x<DD>[<b>out</b>] 
-<DT>waiting_y<DD>[<b>out</b>] 
-<DT>waiting_z<DD>[<b>out</b>] 
-<DT>depth_of_test_cut<DD>[<b>out</b>] 
+<DT>dwell_time_bottom<DD>[<b>out</b>]
+<DT>feed_on_retract<DD>[<b>out</b>]
+<DT>previous_diameter<DD>[<b>out</b>]
+<DT>waiting_x<DD>[<b>out</b>]
+<DT>waiting_y<DD>[<b>out</b>]
+<DT>waiting_z<DD>[<b>out</b>]
+<DT>depth_of_test_cut<DD>[<b>out</b>]
 </DL>
 
 <h3>Related Functions</h3>
@@ -5206,7 +5225,7 @@ then the CNC control is expected to generate the necessary toolpaths
 at run time.
 
 <p>For a more detailed description
-see <a href="#GetOperationMillingBottom">GetOperationMillingBottom</a>, 
+see <a href="#GetOperationMillingBottom">GetOperationMillingBottom</a>,
 <a href="#GetOperationMillingSide">GetOperationMillingSide</a>,
 and <a href="#GetOperationMillingBottomAndSide">GetOperationMillingBottomAndSide</a>.
 
@@ -6065,7 +6084,7 @@ function. This function returns the axis of the center of the arc, not
 the axis of the cutting tool.
 
 <p>To get to an arc from a workingstep uses the following
-recipe: 
+recipe:
 <UL>
 <li>Find the number of paths in the workingstep
 using <a href="#GetWorkingstepPathCount">GetWorkingstepPathCount</a>.
@@ -6353,7 +6372,7 @@ then the axis curve segment should be a polyline containing two points
 one for the start of the arc and one for the end.
 
 <P>The <b>GetPathAxisAll()</b> function returns all the axes in one
-function call and is therefore more efficient. 
+function call and is therefore more efficient.
 
 <h3>Arguments</h3>
 <DL class=termdefs>
@@ -6413,12 +6432,12 @@ describing the axis direction is associated with each point of the
 tool path.
 
 <P>The <b>GetPathAxisPolylinePointNext()</b> function returns the next
-(i, j, k) component in a tool axis polyline.  
+(i, j, k) component in a tool axis polyline.
 
 <P>The <b>GetPathAxisPolylinePointAll()</b> function returns all the
 (i, j, k) components in a tool axis polyline in one function call. For
 large polylines this is <b>much more efficient.</b>
-The coordinates will be returned in i, j, k order with the first 
+The coordinates will be returned in i, j, k order with the first
 i at position 0, the second i at position 3 and so on.
 
 
@@ -6660,7 +6679,7 @@ double <b>GetPathOvercut</b> (
 
 <P>The <b>GetPathOvercut()</b> function returns the tool diameter
 overcut of the path
-which is assumed to be a constant value across the path. 
+which is assumed to be a constant value across the path.
 
 
 <!-- ================================ -->
@@ -6697,7 +6716,7 @@ data or converted to the units requested by
 the <a href="#APIUnitsInch">APIUnitsInch</a>
 or <a href="#APIUnitsMM">APIUnitsMM</a> functions.
 
-<P>The <b>GetPathPolylinePointAll()</b> function returns all the coordinates 
+<P>The <b>GetPathPolylinePointAll()</b> function returns all the coordinates
 in a single function call and
 is <b>much more efficient</b> for large polylines. The points are
 ordered by x, y and z so if the polyline contains 5 points then there
@@ -6706,7 +6725,7 @@ the second x at position 3.
 
 
 <p>To get to a geometry curve polyline (x, y, z) point from a
-workingstep uses the following recipe: 
+workingstep uses the following recipe:
 <UL>
 <li>Find the number of paths in the workingstep
 using <a href="#GetWorkingstepPathCount">GetWorkingstepPathCount</a>.
@@ -6769,7 +6788,7 @@ polyline.
 <UL>
 <li><a href="#GetPathPolylinePointNext">GetPathPolylinePointNext</a>
 <li><a href="#GetPathAxisPolylinePointNext">GetPathAxisPolylinePointNext</a>
-<li><a href="#GetPathAreaPolylinePointNext">GetPathAreaPolylinePointNext</a> 
+<li><a href="#GetPathAreaPolylinePointNext">GetPathAreaPolylinePointNext</a>
 <li><a href="#GetPathSpeedOverridePolylinePointNe">GetPathSpeedOverridePolylinePointNext</a>
 </UL>
 
@@ -7129,7 +7148,7 @@ the <a href="#GetPathPolylinePointNextID">GetPathPolylinePointNextID</a>.
 all the speed override values in a single function call.
 
 <p>To get to a speed override from a workingstep uses the
-following recipe: 
+following recipe:
 <UL>
 <li>Find the number of paths in the workingstep
 using <a href="#GetWorkingstepPathCount">GetWorkingstepPathCount</a>.
@@ -7292,7 +7311,7 @@ System::String^ <b>GetPathUnits</b> (
 </pre>
 <P> The <b>GetPathUnits</b> function returns a unit used for length measurements.
 <h3>Related Functions</h3>
-<UL> 
+<UL>
 <li><a href = "#GetWorkpieceUnits">GetWorkpieceUnits</a>
 </UL>
 
@@ -7357,13 +7376,13 @@ string <b>GetProcessFeedUnit</b> (
 <pre class = "cpp">
 RoseBoolean <b>feed_speed</b> (
 	int ws_id,
-	double &feed, 
+	double &feed,
 	double &speed
 	);
 
 RoseBoolean <b>feed_speed_unit</b> (
-	int ws_id, 
-	const char * &feed_unit, 
+	int ws_id,
+	const char * &feed_unit,
 	const char * &speed_unit);
 </pre>
 
@@ -7665,7 +7684,7 @@ GetSelectiveExecutableCount
 System::Boolean <b>GetStixExportTransformAvailable</b> ();
 </pre>
 
-<P>The <b>GetStixExportTransformAvailable()</b> function 
+<P>The <b>GetStixExportTransformAvailable()</b> function
 
 
 <!-- ================================ -->
@@ -8304,7 +8323,7 @@ tool which is the parameter used for cutter diameter compensation.
 The <b>GetToolDiameterUnit()</b> function returns the unit of the
 diameter as a string.
 
-<P>The <b>GetToolDiameterLower()</b>, <b>GetToolDiameterLowerReason()</b>, 
+<P>The <b>GetToolDiameterLower()</b>, <b>GetToolDiameterLowerReason()</b>,
 <b>GetToolDiameterUpper()</b> and <b>GetToolDiameterUpperReason()</b>
 functions return bounds on the recommended value for the diameter as
 well as the reason for the recommendation.
@@ -8397,7 +8416,7 @@ remaining life of the tool cutting component, usually in minutes.
 The <b>GetToolExpectedLifeUnit()</b> function returns the unit name
 used for the expected remaining tool life.
 
-<P>The <b>GetToolExpectedLifeLower()</b>, <b>GetToolExpectedLifeLowerReason()</b>, 
+<P>The <b>GetToolExpectedLifeLower()</b>, <b>GetToolExpectedLifeLowerReason()</b>,
 <b>GetToolExpectedLifeUpper()</b>,
 and <b>GetToolExpectedLifeUpperReason()</b> functions return bounds on
 the recommended value for the expected tool life as well as the reason
@@ -8452,7 +8471,7 @@ double <b>GetToolFluteCount</b> (
 	);
 </pre>
 
-<P>The <b>GetToolFluteCount()</b> function 
+<P>The <b>GetToolFluteCount()</b> function
 
 
 <!-- ================================ -->
@@ -8542,7 +8561,7 @@ double <b>GetToolFluteNumber</b> (
 <DT>ws_or_tl_id <DD> The identity of a workingstep or tool. If the
 identifier defines a workingstep then the function will be applied to
 the tool defined for that workingstep.
-<DT>value_set <DD>[<b>out</b>] true if this value has been set 
+<DT>value_set <DD>[<b>out</b>] true if this value has been set
 </DL>
 
 <h3>Common Errors</h3>
@@ -8774,9 +8793,9 @@ Name of the ISO 13399 file.
 <a name=GetToolISO13399OrganizationAttributes></a>GetToolISO13399OrganizationAttributes()</h2>
 <pre>
 System::Boolean Finder::GetToolISO13399OrganizationAttributes (
-	System::Int64 tool_id, 
-	[System::Runtime::InteropServices::Out] System::String^ %company_name, 
-	[System::Runtime::InteropServices::Out] System::String^ %address1, 
+	System::Int64 tool_id,
+	[System::Runtime::InteropServices::Out] System::String^ %company_name,
+	[System::Runtime::InteropServices::Out] System::String^ %address1,
 	[System::Runtime::InteropServices::Out] System::String^ %address2
 	);
 </pre>
@@ -8865,7 +8884,7 @@ System::String^ <b>GetToolIdentifier</b> (
 	);
 </pre>
 
-<P>The <b>GetToolIdentifier()</b> function 
+<P>The <b>GetToolIdentifier()</b> function
 
 
 <!-- ================================ -->
@@ -8912,8 +8931,8 @@ which is also known as the height in
 APT. The <b>GetToolLengthUnit()</b> function returns the unit name
 used for the value.
 
-<P>The <b>GetToolLengthLower()</b>, 
-<b>GetToolLengthLowerReason()</b>,  
+<P>The <b>GetToolLengthLower()</b>,
+<b>GetToolLengthLowerReason()</b>,
 <b>GetToolLengthUpper()</b>, and
 <b>GetToolLengthUpperReason()</b> functions return bounds on the
 recommended value for the length as well as the reason for the
@@ -9268,7 +9287,7 @@ System::Int64 <b>GetToolProductID</b> (
 	);
 </pre>
 
-<P>The <b>GetToolProductID()</b> function 
+<P>The <b>GetToolProductID()</b> function
 
 
 
@@ -9318,7 +9337,7 @@ function returns the unit name used for the feed value.
 
 <P>The <b>GetToolRecommendedFeedLower()</b>,
 <b>GetToolRecommendedFeedLowerReason()</b>,
-<b>GetToolRecommendedFeedUpper()</b>, and 
+<b>GetToolRecommendedFeedUpper()</b>, and
 <b>GetToolRecommendedFeedUpperReason()</b> functions return bounds on
 the recommended value for the feed as well as the reason for the
 recommendation.
@@ -9397,9 +9416,9 @@ recommended spindle speed for a tool.
 The <b>GetToolRecommendedSpeedUnit()</b> function returns the unit
 name used by the spindle speed.
 
-<P>The <b>GetToolRecommendedSpeedLower()</b>, 
-<b>GetToolRecommendedSpeedLowerReason()</b>, 
-<b>GetToolRecommendedSpeedUpper()</b>, and 
+<P>The <b>GetToolRecommendedSpeedLower()</b>,
+<b>GetToolRecommendedSpeedLowerReason()</b>,
+<b>GetToolRecommendedSpeedUpper()</b>, and
 <b>GetToolRecommendedSpeedUpperReason()</b> functions return bounds on
 the recommended value for the feed as well as the reason for the
 recommendation.
@@ -9498,7 +9517,7 @@ System::String^ <b>GetToolReferenceDataSTRL</b> (
 	);
 </pre>
 
-<P>The <b>GetToolReferenceDataSTRL()</b> function 
+<P>The <b>GetToolReferenceDataSTRL()</b> function
 
 
 <!-- ================================ -->
@@ -9718,8 +9737,8 @@ System::String^ <b>GetToolThreadPitchUpperReason</b> (
 of a tapping tool and the <b>GetToolThreadPitchUnit()</b> function
 returns the name of the unit used for the pitch value.
 
-<P>The <b>GetToolThreadPitchLower()</b>, 
-<b>GetToolThreadPitchLowerReason()</b>, 
+<P>The <b>GetToolThreadPitchLower()</b>,
+<b>GetToolThreadPitchLowerReason()</b>,
 <b>GetToolThreadPitchUpper()</b>, and
 <b>GetToolThreadPitchUpperReason()</b> functions return bounds on the
 recommended value for the pitch as well as the reason for the
@@ -9730,7 +9749,7 @@ recommendation.
 <DT>ws_or_tl_id <DD> The identity of a workingstep or tool. If the
 identifier defines a workingstep then the function will be applied to
 the tool defined for that workingstep.
-<DT>value_set <DD>[<b>out</b>] true if this value has been set 
+<DT>value_set <DD>[<b>out</b>] true if this value has been set
 </DL>
 
 <h3>Common Errors</h3>
@@ -9783,8 +9802,8 @@ System::String^ <b>GetToolThreadSizeUpperReason</b> (
 of a tapping tool and the <b>GetToolThreadSizeUnit()</b> function
 returns the name of the unit used for the size value.
 
-<P>The <b>GetToolThreadSizeLower()</b>, 
-<b>GetToolThreadSizeLowerReason()</b>, 
+<P>The <b>GetToolThreadSizeLower()</b>,
+<b>GetToolThreadSizeLowerReason()</b>,
 <b>GetToolThreadSizeUpper()</b>, and
 <b>GetToolThreadSizeUpperReason()</b> functions return bounds on the
 recommended value for the size as well as the reason for the
@@ -9795,7 +9814,7 @@ recommendation.
 <DT>ws_or_tl_id <DD> The identity of a workingstep or tool. If the
 identifier defines a workingstep then the function will be applied to
 the tool defined for that workingstep.
-<DT>value_set <DD>[<b>out</b>] true if this value has been set 
+<DT>value_set <DD>[<b>out</b>] true if this value has been set
 </DL>
 
 
@@ -9879,8 +9898,8 @@ System::String^ <b>GetToolTipAngleUpperReason</b> (
 tool and the <b>GetToolTipAngleUnit()</b> function returns the name of
 the unit used for the angle (degrees or radians).
 
-<P>The <b>GetToolTipAngleLower()</b>, 
-<b>GetToolTipAngleLowerReason()</b>, 
+<P>The <b>GetToolTipAngleLower()</b>,
+<b>GetToolTipAngleLowerReason()</b>,
 <b>GetToolTipAngleUpper()</b>, and
 <b>GetToolTipAngleUpperReason()</b> functions return bounds on the
 recommended value for the tip angle as well as the reason for the
@@ -9966,7 +9985,7 @@ System::Int64 <b>GetToolUsingIdentifier</b> (
 	);
 </pre>
 
-<P>The <b>GetToolUsingIdentifier()</b> function 
+<P>The <b>GetToolUsingIdentifier()</b> function
 
 
 <!-- ================================ -->
@@ -10083,7 +10102,7 @@ System::Int64 <b>GetWorkingstep</b> (
 	);
 </pre>
 
-<P>The <b>GetWorkingstep()</b> function 
+<P>The <b>GetWorkingstep()</b> function
 
 
 <!-- ================================ -->
@@ -10257,7 +10276,7 @@ paths in a workingstep and returns the path at a given index.
 <P>The <b>GetWorkingstepPathAll()</b> function returns all the workingstep
 paths in one function call and is therefore more efficient. If the type
 of each path (center or contact) cannot be assumed then it can be determined
-using the <a href="#IsContactPath">IsContactPath</a> 
+using the <a href="#IsContactPath">IsContactPath</a>
 and <a href="#IsCenterPath">IsCenterPath</a> functions.
 
 
@@ -10417,7 +10436,7 @@ the speed and feed values in a technology entity
 <UL>
 <li>Project not defined: There is no AP-238 file open.
 <li>Invalid type: The given identifier does not define a workingstep.
-</UL> 
+</UL>
 
 
 <!-- ================================ -->
@@ -10470,7 +10489,7 @@ System::Boolean <b>GetWorkingstepToolpathOrientation</b> (
 	);
 </pre>
 
-<P>The <b>GetWorkingstepToolpathOrientation()</b> function 
+<P>The <b>GetWorkingstepToolpathOrientation()</b> function
 
 
 <!-- ================================ -->
@@ -10547,7 +10566,7 @@ System::Int64 <b>GetWorkpieceBlock</b> (
 	);
 </pre>
 
-<P>The <b>GetWorkpieceBlock()</b> function 
+<P>The <b>GetWorkpieceBlock()</b> function
 
 
 <!-- ================================ -->
@@ -10610,7 +10629,7 @@ System::Int64 <b>GetWorkpieceCylinder</b> (
 	);
 </pre>
 
-<P>The <b>GetWorkpieceCylinder()</b> function 
+<P>The <b>GetWorkpieceCylinder()</b> function
 
 
 <!-- ================================ -->
@@ -10628,7 +10647,7 @@ System::Int64 <b>GetWorkpieceCylinderAsBlock</b> (
 	);
 </pre>
 
-<P>The <b>GetWorkpieceCylinderAsBlock()</b> function 
+<P>The <b>GetWorkpieceCylinderAsBlock()</b> function
 
 
 <!-- ================================ -->
@@ -10661,7 +10680,7 @@ workpiece in the project.
 System::Int64 <b>GetWorkpieceFixtureOfMain</b> ();
 </pre>
 
-<P>The <b>GetWorkpieceFixtureOfMain()</b> function 
+<P>The <b>GetWorkpieceFixtureOfMain()</b> function
 
 
 <!-- ================================ -->
@@ -11204,7 +11223,7 @@ System::Int64 <b>GetWorkplanSize</b> (
 	);
 </pre>
 
-<P>The <b>GetWorkplanSize()</b> function 
+<P>The <b>GetWorkplanSize()</b> function
 
 
 <!-- ================================ -->
@@ -11332,7 +11351,7 @@ multiple workpieces.
 
 <P>The <b>GetWorkplanWorkpieceNext()</b> function returns a workpiece
 id and placement information for the next workpiece defined by a
-workplan and used for the operations in the plan. 
+workplan and used for the operations in the plan.
 
 <h3>Arguments</h3>
 <DL class=termdefs>
@@ -11380,7 +11399,7 @@ This function returns the next toolpath in a workingstep. The path
 returned can then be tested using the current function
 <li><a href="#IsWorkingstep">IsWorkingstep</a>: Returns 1 if an
 executable is a workingstep.
-<li><a href="#IsContactPath">IsContactPath</a>: Returns 1 for the 
+<li><a href="#IsContactPath">IsContactPath</a>: Returns 1 for the
 alternative tool path type which is the contact line between the tool and
 the workpiece.
 
@@ -11408,10 +11427,10 @@ System::Boolean <b>IsContactPath</b> (
 is described for the contact line between the tool and workpiece.
 In traditional machining contact paths can be compensated for tool wear.
 (In STEP-NC machining any type of path can be compensated because all
-the processes are described by models). 
+the processes are described by models).
 <p>
-For more information on cutter compensation see the 
-<a href="AptStepMaker.html#Left">AptStepMaker::Left</a> and 
+For more information on cutter compensation see the
+<a href="AptStepMaker.html#Left">AptStepMaker::Left</a> and
 <a href="AptStepMaker.html#Right">AptStepMaker::Right</a>
 functions.
 
@@ -11431,7 +11450,7 @@ This function returns the next toolpath in a workingstep. The path
 returned can then be tested using the current function
 <li><a href="#IsWorkingstep">IsWorkingstep</a>: Returns 1 if an
 executable is a workingstep.
-<li><a href="#IsCenterPath">IsCenterPath</a>: Returns 1 for the 
+<li><a href="#IsCenterPath">IsCenterPath</a>: Returns 1 for the
 simpler type of tool path which describes the center line of the tool axis
 
 </UL>
@@ -11707,7 +11726,7 @@ the program structure is a workplan.
 <h3>Common Errors</h3>
 <UL>
 <li>Project not defined: There is no AP-238 file open.
-</UL> 
+</UL>
 
 
 <!-- ================================ -->
@@ -11801,7 +11820,7 @@ System::Boolean <b>IsWorkplanWIthSetupAndFixture</b> (
 	);
 </pre>
 
-<P>The <b>IsWorkplanWIthSetupAndFixture()</b> function 
+<P>The <b>IsWorkplanWIthSetupAndFixture()</b> function
 
 
 <!-- ================================ -->
@@ -11863,7 +11882,7 @@ System::Boolean <b>IsWorkplanWithSetupAndWorkpieceMount</b> (
 	);
 </pre>
 
-<P>The <b>IsWorkplanWithSetupAndWorkpieceMount()</b> function 
+<P>The <b>IsWorkplanWithSetupAndWorkpieceMount()</b> function
 
 
 <!-- ================================ -->
@@ -11884,7 +11903,7 @@ System::Int64 <b>NavigateExecutableToWorkplanNext</b> (
 <P>The <b>NavigateExecutableToWorkplanCount()</b> function returns the
 count of the number of workplans that contain the given executable.
 An executable such as a workingstep may be used in one or more
-workplans. Most executables are only used in one workplan. 
+workplans. Most executables are only used in one workplan.
 
 <p>The tolerance object contains navigate functions for many other
 types of data. In the DLL functions are named &ldquo;navigate&rdquo;
@@ -11962,7 +11981,7 @@ Open224.
 <h3>Common Errors</h3>
 <UL>
 <li>File not found. The file name may use the common syntax to
-define directories and network locations. 
+define directories and network locations.
 </UL>
 
 
@@ -12015,7 +12034,7 @@ void <b>OpenNewProject</b> (
 	);
 </pre>
 
-<P>The <b>OpenNewProject()</b> function 
+<P>The <b>OpenNewProject()</b> function
 
 
 <!-- ================================ -->
@@ -12030,7 +12049,7 @@ System::Int64 <b>Opened238Strl</b> (
 	);
 </pre>
 
-<P>The <b>Opened238Strl()</b> function 
+<P>The <b>Opened238Strl()</b> function
 
 
 <!-- ================================ -->
@@ -12171,7 +12190,7 @@ void <b>SetUseStixExportTransformOff</b> ();
 void <b>SetUseStixExportTransformOn</b> ();
 </pre>
 
-<P>The <b>SetUseStixExportTransformOff()</b> and  
+<P>The <b>SetUseStixExportTransformOff()</b> and
 <b>SetUseStixExportTransformOn()</b> functions control advanced
 capabilities for flexible setup.
 
@@ -12190,7 +12209,7 @@ the <a href="#Reset"></a>Reset()</h2> function that deletes all of the
 data in the finder object as well as resetting it to its initial
 state.  If multiple applications are sharing the same Finder object
 then all but the last object should execute a reset and after they
-have finished the last should shut it down.  
+have finished the last should shut it down.
 
 
 </div>
