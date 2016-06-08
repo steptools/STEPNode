@@ -94,6 +94,9 @@ public:
     //int[] GetNestedExecutableAll (int wp_id);
     static NAN_METHOD(GetNestedExecutableAll);
 
+    //int[] GetNestedExecutableAllEnabled (int wp_id);
+    static NAN_METHOD(GetNestedExecutableAllEnabled);
+
     //int GetNestedExecutableCount (int exe_id);
     static NAN_METHOD(GetNestedExecutableCount);
 
