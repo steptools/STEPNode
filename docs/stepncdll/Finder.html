@@ -11267,9 +11267,21 @@ GetWorkplanFinalFeatureCount
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetWorkplanSize></a>GetWorkplanSize()</h2>
-<pre>
+<pre class = "dotnet">
 System::Int64 <b>GetWorkplanSize</b> (
 	System::Int64 wp_id
+	);
+</pre>
+<pre class = "nodejs">
+int <b>GetWorkplanSize</b> (
+	int wp_id
+	);
+</pre>
+<pre class = "cpp">
+RoseBoolean <b>workplan</b> (
+	int wp_id, 
+	int &size, 
+	const char * &name
 	);
 </pre>
 
