@@ -49,19 +49,25 @@ public:
     //void APIUnitsSpeed(System::String^ units);
     static NAN_METHOD(APIUnitsSpeed);
     
-    //System::int64 Finder::GetCompoundFeatureCount(system::int64 compound_id)'
+    //System::int64 GetCompoundFeatureCount(system::int64 compound_id)'
     static NAN_METHOD(GetCompoundFeatureCount);
 
     // double GetExecutableDistance(System::Int64 exe_id)
     static NAN_METHOD(GetExecutableDistance);
 
+    // double GetExecutableDistance(int exe_id)
+    static NAN_METHOD(GetExecutableDistance);
+
+	// string GetExecutableDistanceUnit(int exe_id)
+	static NAN_METHOD(GetExecutableDistanceUnit);
+
     //int GetMainWorkplan();
     static NAN_METHOD(GetMainWorkplan);
 
-    //long Finder::GetFaceEdgeCount(long face_id);
+    //long GetFaceEdgeCount(long face_id);
     static NAN_METHOD(GetFaceEdgeCount);
 
-    //void Finder::GetFaceEdgeNextPoint(
+    //void GetFaceEdgeNextPoint(
     /*
     System::Int64 face_id,
     System::Int64 index,
@@ -80,11 +86,14 @@ public:
     //long GetFeatureID(long ws_id);
     static NAN_METHOD(GetFeatureID);
 
-    //double GetProcessFeed (long ws_id);
+    //double GetProcessFeed (int ws_id);
     static NAN_METHOD(GetProcessFeed);
 
-    //string GetProcessFeedUnit (long ws_id);
+    //string GetProcessFeedUnit (int ws_id);
     static NAN_METHOD(GetProcessFeedUnit);
+
+    //bool IsSelective(long exe_id);
+    static NAN_METHOD(IsSelective);
 
     //void Open238(String file_name);
     static NAN_METHOD(OpenProject);
