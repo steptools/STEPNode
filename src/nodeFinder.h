@@ -124,6 +124,12 @@ public:
     //int GetWorkplanSize();
     static NAN_METHOD(GetWorkplanSize);
 
+    //int GetWorkplanToolCount();
+    static NAN_METHOD(GetWorkplanToolCount);
+
+    //int GetWorkplanToolNext();
+    static NAN_METHOD(GetWorkplanToolNext);
+
     //int GetSelectiveExecutableCount( int sl_id)
     static NAN_METHOD(GetSelectiveExecutableCount);
 
