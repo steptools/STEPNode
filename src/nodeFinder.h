@@ -89,6 +89,9 @@ public:
     //string GetProcessFeedUnit (int ws_id);
     static NAN_METHOD(GetProcessFeedUnit);
 
+    //bool IsEnabled (int exe_id);
+    static NAN_METHOD(IsEnabled);
+
     //bool IsSelective(long exe_id);
     static NAN_METHOD(IsSelective);
 
