@@ -450,7 +450,7 @@ the reference direction for this non-spinning tool at the end of the arc.
 <DT>radius: <DD>The radius of the circle.
 <DT>ccw: <DD>If non-zero then the arc will travel from the current
 point to the new end point in a counter clockwise direction.
-<DT>a, b, c: <DD> (a, b, c) components for the tool refernce direction at the end of the arc. 
+<DT>a, b, c: <DD> (a, b, c) components for the tool refernce direction at the end of the arc.
 </DL>
 
 <h3>Related Functions</h3>
@@ -708,14 +708,14 @@ file.
 <li><a href="#DeleteToolParameters">DeleteToolParameters</a>: Delete
 the parameters of a tool that is no longer being used after all its
 operations have been assigned to another tool.
-</UL> 
+</UL>
 
 
 <h3>Common Errors</h3>
 <UL>
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
-</UL> 
+</UL>
 
 
 
@@ -954,7 +954,7 @@ modified then the modification will also apply to the other path. <p>
 void <b>Connector</b> ();
 </pre>
 
-<P>The <b>Connector()</b> function 
+<P>The <b>Connector()</b> function
 
 
 <!-- ================================ -->
@@ -1004,7 +1004,7 @@ the tool. The DLL will calculate ABC vectors for the right hand side.
 <UL>
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
-</UL> 
+</UL>
 
 
 
@@ -1192,7 +1192,7 @@ AP-203 geometry of a tool.
 <UL>
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
-</UL> 
+</UL>
 
 
 
@@ -1659,7 +1659,7 @@ geometry of a tool.
 <UL>
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
-</UL> 
+</UL>
 
 
 <!-- ================================ -->
@@ -1712,7 +1712,7 @@ geometry of a tool.
 <UL>
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
-</UL> 
+</UL>
 
 <!-- ================================ -->
 <h2 class=rule>
@@ -1742,7 +1742,7 @@ fixture, stock (as-is), final part (to-be) or cutting tool.
 <UL>
 <li><a href="#DeleteWorkpiece">DeleteWorkpiece</a>: Deletes a specific
 workpiece.
-</UL> 
+</UL>
 
 
 
@@ -1776,7 +1776,7 @@ or selective to be deleted.
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
 <li>Bad identity: The ex_id does not identify an executable.
-</UL> 
+</UL>
 
 
 <!-- ================================ -->
@@ -1807,7 +1807,7 @@ the tool of a workingstep (so that the tool can be deleted).
 <UL>
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
-</UL> 
+</UL>
 
 
 <!-- ================================ -->
@@ -1851,7 +1851,7 @@ the <a href="#NewProject">NewProject</a> function.
 void <b>EmptyOperation</b> ();
 </pre>
 
-<P>The <b>EmptyOperation()</b> function 
+<P>The <b>EmptyOperation()</b> function
 
 
 <!-- ================================ -->
@@ -1913,7 +1913,7 @@ void <b>EstimateDepths</b> (
 	);
 </pre>
 
-<P>The <b>EstimateDepths()</b> function 
+<P>The <b>EstimateDepths()</b> function
 
 
 <!-- ================================ -->
@@ -1953,9 +1953,9 @@ the executable without deleting it from its old location.
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
 <li>Bad identity: The exe_id does not identify a workingstep, or the plan_id does not identify a workplan.
-</UL> 
+</UL>
 
-</DL> 
+</DL>
 
 
 <!-- ================================ -->
@@ -1992,7 +1992,7 @@ workingsteps only.
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
 <li>Bad identity: The exe_id does not identify a workingstep.
-</UL> 
+</UL>
 
 
 <!-- ================================ -->
@@ -2036,7 +2036,7 @@ Move executable and delete from old location.
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
 <li>Bad identity: The exe_id does not identify an executable.
-</UL> 
+</UL>
 
 
 
@@ -2070,7 +2070,7 @@ by a selective containing the executable.
 <h3>Related Functions</h3>
 <UL>
 <li><a href="#NestWorkplanAfter">NestWorkplanAfter</a>:  Add a workplan
-to the new selective so that it can be used to hold new solutions. 
+to the new selective so that it can be used to hold new solutions.
 <li><a href="#ImportWorkplanFromFile">ImportWorkplanFromFile</a>:
 Import the definitions in a workplan as an alternate solutions.
 </UL>
@@ -2080,7 +2080,7 @@ Import the definitions in a workplan as an alternate solutions.
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
 <li>Bad identity: The exe_id does not identify an executable.
-</UL> 
+</UL>
 
 
 <!-- ================================ -->
@@ -2104,7 +2104,7 @@ look like before the workingstep begins executing.
 <a href="Tolerance.html">Tolerance</a> object for more information.
 
 
-<P>The intent of the <B>ExecutableWorkpieceAsIs</B>, 
+<P>The intent of the <B>ExecutableWorkpieceAsIs</B>,
 <a href="#ExecutableWorkpieceToBe">ExecutableWorkpieceToBe</a>
 and <a href="#ExecutableWorkpieceRemoval">ExecutableWorkpieceRemoval</a>
 functions is to define additional geometry for a workingstep or other
@@ -2141,7 +2141,7 @@ the <a href="#NewProject">NewProject</a> function.
 it was not a valid STEP file.
 <li>Bad name: The workpiece cannot have the same name as the project.
 <li>Bad identity: The exe_id does not identify an executable.
-</UL> 
+</UL>
 
 
 
@@ -2171,7 +2171,7 @@ void <b>ExecutableWorkpieceReuseAsIs</b> (
 	);
 </pre>
 
-<P>The <b>ExecutableWorkpieceReuseAsIs()</b> function 
+<P>The <b>ExecutableWorkpieceReuseAsIs()</b> function
 
 
 <!-- ================================ -->
@@ -2184,7 +2184,7 @@ void <b>ExecutableWorkpieceReuseRemoval</b> (
 	);
 </pre>
 
-<P>The <b>ExecutableWorkpieceReuseRemoval()</b> function 
+<P>The <b>ExecutableWorkpieceReuseRemoval()</b> function
 
 
 <!-- ================================ -->
@@ -2197,8 +2197,8 @@ void <b>ExecutableWorkpieceReuseToBe</b> (
 	);
 </pre>
 
-<P>The <b>ExecutableWorkpieceReuseToBe()</b> function 
-</UL> 
+<P>The <b>ExecutableWorkpieceReuseToBe()</b> function
+</UL>
 
 <!-- ================================ -->
 <h2 class=rule>
@@ -2212,7 +2212,7 @@ void <b>ExecutableWorkpieceToBe</b> (
 
 <P>The <b>ExecutableWorkpieceToBe()</b> function defines a model of
  what the geometry of the workpiece should look like after the
- workingstep has finished executing.   See 
+ workingstep has finished executing.   See
 <a href="#ExecutableWorkpieceAsIs">ExecutableWorkpieceAsIs</a> for
 more information.
 
@@ -2226,7 +2226,7 @@ void <b>ExportAP238CC1</b> (
 	);
 </pre>
 
-<P>The <b>ExportAP238CC1()</b> function 
+<P>The <b>ExportAP238CC1()</b> function
 
 
 <!-- ================================ -->
@@ -2259,7 +2259,7 @@ and use it to define the geometry of tool paths.<p>
 <UL>
 <li>No geometry: The geometry of the fixture has not been defined in
 the program.
-</UL> 
+</UL>
 
 <!-- ================================ -->
 <h2 class=rule>
@@ -2476,7 +2476,7 @@ in-process geoemetry as well as the workpiece of the STEP-NC program.
 
 <h3>Arguments</h3>
 <DL class=termdefs>
-<DT>wp_id: <DD> The identifier for a workpiece. 
+<DT>wp_id: <DD> The identifier for a workpiece.
 <DT>file_name: <DD> File name for the STEP CAD file that is to contain
 the workpiece.
 </DL>
@@ -2508,7 +2508,7 @@ removal volume for a workingstep.
 <li>No geometry: The geometry of the workpiece has not been defined in
 the program.
 <li>Bad identity: The wp_id does not identify a workpiece.
-</UL> 
+</UL>
 
 
 <!-- ================================ -->
@@ -2588,7 +2588,7 @@ extended nc function to the current end of the STEP-NC program.
 <UL>
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
-</UL> 
+</UL>
 
 
 
@@ -2601,7 +2601,7 @@ void <b>ExternalOperation</b> (
 	);
 </pre>
 
-<P>The <b>ExternalOperation()</b> function 
+<P>The <b>ExternalOperation()</b> function
 
 
 <!-- ================================ -->
@@ -2696,7 +2696,7 @@ the <a href="#NewProject">NewProject</a> function.
 applications.
 <li>The functionality of the DLL for turning applications is weak
 compared to its functionality for milling applications.
-</UL> 
+</UL>
 
 
 <!-- ================================ -->
@@ -2747,7 +2747,7 @@ used.<p>
 the <a href="#NewProject">NewProject</a> function.
 <li>Invalid string: The string describing the units does not have one
 of the values recognized by the STEP-NC DLL.
-</UL> 
+</UL>
 
 
 <!-- ================================ -->
@@ -2817,7 +2817,7 @@ void <b>Fixture</b> (
 	);
 </pre>
 
-<P>The <b>Fixture()</b> function 
+<P>The <b>Fixture()</b> function
 
 
 
@@ -2865,7 +2865,7 @@ Is equivalent to:
 
 <PRE class=code>
 Step-&gt;<a href="#ToolGeometry">ToolGeometry</a> (&ldquo;geometry_file&rdquo;, &ldquo;T1&rdquo;);
-Step-&gt;<a href="#SetToolIdentifier">SetToolIdentifier</a> (&ldquo;1&rdquo;, &ldquo;T1&rdquo;); 
+Step-&gt;<a href="#SetToolIdentifier">SetToolIdentifier</a> (&ldquo;1&rdquo;, &ldquo;T1&rdquo;);
 </PRE>
 
 <P>This function assumes that tool numbers are integers. The other two
@@ -2885,7 +2885,7 @@ System::Int64 <b>GetCNCexportActualFlutes</b> (
 	);
 </pre>
 
-<P>The <b>GetCNCexportActualFlutes()</b> function 
+<P>The <b>GetCNCexportActualFlutes()</b> function
 
 
 <!-- ================================ -->
@@ -2897,7 +2897,7 @@ System::Boolean <b>GetCNCexportExecIsEnabled</b> (
 	);
 </pre>
 
-<P>The <b>GetCNCexportExecIsEnabled()</b> function 
+<P>The <b>GetCNCexportExecIsEnabled()</b> function
 
 
 <!-- ================================ -->
@@ -2909,7 +2909,7 @@ System::Boolean <b>GetCNCexportExecSpeedprofileActive</b> (
 	);
 </pre>
 
-<P>The <b>GetCNCexportExecSpeedprofileActive()</b> function 
+<P>The <b>GetCNCexportExecSpeedprofileActive()</b> function
 
 
 <!-- ================================ -->
@@ -2939,7 +2939,7 @@ variable to zero.
 <UL>
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
-</UL> 
+</UL>
 
 
 <!-- ================================ -->
@@ -2968,7 +2968,7 @@ the fixture using the identifier returned by GetCurrentFixture.
 <UL>
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
-</UL> 
+</UL>
 
 
 <!-- ================================ -->
@@ -2999,7 +2999,7 @@ and <a href="#CoolantOff">CoolantOff</a>.
 <UL>
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
-</UL> 
+</UL>
 
 <!-- ================================ -->
 <h2 class=rule>
@@ -3022,7 +3022,7 @@ testing the type of an executable.
 <UL>
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
-</UL> 
+</UL>
 
 
 <!-- ================================ -->
@@ -3070,7 +3070,7 @@ components for the first axis after a tool change. <p>
 <UL>
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
-</UL> 
+</UL>
 
 
 <!-- ================================ -->
@@ -3087,7 +3087,7 @@ void <b>GetCurrentNormals</b> (
 	);
 </pre>
 
-<P>The <b>GetCurrentNormals()</b> function 
+<P>The <b>GetCurrentNormals()</b> function
 
 
 <!-- ================================ -->
@@ -3117,7 +3117,7 @@ and constructs a project containing that file.
 <UL>
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
-</UL> 
+</UL>
 
 
 <!-- ================================ -->
@@ -3145,7 +3145,7 @@ result of GetCurrentRawpiece to set the placement of the rawpiece.
 <UL>
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
-</UL> 
+</UL>
 
 <!-- ================================ -->
 <h2 class=rule>
@@ -3176,7 +3176,7 @@ the spindle speed variable to zero.
 <UL>
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
-</UL> 
+</UL>
 
 <!-- ================================ -->
 <h2 class=rule>
@@ -3217,7 +3217,7 @@ speed.
 <UL>
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
-</UL> 
+</UL>
 
 
 
@@ -3252,7 +3252,7 @@ identifier of a tool
 <UL>
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
-</UL> 
+</UL>
 
 
 
@@ -3289,7 +3289,7 @@ requires a new tool path to be started for the next geometry item.
 <UL>
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
-</UL> 
+</UL>
 
 <!-- ================================ -->
 <h2 class=rule>
@@ -3325,7 +3325,7 @@ and by implication the current workingstep as well.
 <UL>
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
-</UL> 
+</UL>
 
 
 <!-- ================================ -->
@@ -3380,7 +3380,7 @@ result of GetCurrentWorkpiece.
 <UL>
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
-</UL> 
+</UL>
 
 <!-- ================================ -->
 <h2 class=rule>
@@ -3413,7 +3413,7 @@ workplan and returns the &ldquo;currency&rdquo; to the previous workplan.
 <UL>
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
-</UL> 
+</UL>
 
 <!-- ================================ -->
 <h2 class=rule>
@@ -3424,7 +3424,7 @@ System::Int64 <b>GetExecutableIsEnabled</b> (
 	);
 </pre>
 
-<P>The <b>GetExecutableIsEnabled()</b> function 
+<P>The <b>GetExecutableIsEnabled()</b> function
 
 
 <!-- ================================ -->
@@ -3436,7 +3436,7 @@ System::Int64 <b>GetExecutableIsReachable</b> (
 	);
 </pre>
 
-<P>The <b>GetExecutableIsReachable()</b> function 
+<P>The <b>GetExecutableIsReachable()</b> function
 
 
 <!-- ================================ -->
@@ -3484,7 +3484,7 @@ Define the AS-IS geometry of a workingstep
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
 <li>Bad identity: The exe_id does not identify an executable.
-</UL> 
+</UL>
 
 
 <!-- ================================ -->
@@ -3496,7 +3496,7 @@ System::Int64 <b>GetExecutableWorkpieceFixture</b> (
 	);
 </pre>
 
-<P>The <b>GetExecutableWorkpieceFixture()</b> function 
+<P>The <b>GetExecutableWorkpieceFixture()</b> function
 
 
 <!-- ================================ -->
@@ -3556,7 +3556,7 @@ System::Int64 <b>GetFrameDefinitionAllNext</b> (
 	);
 </pre>
 
-<P>The <b>GetFrameDefinitionAllNext()</b> function 
+<P>The <b>GetFrameDefinitionAllNext()</b> function
 
 
 <!-- ================================ -->
@@ -3568,7 +3568,7 @@ System::Int64 <b>GetFrameDefinitionBestGuessForExecutable</b> (
 	);
 </pre>
 
-<P>The <b>GetFrameDefinitionBestGuessForExecutable()</b> function 
+<P>The <b>GetFrameDefinitionBestGuessForExecutable()</b> function
 
 
 <!-- ================================ -->
@@ -3578,7 +3578,7 @@ System::Int64 <b>GetFrameDefinitionBestGuessForExecutable</b> (
 System::Int64 <b>GetFrameDefinitionCount</b> ();
 </pre>
 
-<P>The <b>GetFrameDefinitionCount()</b> function 
+<P>The <b>GetFrameDefinitionCount()</b> function
 
 
 <!-- ================================ -->
@@ -3619,21 +3619,32 @@ System::Int64 <b>GetSetupBestGuessForExecutable</b> (
 	);
 </pre>
 
-<P>The <b>GetSetupBestGuessForExecutable()</b> function 
+<P>The <b>GetSetupBestGuessForExecutable()</b> function
 
 
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetToolId></a>GetToolId()</h2>
-<pre>
+<pre class="dotnet">
 System::Int64 <b>GetToolId</b> (
 	System::String^ tool_number
 	);
 </pre>
+<pre class="nodejs">
+int <b>GetToolEID</b>(
+	string tool_number
+	);
+</pre>
+<pre class="cpp">
+RoseBoolean <b>get_tool_id</b> (
+	const char *number,
+	int &tl_id
+	);
+</pre>
 
 <P>The <b>GetToolId()</b> function returns the entity id of the tool object associated with a tool number.
-APT programs identify a tool using a tool number. STEP programs identify an object using the entity id of its 
-root in a STEP file. 
+APT programs identify a tool using a tool number. STEP programs identify an object using the entity id of its
+root in a STEP file.
 Functions in the DLL that build STEP-NC data from APT use the tool number. Most other functions using the
 entity id. Occassionally there may be situations where you need to use the entity id but only have the tool number.
 In these situations this function will give you the required entity id from the tool number.
@@ -3660,9 +3671,20 @@ relationships to other objects.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetToolIdentifier></a>GetToolIdentifier()</h2>
-<pre>
+<pre class="dotnet">
 System::String^ <b>GetToolIdentifier</b> (
 	System::String^ tool_number
+	);
+</pre>
+<pre class="nodejs">
+string <b>GetToolIdentifier</b> (
+	string tool_number
+	);
+</pre>
+<pre class="cpp">
+RoseBoolean <b>get_tool_number</b> (
+	int ws_id,
+	const char * &tool_number
 	);
 </pre>
 
@@ -3705,15 +3727,26 @@ relationships to other objects.
 <UL>
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
-</UL> 
+</UL>
 
 
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetToolNumber></a>GetToolNumber()</h2>
-<pre>
+<pre class="dotnet">
 System::String^ <b>GetToolNumber</b> (
 	System::Int64 ws_or_tl_id
+	);
+</pre>
+<pre class="nodejs">
+string <b>GetToolNumber</b> (
+	int id
+	);
+</pre>
+<pre class="cpp">
+RoseBoolean <b>get_tool_number</b> (
+	int ws_id,
+	const char * &tool_number
 	);
 </pre>
 
@@ -3734,7 +3767,7 @@ identifier.
 
 <h3>Arguments</h3>
 <DL class=termdefs>
-<DT>ws_id: <DD> The identity of a workingstep. 
+<DT>ws_id: <DD> The identity of a workingstep.
 </DL>
 
 <h3>Related Functions</h3>
@@ -3756,17 +3789,27 @@ tool.
 <UL>
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
-</UL> 
+</UL>
 
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetUUID></a>GetUUID()</h2>
-<pre>
+<pre class="dotnet">
 System::String^ <b>GetUUID</b> (
 	System::Int64 entity_id
 	);
 </pre>
-
+<pre class="nodejs">
+string <b>GetUUID</b> (
+	int EID
+	);
+</pre>
+<pre class="cpp">
+RoseBoolean <b>get_uuid</b> (
+	int ent_id,
+	const char * &uuid
+	);
+</pre>
 
 <P>The <b>GetUUID()</b> function returns the Universally Unique IDentifier
 currently assigned to an entity or NULL. A UUID is a number that in practice
@@ -3775,12 +3818,12 @@ will never be generated again.
 
 <h3>Arguments</h3>
 <DL class=termdefs>
-<DT>entity_id: <DD> The internal (STEP Part 21) identity of an entity. 
+<DT>entity_id: <DD> The internal (STEP Part 21) identity of an entity.
 </DL>
 
 <h3>Related Functions</h3>
 <UL>
-<li><a href="#SetUUID">SetUUID_force()</a>:   Give the entity a new UUID. 
+<li><a href="#SetUUID">SetUUID_force()</a>:   Give the entity a new UUID.
 This should happen whenever the value of the concept rooted by the
 entity changes.
 <li><a href="#SetUUID">SetUUID_if_not_set()</a>: Set the UUID of an
@@ -3792,7 +3835,7 @@ entity if it is not currently set.
 <UL>
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
-</UL> 
+</UL>
 
 
 
@@ -3888,7 +3931,7 @@ Getthe identity of the removal model for a workinstep.
 <UL>
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
-</UL> 
+</UL>
 
 
 <!-- ================================ -->
@@ -3940,7 +3983,7 @@ Get the identity of the removal model for a workinstep.
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
 <li>Bad identity The wp_id does not identify a workpiece.
-</UL> 
+</UL>
 
 
 <!-- ================================ -->
@@ -3973,7 +4016,7 @@ specific location in the program
 <UL>
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
-</UL> 
+</UL>
 
 <!-- ================================ -->
 <h2 class=rule>
@@ -4018,7 +4061,7 @@ location in the program.
 <UL>
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
-</UL> 
+</UL>
 
 
 <!-- ================================ -->
@@ -4127,7 +4170,7 @@ direction.<p>
 <UL>
 <li>The abc components should define a unit vector but the function
 does not check.
-</UL> 
+</UL>
 
 
 
@@ -4174,7 +4217,7 @@ starting a new three axis tool path.
 <UL>
 <li>The ijk components should define a unit vector but the function
 does not check.
-</UL> 
+</UL>
 
 <!-- ================================ -->
 <h2 class=rule>
@@ -4210,7 +4253,7 @@ is started.
 <DT>i, j, k: <DD> Components of the tool axis direction.
 <DT>a, b, c: <DD> (i, j, k) components for the cutter compensation
 direction.
-</DL> 
+</DL>
 
 
 <!-- ================================ -->
@@ -4242,7 +4285,7 @@ like CNC tape-laying heads.
 <DT>x, y, z: <DD>The x, y, z coordinates of the end point of the line.
 <DT>i, j, k: <DD> Components of the tool Z axis direction.
 <DT>a, b, c: <DD> (i, j, k) components for the tool X axis direction.
-</DL> 
+</DL>
 
 
 <!-- ================================ -->
@@ -4283,7 +4326,7 @@ for the new workingsteps and tool paths.
 <UL>
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
-</UL> 
+</UL>
 
 
 <!-- ================================ -->
@@ -4321,7 +4364,7 @@ System::Int64 <b>ImportToolParametersFromSTRL</b> (
 	);
 </pre>
 
-<P>The <b>ImportToolParametersFromSTRL()</b> function 
+<P>The <b>ImportToolParametersFromSTRL()</b> function
 
 
 <!-- ================================ -->
@@ -4333,7 +4376,7 @@ System::Int64 <b>ImportWorkingstepOperationFromSTRL</b> (
 	);
 </pre>
 
-<P>The <b>ImportWorkingstepOperationFromSTRL()</b> function 
+<P>The <b>ImportWorkingstepOperationFromSTRL()</b> function
 
 
 <!-- ================================ -->
@@ -4346,7 +4389,7 @@ void <b>ImportWorkingstepPaths</b> (
 	);
 </pre>
 
-<P>The <b>ImportWorkingstepPaths()</b> function 
+<P>The <b>ImportWorkingstepPaths()</b> function
 
 
 <!-- ================================ -->
@@ -4359,7 +4402,7 @@ System::Int64 <b>ImportWorkpiecesFromSTRL</b> (
 	);
 </pre>
 
-<P>The <b>ImportWorkpiecesFromSTRL()</b> function 
+<P>The <b>ImportWorkpiecesFromSTRL()</b> function
 
 
 <!-- ================================ -->
@@ -4412,7 +4455,7 @@ System::Int64 <b>ImportWorkplanFromSTRL</b> (
 	);
 </pre>
 
-<P>The <b>ImportWorkplanFromSTRL()</b> function 
+<P>The <b>ImportWorkplanFromSTRL()</b> function
 
 
 <!-- ================================ -->
@@ -4453,7 +4496,7 @@ elsewhere in the system.
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
 
-</UL> 
+</UL>
 
 
 <!-- ================================ -->
@@ -4474,7 +4517,7 @@ part of the workpiece can be machined.
 <P>The index table function is highly machine dependent because the
 meaning of the index value depends on the machine tool. Like the
 Extended NC function, this function should be avoided whenever
-possible. 
+possible.
 The <a href="#WorkplanWorkpiecePlacementAdd">WorkplanWorkpiecePlacementAdd</a>
 function defines a machine independent way to change the setup.
 
@@ -4495,7 +4538,7 @@ table function into a given location in the STEP-NC program.
 <UL>
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
-</UL> 
+</UL>
 
 
 <!-- ================================ -->
@@ -4511,7 +4554,7 @@ System::Int64 <b>IndexTableAfter</b> (
 </pre>
 
 <P>The <b>IndexTableAfter()</b> function inserts an Index table
-function into a given location in the STEP-NC program.   See 
+function into a given location in the STEP-NC program.   See
 <a href="#IndexTable">IndexTable</a> for more discussion.
 
 <h3>Arguments</h3>
@@ -4534,7 +4577,7 @@ function to the current end of the STEP-NC program.
 <UL>
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
-</UL> 
+</UL>
 
 
 
@@ -4572,7 +4615,7 @@ tool number of a tool
 <UL>
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
-</UL> 
+</UL>
 
 
 
@@ -4606,7 +4649,7 @@ Subsequent tool paths will not be given a contact normal.
 <UL>
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
-</UL> 
+</UL>
 
 
 <!-- ================================ -->
@@ -4618,7 +4661,7 @@ void <b>LoadTool</b> (
 	);
 </pre>
 
-<P>The <b>LoadTool()</b> function 
+<P>The <b>LoadTool()</b> function
 
 The new tool becomes the current tool for the next
 workingstep. If a workingstep is open then they it is closed and a new one is
@@ -4650,7 +4693,7 @@ for the tool so that it can be seen in a simulation.
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
 <li>No tool: There is no tool in the data with this number.
-</UL> 
+</UL>
 
 
 <!-- ================================ -->
@@ -4803,7 +4846,7 @@ the <a href="#NewProject">NewProject</a> function.
 <li>Bad identity: The first or second argument does not identify a
 workingstep.
 <li>Wrong tool: The two workingsteps do not use the same tool.
-</UL> 
+</UL>
 
 
 <!-- ================================ -->
@@ -4929,7 +4972,7 @@ in the program.
 <UL>
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
-</UL> 
+</UL>
 
 
 <!-- ================================ -->
@@ -5079,7 +5122,7 @@ with that workpiece and rawpiece. The AP-238 project will have an
 empty workplan.
 
 <P>AP-224 is the STEP protocol for manufacturing features.
-Therefore, the new project will have a workpiece that contains features. 
+Therefore, the new project will have a workpiece that contains features.
 
 <h3>Arguments</h3>
 <DL class=termdefs>
@@ -5102,7 +5145,7 @@ Create a workingstep for each feature in the AP-224 file.
 <UL>
 <li>File not found.  The file name may use the common syntax to define
   directories and network locations.
-</UL> 
+</UL>
 
 
 <!-- ================================ -->
@@ -5152,13 +5195,13 @@ void <b>Open238</b> (
 <P>If your plan is to navigate and process the data in the project
 then the <A href="Finder.html">Finder</A> object has many more
 functions for finding data than APT. If your plan is to add data to
-the file then the <A href="Process.html">Process</A> object has 
+the file then the <A href="Process.html">Process</A> object has
 functionality for modifying the
 process, and the <A href="Tolerance.html">Tolerance</A> object has
 functionality for defining design
 constraints. Process and Tolerance use APT to read their data.
 
-<P><b>Open238()</b> is a legacy name from early versions of the system.  
+<P><b>Open238()</b> is a legacy name from early versions of the system.
 
 <P><b>OpenSTEPNC()</b> is an alternate name provided to help early stage
 users find basic functionality.
@@ -5192,7 +5235,7 @@ System::Int64 <b>OpenCheckSTRL</b> (
 	);
 </pre>
 
-<P>The <b>OpenCheckSTRL()</b> function 
+<P>The <b>OpenCheckSTRL()</b> function
 
 
 <!-- ================================ -->
@@ -5224,7 +5267,7 @@ void <b>OpenUsingSTRL</b> (
 	);
 </pre>
 
-<P>The <b>OpenUsingSTRL()</b> function 
+<P>The <b>OpenUsingSTRL()</b> function
 
 
 <!-- ================================ -->
@@ -5264,7 +5307,7 @@ to put a Stop at the end of every workingstep.
 <UL>
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
-</UL> 
+</UL>
 
 
 <!-- ================================ -->
@@ -5308,7 +5351,7 @@ the STEP-NC program.
 <UL>
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
-</UL> 
+</UL>
 
 
 <!-- ================================ -->
@@ -5342,7 +5385,7 @@ for the workpiece and gives it a geometry definition.
 <li>There are no errors because the function creates a new default
 project called &ldquo;default project&rdquo; if no project is
 currently defined.
-</UL> 
+</UL>
 
 
 <!-- ================================ -->
@@ -5457,7 +5500,7 @@ that this is a good location for probing.
 <UL>
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
-</UL> 
+</UL>
 
 
 
@@ -5529,7 +5572,7 @@ workingstep.
 <UL>
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
-</UL> 
+</UL>
 
 
 
@@ -5562,7 +5605,7 @@ current feedrate for turning machines and cancels the rapid.
 <UL>
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
-</UL> 
+</UL>
 
 
 
@@ -5626,7 +5669,7 @@ void <b>RawpieceOfWorkpiece</b> (
 	);
 </pre>
 
-<P>The <b>RawpieceOfWorkpiece()</b> function 
+<P>The <b>RawpieceOfWorkpiece()</b> function
 
 The rawpiece of a workpiece defines the geometry of the
 part before the machining began.  The function returns the identity of the rawpiece or 0 if no rawpiece has been
@@ -5665,7 +5708,7 @@ Get the identity of the removal model for a workingstep.
 <li>No project open: An AP-238 file must be open - see the NewProject
 function.
 <li>Bad identity: The wp_id does not identify a workpiece.
-</UL> 
+</UL>
 
 
 <!-- ================================ -->
@@ -5735,7 +5778,7 @@ tool record. This function will delete those unused tools.
 <UL>
 <li>Bad File: The DLL was unable to open a file with the given name or
 it was not a valid APT CL file.
-</UL> 
+</UL>
 
 <!-- ================================ -->
 <h2 class=rule>
@@ -5764,7 +5807,7 @@ void <b>ReadMax5APTclfile</b> (
 	);
 </pre>
 
-<P>The <b>ReadMax5APTclfile()</b> function 
+<P>The <b>ReadMax5APTclfile()</b> function
 
 
 <!-- ================================ -->
@@ -5823,7 +5866,7 @@ an argument for the parser.
 <DL class=termdefs>
 <DT>File name: <DD> The name of the APT file.
 <DT>Tool number: <DD>Tool number for this file.
-</DL> 
+</DL>
 
 
 <!-- ================================ -->
@@ -5892,7 +5935,7 @@ distance.
 the <a href="#NewProject">NewProject</a> function.
 <li>The DLL does not contain functionality to check for rapid tool
 movements below the retract plane.
-</UL> 
+</UL>
 
 
 
@@ -5948,18 +5991,18 @@ redundant but included as an illustration.
 &lt;machine-setup>
 &lt;start-point x="-5.225" y="-" z="5." />
 
-&lt;tool_geometry tool="1" id="endmill_1in" diameter="1.0" 
+&lt;tool_geometry tool="1" id="endmill_1in" diameter="1.0"
   geometry="tools/Cutters_inch/End_Mill_D_1.0.stp" />
 
-&lt;tool_geometry tool="2" id="endmill_1/4in" diameter=".25" 
+&lt;tool_geometry tool="2" id="endmill_1/4in" diameter=".25"
   geometry="tools/Cutters_inch/End_Mill_025_English.stp" />
 
-&lt;tool_geometry tool="3" id="drill_0.265in" diameter="0.265" 
+&lt;tool_geometry tool="3" id="drill_0.265in" diameter="0.265"
   geometry="tools/Cutters_inch/Drill_026.stp" />
 
 &lt;workpiece geometry="sbir_test1_solid.203" />
 
-&lt;/machine-setup> 
+&lt;/machine-setup>
 </PRE>
 
 
@@ -5974,7 +6017,7 @@ configuration.
 <UL>
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
-</UL> 
+</UL>
 
 
 <!-- ================================ -->
@@ -5989,7 +6032,7 @@ void <b>SaveAsModules</b> (
 <P>The <b>SaveAsModules()</b> function saves the STEP-NC program as a
 STEP file with lots of system generated comments. A similar function
 called <a href="#SaveAsPart21">SaveAsPart21</a> saves the STEP-NC
-program as file without any comments. 
+program as file without any comments.
 
 <h3>Arguments</h3>
 <DL class=termdefs>
@@ -6010,7 +6053,7 @@ into a file without any comments
 the <a href="#NewProject">NewProject</a> function.
 <li>Ideally all errors are detected at the point of commission, but if
 something is wrong then the file will contain badly defined data.
-</UL> 
+</UL>
 
 
 
@@ -6027,7 +6070,7 @@ void <b>SaveAsModulesWithSTRL</b> (
 	);
 </pre>
 
-<P>The <b>SaveAsModulesWithSTRL()</b> function 
+<P>The <b>SaveAsModulesWithSTRL()</b> function
 
 
 <!-- ================================ -->
@@ -6042,7 +6085,7 @@ void <b>SaveAsP21</b> (
 <P>The <b>SaveAsP21()</b> function saves the STEP-NC program as an
 file in clear text without comments. A similar function
 called <a href="#SaveAsModules">SaveAsModules</a> save the STEP-NC
-program as a file with system generated comments. 
+program as a file with system generated comments.
 
 
 <h3>Arguments</h3>
@@ -6062,7 +6105,7 @@ project into a file in the Part 28 XML format
 <UL>
 <li>No project open: A STEP-NC file must be open - see
 the <a href="#NewProject">NewProject</a> function.
-</UL> 
+</UL>
 
 
 <!-- ================================ -->
@@ -6078,7 +6121,7 @@ void <b>SaveAsP21WithSTRL</b> (
 	);
 </pre>
 
-<P>The <b>SaveAsP21WithSTRL()</b> function 
+<P>The <b>SaveAsP21WithSTRL()</b> function
 
 
 <!-- ================================ -->
@@ -6090,7 +6133,7 @@ void <b>SaveFastAsModules</b> (
 	);
 </pre>
 
-<P>The <b>SaveFastAsModules()</b> function 
+<P>The <b>SaveFastAsModules()</b> function
 
 
 <!-- ================================ -->
@@ -6102,7 +6145,7 @@ void <b>SaveFastAsP21</b> (
 	);
 </pre>
 
-<P>The <b>SaveFastAsP21()</b> function 
+<P>The <b>SaveFastAsP21()</b> function
 
 
 
@@ -6156,7 +6199,7 @@ the <a href="#NewProject">NewProject</a> function.
 <li> There should be other options for matching the tools in the first
 and second project. For example, the second project should be able to
 search for tools in the first project that have the same parameters.
-</UL> 
+</UL>
 
 
 
@@ -6207,7 +6250,7 @@ transformations.
 <UL>
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
-</UL> 
+</UL>
 
 
 <!-- ================================ -->
@@ -6267,7 +6310,7 @@ void <b>SetCNCexportActualFlutes</b> (
 	);
 </pre>
 
-<P>The <b>SetCNCexportActualFlutes()</b> function 
+<P>The <b>SetCNCexportActualFlutes()</b> function
 
 
 <!-- ================================ -->
@@ -6279,7 +6322,7 @@ void <b>SetCNCexportComments</b> (
 	);
 </pre>
 
-<P>The <b>SetCNCexportComments()</b> function 
+<P>The <b>SetCNCexportComments()</b> function
 
 
 <!-- ================================ -->
@@ -6318,7 +6361,7 @@ Enables the execution of an executable
 the <a href="#Open238">OpenProject</a> function.
 <li>Bad identity: The exe_id does not identify an executable such as a
 workingstep, workplan or NC function.
-</UL> 
+</UL>
 
 
 <!-- ================================ -->
@@ -6358,7 +6401,7 @@ Enables the execution of an executable
 the <a href="#Open238">OpenProject</a> function.
 <li>Bad identity: The exe_id does not identify an executable such as a
 workingstep, workplan or NC function.
-</UL> 
+</UL>
 
 
 <!-- ================================ -->
@@ -6371,7 +6414,7 @@ void <b>SetCNCexportExecSpeedprofileActive</b> (
 	);
 </pre>
 
-<P>The <b>SetCNCexportExecSpeedprofileActive()</b> function 
+<P>The <b>SetCNCexportExecSpeedprofileActive()</b> function
 
 
 <!-- ================================ -->
@@ -6407,7 +6450,7 @@ current workplan
 <UL>
 <li>No project open: An STEP-NC file must be open - see
 the <a href="#Open238">OpenProject</a> function.
-</UL> 
+</UL>
 
 
 <!-- ================================ -->
@@ -6455,7 +6498,7 @@ export function controlled using this function.
 <UL>
 <li>No project open: A STEP-NC file must be open - see
 the <a href="#Open238">OpenProject</a> function.
-</UL> 
+</UL>
 
 
 
@@ -6516,7 +6559,7 @@ void <b>SetCNCexportToolOpts</b> (
 	);
 </pre>
 
-<P>The <b>SetCNCexportToolOpts()</b> function 
+<P>The <b>SetCNCexportToolOpts()</b> function
 
 
 <!-- ================================ -->
@@ -6547,7 +6590,7 @@ export function controlled using this function.
 <UL>
 <li>No project open: An STEP-NC file must be open - see
 the <a href="#Open238">OpenProject</a> function.
-</UL> 
+</UL>
 
 
 <!-- ================================ -->
@@ -6582,7 +6625,7 @@ export function controlled using this function.
 <UL>
 <li>No project open: An STEP-NC file must be open - see
 the <a href="#Open238">OpenProject</a> function.
-</UL> 
+</UL>
 
 <!-- ================================ -->
 <h2 class=rule>
@@ -6609,7 +6652,7 @@ as is currently the case for Heidenhain controls.
 <li><a href="#ExportFixture">ExportAsFanuc</a>:  An example of an export
 function controlled using this function.
 </UL>
- 
+
 
 
 
@@ -6753,7 +6796,7 @@ the <a href="#NewProject">NewProject</a> function.
 include the direction parameters. The counter argument is that most
 arcs are in the XY plane (the default) so using a second function is
 more economical.
-</UL> 
+</UL>
 
 
 
@@ -6782,7 +6825,7 @@ functions.
 <UL>
 <li>No project open: An STEP_NC file must be open - see
 the <a href="#Open238">OpenProject</a> function.
-</UL> 
+</UL>
 
 
 
@@ -6887,7 +6930,7 @@ object.
 <li>No project open: A STEP-NC file must be open - see
 the <a href="#Open238">OpenProject</a> function.
 <li>Bad identity: This type of object does not have a name.
-</UL> 
+</UL>
 
 
 <!-- ================================ -->
@@ -6899,7 +6942,7 @@ System::Int64 <b>SetNameCheckSTRL</b> (
 	);
 </pre>
 
-<P>The <b>SetNameCheckSTRL()</b> function 
+<P>The <b>SetNameCheckSTRL()</b> function
 
 
 <!-- ================================ -->
@@ -6914,7 +6957,7 @@ System::String^ <b>SetNameCreateSTRL</b> (
 	);
 </pre>
 
-<P>The <b>SetNameCreateSTRL()</b> function 
+<P>The <b>SetNameCreateSTRL()</b> function
 
 
 <!-- ================================ -->
@@ -6948,7 +6991,7 @@ object.
 <li>No project open: A STEP-NC file must be open - see
 the <a href="#Open238">OpenProject</a> function.
 <li>Bad identity: This type of object does not have a name.
-</UL> 
+</UL>
 
 
 <!-- ================================ -->
@@ -6960,7 +7003,7 @@ System::String^ <b>SetNameGetSTRL</b> (
 	);
 </pre>
 
-<P>The <b>SetNameGetSTRL()</b> function 
+<P>The <b>SetNameGetSTRL()</b> function
 
 
 <!-- ================================ -->
@@ -6972,7 +7015,7 @@ System::Int64 <b>SetNameHasSTRL</b> (
 	);
 </pre>
 
-<P>The <b>SetNameHasSTRL()</b> function 
+<P>The <b>SetNameHasSTRL()</b> function
 
 
 <!-- ================================ -->
@@ -6984,7 +7027,7 @@ System::Int64 <b>SetNameHitSTRL</b> (
 	);
 </pre>
 
-<P>The <b>SetNameHitSTRL()</b> function 
+<P>The <b>SetNameHitSTRL()</b> function
 
 
 <!-- ================================ -->
@@ -6997,7 +7040,7 @@ void <b>SetNameSTRL</b> (
 	);
 </pre>
 
-<P>The <b>SetNameSTRL()</b> function 
+<P>The <b>SetNameSTRL()</b> function
 
 
 <!-- ================================ -->
@@ -7073,7 +7116,7 @@ the <a href="#NewProject">NewProject</a> function.
 <li> Subtle differences between the semantics of how tools are defined
 are a frequent cause of errors when the DLL is applied to the APT
 files of a new organization for the first time.
-</UL> 
+</UL>
 
 <!-- ================================ -->
 <h2 class=rule>
@@ -7125,7 +7168,7 @@ identifier. Instead an identifier is generated by pre-pending a
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
 <li>Tool not found: There is no tool in the database with the number.
-</ul> 
+</ul>
 
 
 <!-- ================================ -->
@@ -7166,7 +7209,7 @@ the tool with the given tool number
 the <a href="#NewProject">NewProject</a> function.
 <li>Tool not found: There is no tool in the database with the old
 number/id.
-</UL> 
+</UL>
 
 <!-- ================================ -->
 <h2 class=rule>
@@ -7184,19 +7227,19 @@ System::String^ <b>SetUUID_if_not_set()</b> (
 
 <P>A UUID is a number that in practice
 will never be generated again. The <b>SetUUID_if_not_set()</b> function assigns a Universally Unique IDentifier
-to an entity if one has not yet been set. 
+to an entity if one has not yet been set.
 The <b>SetUUID_force()</b> function assigns a new Universally Unique IDentifier
 to an entity and should be used whenever the underlying value of the concept represented by that entity
 has changed.
 
 <h3>Arguments</h3>
 <DL class=termdefs>
-<DT>entity_id: <DD> The internal (STEP Part 21) identity of an entity. 
+<DT>entity_id: <DD> The internal (STEP Part 21) identity of an entity.
 </DL>
 
 <h3>Related Functions</h3>
 <UL>
-<li><a href="#GetUUID">GetUUID</a>:   Gets the UUID currently assigned to an entity. 
+<li><a href="#GetUUID">GetUUID</a>:   Gets the UUID currently assigned to an entity.
 <li><a href="#SetName">SetName()</a>: Set the name of an entity to a given string.</UL>
 
 
@@ -7207,7 +7250,7 @@ the <a href="#NewProject">NewProject</a> function.
 <li>Diallowed: The entity does not represent a concept
 currently deemed worthy of a UUID. Call STEP Tools if
 this is an issue.
-</UL> 
+</UL>
 
 
 <!-- ================================ -->
@@ -7270,7 +7313,7 @@ the spindle speed unit.
 <li><a href="#Feedrate">Feedrate</a>: Defines the feedrate.
 <li><a href="#Workingstep">Workingstep</a>: Starts a new workingstep
 and put the DLL into &ldquo;CAM Mode&rdquo;
-<li><a href="#CamModeOn">CamModeOn</a>:  Turns CAM mode on. 
+<li><a href="#CamModeOn">CamModeOn</a>:  Turns CAM mode on.
 <li><a href="#CamModeOff">CamModeOff</a>: Turns CAM mode off (the
 default) in this mode each call to Spindle creates a new workingstep.
 </UL>
@@ -7279,7 +7322,7 @@ default) in this mode each call to Spindle creates a new workingstep.
 <UL>
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
-</UL> 
+</UL>
 
 
 <!-- ================================ -->
@@ -7323,7 +7366,7 @@ feeds and speeds for new tool paths.
 the <a href="#NewProject">NewProject</a> function.
 <li>Invalid string: The string describing the units does not have one
 of the values recognized by the STEP-NC DLL.
-</UL> 
+</UL>
 
 
 <!-- ================================ -->
@@ -7421,7 +7464,7 @@ System::Int64 <b>STRLCapture</b> (
 	);
 </pre>
 
-<P>The <b>STRLCapture()</b> function 
+<P>The <b>STRLCapture()</b> function
 
 
 <!-- ================================ -->
@@ -7436,7 +7479,7 @@ System::Int64 <b>STRLRestore</b> (
 	);
 </pre>
 
-<P>The <b>STRLRestore()</b> function 
+<P>The <b>STRLRestore()</b> function
 
 
 <!-- ================================ -->
@@ -7504,7 +7547,7 @@ the project
 System::String^ <b>URLGet</b> ();
 </pre>
 
-<P>The <b>URLGet()</b> function 
+<P>The <b>URLGet()</b> function
 
 
 <!-- ================================ -->
@@ -7514,7 +7557,7 @@ System::String^ <b>URLGet</b> ();
 System::Int64 <b>URLHas</b> ();
 </pre>
 
-<P>The <b>URLHas()</b> function 
+<P>The <b>URLHas()</b> function
 
 
 <!-- ================================ -->
@@ -7526,7 +7569,7 @@ void <b>URLSet</b> (
 	);
 </pre>
 
-<P>The <b>URLSet()</b> function 
+<P>The <b>URLSet()</b> function
 
 
 <!-- ================================ -->
@@ -7536,7 +7579,7 @@ void <b>URLSet</b> (
 System::Boolean <b>UsingEnglishUnits</b> ();
 </pre>
 
-<P>The <b>UsingEnglishUnits()</b> function 
+<P>The <b>UsingEnglishUnits()</b> function
 
 
 <!-- ================================ -->
@@ -7546,7 +7589,7 @@ System::Boolean <b>UsingEnglishUnits</b> ();
 System::Boolean <b>UsingFrenchUnits</b> ();
 </pre>
 
-<P>The <b>UsingFrenchUnits()</b> function 
+<P>The <b>UsingFrenchUnits()</b> function
 
 
 <!-- ================================ -->
@@ -7644,7 +7687,7 @@ starts a new workplan at an arbitrary location.
 <UL>
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
-</UL> 
+</UL>
 
 
 
@@ -7683,7 +7726,7 @@ Function to control the placement of the repeated operation.
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
 <li>Bad identity: The ws_id does not identify a workingstep.
-</UL> 
+</UL>
 
 <!-- ================================ -->
 <h2 class=rule>
@@ -7727,7 +7770,7 @@ the <a href="#NewProject">NewProject</a> function.
 <li>Bad identity: The ws_id does not identify a workingstep.
 <li>Index range: Index is out of range for the workplan list [0, count
 &ndash; 1]
-</UL> 
+</UL>
 
 
 
@@ -7764,7 +7807,7 @@ selective.
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
 <li>Bad identity: The ws_id does not identify a workingstep.
-</UL> 
+</UL>
 
 
 <!-- ================================ -->
@@ -7828,7 +7871,7 @@ void <b>WorkingstepToolpathOrientation</b> (
 
 <P>The <b>WorkingstepToolpathOrientation()</b> function defines a
 coordinate transformation for the toolpaths in the current
-workingstep. 
+workingstep.
 
 <h3>Arguments</h3>
 <DL class=termdefs>
@@ -7852,7 +7895,7 @@ has to be repeated for many steps).
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
 <li>Bad identity: The ws_id does not identify a workingstep.
-</UL> 
+</UL>
 
 
 <!-- ================================ -->
@@ -7884,7 +7927,7 @@ Define an orientation for the toolpaths in a workingstep.
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
 <li>Bad identity: The ws_id does not identify a workingstep.
-</UL> 
+</UL>
 
 
 <!-- ================================ -->
@@ -7925,7 +7968,7 @@ orientation set.
 the <a href="#NewProject">NewProject</a> function.
 <li>Bad identity: The ws1_id or ws2_id does not identify a
 workingstep.
-</UL> 
+</UL>
 
 
 
@@ -7999,7 +8042,7 @@ void <b>WorkpieceAndRawpiece</b> (
 	);
 </pre>
 
-<P>The <b>WorkpieceAndRawpiece()</b> function 
+<P>The <b>WorkpieceAndRawpiece()</b> function
 
 
 <!-- ================================ -->
@@ -8021,7 +8064,7 @@ System::Int64 <b>WorkpieceSecondPlacement</b> (
 	);
 </pre>
 
-<P>The <b>WorkpieceSecondPlacement()</b> function 
+<P>The <b>WorkpieceSecondPlacement()</b> function
 
 
 <!-- ================================ -->
@@ -8132,7 +8175,7 @@ Function to define the setup of a workplan.
 the <a href="#NewProject">NewProject</a> function.
 <li>Bad identity: The plan_id does not identify a workplan with a
 setup.
-</UL> 
+</UL>
 
 
 <!-- ================================ -->
@@ -8234,7 +8277,7 @@ machine tool.
 <UL>
 <li>The <a href="#WorkplanSetupPut">WorkplanSetupPut</a> function
 defines the coordinate system of the workplan. For example, the workpiece may
-be turned over so that the bottom face is milled in this setup. 
+be turned over so that the bottom face is milled in this setup.
 
 <li>The <a href="#WorkplanSetupFixtureWorkpiecePut">WorkplanSetupFixtureWorkpiecePut</a>
 function places the workplan/workpiece onto the fixture. For example,
