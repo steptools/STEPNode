@@ -2901,7 +2901,7 @@ a feature.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetFeatureOutsideProfileClosedCircular></a>GetFeatureOutsideProfileClosedCircular()</h2>
-<pre>
+<pre class="dotnet">
 System::Boolean <b>GetFeatureOutsideProfileClosedCircular</b> (
 	System::Int64 feature_id,
 	[System::Runtime::InteropServices::Out] System::Int64 %profile_id,
@@ -2911,6 +2911,30 @@ System::Boolean <b>GetFeatureOutsideProfileClosedCircular</b> (
 	[System::Runtime::InteropServices::Out] double %y,
 	[System::Runtime::InteropServices::Out] double %z
 	);
+</pre>
+<pre class="nodejs">
+{
+	rtn: bool,
+	profile_id: int,
+	depth: double,
+	diameter: double,
+	x: double,
+	y: double,
+	z: double,
+} <b>GetFeatureOutsideProfileClosedCircular</b> (
+	int feature_id
+	);
+</pre>
+<pre class="cpp">
+RoseBoolean <b>is_circular_outside_profile</b> (
+	int feature_id,
+	int &profile_id,
+	double &depth,
+	double &diameter,
+	double &x,
+	double &y,
+	double &z
+    );
 </pre>
 
 <P>The <b>GetFeatureOutsideProfileClosedCircular()</b> function
