@@ -118,6 +118,9 @@ public:
     //int GetWorkingstep(int wp_id, int index)
     static NAN_METHOD(GetWorkingstep);
 
+    //string GetWorkingstepName(int ws_id)
+    static NAN_METHOD(GetWorkingstepName);
+
     //string GetWorkplanName();
     static NAN_METHOD(GetWorkplanName);
 
