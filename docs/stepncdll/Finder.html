@@ -11301,14 +11301,39 @@ of objects.
 <h2 class=rule>
 <a name=GetWorkplanProcessFeatureNext></a>
 <a name=GetWorkplanProcessFeatureCount></a>GetWorkplanProcessFeatureCount/Next()</h2>
-<pre>
+<pre class = "dotnet">
 System::Int64 <b>GetWorkplanProcessFeatureCount</b> (
 	System::Int64 wp_id
 	);
-
+</pre>
+<pre class = "nodejs">
+int <b>GetWorkplanProcessFeatureCount</b> (
+	int wp_id
+	);
+</pre>
+<pre class = "cpp">
+RoseBoolean <b>wp_process_feature_count</b> (
+	int wp_id, 
+	int &size
+	);
+</pre>
+<pre class = "dotnet">
 System::Int64 <b>GetWorkplanProcessFeatureNext</b> (
 	System::Int64 wp_id,
 	System::Int64 index
+	);
+</pre>
+<pre class = "nodejs">
+int <b>GetWorkplanProcessFeatureNext</b> (
+	int wp_id,
+	int index
+	);
+</pre>
+<pre class = "cpp">
+RoseBoolean <b>wp_process_feature_next</b> (
+	int wp_id, 
+	int index, 
+	int &fe_id
 	);
 </pre>
 
