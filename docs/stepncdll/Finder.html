@@ -821,8 +821,8 @@ the units used by a feedrate in the data.
 <pre class = "dotnet">
 void <b>APIUnitsInch</b> ();
 </pre>
-<ore class = "nodejs">
-  void <v>APIUnitsInch</b> ();
+<pre class = "nodejs">
+  void <b>APIUnitsInch</b> ();
 </pre>
 <pre class = "cpp">
   RoseBoolean <b>api_unit_inch </b> ();
@@ -887,7 +887,7 @@ values to inch.
   void <b>APIUnitsNative</b> ();
 </pre>
 <pre class = "nodejs">
-  void <b>APIUnitsNatie</b> ();
+  void <b>APIUnitsNative</b> ();
 </pre>
 <pre class = "cpp">
   RoseBoolean <b>api_unit_native</b> ();
@@ -988,16 +988,10 @@ turning machine.
 
 <!-- ================================ -->
 <h2 class=rule>
-<a name=GetCompoundFeatureNext></a>
-<a name=GetCompoundFeatureCount></a>GetCompoundFeatureCount/Next()</h2>
+<a name=GetCompoundFeatureCount></a>GetCompoundFeatureCount</h2>
 <pre class = "dotnet">
 System::Int64 <b>GetCompoundFeatureCount</b> (
 	System::Int64 compound_id
-	);
-
-System::Int64 <b>GetCompoundFeatureNext</b> (
-	System::Int64 compound_id,
-	System::Int64 index
 	);
 </pre>
 <pre class = "nodejs">
@@ -1014,6 +1008,14 @@ RoseBoolean <b>first_feature_in_compound</b> (
     double y,
     double z
     );
+</pre>
+<h2 class=rule>
+<a name=GetCompoundFeatureNext></a>GetCompoundFeatureNext</h2>
+<pre class>
+System::Int64 <b>GetCompoundFeatureNext</b> (
+  System::Int64 compound_id,
+  System::Int64 index
+  );
 </pre>
 <P>The <b>GetCompoundFeatureCount()</b> function returns the number of
 features in a compound feature and the <b>GetCompoundFeatureNext()</b>
@@ -7613,7 +7615,7 @@ System::String^ <b>GetProjectName</b> ();
 string <b>GetProjectName</b> ();
 </pre>
 <pre class = "cpp">
-RoseBoolean project(
+RoseBoolean <b>project</b>(
   const char* &prj_name,
   const char* &wpk_name
   );
@@ -7680,11 +7682,23 @@ Get the id of a workpiece in the setup of a workplan.
 <h2 class=rule>
 <a name=GetSelectiveExecutableNext></a>
 <a name=GetSelectiveExecutableCount></a>GetSelectiveExecutableCount/Next/All/AllEnabled()</h2>
-<pre>
+<pre class = "dotnet">
 System::Int64 <b>GetSelectiveExecutableCount</b> (
 	System::Int64 sl_id
 	);
-
+</pre>
+<pre class = "nodejs">
+int <b>GetSelectiveExecutableCount</b> (
+	int sl_id
+	);
+</pre>
+<pre class = "cpp">
+RoseBoolean <b>selective_executable_count</b>(
+	int sl_id,
+	int count
+	);
+</pre>
+<pre>
 System::Int64 <b>GetSelectiveExecutableNext</b> (
 	System::Int64 sl_id,
 	System::Int64 index
