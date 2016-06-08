@@ -180,7 +180,6 @@ NAN_METHOD(Finder::GetExecutableDistance)
 {
     Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
     if (find == 0) // Throw exception
-<<<<<<< HEAD
 	return;
 
     if (info.Length() != 1) // incorrect number of arguments
@@ -201,29 +200,6 @@ NAN_METHOD(Finder::GetExecutableDistance)
 	(int)exe_id, distance, base_time, over_time, str1, str2
 	))	// cpp error
 	return;
-
-    info.GetReturnValue().Set(distance);
-=======
-	    return;
-
-    if (info.Length() != 1) // incorrect number of arguments
-	    return;
-
-    if (!info[0]->IsNumber()) // invalid argument
-	    return;
-
-    // get this executable's id
-    int64_t exe_id = info[0]->IntegerValue();
-
-    double distance = 0.0;
-    double over_time, base_time;
-
-    const char *str1, *str2;
-
-    if (!find->_find->compute_best_feed_time(
-	    (int)exe_id, distance, base_time, over_time, str1, str2
-	    ))	// cpp error
-	    return;
 
     info.GetReturnValue().Set(distance);
     return;
@@ -275,7 +251,6 @@ NAN_METHOD(Finder::GetExecutableName) {
 	return;
 
     info.GetReturnValue().Set(CharTov8String((char *)name));
->>>>>>> 34206bc97e9f6a22b74bb3b5401ef86c345df45c
     return;
 }
 
