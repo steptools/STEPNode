@@ -10240,10 +10240,24 @@ workingstep.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetWorkingstep></a>GetWorkingstep()</h2>
-<pre>
+<pre class="dotnet">
 System::Int64 <b>GetWorkingstep</b> (
 	System::Int64 wp_id,
 	System::Int64 index
+	);
+</pre>
+<pre class="nodejs">
+int <b>GetWorkingstep</b> (
+	int wp_id,
+	int index
+	);
+</pre>
+<pre class="cpp">
+RoseBoolean <b>is_workingstep</b> (
+	int wp_id, 
+	int index, 
+	int &ws_id,
+	const char * &name
 	);
 </pre>
 
