@@ -86,6 +86,9 @@ public:
     //string GetProcessFeedUnit (long ws_id);
     static NAN_METHOD(GetProcessFeedUnit);
 
+    //bool IsSelective(long exe_id);
+    static NAN_METHOD(IsSelective);
+
     //void Open238(String file_name);
     static NAN_METHOD(OpenProject);
 
