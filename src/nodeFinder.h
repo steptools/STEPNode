@@ -37,8 +37,8 @@ public:
     //void APIUnitsFeed(System::String^ units);
     static NAN_METHOD(APIUnitsFeed);
 
-    //void APIUnitsInches();
-    static NAN_METHOD(APIUnitsInches);
+    //void APIUnitsInch();
+    static NAN_METHOD(APIUnitsInch);
 
     //void APIUnitsMM();
     static NAN_METHOD(APIUnitsMM);
@@ -55,8 +55,11 @@ public:
     // double GetExecutableDistance(int exe_id)
     static NAN_METHOD(GetExecutableDistance);
 
-	// string GetExecutableDistanceUnit(int exe_id)
-	static NAN_METHOD(GetExecutableDistanceUnit);
+    // string GetExecutableDistanceUnit(int exe_id)
+    static NAN_METHOD(GetExecutableDistanceUnit);
+
+    // string GetExecutableName(int exe_id)
+    static NAN_METHOD(GetExecutableName);
 
     //int GetMainWorkplan();
     static NAN_METHOD(GetMainWorkplan);
@@ -64,17 +67,7 @@ public:
     //long GetFaceEdgeCount(long face_id);
     static NAN_METHOD(GetFaceEdgeCount);
 
-    //void GetFaceEdgeNextPoint(
-    /*
-    System::Int64 face_id,
-    System::Int64 index,
-    [System::Runtime::InteropServices::Out] double %ret_x1,
-    [System::Runtime::InteropServices::Out] double %ret_y1,
-    [System::Runtime::InteropServices::Out] double %ret_z1,
-    [System::Runtime::InteropServices::Out] double %ret_x2,
-    [System::Runtime::InteropServices::Out] double %ret_y2,
-    [System::Runtime::InteropServices::Out] double %ret_z2
-    */ //);
+    //void GetFaceEdgeNextPoint(int face_id, int index, double %ret_x1, double %ret_y1, double %ret_z1, double %ret_x2, double %ret_y2, double %ret_z2);
     static NAN_METHOD(GetFaceEdgeNextPoint);
 
     //string GetFeatureName(long id)
@@ -88,6 +81,9 @@ public:
 
     //string GetProcessFeedUnit (int ws_id);
     static NAN_METHOD(GetProcessFeedUnit);
+
+    //string GetProjectName();
+    static NAN_METHOD(GetProjectName);
 
     //bool IsEnabled (int exe_id);
     static NAN_METHOD(IsEnabled);
