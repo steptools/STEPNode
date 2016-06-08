@@ -1240,9 +1240,20 @@ name for the unit used for the distance.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetExecutableName></a>GetExecutableName()</h2>
-<pre>
+<pre class = "dotnet">
 System::String^ <b>GetExecutableName</b> (
 	System::Int64 exe_id
+	);
+</pre>
+<pre class="nodejs">
+string <b>GetExecutableName</b> (
+	int exe_id
+	);
+</pre>
+<pre class="cpp">
+RoseBoolean <b>executable_name</b> (
+	int exe_id, 
+	const char * &name
 	);
 </pre>
 
@@ -2810,9 +2821,20 @@ a feature.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetFeatureID></a>GetFeatureID()</h2>
-<pre>
+<pre class="dotnet">
 System::Int64 <b>GetFeatureID</b> (
 	System::Int64 ws_id
+	);
+</pre>
+<pre class="nodejs">
+int <b>GetFeatureID</b> (
+	int ws_id
+	);
+</pre>
+<pre class="cpp">
+RoseBoolean <b>feature_id</b> (
+	int ws_id, 
+	int &feature_id
 	);
 </pre>
 
@@ -2822,9 +2844,20 @@ System::Int64 <b>GetFeatureID</b> (
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetFeatureName></a>GetFeatureName()</h2>
-<pre>
+<pre class="dotnet">
 System::String^ <b>GetFeatureName</b> (
 	System::Int64 ws_or_fe_id
+	);
+</pre>
+<pre class="nodejs">
+string <b>GetFeatureName</b> (
+	int ws_or_fe_id
+	);
+</pre>
+<pre class="cpp">
+RoseBoolean <b>feature_name</b> (
+	int ws_or_fe_id, 
+	const char * &name
 	);
 </pre>
 
