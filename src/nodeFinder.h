@@ -83,10 +83,10 @@ public:
     //long GetFeatureID(long ws_id);
     static NAN_METHOD(GetFeatureID);
 
-    //double GetProcessFeed (long ws_id);
+    //double GetProcessFeed (int ws_id);
     static NAN_METHOD(GetProcessFeed);
 
-    //string GetProcessFeedUnit (long ws_id);
+    //string GetProcessFeedUnit (int ws_id);
     static NAN_METHOD(GetProcessFeedUnit);
 
     //void Open238(String file_name);
