@@ -766,8 +766,8 @@ identical because the final feature will be made in one operation.
 <a name=APIUnitsFeed></a>APIUnitsFeed()</h2>
 <pre class = "dotnet">
 void <b>APIUnitsFeed</b> (
-	System::String^ units
-	);
+	    System::String^ units
+	    );
 </pre>
 <pre class = "nodejs">
 void <b>APIUnitsFeed</b> (
@@ -776,8 +776,8 @@ void <b>APIUnitsFeed</b> (
 </pre>
 <pre class = "cpp">
 RoseBoolean <b>api_unit_feed</b> (
-	const char * units
-	);
+	    const char * units
+	    );
 </pre>
 
 <P>The <b>APIUnitsFeed()</b> function function tells all of the other
@@ -822,10 +822,10 @@ the units used by a feedrate in the data.
 void <b>APIUnitsInch</b> ();
 </pre>
 <pre class = "nodejs">
-  void <b>APIUnitsInch</b> ();
+void <b>APIUnitsInch</b> ();
 </pre>
 <pre class = "cpp">
-  RoseBoolean <b>api_unit_inch </b> ();
+	RoseBoolean <b>api_unit_inch </b> ();
 </pre>
 
 <P>The <b>APIUnitsInch()</b> function tells all of the other functions
@@ -854,10 +854,10 @@ to millimeter.
 void <b>APIUnitsMM</b> ();
 </pre>
 <pre class = "nodejs">
-  void <b>APIUnitsMM</b> ();
+void <b>APIUnitsMM</b> ();
 </pre>
 <pre class = "cpp">
-  RoseBoolean <b>api_unit_mm </b> ();
+    RoseBoolean <b>api_unit_mm </b> ();
 </pre>
 <P>The <b>APIUnitsMM()</b> function tells all of the other functions
 to return length units as millimeter values. For example, if a value
@@ -884,13 +884,13 @@ values to inch.
 <h2 class=rule>
 <a name=APIUnitsNative></a>APIUnitsNative()</h2>
 <pre class = "dotnet">
-  void <b>APIUnitsNative</b> ();
+void <b>APIUnitsNative</b> ();
 </pre>
 <pre class = "nodejs">
-  void <b>APIUnitsNative</b> ();
+void <b>APIUnitsNative</b> ();
 </pre>
 <pre class = "cpp">
-  RoseBoolean <b>api_unit_native</b> ();
+    RoseBoolean <b>api_unit_native</b> ();
 </pre>
 
 
@@ -996,18 +996,18 @@ System::Int64 <b>GetCompoundFeatureCount</b> (
 </pre>
 <pre class = "nodejs">
 int <b>GetCompoundFeatureCount</b> (
-  int compound_id;
-  );
+	int compound_id;
+	);
 </pre>
 <pre class = "cpp">
 RoseBoolean <b>first_feature_in_compound</b> (
-    int compound_id,
-    int &feature_id,
-    int &size,s
-    double x,
-    double y,
-    double z
-    );
+	int compound_id,
+	int &feature_id,
+	int &size,s
+	double x,
+	double y,
+	double z
+	);
 </pre>
 <h2 class=rule>
 <a name=GetCompoundFeatureNext></a>GetCompoundFeatureNext</h2>
@@ -7706,9 +7706,9 @@ string <b>GetProjectName</b> ();
 </pre>
 <pre class = "cpp">
 RoseBoolean <b>project</b>(
-  const char* &prj_name,
-  const char* &wpk_name
-  );
+    const char* &prj_name,
+    const char* &wpk_name
+    );
 </pre>
 
 <P>The <b>GetProjectName()</b> function returns the string containing
@@ -7785,14 +7785,28 @@ int <b>GetSelectiveExecutableCount</b> (
 <pre class = "cpp">
 RoseBoolean <b>selective_executable_count</b>(
 	int sl_id,
-	int count
+	int &size
 	);
 </pre>
-<pre>
+<pre class = "dotnet">
 System::Int64 <b>GetSelectiveExecutableNext</b> (
 	System::Int64 sl_id,
 	System::Int64 index
 	);
+</pre>
+<pre clas = "nodejs">
+int <b>GetSelectiveExecutableNext</b> (
+	int sl_id;
+	int index;
+	);
+</pre>
+<pre class = "cpp">
+RoseBoolean <b>selective_executable_next</b> (
+	int sl_id,
+	int index,
+	int &exe_id
+	);
+</pre>
 
 System::Collections::Generic::List<System::Int64>^ <b>GetSelectiveExecutableAll</b> (
 	System::Int64 wp_id
