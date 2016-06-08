@@ -4825,6 +4825,19 @@ System::Int64 <b>GetNestedExecutableNext</b> (
 	System::Int64 index
 	);
 </pre>
+<pre class="nodejs">
+int <b>GetNestedExecutableNext</b> (
+	int exe_id,
+	int index
+	);
+</pre>
+<pre class="cpp">
+RoseBoolean <b>nested_executable_next</b> (
+	int own_id,
+	int index,
+	int &exe_id
+	);
+</pre>
 <pre class="dotnet">
 System::Collections::Generic::List<System::Int64>^ <b>GetNestedExecutableAll</b> (
 	System::Int64 wp_id
