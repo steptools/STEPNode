@@ -65,6 +65,7 @@ NAN_MODULE_INIT(Finder::Init)
 	Nan::SetPrototypeMethod(tpl, "IsEnabled", IsEnabled);
 	Nan::SetPrototypeMethod(tpl, "IsSelective", IsSelective);
 	Nan::SetPrototypeMethod(tpl, "IsWorkingstep", IsWorkingstep);
+	Nan::SetPrototypeMethod(tpl, "IsWorkplan", IsWorkplan);
 	Nan::SetPrototypeMethod(tpl, "OpenProject", OpenProject);
 	Nan::SetPrototypeMethod(tpl, "SaveAsModules", SaveAsModules);
 	Nan::SetPrototypeMethod(tpl, "SaveAsP21", SaveAsP21);
@@ -499,6 +500,27 @@ NAN_METHOD(Finder::IsWorkingstep)
     int flag = 0;
 
     if (!find->_find->is_workingstep(info[0]->Int32Value(), flag)) //Throw Exception
+	return;
+
+    info.GetReturnValue().Set((flag != 0));
+    return;
+}
+
+NAN_METHOD(Finder::IsWorkplan)
+{
+    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (find == 0) //Throw Exception
+	return;
+
+    if (info[0]->IsUndefined())
+	return;
+
+    if (!info[0]->IsInt32())
+	return;
+
+    int flag = 0;
+
+    if (!find->_find->is_workplan(info[0]->Int32Value(), flag)) //Throw Exception
 	return;
 
     info.GetReturnValue().Set((flag != 0));
