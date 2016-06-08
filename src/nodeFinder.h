@@ -91,13 +91,11 @@ public:
     //string GetProjectName();
     static NAN_METHOD(GetProjectName);
 
-<<<<<<< HEAD
     //string GetWorkplanName();
     static NAN_METHOD(GetWorkplanName);
-=======
+
     //int GetSelectiveExecutableCount( int sl_id)
     static NAN_METHOD(GetSelectiveExecutableCount);
->>>>>>> refs/remotes/origin/master
 
     //bool IsEnabled(int exe_id);
     static NAN_METHOD(IsEnabled);
