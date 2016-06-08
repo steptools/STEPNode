@@ -59,6 +59,7 @@ NAN_MODULE_INIT(Finder::Init)
 	Nan::SetPrototypeMethod(tpl, "GetFeatureName", GetFeatureName);
 	Nan::SetPrototypeMethod(tpl, "GetFeatureOutsideProfileClosedCircular", GetFeatureOutsideProfileClosedCircular);
 	Nan::SetPrototypeMethod(tpl, "GetMainWorkplan", GetMainWorkplan);
+    Nan::SetPrototypeMethod(tpl, "GetNestedExecutableCount", GetNestedExecutableCount);
 	Nan::SetPrototypeMethod(tpl, "GetProcessFeed", GetProcessFeed);
 	Nan::SetPrototypeMethod(tpl, "GetProcessFeedUnit", GetProcessFeedUnit);
 	Nan::SetPrototypeMethod(tpl, "GetProjectName", GetProjectName);
