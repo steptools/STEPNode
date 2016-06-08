@@ -1208,9 +1208,20 @@ name for the unit used for the distance.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetExecutableName></a>GetExecutableName()</h2>
-<pre>
+<pre class = "dotnet">
 System::String^ <b>GetExecutableName</b> (
 	System::Int64 exe_id
+	);
+</pre>
+<pre class="nodejs">
+string <b>GetExecutableName</b> (
+	int exe_id
+	);
+</pre>
+<pre class="cpp">
+RoseBoolean <b>executable_name</b> (
+	int exe_id, 
+	const char * &name
 	);
 </pre>
 
