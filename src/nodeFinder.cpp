@@ -395,6 +395,10 @@ NAN_METHOD(Finder::GetFaceEdgeCount)
     Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
     if (find == 0) //Throw Exception
 	return;
+
+    if (info.Length() != 1)
+	return; 
+    
     if (info[0]->IsUndefined()) //Needs one arg
 	return;
 
@@ -413,7 +417,7 @@ NAN_METHOD(Finder::GetFaceEdgeNextPoint)
     Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
     if (find == 0) //Throw Exception
 	return;
-    if (info.Length() < 2) //Needs 2 args
+    if (info.Length() != 2) //Needs 2 args
 	return;
 
     double x1 = 0.0;
@@ -693,6 +697,9 @@ NAN_METHOD(Finder::IsSelective)
     if (find == 0) //Throw Exception
 	return;
 
+    if (info.Length() != 1)
+	return;
+    
     if (info[0]->IsUndefined())
 	return;
 
@@ -714,6 +721,9 @@ NAN_METHOD(Finder::IsWorkingstep)
     if (find == 0) //Throw Exception
 	return;
 
+    if (info.Length() != 1)
+	return; 
+    
     if (info[0]->IsUndefined())
 	return;
 
@@ -735,6 +745,9 @@ NAN_METHOD(Finder::IsWorkplan)
     if (find == 0) //Throw Exception
 	return;
 
+    if (info.Length() != 1)
+	return; 
+    
     if (info[0]->IsUndefined())
 	return;
 
@@ -756,6 +769,9 @@ NAN_METHOD(Finder::IsWorkplanWIthSetupAndFixture)
     if (find == 0) //Throw Exception
 	return;
 
+    if (info.Length() != 1)
+	return; 
+    
     if (info[0]->IsUndefined())
 	return;
 
@@ -777,6 +793,9 @@ NAN_METHOD(Finder::IsWorkplanWithSetup)
     if (find == 0) //Throw Exception
 	return;
 
+    if (info.Length() != 1)
+	return; 
+    
     if (info[0]->IsUndefined())
 	return;
 
@@ -798,6 +817,9 @@ NAN_METHOD(Finder::IsWorkplanWithSetupAndFixtureMount)
     if (find == 0) //Throw Exception
 	return;
 
+    if (info.Length() != 1)
+	return; 
+    
     if (info[0]->IsUndefined())
 	return;
 
@@ -819,6 +841,9 @@ NAN_METHOD(Finder::IsWorkplanWithSetupAndWorkpieceMount)
     if (find == 0) //Throw Exception
 	return;
 
+    if (info.Length() != 1)
+	return; 
+    
     if (info[0]->IsUndefined())
 	return;
 
@@ -855,6 +880,9 @@ NAN_METHOD(Finder::SaveAsModules)
     if (find == 0) //Throw Exception
 	return;
 
+    if (info.Length() != 1)
+	return; 
+    
     if (info[0]->IsUndefined())
 	return;
 
@@ -875,6 +903,9 @@ NAN_METHOD(Finder::SaveAsP21)
 	if (find == 0) //Throw Exception
 		return;
 
+	if (info.Length() != 1)
+	    return; 
+	
 	if (info[0]->IsUndefined())
 		return;
 
