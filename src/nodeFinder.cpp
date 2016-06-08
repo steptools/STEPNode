@@ -54,6 +54,7 @@ NAN_MODULE_INIT(Finder::Init)
 	Nan::SetPrototypeMethod(tpl, "GetExecutableDistanceUnit", GetExecutableDistanceUnit);
 	Nan::SetPrototypeMethod(tpl, "GetExecutableName", GetExecutableName);
 	Nan::SetPrototypeMethod(tpl, "GetExecutableType", GetExecutableType);
+	Nan::SetPrototypeMethod(tpl, "GetExecutableWorkpieceRemoval", GetExecutableWorkpieceRemoval);
 	Nan::SetPrototypeMethod(tpl, "GetFaceEdgeCount", GetFaceEdgeCount);
 	Nan::SetPrototypeMethod(tpl, "GetFaceEdgeNextPoint", GetFaceEdgeCount);
 	Nan::SetPrototypeMethod(tpl, "GetFeatureID", GetFeatureID);
@@ -192,11 +193,11 @@ NAN_METHOD(Finder::GetExecutableDistance)
     if (info.Length() != 1) // incorrect number of arguments
 	return;
 
-    if (!info[0]->IsNumber()) // invalid argument
+    if (!info[0]->IsInt32()) // invalid argument
 	return;
 
     // get this executable's id
-    int64_t exe_id = info[0]->IntegerValue();
+    Nan::Maybe<int32_t> exe_id = Nan::To<int32_t>(info[0]);
 
     double distance = 0.0;
     double over_time, base_time;
@@ -204,7 +205,7 @@ NAN_METHOD(Finder::GetExecutableDistance)
     const char *str1, *str2;
 
     if (!find->_find->compute_best_feed_time(
-	(int)exe_id, distance, base_time, over_time, str1, str2
+	exe_id.FromJust(), distance, base_time, over_time, str1, str2
 	))	// cpp error
 	return;
 
@@ -221,18 +222,18 @@ NAN_METHOD(Finder::GetExecutableDistanceUnit)
     if (info.Length() != 1) // incorrect number of arguments
 	return;
 
-    if (!info[0]->IsNumber()) // invalid argument
+    if (!info[0]->IsInt32()) // invalid argument
 	return;
 
     // get this executable's id
-    int64_t exe_id = info[0]->IntegerValue();
+    Nan::Maybe<int32_t> exe_id = Nan::To<int32_t>(info[0]);
 
     const char *dist_unit = 0;
     double over_time, base_time, distance;
     const char *str2;
 
     if (!find->_find->compute_best_feed_time(
-	(int)exe_id, distance, base_time, over_time, dist_unit, str2
+	exe_id.FromJust(), distance, base_time, over_time, dist_unit, str2
 	))
 	return;
 
@@ -281,6 +282,30 @@ NAN_METHOD(Finder::GetExecutableType) {
     return;
 }
 
+NAN_METHOD(Finder::GetExecutableWorkpieceRemoval)
+{   
+    Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (find == 0) // Throw exception
+	return;
+
+    if (info.Length() != 1) // incorrect number of arguments
+	return;
+
+
+    if (!info[0]->IsInt32())	// invalid argument
+	return;
+
+    Nan::Maybe<int32_t> exe_id = Nan::To<int32_t>(info[0]);
+
+    int wp_id = 0;
+
+    if (!find->_find->executable_removal_workpiece(exe_id.FromJust(), wp_id))    // error in cpp
+	return;
+
+    info.GetReturnValue().Set(wp_id);
+
+    return;
+}
 
 NAN_METHOD(Finder::GetFaceEdgeCount)
 {
