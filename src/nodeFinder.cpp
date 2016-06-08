@@ -190,11 +190,11 @@ NAN_METHOD(Finder::GetExecutableDistance)
     if (info.Length() != 1) // incorrect number of arguments
 	return;
 
-    if (!info[0]->IsNumber()) // invalid argument
+    if (!info[0]->IsInt32()) // invalid argument
 	return;
 
     // get this executable's id
-    int64_t exe_id = info[0]->IntegerValue();
+    Nan::Maybe<int32_t> exe_id = Nan::To<int32_t>(info[0]);
 
     double distance = 0.0;
     double over_time, base_time;
@@ -202,7 +202,7 @@ NAN_METHOD(Finder::GetExecutableDistance)
     const char *str1, *str2;
 
     if (!find->_find->compute_best_feed_time(
-	(int)exe_id, distance, base_time, over_time, str1, str2
+	exe_id.FromJust(), distance, base_time, over_time, str1, str2
 	))	// cpp error
 	return;
 
