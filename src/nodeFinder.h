@@ -93,6 +93,9 @@ public:
 
     //int GetSelectiveExecutableCount( int sl_id)
     static NAN_METHOD(GetSelectiveExecutableCount);
+    
+    //int GetSelectiveExecutableNext(int wp_id, int index)
+    static NAN_METHOD(GetSelectiveExecutableNext);
 
     //bool IsEnabled(int exe_id);
     static NAN_METHOD(IsEnabled);

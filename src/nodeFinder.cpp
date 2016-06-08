@@ -65,6 +65,7 @@ NAN_MODULE_INIT(Finder::Init)
 	Nan::SetPrototypeMethod(tpl, "GetProcessFeedUnit", GetProcessFeedUnit);
 	Nan::SetPrototypeMethod(tpl, "GetProjectName", GetProjectName);
 	Nan::SetPrototypeMethod(tpl, "GetSelectiveExecutableCount", GetSelectiveExecutableCount);
+	Nan::SetPrototypeMethod(tpl, "GetSelectiveExecutableNext", GetSelectiveExecutableNext);
 	Nan::SetPrototypeMethod(tpl, "IsEnabled", IsEnabled);
 	Nan::SetPrototypeMethod(tpl, "IsSelective", IsSelective);
 	Nan::SetPrototypeMethod(tpl, "IsWorkingstep", IsWorkingstep);
@@ -514,6 +515,28 @@ NAN_METHOD(Finder::GetSelectiveExecutableCount) {
     }
     info.GetReturnValue().Set(count);
     return;
+}
+
+NAN_METHOD(Finder::GetSelectiveExecutableNext) {
+    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (find == 0) {
+	return; //throw exception
+    }
+    if (info.Length() != 2) {
+	return; //throw exception
+    }
+    if (!info[0]->IsNumber()) {
+	return; // Throw exception
+    }
+    if (!info[1]->IsNumber()) {
+	return; // Throw exception
+    }
+
+    int exe_id = 0;
+    if (!(find->_find->selective_executable_next(Nan::To<int32_t>(info[0]).FromJust(), Nan::To<int32_t>(info[1]).FromJust(), exe_id))) {
+	return; //Throw Error
+    }
+    info.GetReturnValue().Set(exe_id);
 }
 
 NAN_METHOD(Finder::IsEnabled)
