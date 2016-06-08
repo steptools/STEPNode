@@ -37,8 +37,8 @@ public:
     //void APIUnitsFeed(System::String^ units);
     static NAN_METHOD(APIUnitsFeed);
 
-    //void APIUnitsInches();
-    static NAN_METHOD(APIUnitsInches);
+    //void APIUnitsInch();
+    static NAN_METHOD(APIUnitsInch);
 
     //void APIUnitsMM();
     static NAN_METHOD(APIUnitsMM);
@@ -55,8 +55,11 @@ public:
     // double GetExecutableDistance(int exe_id)
     static NAN_METHOD(GetExecutableDistance);
 
-	// string GetExecutableDistanceUnit(int exe_id)
-	static NAN_METHOD(GetExecutableDistanceUnit);
+    // string GetExecutableDistanceUnit(int exe_id)
+    static NAN_METHOD(GetExecutableDistanceUnit);
+
+    // string GetExecutableName(int exe_id)
+    static NAN_METHOD(GetExecutableName);
 
     //int GetMainWorkplan();
     static NAN_METHOD(GetMainWorkplan);
@@ -78,6 +81,9 @@ public:
 
     //string GetProcessFeedUnit (int ws_id);
     static NAN_METHOD(GetProcessFeedUnit);
+
+    //string GetProjectName();
+    static NAN_METHOD(GetProjectName);
 
     //bool IsSelective(long exe_id);
     static NAN_METHOD(IsSelective);

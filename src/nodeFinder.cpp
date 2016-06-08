@@ -44,7 +44,7 @@ NAN_MODULE_INIT(Finder::Init)
 	v8::Local<v8::FunctionTemplate> tpl = Nan::New<v8::FunctionTemplate>(New);
 	tpl->SetClassName(Nan::New("Finder").ToLocalChecked());
 	tpl->InstanceTemplate()->SetInternalFieldCount(1);
-	Nan::SetPrototypeMethod(tpl, "APIUnitsInches", APIUnitsInches);
+	Nan::SetPrototypeMethod(tpl, "APIUnitsInch", APIUnitsInch);
 	Nan::SetPrototypeMethod(tpl, "APIUnitsMM", APIUnitsMM);
 	Nan::SetPrototypeMethod(tpl, "APIUnitsNative", APIUnitsNative);
 	Nan::SetPrototypeMethod(tpl, "APIUnitsFeed", APIUnitsFeed);
@@ -52,6 +52,7 @@ NAN_MODULE_INIT(Finder::Init)
 	Nan::SetPrototypeMethod(tpl, "GetCompoundFeatureCount", GetCompoundFeatureCount);
 	Nan::SetPrototypeMethod(tpl, "GetExecutableDistance", GetExecutableDistance);
 	Nan::SetPrototypeMethod(tpl, "GetExecutableDistanceUnit", GetExecutableDistanceUnit);
+	Nan::SetPrototypeMethod(tpl, "GetExecutableName", GetExecutableName);
 	Nan::SetPrototypeMethod(tpl, "GetFaceEdgeCount", GetFaceEdgeCount);
 	Nan::SetPrototypeMethod(tpl, "GetFaceEdgeNextPoint", GetFaceEdgeCount);
 	Nan::SetPrototypeMethod(tpl, "GetFeatureID", GetFeatureID);
@@ -60,6 +61,7 @@ NAN_MODULE_INIT(Finder::Init)
 	Nan::SetPrototypeMethod(tpl, "GetMainWorkplan", GetMainWorkplan);
 	Nan::SetPrototypeMethod(tpl, "GetProcessFeed", GetProcessFeed);
 	Nan::SetPrototypeMethod(tpl, "GetProcessFeedUnit", GetProcessFeedUnit);
+	Nan::SetPrototypeMethod(tpl, "GetProjectName", GetProjectName);
 	Nan::SetPrototypeMethod(tpl, "IsSelective", IsSelective);
 	Nan::SetPrototypeMethod(tpl, "OpenProject", OpenProject);
 	Nan::SetPrototypeMethod(tpl, "SaveAsModules", SaveAsModules);
@@ -84,7 +86,7 @@ NAN_METHOD(Finder::APIUnitsFeed) {
 	return;
     delete[] b;
 }
-NAN_METHOD(Finder::APIUnitsInches) {
+NAN_METHOD(Finder::APIUnitsInch) {
 
     Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
     if (find == 0) {
@@ -179,61 +181,82 @@ NAN_METHOD(Finder::GetCompoundFeatureCount) {
 
 NAN_METHOD(Finder::GetExecutableDistance)
 {
-	Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
-	if (find == 0) // Throw exception
-		return;
+    Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (find == 0) // Throw exception
+	    return;
 
-	if (info.Length() != 1) // incorrect number of arguments
-		return;
+    if (info.Length() != 1) // incorrect number of arguments
+	    return;
 
-	if (!info[0]->IsNumber()) // invalid argument
-		return;
+    if (!info[0]->IsNumber()) // invalid argument
+	    return;
 
-	// get this executable's id
-	int64_t exe_id = info[0]->IntegerValue();
+    // get this executable's id
+    int64_t exe_id = info[0]->IntegerValue();
 
-	double distance = 0.0;
-	double over_time, base_time;
+    double distance = 0.0;
+    double over_time, base_time;
 
-	const char *str1, *str2;
+    const char *str1, *str2;
 
-	if (!find->_find->compute_best_feed_time(
-		(int)exe_id, distance, base_time, over_time, str1, str2
-		))	// cpp error
-		return;
+    if (!find->_find->compute_best_feed_time(
+	    (int)exe_id, distance, base_time, over_time, str1, str2
+	    ))	// cpp error
+	    return;
 
-	info.GetReturnValue().Set(distance);
-	return;
+    info.GetReturnValue().Set(distance);
+    return;
 }
 
 NAN_METHOD(Finder::GetExecutableDistanceUnit)
 {
-	Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
-	if (find == 0) // Throw exception
-		return;
+    Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (find == 0) // Throw exception
+	    return;
 
-	if (info.Length() != 1) // incorrect number of arguments
-		return;
+    if (info.Length() != 1) // incorrect number of arguments
+	    return;
 
-	if (!info[0]->IsNumber()) // invalid argument
-		return;
+    if (!info[0]->IsNumber()) // invalid argument
+	    return;
 
-	// get this executable's id
-	int64_t exe_id = info[0]->IntegerValue();
+    // get this executable's id
+    int64_t exe_id = info[0]->IntegerValue();
 
     const char *dist_unit = 0;
     double over_time, base_time, distance;
     const char *str2;
 
-	if (!find->_find->compute_best_feed_time(
-		(int)exe_id, distance, base_time, over_time, dist_unit, str2
-		))
-		return;
+    if (!find->_find->compute_best_feed_time(
+	    (int)exe_id, distance, base_time, over_time, dist_unit, str2
+	    ))
+	    return;
 
-	info.GetReturnValue().Set(CharTov8String((char*) dist_unit));
+    info.GetReturnValue().Set(CharTov8String((char*) dist_unit));
 
-	return;
+    return;
 }
+
+NAN_METHOD(Finder::GetExecutableName) {
+    Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (find == 0) // Throw exception
+	return;
+
+    if (info.Length() != 1) // incorrect number of arguments
+	return;
+
+    if (!info[0]->IsInt32()) // invalid argument
+	return;
+
+    const char * name = 0;
+    Nan::Maybe<int32_t> t = Nan::To<int32_t>(info[0]);
+    if (!find->_find->executable_name(t.FromJust(), name))
+	return;
+
+    info.GetReturnValue().Set(CharTov8String((char *)name));
+    return;
+}
+
 
 NAN_METHOD(Finder::GetFaceEdgeCount)
 {
@@ -359,17 +382,17 @@ NAN_METHOD(Finder::GetFeatureOutsideProfileClosedCircular) {
 }
 
 NAN_METHOD(Finder::GetMainWorkplan) {
-	Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
-	if (find == 0) //Throw Exception
-		return;
-	if (!info[0]->IsUndefined()) //Function shouldn't get any arguments.
-		return;
-	int rtn = 0;
-	int sz;
-	if (!find->_find->main(rtn, sz))
-		return;//Error in c++ code
-	info.GetReturnValue().Set(rtn);
-	return;
+    Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (find == 0) //Throw Exception
+	    return;
+    if (!info[0]->IsUndefined()) //Function shouldn't get any arguments.
+	    return;
+    int rtn = 0;
+    int sz;
+    if (!find->_find->main(rtn, sz))
+	    return;//Error in c++ code
+    info.GetReturnValue().Set(rtn);
+    return;
 }
 
 NAN_METHOD(Finder::GetProcessFeed) {
@@ -404,6 +427,23 @@ NAN_METHOD(Finder::GetProcessFeedUnit) {
     info.GetReturnValue().Set(CharTov8String((char *)unit));
 }
 
+NAN_METHOD(Finder::GetProjectName) {
+    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (find == 0) {
+	return; //throw exception
+    }
+    if (info[0]->IsUndefined()) {
+	return; //throw exception
+    }
+    const char * prj_name = 0;
+    const char * szWP;
+
+    if (!(find->_find->project(prj_name, szWP))) {
+	return; //Throw Error
+    }
+    info.GetReturnValue().Set(CharTov8String((char *)prj_name));
+}
+
 NAN_METHOD(Finder::IsSelective)
 {
     Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
@@ -426,18 +466,18 @@ NAN_METHOD(Finder::IsSelective)
 }
 
 NAN_METHOD(Finder::OpenProject) {
-	Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
-	if (find == 0) //Throw Exception
-		return;
-	if (info.Length() != 1) //Function should get one argument.
-		return;
-	if (!info[0]->IsString())
-		return;
-	char * fname = 0;
-	ssize_t fnamelen = v8StringToChar(info[0], fname);
-	if(!find->_find->search(fname)) //TODO: Handle Error.
-		return;
-	return; //Success finding, return.
+    Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (find == 0) //Throw Exception
+	    return;
+    if (info.Length() != 1) //Function should get one argument.
+	    return;
+    if (!info[0]->IsString())
+	    return;
+    char * fname = 0;
+    ssize_t fnamelen = v8StringToChar(info[0], fname);
+    if(!find->_find->search(fname)) //TODO: Handle Error.
+	    return;
+    return; //Success finding, return.
 }
 
 NAN_METHOD(Finder::SaveAsModules)
