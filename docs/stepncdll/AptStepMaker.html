@@ -3794,12 +3794,22 @@ the <a href="#NewProject">NewProject</a> function.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetUUID></a>GetUUID()</h2>
-<pre>
+<pre class="dotnet">
 System::String^ <b>GetUUID</b> (
 	System::Int64 entity_id
 	);
 </pre>
-
+<pre class="nodejs">
+string <b>GetUUID</b> (
+	int EID
+	);
+</pre>
+<pre class="cpp">
+RoseBoolean <b>get_uuid</b> (
+	int ent_id,
+	const char * &uuid
+	);
+</pre>
 
 <P>The <b>GetUUID()</b> function returns the Universally Unique IDentifier
 currently assigned to an entity or NULL. A UUID is a number that in practice
