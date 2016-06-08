@@ -1555,9 +1555,20 @@ Function to return only a locally defined workpiece of an executable.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetExecutableWorkpieceAsIsLocal></a>GetExecutableWorkpieceAsIsLocal()</h2>
-<pre>
+<pre class="dotnet">
 System::Int64 <b>GetExecutableWorkpieceAsIsLocal</b> (
 	System::Int64 exe_id
+	);
+</pre>
+<pre class="nodejs">
+int <b>GetExecutableWorkpieceAsIsLocal</b> (
+	int exe_id
+	);
+</pre>
+<pre class="cpp">
+RoseBoolean <b>local_executable_as_is_workpiece</b> (
+	int ws_id, 
+	int &wp_id
 	);
 </pre>
 
