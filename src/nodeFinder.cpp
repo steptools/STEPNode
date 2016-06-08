@@ -71,6 +71,7 @@ NAN_MODULE_INIT(Finder::Init)
 	Nan::SetPrototypeMethod(tpl, "GetProcessFeed", GetProcessFeed);
 	Nan::SetPrototypeMethod(tpl, "GetProcessFeedUnit", GetProcessFeedUnit);
 	Nan::SetPrototypeMethod(tpl, "GetProjectName", GetProjectName);
+	Nan::SetPrototypeMethod(tpl, "GetWorkingstep", GetWorkingstep);
 	Nan::SetPrototypeMethod(tpl, "GetWorkplanName", GetWorkplanName);
 	Nan::SetPrototypeMethod(tpl, "GetWorkplanSize", GetWorkplanSize);
 	Nan::SetPrototypeMethod(tpl, "GetSelectiveExecutableCount", GetSelectiveExecutableCount);
@@ -674,6 +675,27 @@ NAN_METHOD(Finder::GetSelectiveExecutableCount) {
 	return; // throw error
     }
     info.GetReturnValue().Set(count);
+    return;
+}
+
+NAN_METHOD(Finder::GetWorkingstep) {
+    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (find == 0) //Throw Exception
+	return;
+    if (info.Length() != 2) //Throw Exception
+	return;
+    if (!info[0]->IsInt32()) //Throw Exception
+	return;
+    if (!info[1]->IsInt32())
+	return;
+
+    Nan::Maybe<int32_t> wp_id = Nan::To<int32_t>(info[0]);
+    Nan::Maybe<int32_t> index = Nan::To<int32_t>(info[1]);
+    int exe_id = 0;
+    const char* name = 0;
+    if (!find->_find->is_workingstep(wp_id.FromJust(), index.FromJust(), exe_id, name))
+	return;
+    info.GetReturnValue().Set(exe_id);
     return;
 }
 
