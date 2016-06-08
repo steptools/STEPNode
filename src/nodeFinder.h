@@ -121,6 +121,9 @@ public:
     //string GetProjectName();
     static NAN_METHOD(GetProjectName);
 
+    //int GetWorkingstep(int wp_id, int index)
+    static NAN_METHOD(GetWorkingstep);
+
     //string GetWorkplanName();
     static NAN_METHOD(GetWorkplanName);
 
