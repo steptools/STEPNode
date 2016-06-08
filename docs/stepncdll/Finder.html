@@ -7489,8 +7489,17 @@ step, tool path or technology entity.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetProjectName></a>GetProjectName()</h2>
-<pre>
+<pre class = "dotnet">
 System::String^ <b>GetProjectName</b> ();
+</pre>
+<pre class = "nodejs">
+string <b>GetProjectName</b> ();
+</pre>
+<pre class = "cpp">
+RoseBoolean project(
+  const char* &prj_name,
+  const char* &wpk_name
+  );
 </pre>
 
 <P>The <b>GetProjectName()</b> function returns the string containing
