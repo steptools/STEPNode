@@ -4897,9 +4897,22 @@ name of an executable.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetMaterialName></a>GetMaterialName()</h2>
-<pre>
+    <pre class="dotnet">
 System::String^ <b>GetMaterialName</b> (
 	System::Int64 wp_id
+	);
+</pre>
+
+    <pre class="nodejs">
+string <b>GetMaterialName</b> (
+	int wp_id
+	);
+</pre>
+
+    <pre class="cpp">
+RoseBoolean <b>material</b> (
+	int wp_id,
+	const char * &name
 	);
 </pre>
 

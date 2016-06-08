@@ -66,6 +66,7 @@ NAN_MODULE_INIT(Finder::Init)
 	Nan::SetPrototypeMethod(tpl, "GetFeatureName", GetFeatureName);
 	Nan::SetPrototypeMethod(tpl, "GetFeatureOutsideProfileClosedCircular", GetFeatureOutsideProfileClosedCircular);
 	Nan::SetPrototypeMethod(tpl, "GetMainWorkplan", GetMainWorkplan);
+	Nan::SetPrototypeMethod(tpl, "GetMaterialName", GetMaterialName);
 	Nan::SetPrototypeMethod(tpl, "GetNestedExecutableCount", GetNestedExecutableCount);
 	Nan::SetPrototypeMethod(tpl, "GetNestedExecutableNext", GetNestedExecutableNext);
 	Nan::SetPrototypeMethod(tpl, "GetProcessFeed", GetProcessFeed);
@@ -578,6 +579,30 @@ NAN_METHOD(Finder::GetMainWorkplan) {
     if (!find->_find->main(rtn, sz))
 	    return;//Error in c++ code
     info.GetReturnValue().Set(rtn);
+    return;
+}
+
+NAN_METHOD(Finder::GetMaterialName)
+{
+    Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (find == 0) //Throw Exception
+	return;
+
+    if (info.Length() != 1)
+	return;
+
+    if (info[0]->IsUndefined()) //Needs one arg
+	return;
+
+    if (!info[0]->IsInt32())
+	return;
+
+    const char* name = 0;
+    if (!find->_find->material(Nan::To<int32_t>(info[0]).FromJust(), name)) //Throw Exception
+	return;
+
+
+    info.GetReturnValue().Set(CharTov8String((char *)name));
     return;
 }
 

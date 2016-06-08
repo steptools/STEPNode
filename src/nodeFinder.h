@@ -49,7 +49,7 @@ public:
     //void APIUnitsSpeed(System::String^ units);
     static NAN_METHOD(APIUnitsSpeed);
     
-    //System::int64 GetCompoundFeatureCount(system::int64 compound_id)'
+    //long GetCompoundFeatureCount(long compound_id)
     static NAN_METHOD(GetCompoundFeatureCount);
 
     // double GetExecutableDistance(int exe_id)
@@ -84,6 +84,9 @@ public:
 
     //int GetMainWorkplan();
     static NAN_METHOD(GetMainWorkplan);
+
+    //string GetMaterialName(long wp_id);
+    static NAN_METHOD(GetMaterialName);
 
     //long GetFaceEdgeCount(long face_id);
     static NAN_METHOD(GetFaceEdgeCount);
