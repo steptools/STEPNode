@@ -332,7 +332,7 @@ NAN_METHOD(Finder::GetFaceEdgeNextPoint)
     Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
     if (find == 0) //Throw Exception
 	return;
-    if (info.Length() < 8) //Needs 8 arg
+    if (info.Length() < 2) //Needs 2 args
 	return;
 
     double x1 = 0.0;
@@ -347,12 +347,12 @@ NAN_METHOD(Finder::GetFaceEdgeNextPoint)
 	return;
 
     v8::Local<v8::Object> jsonReturn = Nan::New<v8::Object>();
-    jsonReturn->Set(CharTov8String("ret_x1"), info[2]);
-    jsonReturn->Set(CharTov8String("ret_y1"), info[3]);
-    jsonReturn->Set(CharTov8String("ret_z1"), info[4]);
-    jsonReturn->Set(CharTov8String("ret_x2"), info[5]);
-    jsonReturn->Set(CharTov8String("ret_y2"), info[6]);
-    jsonReturn->Set(CharTov8String("ret_z2"), info[7]);
+    Nan::Set(jsonReturn, CharTov8String("ret_x1"), Nan::New(x1));
+    Nan::Set(jsonReturn, CharTov8String("ret_y1"), Nan::New(y1));
+    Nan::Set(jsonReturn, CharTov8String("ret_z1"), Nan::New(z1));
+    Nan::Set(jsonReturn, CharTov8String("ret_x2"), Nan::New(x2));
+    Nan::Set(jsonReturn, CharTov8String("ret_y2"), Nan::New(y2));
+    Nan::Set(jsonReturn, CharTov8String("ret_z2"), Nan::New(z2));
 
     info.GetReturnValue().Set(jsonReturn);
     return;
