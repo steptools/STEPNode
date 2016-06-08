@@ -58,23 +58,19 @@ public:
     // string GetExecutableDistanceUnit(int exe_id)
     static NAN_METHOD(GetExecutableDistanceUnit);
 
+    // string GetExecutableName(int exe_id)
+    static NAN_METHOD(GetExecutableName);
+
+    // string GetExecutableType(int exe_id)
+    static NAN_METHOD(GetExecutableType);
+
     //int GetMainWorkplan();
     static NAN_METHOD(GetMainWorkplan);
 
     //long GetFaceEdgeCount(long face_id);
     static NAN_METHOD(GetFaceEdgeCount);
 
-    //void GetFaceEdgeNextPoint(
-    /*
-    System::Int64 face_id,
-    System::Int64 index,
-    [System::Runtime::InteropServices::Out] double %ret_x1,
-    [System::Runtime::InteropServices::Out] double %ret_y1,
-    [System::Runtime::InteropServices::Out] double %ret_z1,
-    [System::Runtime::InteropServices::Out] double %ret_x2,
-    [System::Runtime::InteropServices::Out] double %ret_y2,
-    [System::Runtime::InteropServices::Out] double %ret_z2
-    */ //);
+    //void GetFaceEdgeNextPoint(int face_id, int index, double %ret_x1, double %ret_y1, double %ret_z1, double %ret_x2, double %ret_y2, double %ret_z2);
     static NAN_METHOD(GetFaceEdgeNextPoint);
 
     //string GetFeatureName(long id)
@@ -97,6 +93,12 @@ public:
 
     //bool IsSelective(long exe_id);
     static NAN_METHOD(IsSelective);
+
+    //bool IsWorkingstep(long exe_id);
+    static NAN_METHOD(IsWorkingstep);
+
+    //bool IsWorkplan(long exe_id);
+    static NAN_METHOD(IsWorkplan);
 
     //void Open238(String file_name);
     static NAN_METHOD(OpenProject);

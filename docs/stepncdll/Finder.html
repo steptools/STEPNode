@@ -1242,9 +1242,20 @@ name for the unit used for the distance.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetExecutableName></a>GetExecutableName()</h2>
-<pre>
+<pre class = "dotnet">
 System::String^ <b>GetExecutableName</b> (
 	System::Int64 exe_id
+	);
+</pre>
+<pre class="nodejs">
+string <b>GetExecutableName</b> (
+	int exe_id
+	);
+</pre>
+<pre class="cpp">
+RoseBoolean <b>executable_name</b> (
+	int exe_id, 
+	const char * &name
 	);
 </pre>
 
@@ -1380,9 +1391,20 @@ and <a href="#GetExecutableOptimizedTime">GetExecutableOptimizedTime</a>.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetExecutableType></a>GetExecutableType()</h2>
-<pre>
+<pre class="dotnet">
 System::String^ <b>GetExecutableType</b> (
 	System::Int64 exe_id
+	);
+</pre>
+<pre class="nodejs">
+string <b>GetExecutableType</b> (
+	int exe_id
+	);
+</pre>
+<pre class="cpp">
+RoseBoolean <b>executable_type</b> (
+	int exe_id, 
+	const char * &type
 	);
 </pre>
 
@@ -1686,7 +1708,14 @@ System::Int64 <b>GetFaceEdgeCount</b> (
 </pre>
 
     <pre class="nodejs">
-int <b>GetFaceEdgeCount</b> (
+{
+    "ret_x1":double,
+    "ret_y1":double,
+    "ret_z1":double,
+    "ret_x2":double,
+    "ret_y2":double,
+    "ret_z2":double
+} <b>GetFaceEdgeCount</b> (
 	int face_id
 	);
 </pre>
@@ -2812,9 +2841,20 @@ a feature.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetFeatureID></a>GetFeatureID()</h2>
-<pre>
+<pre class="dotnet">
 System::Int64 <b>GetFeatureID</b> (
 	System::Int64 ws_id
+	);
+</pre>
+<pre class="nodejs">
+int <b>GetFeatureID</b> (
+	int ws_id
+	);
+</pre>
+<pre class="cpp">
+RoseBoolean <b>feature_id</b> (
+	int ws_id, 
+	int &feature_id
 	);
 </pre>
 
@@ -2824,9 +2864,20 @@ System::Int64 <b>GetFeatureID</b> (
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetFeatureName></a>GetFeatureName()</h2>
-<pre>
+<pre class="dotnet">
 System::String^ <b>GetFeatureName</b> (
 	System::Int64 ws_or_fe_id
+	);
+</pre>
+<pre class="nodejs">
+string <b>GetFeatureName</b> (
+	int ws_or_fe_id
+	);
+</pre>
+<pre class="cpp">
+RoseBoolean <b>feature_name</b> (
+	int ws_or_fe_id, 
+	const char * &name
 	);
 </pre>
 
@@ -11694,9 +11745,22 @@ the program structure is a workplan.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=IsWorkingstep></a>IsWorkingstep()</h2>
-<pre>
+    <pre class="dotnet">
 System::Boolean <b>IsWorkingstep</b> (
 	System::Int64 exe_id
+	);
+</pre>
+
+    <pre class="nodejs">
+Boolean <b>IsWorkingstep</b> (
+	int exe_id
+	);
+</pre>
+
+    <pre class="cpp">
+RoseBoolean <b>is_workingstep</b> (
+	int exe_id,
+	int &flag
 	);
 </pre>
 
@@ -11728,9 +11792,22 @@ workplan that leads to all other executables.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=IsWorkplan></a>IsWorkplan()</h2>
-<pre>
+    <pre class="dotnet">
 System::Boolean <b>IsWorkplan</b> (
 	System::Int64 exe_id
+	);
+</pre>
+
+    <pre class="nodejs">
+Boolean <b>IsWorkplan</b> (
+	int exe_id
+	);
+</pre>
+
+    <pre class="cpp">
+RoseBoolean <b>is_workplan</b> (
+	int exe_id,
+	int &flag
 	);
 </pre>
 
@@ -12031,7 +12108,7 @@ object as well as setting it back to its initial state.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=SaveAsModules></a>SaveAsModules()</h2>
-<pre>
+<pre class="dotnet">
 void <b>SaveAsModules</b> (
 	System::String^ file_name
 	);
