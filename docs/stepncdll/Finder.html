@@ -1692,9 +1692,20 @@ Function to a computed or locally defined removal volume.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetExecutableWorkpieceToBe></a>GetExecutableWorkpieceToBe()</h2>
-<pre>
+<pre class="dotnet">
 System::Int64 <b>GetExecutableWorkpieceToBe</b> (
 	System::Int64 exe_id
+	);
+</pre>
+<pre class="nodejs">
+int <b>GetExecutableWorkpieceToBe</b> (
+	int exe_id
+	);
+</pre>
+<pre class="cpp">
+RoseBoolean <b>executable_to_be_workpiece</b> (
+	int ws_id, 
+	int &wp_id
 	);
 </pre>
 
@@ -1731,9 +1742,20 @@ Function to return only a locally defined workpiece of an executable.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetExecutableWorkpieceToBeLocal></a>GetExecutableWorkpieceToBeLocal()</h2>
-<pre>
+<pre class="dotnet">
 System::Int64 <b>GetExecutableWorkpieceToBeLocal</b> (
 	System::Int64 exe_id
+	);
+</pre>
+<pre class="nodejs">
+int <b>GetExecutableWorkpieceToBeLocal</b> (
+	int exe_id
+	);
+</pre>
+<pre class="cpp">
+RoseBoolean <b>local_executable_to_be_workpiece</b> (
+	int ws_id, 
+	int &wp_id
 	);
 </pre>
 
@@ -11301,14 +11323,39 @@ of objects.
 <h2 class=rule>
 <a name=GetWorkplanProcessFeatureNext></a>
 <a name=GetWorkplanProcessFeatureCount></a>GetWorkplanProcessFeatureCount/Next()</h2>
-<pre>
+<pre class = "dotnet">
 System::Int64 <b>GetWorkplanProcessFeatureCount</b> (
 	System::Int64 wp_id
 	);
-
+</pre>
+<pre class = "nodejs">
+int <b>GetWorkplanProcessFeatureCount</b> (
+	int wp_id
+	);
+</pre>
+<pre class = "cpp">
+RoseBoolean <b>wp_process_feature_count</b> (
+	int wp_id, 
+	int &size
+	);
+</pre>
+<pre class = "dotnet">
 System::Int64 <b>GetWorkplanProcessFeatureNext</b> (
 	System::Int64 wp_id,
 	System::Int64 index
+	);
+</pre>
+<pre class = "nodejs">
+int <b>GetWorkplanProcessFeatureNext</b> (
+	int wp_id,
+	int index
+	);
+</pre>
+<pre class = "cpp">
+RoseBoolean <b>wp_process_feature_next</b> (
+	int wp_id, 
+	int index, 
+	int &fe_id
 	);
 </pre>
 
