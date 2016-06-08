@@ -1,0 +1,3617 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+   <TITLE>Process Programming Class</TITLE>
+   <link rel="stylesheet" type="text/css" href="../pkgcss/style.css">
+</HEAD>
+
+<BODY>
+<TABLE class=pagehead><TR>
+<TD class=logo>Process</TD>
+<TD class=quicklinks>
+  <A HREF="http://www.steptools.com">[www.steptools.com]</a>
+  <A HREF="../index.html">[STEP-NC Machine]</A>
+  <A HREF=index.html>[STEP-NC DLL]</a>
+</TD></TR>
+</TABLE>
+
+<div class=bktoc>
+<FORM class=bksearch method=GET action="http://www.google.com/search">
+Search STEP Tools Web Support<br>
+<INPUT TYPE=text name=q size=22 maxlength=255 value="">
+<INPUT TYPE=hidden name=q value="site:www.steptools.com/support">
+<INPUT class=button type=submit name=sa VALUE="Google">
+</FORM>
+<ul>
+<li><a href="#oview">Overview</a>
+<li><a href="#BlockRawpiece">BlockRawpiece()</a>
+<li><a href="#Boring">Boring()</a>
+<li><a href="#BottomSideFinishMilling">BottomSideFinishMilling()</a>
+<li><a href="#BottomSideRoughMilling">BottomSideRoughMilling()</a>
+<li><a href="#ClearancePlane">ClearancePlane()</a>
+<li><a href="#CoolantMist">CoolantMist()</a>
+<li><a href="#CoolantOff">CoolantOff()</a>
+<li><a href="#CoolantOn">CoolantOn()</a>
+<li><a href="#CylinderRawpiece">CylinderRawpiece()</a>
+<li><a href="#DrillPointAdd">DrillPointAdd()</a>
+<li><a href="#DrillWorkingstepAdd">DrillWorkingstepAdd()</a>
+<li><a href="#Drilling">Drilling()</a>
+<li><a href="#DrillingStrategy">DrillingStrategy()</a>
+<li><a href="#FindOrMakeTechnology">FindOrMakeTechnology()</a>
+<li><a href="#FindOrMakeTechologyCSS">FindOrMakeTechologyCSS()</a>
+<li><a href="#GetToolISO13399AssemblyCount">GetToolISO13399AssemblyCount()</a>
+<li><a href="#GetToolISO13399AssemblyName">GetToolISO13399AssemblyName()</a>
+<li><a href="#GetToolISO13399AssemblyNext">GetToolISO13399AssemblyNext()</a>
+<li><a href="#GetToolISO13399AssemblyNumericAttributeCount">GetToolISO13399AssemblyNumericAttributeCount()</a>
+<li><a href="#GetToolISO13399AssemblyNumericAttributeNext">GetToolISO13399AssemblyNumericAttributeNext()</a>
+<li><a href="#GetToolISO13399AssemblyStringAttributeCount">GetToolISO13399AssemblyStringAttributeCount()</a>
+<li><a href="#GetToolISO13399AssemblyStringAttributeNext">GetToolISO13399AssemblyStringAttributeNext()</a>
+<li><a href="#GetToolISO13399ItemCount">GetToolISO13399ItemCount()</a>
+<li><a href="#GetToolISO13399ItemName">GetToolISO13399ItemName()</a>
+<li><a href="#GetToolISO13399ItemNext">GetToolISO13399ItemNext()</a>
+<li><a href="#GetToolISO13399ItemNumericAttributeCount">GetToolISO13399ItemNumericAttributeCount()</a>
+<li><a href="#GetToolISO13399ItemNumericAttributeNext">GetToolISO13399ItemNumericAttributeNext()</a>
+<li><a href="#GetToolISO13399ItemStringAttributeCount">GetToolISO13399ItemStringAttributeCount()</a>
+<li><a href="#GetToolISO13399ItemStringAttributeNext">GetToolISO13399ItemStringAttributeNext()</a>
+<li><a href="#GetToolISO13399ItemType">GetToolISO13399ItemType()</a>
+<li><a href="#GetToolISO13399NumericValue">GetToolISO13399NumericValue()</a>
+<li><a href="#GetToolISO13399StringValue">GetToolISO13399StringValue()</a>
+<li><a href="#GetToolReferenceDataName">GetToolReferenceDataName()</a>
+<li><a href="#GetToolReferenceDataSTRL">GetToolReferenceDataSTRL()</a>
+<li><a href="#Inches">Inches()</a>
+<li><a href="#InitializeOverrides">InitializeOverrides()</a>
+<li><a href="#LoadISO13399Data">LoadISO13399Data()</a>
+<li><a href="#Material">Material()</a>
+<li><a href="#Millimeters">Millimeters()</a>
+<li><a href="#MillingStrategyApproachAirAngle">MillingStrategyApproachAirAngle()</a>
+<li><a href="#MillingStrategyApproachAirTangent">MillingStrategyApproachAirTangent()</a>
+<li><a href="#MillingStrategyApproachPlungeHelix">MillingStrategyApproachPlungeHelix()</a>
+<li><a href="#MillingStrategyApproachPlungeRamp">MillingStrategyApproachPlungeRamp()</a>
+<li><a href="#MillingStrategyApproachPlungeToolaxis">MillingStrategyApproachPlungeToolaxis()</a>
+<li><a href="#MillingStrategyApproachPlungeZigzag">MillingStrategyApproachPlungeZigzag()</a>
+<li><a href="#MillingStrategyRetractAirAngle">MillingStrategyRetractAirAngle()</a>
+<li><a href="#MillingStrategyRetractAirTangent">MillingStrategyRetractAirTangent()</a>
+<li><a href="#MillingStrategyRetractPlungeHelix">MillingStrategyRetractPlungeHelix()</a>
+<li><a href="#MillingStrategyRetractPlungeRamp">MillingStrategyRetractPlungeRamp()</a>
+<li><a href="#MillingStrategyRetractPlungeToolaxis">MillingStrategyRetractPlungeToolaxis()</a>
+<li><a href="#MillingStrategyRetractPlungeZigzag">MillingStrategyRetractPlungeZigzag()</a>
+<li><a href="#MillingStrategyTwo5dBidirectional">MillingStrategyTwo5dBidirectional()</a>
+<li><a href="#MillingStrategyTwo5dBidirectionalContour">MillingStrategyTwo5dBidirectionalContour()</a>
+<li><a href="#MillingStrategyTwo5dCenterMilling">MillingStrategyTwo5dCenterMilling()</a>
+<li><a href="#MillingStrategyTwo5dContourBidirectional">MillingStrategyTwo5dContourBidirectional()</a>
+<li><a href="#MillingStrategyTwo5dContourParallel">MillingStrategyTwo5dContourParallel()</a>
+<li><a href="#MillingStrategyTwo5dContourSpiral">MillingStrategyTwo5dContourSpiral()</a>
+<li><a href="#MillingStrategyTwo5dExplicitStrategy">MillingStrategyTwo5dExplicitStrategy()</a>
+<li><a href="#MillingStrategyTwo5dUnidirectional">MillingStrategyTwo5dUnidirectional()</a>
+<li><a href="#MultistepDrilling">MultistepDrilling()</a>
+<li><a href="#Open238">Open238()</a>
+<li><a href="#OpenNewProject">OpenNewProject()</a>
+<li><a href="#OptimizeFeedsUsingCrossSectionParameters">OptimizeFeedsUsingCrossSectionParameters()</a>
+<li><a href="#PlaneFinishMilling">PlaneFinishMilling()</a>
+<li><a href="#PlaneRoughMilling">PlaneRoughMilling()</a>
+<li><a href="#ReadCrossSectionData">ReadCrossSectionData()</a>
+<li><a href="#Reaming">Reaming()</a>
+<li><a href="#Reset">Reset()</a>
+<li><a href="#RetractPlane">RetractPlane()</a>
+<li><a href="#SaveAsModules">SaveAsModules()</a>
+<li><a href="#SaveAsP21">SaveAsP21()</a>
+<li><a href="#SaveISO13399Data">SaveISO13399Data()</a>
+<li><a href="#SecondWorkingstep">SecondWorkingstep()</a>
+<li><a href="#SetCuttingComponentParametersLifeMaterial">SetCuttingComponentParametersLifeMaterial()</a>
+<li><a href="#SetMachineParametersDelete">SetMachineParametersDelete()</a>
+<li><a href="#SetMachineParametersMachineName">SetMachineParametersMachineName()</a>
+<li><a href="#SetMachineParametersSpeedFeed">SetMachineParametersSpeedFeed()</a>
+<li><a href="#SetOverride">SetOverride()</a>
+<li><a href="#SetPathDepth">SetPathDepth()</a>
+<li><a href="#SetPathOvercut">SetPathOvercut()</a>
+<li><a href="#SetSurfacePropertyForWorkingstep">SetSurfacePropertyForWorkingstep()</a>
+<li><a href="#SetSurfacePropertyForWorkpiece">SetSurfacePropertyForWorkpiece()</a>
+<li><a href="#SetTechnolgyConstChipModeIsOn">SetTechnolgyConstChipModeIsOn()</a>
+<li><a href="#SetTechnolgyConstChipModeOff">SetTechnolgyConstChipModeOff()</a>
+<li><a href="#SetTechnolgyConstChipModeOn">SetTechnolgyConstChipModeOn()</a>
+<li><a href="#SetTechnologyFeed">SetTechnologyFeed()</a>
+<li><a href="#SetTechnologyFeedInTool">SetTechnologyFeedInTool()</a>
+<li><a href="#SetTechnologyFeedInWorkingstep">SetTechnologyFeedInWorkingstep()</a>
+<li><a href="#SetTechnologyForPath">SetTechnologyForPath()</a>
+<li><a href="#SetTechnologySpeed">SetTechnologySpeed()</a>
+<li><a href="#SetTechnologySpeedInTool">SetTechnologySpeedInTool()</a>
+<li><a href="#SetTechologySpeedInWorkingstep">SetTechologySpeedInWorkingstep()</a>
+<li><a href="#SetToolCoolantThroughTool">SetToolCoolantThroughTool()</a>
+<li><a href="#SetToolCornerRadius">SetToolCornerRadius()</a>
+<li><a href="#SetToolCurrentCornerRadius">SetToolCurrentCornerRadius()</a>
+<li><a href="#SetToolCurrentDiameter">SetToolCurrentDiameter()</a>
+<li><a href="#SetToolCurrentLength">SetToolCurrentLength()</a>
+<li><a href="#SetToolCuttingEdgeAngle">SetToolCuttingEdgeAngle()</a>
+<li><a href="#SetToolCuttingEdgeAngleLowerUpper">SetToolCuttingEdgeAngleLowerUpper()</a>
+<li><a href="#SetToolDiameter">SetToolDiameter()</a>
+<li><a href="#SetToolDiameterLowerUpper">SetToolDiameterLowerUpper()</a>
+<li><a href="#SetToolExpectedLife">SetToolExpectedLife()</a>
+<li><a href="#SetToolExpectedLifeLowerUpper">SetToolExpectedLifeLowerUpper()</a>
+<li><a href="#SetToolFluteCount">SetToolFluteCount()</a>
+<li><a href="#SetToolFluteLength">SetToolFluteLength()</a>
+<li><a href="#SetToolFluteLengthLowerUpper">SetToolFluteLengthLowerUpper()</a>
+<li><a href="#SetToolHandOfCut">SetToolHandOfCut()</a>
+<li><a href="#SetToolLength">SetToolLength()</a>
+<li><a href="#SetToolLengthLowerUpper">SetToolLengthLowerUpper()</a>
+<li><a href="#SetToolMaterial">SetToolMaterial()</a>
+<li><a href="#SetToolMaterialStandard">SetToolMaterialStandard()</a>
+<li><a href="#SetToolOverallAssemblyLength">SetToolOverallAssemblyLength()</a>
+<li><a href="#SetToolOverallAssemblyLengthLowerUpper">SetToolOverallAssemblyLengthLowerUpper()</a>
+<li><a href="#SetToolRadiusLowerUpper">SetToolRadiusLowerUpper()</a>
+<li><a href="#SetToolRecommendedFeed">SetToolRecommendedFeed()</a>
+<li><a href="#SetToolRecommendedFeedLowerUpper">SetToolRecommendedFeedLowerUpper()</a>
+<li><a href="#SetToolRecommendedSpeed">SetToolRecommendedSpeed()</a>
+<li><a href="#SetToolRecommendedSpeedLowerUpper">SetToolRecommendedSpeedLowerUpper()</a>
+<li><a href="#SetToolReferenceDataName">SetToolReferenceDataName()</a>
+<li><a href="#SetToolReferenceDataSTRL">SetToolReferenceDataSTRL()</a>
+<li><a href="#SetToolTaperThreadCount">SetToolTaperThreadCount()</a>
+<li><a href="#SetToolThreadFormType">SetToolThreadFormType()</a>
+<li><a href="#SetToolThreadPitch">SetToolThreadPitch()</a>
+<li><a href="#SetToolThreadPitchLowerUpper">SetToolThreadPitchLowerUpper()</a>
+<li><a href="#SetToolThreadSize">SetToolThreadSize()</a>
+<li><a href="#SetToolThreadSizeLowerUpper">SetToolThreadSizeLowerUpper()</a>
+<li><a href="#SetToolTipAngle">SetToolTipAngle()</a>
+<li><a href="#SetToolTipAngleLowerUpper">SetToolTipAngleLowerUpper()</a>
+<li><a href="#Shutdown">Shutdown()</a>
+<li><a href="#SideFinishMilling">SideFinishMilling()</a>
+<li><a href="#SideRoughMilling">SideRoughMilling()</a>
+<li><a href="#Tapping">Tapping()</a>
+<li><a href="#ToolAssemblyUsingISO13399Data">ToolAssemblyUsingISO13399Data()</a>
+<li><a href="#ToolAssemblyUsingISO13399DataChangeFilename">ToolAssemblyUsingISO13399DataChangeFilename()</a>
+<li><a href="#ToolAssemblyUsingISO13399DataChangeToolFunctionalLength">ToolAssemblyUsingISO13399DataChangeToolFunctionalLength()</a>
+<li><a href="#ToolAssemblyUsingISO13399DataHasAssembly">ToolAssemblyUsingISO13399DataHasAssembly()</a>
+<li><a href="#ToolAssemblyUsingISO13399DataRecommendedValues">ToolAssemblyUsingISO13399DataRecommendedValues()</a>
+<li><a href="#ToolIdentifier">ToolIdentifier()</a>
+</ul>
+</div>
+<div class=main>
+
+<h2><a name=oview></a>Overview</h2>
+<p>
+The <b>Process</b> class is used to create advanced manufacturing
+processes. Ordinary manufacturing processes are created by the 
+<a href="AptStepMaker.html">APT object</a>. The Process object creates
+data that is above and beyond that defined in APT programs.
+
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=BlockRawpiece></a>BlockRawpiece()</h2>
+<pre>
+void <b>BlockRawpiece</b> (
+	System::String^ name,
+	double x,
+	double y,
+	double z,
+	double length,
+	double width,
+	double height
+	);
+</pre>
+
+<P>The <b>BlockRawpiece()</b> function creates a product model
+containing a rectangular block. Such blocks are not supported across
+the whole STEP and you are recommended to create an advanced boundary
+model to represent the block if possible.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>name <DD> Product name for the new block.
+<DT>x, y, z <DD>Coordinates for center of the block.
+<DT>length, width, height<DD> Dimensions for the length, width and
+height
+</DL>
+
+<h3>Related Functions</h3>
+<UL>
+<li>There is a put_placement function in the APT object that will move
+the block and rotate its axes.
+</UL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project.
+</UL>
+
+
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=Boring></a>Boring()</h2>
+<pre>
+void <b>Boring</b> (
+	System::Int64 ws_id,
+	double cutting_depth,
+	double dwell_time_bottom,
+	double feed_on_retract,
+	double previous_diameter,
+	System::Boolean spindle_stop_at_bottom,
+	double waiting_x,
+	double waiting_y,
+	double waiting_z,
+	double depth_of_test_cut
+	);
+</pre>
+
+<P>The <b>Boring()</b> function defines a boring operation. For
+additional details see the ISO 14649 documentation.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>ws_id <DD> Workingstep that will contain the operation.
+<DT>cutting depth <DD> In current length units.
+<DT>dwell time bottom <DD> In seconds
+<DT>feed_on_retract <DD> In current federate
+<DT>previous diameter <DD> The diameter of the hole before the boring
+<DT>spindle_stop_at_bottom <DD> Stop the spindle duing the dwell?
+<DT>waiting_x, y, z <DD> Position for the dwell
+<DT>depth of test cut <DD>
+</DL>
+
+<h3>Related Functions</h3>
+<UL>
+<li><a href="#MultistepDrilling">MultistepDrilling</a> Defines a
+multi-step drilling operation.
+<li><a href="#Tapping">Tapping</a> Defines a tapping operation.
+<li><a href="#Reaming">Reaming</a> Define a reaming operation.
+</UL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project. 
+<li>Bad identity for the workingstep
+</UL>
+
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=BottomSideFinishMilling></a>BottomSideFinishMilling()</h2>
+<pre>
+void <b>BottomSideFinishMilling</b> (
+	System::Int64 ws_id,
+	double side_allowance,
+	double bottom_allowance,
+	double radial_depth,
+	double axial_depth
+	);
+</pre>
+
+<P>The <b>BottomSideFinishMilling()</b> function defines parameters
+for an operation that removes material from the side and bottom of the
+tool.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>ws_id <DD> Workingstep that will contain the operation.
+<DT>side_allowance <DD> Material to be left on the side
+<DT>bottom_allowance <DD> Material to be left on the bottom
+<DT>radial_depth <DD> How much material is to be cut from the side on
+each pass.
+<DT>axial_depth <DD> How much material is to be cut from the bottom on
+each pass.
+</DL>
+
+
+<h3>Related Functions</h3>
+<UL>
+<li><a href="#BottomSideRoughMilling">BottomSideRoughMilling</a>
+Defines a bottom and side milling operation.
+<li><a href="#PlaneFinishMilling">PlaneFinishMilling</a> Defines a
+bottom milling operation.
+<li><a href="#PlaneRoughMilling">PlaneRoughMilling</a> Defines a
+bottom milling operation.
+<li><a href="#SideFinishMilling">SideFinishMilling</a> Defines a side
+milling operation.
+<li><a href="#SideRoughMilling">SideRoughMilling</a> Defines a side
+milling operation.
+</UL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project.
+<li>Bad identity for the workingstep
+</UL>
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=BottomSideRoughMilling></a>BottomSideRoughMilling()</h2>
+<pre>
+void <b>BottomSideRoughMilling</b> (
+	System::Int64 ws_id,
+	double side_allowance,
+	double bottom_allowance,
+	double radial_depth,
+	double axial_depth
+	);
+</pre>
+
+<P>The <b>BottomSideRoughMilling()</b> function defines parameters for
+an operation that removes material from the side and bottom of the
+tool.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>ws_id <DD> Workingstep that will contain the operation.
+<DT>side_allowance <DD> Material to be left on the side
+<DT>bottom_allowance <DD> Material to be left on the bottom
+<DT>radial_depth <DD> How much material is to be cut from the side on
+each pass.
+<DT>axial_depth <DD> How much material is to be cut from the bottom on
+each pass.
+</DL>
+
+
+<h3>Related Functions</h3>
+<UL>
+<li><a href="#BottomSideFinishMilling">BottomSideFinishMilling</a>
+Defines a bottom and side milling operation.
+<li><a href="#PlaneFinishMilling">PlaneFinishMilling</a> Defines a
+bottom milling operation.
+<li><a href="#PlaneRoughMilling">PlaneRoughMilling</a> Defines a
+bottom milling operation.
+<li><a href="#SideFinishMilling">SideFinishMilling</a> Defines a side
+milling operation.
+<li><a href="#SideRoughMilling">SideRoughMilling</a> Defines a side
+milling operation.
+</UL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project.
+<li>Bad identity for the workingstep
+</UL>
+
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=ClearancePlane></a>ClearancePlane()</h2>
+<pre>
+void <b>ClearancePlane</b> (
+	System::Int64 ws_id,
+	double z
+	);
+</pre>
+
+<P>The <b>ClearancePlane()</b> function is used for safe tool
+movements between operations.  Any movement above this plane will be
+safe from collissions.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>ws_id <DD> The operation
+<DT>height <DD> The height of the plane above the axis of the
+operation.
+</DL>
+
+<h3>Related Functions</h3>
+<UL>
+<li><a href="#RetractPlane">RetractPlane</a> Defines a plane for safe
+movements within an operation.
+</UL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project.
+</UL>
+
+
+
+
+<!-- ================================ -->
+<a name=CoolantMist></a>
+<a name=CoolantOff></a>
+<h2 class=rule><a name=CoolantOn></a>CoolantOn/Off/Mist()</h2>
+<pre>
+void <b>CoolantOn</b>   (System::Int64 ws_id);
+void <b>CoolantOff</b>  (System::Int64 ws_id);
+void <b>CoolantMist</b> (System::Int64 ws_id);
+</pre>
+
+<P>The <b>CoolantOn()</b> function sets the coolant to on for the
+selected workingstep.
+
+<P>The <b>CoolantOff()</b> function sets the coolant to off for the
+selected workingstep.
+
+<P>The <b>CoolantMist()</b> function sets the coolant to mist for the
+selected workingstep.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>ws_id <DD> The operation
+</DL>
+
+<h3>Related Functions</h3>
+<UL>
+<li>The <a href="AptStepMaker.html">APT object</a> has a modal coolant function that will set the
+coolant to on for any subsequently defined operation.
+</UL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project.
+</UL>
+
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=CylinderRawpiece></a>CylinderRawpiece()</h2>
+<pre>
+void <b>CylinderRawpiece</b> (
+	System::String^ name,
+	double x,
+	double y,
+	double z,
+	double length,
+	double diameter
+	);
+</pre>
+
+<P>The <b>CylinderRawpiece()</b> function creates a product model
+containing a cylindrical block. Such blocks are not supported across
+the whole STEP and you are recommended to create an advanced boundary
+model to represent the cylinder if possible.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>name <DD>  Product name for the new block.
+<DT>x, y, z <DD> Coordinates for center of the block.
+<DT>length, width, height <DD>Dimensions for the length, width and
+height
+</DL>
+
+
+<h3>Related Functions</h3>
+<UL>
+<li>There is a put_placement function in the APT object that will move
+the block and rotate its axes.
+</UL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project.
+</UL>
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=DrillPointAdd></a>DrillPointAdd()</h2>
+<pre>
+void <b>DrillPointAdd</b> (
+	System::Int64 ws_id,
+	double x,
+	double y,
+	double z
+	);
+</pre>
+
+<P>The <b>DrillPointAdd()</b> function adds a point to a drilling
+pattern. For additional details see the ISO 14649 documentation.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>ws_id <DD> Workingstep that will contain the drilling operation.
+<DT>x, y, z <DD>New point
+</DL>
+
+
+<h3>Related Functions</h3>
+<UL>
+<li><a href="#Drilling">Drilling</a> Defines a drilling operation.
+<li><a href="#DrillPointAdd">DrillPointAdd</a> Add a point by making a
+new workingstep
+</UL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project.
+<li>Bad identity for the workingstep
+</UL>
+
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=DrillWorkingstepAdd></a>DrillWorkingstepAdd()</h2>
+<pre>
+void <b>DrillWorkingstepAdd</b> (
+	System::Int64 ws_id,
+	double x,
+	double y,
+	double z
+	);
+</pre>
+
+<P>The <b>DrillWorkingstepAdd()</b> function adds a point to a
+drilling pattern by creating a new workingstep to hold that point. The
+new workingstep will be a copy of the existing workingstep at the new
+location.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>ws_id <DD> Workingstep that will contain the drilling operation.
+<DT>x, y, z <DD> New point
+</DL>
+
+
+<h3>Related Functions</h3>
+<UL>
+<li><a href="#Drilling">Drilling</a> Defines a drilling operation.
+<li><a href="#DrillPointAdd">DrillPointAdd</a> Add a point by
+Adding/Creating a drill pattern
+</UL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project.
+<li>Bad identity for the workingstep
+</UL>
+
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=Drilling></a>Drilling()</h2>
+<pre>
+void <b>Drilling</b> (
+	System::Int64 ws_id,
+	double cutting_depth,
+	double dwell_time_bottom,
+	double feed_on_retract,
+	double previous_diameter
+	);
+</pre>
+
+<P>The <b>Drilling()</b> function defines a drilling operation. For
+additional details see the ISO 14649 documentation.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>ws_id <DD> Workingstep that will contain the operation.
+<DT>cutting depth <DD> In current length units.
+<DT>dwell time bottom <DD> In seconds
+<DT>feed_on_retract <DD> In current federate
+<DT>previous diameter <DD> The diameter of the hole before the
+drilling
+</DL>
+
+
+<h3>Related Functions</h3>
+<UL>
+<li><a href="#Boring">Boring</a> Defines a boring operation.
+<li><a href="#MultistepDrilling">MultistepDrilling</a> Defines a
+multi-step drilling operation.
+<li><a href="#Tapping">Tapping</a> Defines a tapping operation.
+<li><a href="#Reaming">Reaming</a> Define a reaming operation.
+<li><a href="#DrillingStrategy">DrillingStrategy</a> Additional
+drilling strategy parameters
+<li><a href="#DrillPointAdd">DrillPointAdd</a> Create a drill point by
+adding to a pattern
+<li><a href="#DrillWorkingstepAdd">DrillWorkingstepAdd</a> Create a
+drill point by making a new ws
+</UL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project.
+<li>Bad identity for the workingstep
+</UL>
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=DrillingStrategy></a>DrillingStrategy()</h2>
+<pre>
+void <b>DrillingStrategy</b> (
+	System::Int64 ws_id,
+	double reduced_cut_at_start,
+	double reduced_feed_at_start,
+	double depth_of_start,
+	double reduced_cut_at_end,
+	double reduced_feed_at_end,
+	double depth_of_end
+	);
+</pre>
+
+<P>The <b>DrillingStrategy()</b> function defines a additional
+strategy parameters for a drilling operation.  For more information
+see the ISO 14649 documentation.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>ws_id <DD> Workingstep that will contain the operation.
+<DT>reduced_cut_at_start <DD>
+<DT>reduced_feed_at_start <DD>
+<DT>depth_of_start <DD>
+<DT>reduced_cut_at_end <DD>
+<DT>reduced_feed_at_end <DD>
+<DT>depth_of_end <DD>
+</DL>
+
+
+<h3>Related Functions</h3>
+<UL>
+<li><a href="#Drilling">Drilling</a> Defines a drilling operation.
+</UL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project.
+<li>Bad identity for the workingstep
+</UL>
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=FindOrMakeTechnology></a>FindOrMakeTechnology()</h2>
+<pre>
+System::Int64 <b>FindOrMakeTechnology</b> (
+	double feed,
+	double speed
+	);
+</pre>
+
+<P>The <b>FindOrMakeTechnology()</b> function finds an existing
+technology that uses a feed and speed or make a new one.
+
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>feed <DD> Feed in current units.
+<DT>speed <DD> Spindle speed in current units
+</DL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project.
+<li>Bad identity for the workingstep
+</UL>
+
+
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=FindOrMakeTechologyCSS></a>FindOrMakeTechologyCSS()</h2>
+<pre>
+System::Int64 <b>FindOrMakeTechologyCSS</b> (
+	double feed,
+	double speed,
+	double max_speed
+	);
+</pre>
+
+<P>The <b>FindOrMakeTechologyCSS()</b> function finds an existing
+constant spindle speed technology that uses a given feed and speed or
+make a new one.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>feed <DD> Feed in current units.
+<DT>speed <DD> Spindle speed in current units
+<DT>max speed <DD> Maximum spindle speed in current units
+</DL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project. 
+<li>Bad identity for the workingstep
+</UL>
+
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=GetToolISO13399AssemblyCount></a>GetToolISO13399AssemblyCount()</h2>
+<pre>
+System::Int64 <b>GetToolISO13399AssemblyCount</b> (
+	System::Int64 tool_id
+	);
+</pre>
+
+<P>The <b>GetToolISO13399AssemblyCount()</b> function 
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=GetToolISO13399AssemblyName></a>GetToolISO13399AssemblyName()</h2>
+<pre>
+System::String^ <b>GetToolISO13399AssemblyName</b> (
+	System::Int64 definition_id
+	);
+</pre>
+
+<P>The <b>GetToolISO13399AssemblyName()</b> function 
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=GetToolISO13399AssemblyNext></a>GetToolISO13399AssemblyNext()</h2>
+<pre>
+System::Int64 <b>GetToolISO13399AssemblyNext</b> (
+	System::Int64 tool_id,
+	System::Int64 index
+	);
+</pre>
+
+<P>The <b>GetToolISO13399AssemblyNext()</b> function 
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=GetToolISO13399AssemblyNumericAttributeCount></a>GetToolISO13399AssemblyNumericAttributeCount()</h2>
+<pre>
+System::Int64 <b>GetToolISO13399AssemblyNumericAttributeCount</b> (
+	System::Int64 definition_id
+	);
+</pre>
+
+<P>The <b>GetToolISO13399AssemblyNumericAttributeCount()</b> function 
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=GetToolISO13399AssemblyNumericAttributeNext></a>GetToolISO13399AssemblyNumericAttributeNext()</h2>
+<pre>
+System::Int64 <b>GetToolISO13399AssemblyNumericAttributeNext</b> (
+	System::Int64 definition_id,
+	System::Int64 index
+	);
+</pre>
+
+<P>The <b>GetToolISO13399AssemblyNumericAttributeNext()</b> function 
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=GetToolISO13399AssemblyStringAttributeCount></a>GetToolISO13399AssemblyStringAttributeCount()</h2>
+<pre>
+System::Int64 <b>GetToolISO13399AssemblyStringAttributeCount</b> (
+	System::Int64 definition_id
+	);
+</pre>
+
+<P>The <b>GetToolISO13399AssemblyStringAttributeCount()</b> function 
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=GetToolISO13399AssemblyStringAttributeNext></a>GetToolISO13399AssemblyStringAttributeNext()</h2>
+<pre>
+System::Int64 <b>GetToolISO13399AssemblyStringAttributeNext</b> (
+	System::Int64 definition_id,
+	System::Int64 index
+	);
+</pre>
+
+<P>The <b>GetToolISO13399AssemblyStringAttributeNext()</b> function 
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=GetToolISO13399ItemCount></a>GetToolISO13399ItemCount()</h2>
+<pre>
+System::Int64 <b>GetToolISO13399ItemCount</b> (
+	System::Int64 tool_id
+	);
+</pre>
+
+<P>The <b>GetToolISO13399ItemCount()</b> function 
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=GetToolISO13399ItemName></a>GetToolISO13399ItemName()</h2>
+<pre>
+System::String^ <b>GetToolISO13399ItemName</b> (
+	System::Int64 instance_id
+	);
+</pre>
+
+<P>The <b>GetToolISO13399ItemName()</b> function 
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=GetToolISO13399ItemNext></a>GetToolISO13399ItemNext()</h2>
+<pre>
+System::Int64 <b>GetToolISO13399ItemNext</b> (
+	System::Int64 tool_id,
+	System::Int64 index
+	);
+</pre>
+
+<P>The <b>GetToolISO13399ItemNext()</b> function 
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=GetToolISO13399ItemNumericAttributeCount></a>GetToolISO13399ItemNumericAttributeCount()</h2>
+<pre>
+System::Int64 <b>GetToolISO13399ItemNumericAttributeCount</b> (
+	System::Int64 instance_id
+	);
+</pre>
+
+<P>The <b>GetToolISO13399ItemNumericAttributeCount()</b> function 
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=GetToolISO13399ItemNumericAttributeNext></a>GetToolISO13399ItemNumericAttributeNext()</h2>
+<pre>
+System::Int64 <b>GetToolISO13399ItemNumericAttributeNext</b> (
+	System::Int64 instance_id,
+	System::Int64 index
+	);
+</pre>
+
+<P>The <b>GetToolISO13399ItemNumericAttributeNext()</b> function 
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=GetToolISO13399ItemStringAttributeCount></a>GetToolISO13399ItemStringAttributeCount()</h2>
+<pre>
+System::Int64 <b>GetToolISO13399ItemStringAttributeCount</b> (
+	System::Int64 instance_id
+	);
+</pre>
+
+<P>The <b>GetToolISO13399ItemStringAttributeCount()</b> function 
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=GetToolISO13399ItemStringAttributeNext></a>GetToolISO13399ItemStringAttributeNext()</h2>
+<pre>
+System::Int64 <b>GetToolISO13399ItemStringAttributeNext</b> (
+	System::Int64 instance_id,
+	System::Int64 index
+	);
+</pre>
+
+<P>The <b>GetToolISO13399ItemStringAttributeNext()</b> function 
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=GetToolISO13399ItemType></a>GetToolISO13399ItemType()</h2>
+<pre>
+System::String^ <b>GetToolISO13399ItemType</b> (
+	System::Int64 instance_id
+	);
+</pre>
+
+<P>The <b>GetToolISO13399ItemType()</b> function 
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=GetToolISO13399NumericValue></a>GetToolISO13399NumericValue()</h2>
+<pre>
+System::String^ <b>GetToolISO13399NumericValue</b> (
+	System::Int64 numeric_id,
+	[System::Runtime::InteropServices::Out] System::String^ %name,
+	[System::Runtime::InteropServices::Out] System::String^ %unit
+	);
+</pre>
+
+<P>The <b>GetToolISO13399NumericValue()</b> function 
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=GetToolISO13399StringValue></a>GetToolISO13399StringValue()</h2>
+<pre>
+System::String^ <b>GetToolISO13399StringValue</b> (
+	System::Int64 string_id,
+	[System::Runtime::InteropServices::Out] System::String^ %name
+	);
+</pre>
+
+<P>The <b>GetToolISO13399StringValue()</b> function 
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=GetToolReferenceDataName></a>GetToolReferenceDataName()</h2>
+<pre>
+System::String^ <b>GetToolReferenceDataName</b> (
+	System::Int64 ws_id,
+	[System::Runtime::InteropServices::Out] System::Boolean %value_set
+	);
+</pre>
+
+<P>The <b>GetToolReferenceDataName()</b> function 
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=GetToolReferenceDataSTRL></a>GetToolReferenceDataSTRL()</h2>
+<pre>
+System::String^ <b>GetToolReferenceDataSTRL</b> (
+	System::Int64 ws_id,
+	[System::Runtime::InteropServices::Out] System::Boolean %value_set
+	);
+</pre>
+
+<P>The <b>GetToolReferenceDataSTRL()</b> function 
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=Inches></a>Inches()</h2>
+<pre>
+void <b>Inches</b> ();
+</pre>
+
+<P>The <b>Inches()</b> function 
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=InitializeOverrides></a>InitializeOverrides()</h2>
+<pre>
+void <b>InitializeOverrides</b> (
+	System::Int64 wp_ws_tp_id,
+	double initial_value,
+	System::Int64 only_cross
+	);
+</pre>
+
+<P>The <b>InitializeOverrides()</b> function 
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=LoadISO13399Data></a>LoadISO13399Data()</h2>
+<pre>
+void <b>LoadISO13399Data</b> (
+	System::String^ directory
+	);
+</pre>
+
+<P>The <b>LoadISO13399Data()</b> function 
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=Material></a>Material()</h2>
+<pre>
+void <b>Material</b> (
+	System::Int64 wp_id,
+	System::String^ name
+	);
+</pre>
+
+<P>The <b>Material()</b> function assigns a material description to a
+workpiece.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>wp_id <DD> Workpiece that is to have this material description
+<DT>name <DD> The material described as a string
+</DL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project. 
+<li>Bad identity for the workingstep
+</UL>
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=Millimeters></a>Millimeters()</h2>
+<pre>
+void <b>Millimeters</b> ();
+</pre>
+
+<P>The <b>Millimeters()</b> function 
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=MillingStrategyApproachAirAngle></a>MillingStrategyApproachAirAngle()</h2>
+<pre>
+void <b>MillingStrategyApproachAirAngle</b> (
+	System::Int64 ws_id,
+	double angle,
+	double travel_length
+	);
+</pre>
+
+<P>The <b>MillingStrategyApproachAirAngle()</b> function sets strategy
+data for a milling operation.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>ws_id <DD> Workingstep that will contain the strategy.
+<DT>angle <DD>
+<DT>travel_length <DD>
+</DL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project. Bad identity for the workingstep.
+Workingstep does not contain an milling operation.
+</UL>
+
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=MillingStrategyApproachAirTangent></a>MillingStrategyApproachAirTangent()</h2>
+<pre>
+void <b>MillingStrategyApproachAirTangent</b> (
+	System::Int64 ws_id,
+	double radius
+	);
+</pre>
+
+<P>The <b>MillingStrategyApproachAirTangent()</b> function sets
+strategy data for a milling operation.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>ws_id <DD> Workingstep that will contain the strategy.
+<DT>radius <DD>
+</DL>
+
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project. Bad identity for the workingstep.  Workingstep
+does not contain an milling operation.
+</UL>
+
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=MillingStrategyApproachPlungeHelix></a>MillingStrategyApproachPlungeHelix()</h2>
+<pre>
+void <b>MillingStrategyApproachPlungeHelix</b> (
+	System::Int64 ws_id,
+	double radius,
+	double angle
+	);
+</pre>
+
+<P>The <b>MillingStrategyApproachPlungeHelix()</b> function 
+sets strategy data for a milling operation. 
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>ws_id <DD> Workingstep that will contain the strategy.
+<DT>radius <DD>
+<DT>angle <DD>
+</DL>
+
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project. Bad identity for the workingstep.  Workingstep
+does not contain an milling operation.
+</UL>
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=MillingStrategyApproachPlungeRamp></a>MillingStrategyApproachPlungeRamp()</h2>
+<pre>
+void <b>MillingStrategyApproachPlungeRamp</b> (
+	System::Int64 ws_id,
+	double angle
+	);
+</pre>
+
+<P>The <b>MillingStrategyApproachPlungeRamp()</b> function sets
+strategy data for a milling operation.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>ws_id <DD> Workingstep that will contain the strategy.
+<DT>angle <DD>
+</DL>
+
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project. Bad identity for the workingstep.  Workingstep
+does not contain an milling operation.
+</UL>
+
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=MillingStrategyApproachPlungeToolaxis></a>MillingStrategyApproachPlungeToolaxis()</h2>
+<pre>
+void <b>MillingStrategyApproachPlungeToolaxis</b> (
+	System::Int64 ws_id
+	);
+</pre>
+
+<P>The <b>MillingStrategyApproachPlungeToolaxis()</b> function 
+sets strategy data for a milling operation.
+
+
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>ws_id <DD> Workingstep that will contain the strategy.
+</DL>
+
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project. Bad identity for the workingstep.  Workingstep
+does not contain an milling operation.
+</UL>
+
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=MillingStrategyApproachPlungeZigzag></a>MillingStrategyApproachPlungeZigzag()</h2>
+<pre>
+void <b>MillingStrategyApproachPlungeZigzag</b> (
+	System::Int64 ws_id,
+	double angle,
+	double width
+	);
+</pre>
+
+<P>The <b>MillingStrategyApproachPlungeZigzag()</b> function sets
+strategy data for a milling operation.
+
+
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>ws_id <DD> Workingstep that will contain the strategy.
+<DT>angle <DD>
+<DT>width <DD>
+</DL>
+
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project. Bad identity for the workingstep.  Workingstep
+does not contain an milling operation.
+</UL>
+
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=MillingStrategyRetractAirAngle></a>MillingStrategyRetractAirAngle()</h2>
+<pre>
+void <b>MillingStrategyRetractAirAngle</b> (
+	System::Int64 ws_id,
+	double angle,
+	double travel_length
+	);
+</pre>
+
+<P>The <b>MillingStrategyRetractAirAngle()</b> function 
+sets strategy data for a milling operation. 
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>ws_id <DD> Workingstep that will contain the strategy.
+<DT>angle <DD>
+<DT>travel_length <DD>
+</DL>
+
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project. Bad identity for the workingstep.  Workingstep
+does not contain an milling operation.
+</UL>
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=MillingStrategyRetractAirTangent></a>MillingStrategyRetractAirTangent()</h2>
+<pre>
+void <b>MillingStrategyRetractAirTangent</b> (
+	System::Int64 ws_id,
+	double radius
+	);
+</pre>
+
+<P>The <b>MillingStrategyRetractAirTangent()</b> function sets
+strategy data for a milling operation.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>ws_id <DD> Workingstep that will contain the strategy.
+<DT>radius <DD>
+</DL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project. Bad identity for the workingstep.  Workingstep
+does not contain an milling operation.
+</UL>
+
+<!-- ================================ -->
+<h2 class=rule><a name=MillingStrategyRetractPlungeHelix></a>MillingStrategyRetractPlungeHelix()</h2>
+<pre>
+void <b>MillingStrategyRetractPlungeHelix</b> (
+	System::Int64 ws_id,
+	double radius,
+	double angle
+	);
+</pre>
+
+<P>The <b>MillingStrategyRetractPlungeHelix()</b> function sets
+strategy data for a milling operation.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>ws_id <DD> Workingstep that will contain the strategy.
+<DT>radius <DD>
+<DT>angle <DD>
+</DL>
+
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project. Bad identity for the workingstep.
+Workingstep does not contain an milling operation.
+</UL>
+
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=MillingStrategyRetractPlungeRamp></a>MillingStrategyRetractPlungeRamp()</h2>
+<pre>
+void <b>MillingStrategyRetractPlungeRamp</b> (
+	System::Int64 ws_id,
+	double angle
+	);
+</pre>
+
+<P>The <b>MillingStrategyRetractPlungeRamp()</b> function sets
+strategy data for a milling operation.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>ws_id <DD> Workingstep that will contain the strategy.
+<DT>angle <DD>
+</DL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project. Bad identity for the workingstep.  Workingstep
+does not contain an milling operation.
+</UL>
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=MillingStrategyRetractPlungeToolaxis></a>MillingStrategyRetractPlungeToolaxis()</h2>
+<pre>
+void <b>MillingStrategyRetractPlungeToolaxis</b> (
+	System::Int64 ws_id
+	);
+</pre>
+
+<P>The <b>MillingStrategyRetractPlungeToolaxis()</b> function sets
+strategy data for a milling operation.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>ws_id <DD> Workingstep that will contain the strategy.
+</DL>
+
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project. Bad identity for the workingstep. Workingstep
+does not contain an milling operation.
+</UL>
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=MillingStrategyRetractPlungeZigzag></a>MillingStrategyRetractPlungeZigzag()</h2>
+<pre>
+void <b>MillingStrategyRetractPlungeZigzag</b> (
+	System::Int64 ws_id,
+	double angle,
+	double width
+	);
+</pre>
+
+<P>The <b>MillingStrategyRetractPlungeZigzag()</b> function sets
+strategy data for a milling operation.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>ws_id <DD> Workingstep that will contain the strategy.
+<DT>angle <DD>
+<DT>width <DD>
+</DL>
+
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project. Bad identity for the workingstep.  Workingstep
+does not contain an milling operation.
+</UL>
+
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=MillingStrategyTwo5dBidirectional></a>MillingStrategyTwo5dBidirectional()</h2>
+<pre>
+void <b>MillingStrategyTwo5dBidirectional</b> (
+	System::Int64 ws_id,
+	System::String^ stepover_direction,
+	System::String^ stroke_connection_strategy,
+	double fi,
+	double fj,
+	double fk
+	);
+</pre>
+
+<P>The <b>MillingStrategyTwo5dBidirectional()</b> function 
+sets strategy data for a milling operation. 
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>ws_id <DD> Workingstep that will contain the strategy.
+<DT>stepover_direction <DD>
+<DT>stroke_connection_strategey <DD>
+<DT>fi, fj, fk <DD>
+</DL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project. Bad identity for the workingstep.
+Workingstep does not contain an milling operation.
+</UL>
+
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=MillingStrategyTwo5dBidirectionalContour></a>MillingStrategyTwo5dBidirectionalContour()</h2>
+<pre>
+void <b>MillingStrategyTwo5dBidirectionalContour</b> (
+	System::Int64 ws_id,
+	System::String^ spiral_cutmode,
+	System::String^ rotation_direction,
+	System::String^ stepover_direction,
+	double fi,
+	double fj,
+	double fk
+	);
+</pre>
+
+<P>The <b>MillingStrategyTwo5dBidirectionalContour()</b> function sets
+strategy data for a milling operation.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>ws_id <DD> Workingstep that will contain the strategy.
+<DT>spiral_cutmode <DD>
+<DT>rotation_direction <DD>
+<DT>stepover_direction <DD>
+<DT>fi, fj, fk <DD>
+</DL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project. Bad identity for the workingstep.
+Workingstep does not contain an milling operation.
+</UL>
+
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=MillingStrategyTwo5dCenterMilling></a>MillingStrategyTwo5dCenterMilling()</h2>
+<pre>
+void <b>MillingStrategyTwo5dCenterMilling</b> (
+	System::Int64 ws_id
+	);
+</pre>
+
+<P>The <b>MillingStrategyTwo5dCenterMilling()</b> function 
+sets strategy data for a milling operation. 
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>ws_id <DD> Workingstep that will contain the strategy.
+</DL>
+
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project. Bad identity for the workingstep.  Workingstep
+does not contain an milling operation.
+</UL>
+
+
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=MillingStrategyTwo5dContourBidirectional></a>MillingStrategyTwo5dContourBidirectional()</h2>
+<pre>
+void <b>MillingStrategyTwo5dContourBidirectional</b> (
+	System::Int64 ws_id,
+	System::String^ spiral_cutmode,
+	System::String^ rotation_direction,
+	System::String^ stepover_direction,
+	double fi,
+	double fj,
+	double fk
+	);
+</pre>
+
+<P>The <b>MillingStrategyTwo5dContourBidirectional()</b> function 
+sets strategy data for a milling operation. 
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>ws_id <DD> Workingstep that will contain the strategy.
+<DT>spiral_cutmode <DD>
+<DT>rotation_direction <DD>
+<DT>stepover_direction <DD>
+<DT>fi, fj, fk<DD>
+</DL>
+
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project. Bad identity for the workingstep.  Workingstep
+does not contain an milling operation.
+</UL>
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=MillingStrategyTwo5dContourParallel></a>MillingStrategyTwo5dContourParallel()</h2>
+<pre>
+void <b>MillingStrategyTwo5dContourParallel</b> (
+	System::Int64 ws_id,
+	System::String^ cutmode,
+	System::String^ rotation_direction
+	);
+</pre>
+
+<P>The <b>MillingStrategyTwo5dContourParallel()</b> function 
+sets strategy data for a milling operation.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>ws_id <DD> Workingstep that will contain the strategy.
+<DT>cutmode <DD>
+<DT>rotation_direction <DD>
+</DL>
+
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project. Bad identity for the workingstep.  Workingstep
+does not contain an milling operation.
+</UL>
+
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=MillingStrategyTwo5dContourSpiral></a>MillingStrategyTwo5dContourSpiral()</h2>
+<pre>
+void <b>MillingStrategyTwo5dContourSpiral</b> (
+	System::Int64 ws_id,
+	System::String^ cutmode,
+	System::String^ rotation_direction
+	);
+</pre>
+
+<P>The <b>MillingStrategyTwo5dContourSpiral()</b> function 
+sets strategy data for a milling operation.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>ws_id <DD> Workingstep that will contain the strategy.
+<DT>cutmode <DD>
+<DT>rotation_direction <DD>
+</DL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project. Bad identity for the workingstep.  Workingstep
+does not contain an milling operation.
+</UL>
+
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=MillingStrategyTwo5dExplicitStrategy></a>MillingStrategyTwo5dExplicitStrategy()</h2>
+<pre>
+void <b>MillingStrategyTwo5dExplicitStrategy</b> (
+	System::Int64 ws_id
+	);
+</pre>
+
+<P>The <b>MillingStrategyTwo5dExplicitStrategy()</b> function sets
+strategy data for a milling operation.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>ws_id <DD> Workingstep that will contain the strategy.
+</DL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project. Bad identity for the workingstep.
+Workingstep does not contain an milling operation.
+</UL>
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=MillingStrategyTwo5dUnidirectional></a>MillingStrategyTwo5dUnidirectional()</h2>
+<pre>
+void <b>MillingStrategyTwo5dUnidirectional</b> (
+	System::Int64 ws_id,
+	System::String^ cutmode,
+	double fi,
+	double fj,
+	double fk
+	);
+</pre>
+
+<P>The <b>MillingStrategyTwo5dUnidirectional()</b> function 
+sets strategy data for a milling operation. 
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>ws_id <DD> Workingstep that will contain the strategy.
+<DT>cutmode <DD>
+<DT>fi, fj, fk<DD>
+</DL>
+
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project. Bad identity for the workingstep.
+Workingstep does not contain an milling operation.
+</UL>
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=MultistepDrilling></a>MultistepDrilling()</h2>
+<pre>
+void <b>MultistepDrilling</b> (
+	System::Int64 ws_id,
+	double cutting_depth,
+	double depth_of_step,
+	double first_depth,
+	double retract_distance,
+	double dwell_time_bottom,
+	double feed_on_retract,
+	double dwell_time_step,
+	double previous_diameter
+	);
+</pre>
+
+<P>The <b>MultistepDrilling()</b> function defines a multistep
+drilling operation. For additional details see the ISO 14649
+documentation.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>ws_id <DD> Workingstep that will contain the operation.
+<DT>cutting depth <DD> In current length units.
+<DT>depth <DD> of step
+<DT>first <DD> depth
+<DT>retract <DD> distance
+<DT>dwell time bottom <DD> In seconds
+<DT>feed_on_retract <DD> In current federate
+<DT>dwell time bottom <DD> In seconds
+<DT>previous diameter <DD> The diameter of the hole before the
+drilling
+</DL>
+
+
+<h3>Related Functions</h3>
+<UL>
+<li><a href="#Drilling">Drilling</a> Defines a single step drilling
+operation.
+</UL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project. Bad identity for the workingstep.
+</UL>
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=Open238></a>Open238()</h2>
+<pre>
+void <b>Open238</b> (
+	System::String^ file_name
+	);
+</pre>
+
+<P>The <b>Open238()</b> function 
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=OpenNewProject></a>OpenNewProject()</h2>
+<pre>
+void <b>OpenNewProject</b> (
+	System::String^ file_name
+	);
+</pre>
+
+<P>The <b>OpenNewProject()</b> function 
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=OptimizeFeedsUsingCrossSectionParameters></a>OptimizeFeedsUsingCrossSectionParameters()</h2>
+<pre>
+System::Int64 <b>OptimizeFeedsUsingCrossSectionParameters</b> (
+	System::Int64 exe_id,
+	double max_feed,
+	System::Int64 set_override
+	);
+</pre>
+
+<P>The <b>OptimizeFeedsUsingCrossSectionParameters()</b> function
+optimizes the feeds and speeds in an executable which may be one
+workingstep, a workplan or the complete project (main workplan).
+Returns a nonzero value if optimization completed.
+
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>ws_id <DD> Workingstep to be optimized.
+<DT>max_feed <DD> Maximum value allowed for an optimized feed
+<DT>set_override <DD> If true then create a new override curve. If
+false then set the base feeds.
+</DL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project. 
+<li>Bad identity for the workingstep
+</UL>
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=PlaneFinishMilling></a>PlaneFinishMilling()</h2>
+<pre>
+void <b>PlaneFinishMilling</b> (
+	System::Int64 ws_id,
+	double allowance,
+	double axial_depth
+	);
+</pre>
+
+<P>The <b>PlaneFinishMilling()</b> function defines a finish milling
+operation for a plane.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>ws_id <DD> Workingstep that will contain the operation.
+<DT>allowance <DD> Remainder after final pass
+<DT>axial depth <DD> Depth of each pass
+</DL>
+
+
+<h3>Related Functions</h3>
+<UL>
+<li><a href="#BottomSideFinishMilling">BottomSideFinishMilling</a>
+Defines a bottom and side milling operation.
+<li><a href="#BottomSideRoughMilling">BottomSideRoughMilling</a>
+Defines a bottom and side milling operation.
+<li><a href="#PlaneRoughMilling">PlaneRoughMilling</a> Defines a
+bottom milling operation.
+<li><a href="#SideFinishMilling">SideFinishMilling</a> Defines a side
+milling operation.
+<li><a href="#SideRoughMilling">SideRoughMilling</a> Defines a side
+milling operation.
+</UL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project.
+<li>Bad identity for the workingstep
+</UL>
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=PlaneRoughMilling></a>PlaneRoughMilling()</h2>
+<pre>
+void <b>PlaneRoughMilling</b> (
+	System::Int64 ws_id,
+	double allowance,
+	double axial_depth
+	);
+</pre>
+
+<P>The <b>PlaneRoughMilling()</b> function defines a rough milling
+operation for a plane.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>ws_id <DD> Workingstep that will contain the operation.
+<DT>allowance <DD> Remainder after final pass
+<DT>axial depth <DD> Depth of each pass
+</DL>
+
+
+<h3>Related Functions</h3>
+<UL>
+<li><a href="#BottomSideFinishMilling">BottomSideFinishMilling</a>
+Defines a bottom and side milling operation.
+<li><a href="#BottomSideRoughMilling">BottomSideRoughMilling</a>
+Defines a bottom and side milling operation.
+<li><a href="#PlaneFinishMilling">PlaneFinishMilling</a> Defines a
+bottom milling operation.
+<li><a href="#SideFinishMilling">SideFinishMilling</a> Defines a side
+milling operation.
+<li><a href="#SideRoughMilling">SideRoughMilling</a> Defines a side
+milling operation.
+</UL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project. Bad identity for the workingstep.
+</UL>
+
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=ReadCrossSectionData></a>ReadCrossSectionData()</h2>
+<pre>
+System::Int64 <b>ReadCrossSectionData</b> (
+	System::String^ file_name,
+	System::Int64 exe_id
+	);
+</pre>
+
+<P>The <b>ReadCrossSectionData()</b> function reads cross section
+parameter data from a file.  Returns nonzero if all the code was able
+to read and set all the data.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>file_name <DD>  Data file
+<DT>exe_id <DD>  Operation to receive the data
+</DL>
+
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=Reaming></a>Reaming()</h2>
+<pre>
+void <b>Reaming</b> (
+	System::Int64 ws_id,
+	double cutting_depth,
+	double dwell_time_bottom,
+	double feed_on_retract,
+	double previous_diameter,
+	System::Boolean spindle_stop_at_bottom,
+	double waiting_x,
+	double waiting_y,
+	double waiting_z,
+	double depth_of_test_cut
+	);
+</pre>
+
+<P>The <b>Reaming()</b> function 
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=Reset></a>Reset()</h2>
+<pre>
+void <b>Reset</b> ();
+</pre>
+
+<P>The <b>Reset()</b> function 
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=RetractPlane></a>RetractPlane()</h2>
+<pre>
+void <b>RetractPlane</b> (
+	System::Int64 ws_id,
+	double z
+	);
+</pre>
+
+<P>The <b>RetractPlane()</b> function is used by some of the STEP-NC
+operations to define a plane for tool movements between the passes of
+the operation.  Any movement within the boundary of the operation will
+be safe if it is above this plane.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>ws_id <DD> The operation
+<DT>z <DD> The height of the plane above the axis of the operation.
+</DL>
+
+<h3>Related Functions</h3>
+<UL>
+<li><a href="#ClearancePlane">ClearancePlane</a> Defines a plane for
+safe movements between operations.
+</UL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project.
+</UL>
+
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=SaveAsModules></a>SaveAsModules()</h2>
+<pre>
+void <b>SaveAsModules</b> (
+	System::String^ file_name
+	);
+</pre>
+
+<P>The <b>SaveAsModules()</b> function 
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=SaveAsP21></a>SaveAsP21()</h2>
+<pre>
+void <b>SaveAsP21</b> (
+	System::String^ file_name
+	);
+</pre>
+
+<P>The <b>SaveAsP21()</b> function 
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=SaveISO13399Data></a>SaveISO13399Data()</h2>
+<pre>
+void <b>SaveISO13399Data</b> (
+	System::String^ out_directory
+	);
+</pre>
+
+<P>The <b>SaveISO13399Data()</b> function 
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=SecondWorkingstep></a>SecondWorkingstep()</h2>
+<pre>
+System::Int64 <b>SecondWorkingstep</b> (
+	System::Int64 first_ws_id
+	);
+</pre>
+
+<P>The <b>SecondWorkingstep()</b> function 
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=SetCuttingComponentParametersLifeMaterial></a>SetCuttingComponentParametersLifeMaterial()</h2>
+<pre>
+void <b>SetCuttingComponentParametersLifeMaterial</b> (
+	System::Int64 tl_id,
+	double life,
+	System::String^ material
+	);
+</pre>
+
+<P>The <b>SetCuttingComponentParametersLifeMaterial()</b> function 
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=SetMachineParametersDelete></a>SetMachineParametersDelete()</h2>
+<pre>
+void <b>SetMachineParametersDelete</b> (
+	System::Int64 wp_id
+	);
+</pre>
+
+<P>The <b>SetMachineParametersDelete()</b> function deletes the
+machine parameters for a workplan. The machine parameters describe the
+maximum values allowed for process definitions within that workplan.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>wp_id <DD> Identity of the workplan containing the parameters.
+</DL>
+
+
+<h3>Related Functions</h3>
+<UL>
+<li><a href="#SetMachineParametersName">SetMachineParametersName</a>
+Set the machine name for a workplan.
+<li><a href="#SetMachineParametersSpeedFeed">SetMachineParametersSpeedFeed</a>
+Set the maximum values allowed for the process in a workplan.
+</UL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project. Bad identity for the workplan.
+</UL>
+
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=SetMachineParametersMachineName></a>SetMachineParametersMachineName()</h2>
+<pre>
+void <b>SetMachineParametersMachineName</b> (
+	System::Int64 wp_id,
+	System::String^ name
+	);
+</pre>
+
+<P>The <b>SetMachineParametersMachineName()</b> function sets the name
+of the machine for which a workplan has been designed. The machine
+parameters describe the maximum values allowed for process definitions
+within that workplan.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>wp_id <DD> Identity of the workplan containing the parameters.
+<DT>name <DD> The name of the machine.
+</DL>
+
+
+<h3>Related Functions</h3>
+<UL>
+<li><a href="#SetMachineParametersDelete">SetMachineParametersDelete</a>
+Delete the machine parameters for a workplan.
+<li><a href="#SetMachineParametersSpeedFeed">SetMachineParametersSpeedFeed</a>
+Set the maximum values allowed for the process in a workplan.
+</UL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project. Bad identity for the workplan.
+</UL>
+
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=SetMachineParametersSpeedFeed></a>SetMachineParametersSpeedFeed()</h2>
+<pre>
+void <b>SetMachineParametersSpeedFeed</b> (
+	System::Int64 wp_id,
+	double feed,
+	double spindle_power,
+	double spindle_speed,
+	double spindle_torque
+	);
+</pre>
+
+<P>The <b>SetMachineParametersSpeedFeed()</b> function sets the
+maximum values for the process in a workplan.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>wp_id <DD> Identity of the workplan containing the parameters.
+<DT>feed <DD> The maximum feed.
+<DT>spindle_power <DD> The maximum spindle speed
+<DT>spindle_speed <DD> The maximum spindle speed
+<DT>spindle_torque <DD> The maximum spindle torque
+</DL>
+
+<h3>Related Functions</h3>
+<UL>
+<li><a href="#SetMachineParametersDelete">SetMachineParametersDelete</a>
+Delete the machine parameters for a workplan.
+<li><a href="#SetMachineParametersName">SetMachineParametersName</a>
+Set the machine name for a workplan.
+</UL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project. Bad identity for the workplan.
+</UL>
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=SetOverride></a>SetOverride()</h2>
+<pre>
+void <b>SetOverride</b> (
+	System::Int64 pt_id,
+	double value
+	);
+</pre>
+
+<P>The <b>SetOverride()</b> function changes the feed override value
+for one point in a toolpath.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>pt_id <DD> Identity of the point.
+<DT>value <DD> New value for the override
+</DL>
+
+
+<h3>Related Functions</h3>
+<UL>
+<li><a href="#SetPathDepth">SetPathDepth</a> Set the depth for a path.
+<li><a href="#SetPathOvercut">SetPathOvercut</a> Set the overcut for a
+path.
+<li>The Finder object contains functions to navigate to a toolpath
+point. You need to find the required point in the override curve for
+the path
+</UL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project. Bad identity for the point. Point is not one
+dimensional.
+</UL>
+
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=SetPathDepth></a>SetPathDepth()</h2>
+<pre>
+void <b>SetPathDepth</b> (
+	System::Int64 path_id,
+	double depth
+	);
+</pre>
+
+<P>The <b>SetPathDepth()</b> function sets a cut depth for a toolpath.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>path_id <DD> Identity of the toolpath.
+<DT>depth <DD> New value for the override
+</DL>
+
+
+<h3>Related Functions</h3>
+<UL>
+<li><a href="#SetPathOvercut">SetPathOvercut</a> Set the overcut for a
+path.
+<li><a href="#SetOverride">SetOverride</a> Set a feed override for a
+path
+<li>The Finder object contains functions to navigate to a toolpath.
+</UL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project. Bad identity for the toolpath.
+</UL>
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=SetPathOvercut></a>SetPathOvercut()</h2>
+<pre>
+void <b>SetPathOvercut</b> (
+	System::Int64 path_id,
+	double overcut
+	);
+</pre>
+
+<P>The <b>SetPathOvercut()</b> function sets the allowed overcut for a
+toolpath.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>path_id <DD> Identity of the toolpath.
+<DT>overcut <DD> New value for the overcut
+</DL>
+
+
+<h3>Related Functions</h3>
+<UL>
+<li><a href="#SetPathDepth">SetPathDepth</a> Set the allowed depth for
+a path.
+<li><a href="#SetOverride">SetOverride</a> Set a feed override for a
+path
+<li>The Finder object contains functions to navigate to a point in a
+toolpath.
+</UL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project. Bad identity for the toolpath.
+</UL>
+
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=SetSurfacePropertyForWorkingstep></a>SetSurfacePropertyForWorkingstep()</h2>
+<pre>
+void <b>SetSurfacePropertyForWorkingstep</b> (
+	System::Int64 ws_id,
+	System::String^ val
+	);
+</pre>
+
+<P>The <b>SetSurfacePropertyForWorkingstep()</b> function sets the
+required surface propertyfor the result of a workingstep.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>ws_id <DD>  Identity of the workingstep.
+<DT>val <DD> The surface property
+</DL>
+
+<h3>Related Functions</h3>
+<UL>
+<li><a href="#SetSurfacePropertyForWorkpiece">SetSurfacePropertyForWorkpiece</a>
+Set the surface property for a workpiece.
+<li>The Finder object contains functions to navigate to a workingstep.
+</UL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project. Bad identity for the workingstep.
+</UL>
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=SetSurfacePropertyForWorkpiece></a>SetSurfacePropertyForWorkpiece()</h2>
+<pre>
+void <b>SetSurfacePropertyForWorkpiece</b> (
+	System::Int64 wp_id,
+	System::String^ value
+	);
+</pre>
+
+<P>The <b>SetSurfacePropertyForWorkpiece()</b> function sets the
+required surface property for a workpiece.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>wp_id <DD>  Identity of the workpiece.
+<DT>val <DD> The surface property
+</DL>
+
+
+<h3>Related Functions</h3>
+<UL>
+<li><a href="#SetSurfacePropertyForWorkingstep">SetSurfacePropertyForWorkingstep</a>
+Set the surface property for result of a workingstep.
+<li>The Finder object contains functions to navigate to a workpiece.
+</UL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open
+project. Bad identity for the workpiece.
+</UL>
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=SetTechnolgyConstChipModeIsOn></a>SetTechnolgyConstChipModeIsOn()</h2>
+<pre>
+System::Int64 <b>SetTechnolgyConstChipModeIsOn</b> ();
+</pre>
+
+<P>The <b>SetTechnolgyConstChipModeIsOn()</b> function finds the value
+of the chip mode for a technology.
+
+<h3>Related Functions</h3>
+<UL>
+<li><a href="#SetTechnologyConstChipModeOn">SetTechnologyConstChipModeOn</a>
+Set the technology to const chip mode on.
+<li><a href="#SetTechnologyConstChipModeOff">SetTechnologyConstChipModeOff</a>
+Set the technology to const chip mode off.
+</UL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project. Bad identity for the technology.
+</UL>
+
+
+<!-- ================================ -->
+<a name=SetTechnolgyConstChipModeOff></a>
+<h2 class=rule><a name=SetTechnolgyConstChipModeOn></a>SetTechnolgyConstChipModeOn/Off()</h2>
+<pre>
+void <b>SetTechnolgyConstChipModeOn</b> ();
+void <b>SetTechnolgyConstChipModeOff</b> ();
+</pre>
+
+<P>The <b>SetTechnolgyConstChipModeOn()</b> function sets a technology
+so that the const chip mode is on.
+
+<P>The <b>SetTechnolgyConstChipModeOff()</b> function sets a
+technology so that the const chip mode is off (this is the default
+value).
+
+<h3>Related Functions</h3>
+<UL>
+<li><a href="#SetTechnologyConstChipModeIIsOn">SetTechnologyConstChopModeIsOn</a>
+Find the technology value.
+</UL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project. Bad identity for the technology.
+</UL>
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=SetTechnologyFeed></a>SetTechnologyFeed()</h2>
+<pre>
+void <b>SetTechnologyFeed</b> (
+	System::Int64 tech_id,
+	double feedrate
+	);
+</pre>
+
+<P>The <b>SetTechnologyFeed()</b> function sets the feederate for a
+single technology object. The change will impact every process that
+uses the technology object.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>tech_id <DD> Identity of the technology.
+<DT>feederate <DD> New value for the feedrate
+</DL>
+
+<h3>Related Functions</h3>
+<UL>
+<li><a href="#SetTechnologyConstChipModeOn">SetTechnologyConstChipModeOn</a>
+Set the technology object to const chip mode on.
+<li><a href="#SetTechnologyConstChipModeOff">SetTechnologyConstChipModeOff</a>
+Set the technology object to const chip mode off.
+<li><a href="#SetTechnologyFeedInTool">SetTechnologyFeedInTool</a> Set
+the feederate for every occurrence of a technology used by a tool by
+making a new object.
+<li><a href="#SetTechnologyFeedInWorkingstep">SetTechnologyFeedInWorkingstep</a>
+Set the feederate for every occurrence of a technology used by a
+workingstep by making a new object.
+<li><a href="#SetTechnologyFeedInPath">SetTechnologyFeedInPath</a> Set
+the feederate for the technology used by a path by making a new
+object.
+<li><a href="#SetTechnologySpeed">SetTechnologySpeed</a> Set the speed
+in a technology object so it will change in every context that uses
+that object.
+</UL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project. Bad identity for the technology.
+</UL>
+
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=SetTechnologyFeedInTool></a>SetTechnologyFeedInTool()</h2>
+<pre>
+System::Int64 <b>SetTechnologyFeedInTool</b> (
+	System::Int64 tool_id,
+	System::Int64 tech_id,
+	double feedrate
+	);
+</pre>
+
+<P>The <b>SetTechnologyFeedInTool()</b> function sets the feederate
+for every occurrence of a technology object used by a tool. Returns
+the technology object with the new feederate used by the tool in place
+of the current object.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>tool_id <DD> Identity of the tool.
+<DT>tech_id <DD> Identity of the technology.
+<DT>feederate <DD> New value for the feedrate
+</DL>
+
+<h3>Related Functions</h3>
+<UL>
+<li><a href="#SetTechnologyFeed">SetTechnologyFeed</a> Set the
+feederate in a technology object so it will change in every context
+that uses that object.
+<li><a href="#SetTechnologyFeedInTool">SetTechnologyFeedInTool</a> Set
+the feederate for every occurrence of a technology used by a tool by
+making a new object.
+<li><a href="#SetTechnologyFeedInWorkingstep">SetTechnologyFeedInWorkingstep</a>
+Set the feederate for every occurrence of a technology used by a
+workingstep by making a new object.
+<li><a href="#SetTechnologyFeedInPath">SetTechnologyFeedInPath</a> Set
+the feederate for the technology used by a path by making a new
+object.
+<li><a href="#SetTechnologySpeedInTool">SetTechnologySpeedInTool</a>
+Set the speed for every occurrence of a technology used by a tool by
+making a new object.
+</UL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project. Bad identity for the technology or tool.
+</UL>
+
+<!-- ================================ -->
+<h2 class=rule><a name=SetTechnologyFeedInWorkingstep></a>SetTechnologyFeedInWorkingstep()</h2>
+<pre>
+System::Int64 <b>SetTechnologyFeedInWorkingstep</b> (
+	System::Int64 ws_id,
+	System::Int64 tech_id,
+	double feedrate
+	);
+</pre>
+
+<P>The <b>SetTechnologyFeedInWorkingstep()</b> function sets the
+feederate for every occurrence of a technology object used by a
+workingstep.  Returns the technology object with the new feederate
+used by the workingstep in place of the current object.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>ws_id <DD> Identity of the workingstep.
+<DT>tech_id <DD> Identity of the technology.
+<DT>feederate <DD> New value for the feedrate
+</DL>
+
+
+<h3>Related Functions</h3>
+<UL>
+<li><a href="#SetTechnologyFeed">SetTechnologyFeed</a> Set the
+feederate in a technology object so it will change in every context
+that uses that object.
+<li><a href="#SetTechnologyFeedInTool">SetTechnologyFeedInTool</a> Set
+the feederate for every occurrence of a technology used by a tool by
+making a new object.
+<li><a href="#SetTechnologyFeedInPath">SetTechnologyFeedInPath</a> Set
+the feederate for the technology used by a path by making a new
+object.
+<li><a href="#SetTechnologySpeedInWorkingstep">SetTechnologySpeedInWorkingstep</a>
+Set the speed for every occurrence of a technology used by a
+workingstep by making a new object.
+</UL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project. Bad identity for the technology or workingstep.
+</UL>
+
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=SetTechnologyForPath></a>SetTechnologyForPath()</h2>
+<pre>
+void <b>SetTechnologyForPath</b> (
+	System::Int64 path_id,
+	System::Int64 tech_id
+	);
+</pre>
+
+<P>The <b>SetTechnologyForPath()</b> function 
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=SetTechnologySpeed></a>SetTechnologySpeed()</h2>
+<pre>
+void <b>SetTechnologySpeed</b> (
+	System::Int64 tech_id,
+	double spindle_speed
+	);
+</pre>
+
+<P>The <b>SetTechnologySpeed()</b> function sets the spindle speed for
+a single technology object. The change will affect every process that
+uses the object.
+
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>tech_id <DD> Identity of the technology.
+<DT>speed <DD> New value for the speed
+</DL>
+
+<h3>Related Functions</h3>
+<UL>
+<li><a href="#SetTechnologyConstChipModeOn">SetTechnologyConstChipModeOn</a>
+Set the technology to const chip mode on.
+<li><a href="#SetTechnologyConstChipModeOff">SetTechnologyConstChipModeOff</a>
+Set the technology to const chip mode off.
+<li><a href="#SetTechnologyFeed">SetTechnologyFeed</a> Set the
+feederate in a technology object so it will change in every context
+that uses that object.
+<li><a href="#SetTechnologySpeedInTool">SetTechnologySpeedInTool</a>
+Set the speed for every occurrence of a technology used by a tool by
+making a new object.
+<li><a href="#SetTechnologySpeedInWorkingstep">SetTechnologySpeedInWorkingstep</a>
+Set the speed for every occurrence of a technology used by a
+workingstep by making a new object.
+<li><a href="#SetTechnologySpeedInPath">SetTechnologySpeedInPath</a>
+Set the speed for the technology used by a path by making a new
+object.
+<li>
+</UL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project. Bad identity for the technology.
+</UL>
+
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=SetTechnologySpeedInTool></a>SetTechnologySpeedInTool()</h2>
+<pre>
+System::Int64 <b>SetTechnologySpeedInTool</b> (
+	System::Int64 tool_id,
+	System::Int64 tech_id,
+	double spindle_speed
+	);
+</pre>
+
+<P>The <b>SetTechnologySpeedInTool()</b> function sets the speed for
+every occurrence of a technology object used by a tool.  Returns the
+technology object with the new speed used by the tool in place of the
+current object.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>tool_id <DD> Identity of the tool.
+<DT>tech_id <DD> Identity of the technology.
+<DT>speed <DD> New value for the speed
+</DL>
+
+<h3>Related Functions</h3>
+<UL>
+<li><a href="#SetTechnologyFeedInTool">SetTechnologyFeedInTool</a> Set
+the feederate for every occurrence of a technology used by a tool by
+making a new object.
+<li><a href="#SetTechnologySpeed">SetTechnologySpeed</a> Set the speed
+in a technology object so it will change in every context that uses
+that object.
+<li><a href="#SetTechnologySpeedInWorkingstep">SetTechnologySpeedInWorkingstep</a>
+Set the speed for every occurrence of a technology used by a
+workingstep by making a new object.
+<li><a href="#SetTechnologySpeedInPath">SetTechnologySpeedInPath</a>
+Set the speed for the technology used by a path by making a new
+object.
+</UL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project. Bad identity for the technology or tool.
+</UL>
+
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=SetTechologySpeedInWorkingstep></a>SetTechologySpeedInWorkingstep()</h2>
+<pre>
+System::Int64 <b>SetTechologySpeedInWorkingstep</b> (
+	System::Int64 ws_id,
+	System::Int64 tech_id,
+	double spindle_speed
+	);
+</pre>
+
+<P>The <b>SetTechologySpeedInWorkingstep()</b> function sets the speed
+for every occurrence of a technology object used by a workingstep.
+Returns the technology object with the new speed used by the tool in
+place of the current object.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>ws_id <DD> Identity of the workingstep.
+<DT>tech_id <DD> Identity of the technology.
+<DT>spindle <DD> New value for the speed
+</DL>
+
+<h3>Related Functions</h3>
+<UL>
+<li><a href="#SetTechnologyFeedInWorkingstep">SetTechnologyFeedInWorkingstep</a>
+Set the feederate for every occurrence of a technology used by a
+workingstep by making a new object.
+<li><a href="#SetTechnologySpeed">SetTechnologySpeed</a> Set the speed
+in a technology object so it will change in every context that uses
+that object.
+<li><a href="#SetTechnologySpeedInTool">SetTechnologySpeedInTool</a>
+Set the speed for every occurrence of a technology used by a tool by
+making a new object.
+<li><a href="#SetTechnologySpeedInPath">SetTechnologySpeedInPath</a>
+Set the speed for the technology used by a path by making a new
+object.
+</UL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project. Bad identity for the technology or workingstep.
+</UL>
+
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=SetToolCoolantThroughTool></a>SetToolCoolantThroughTool()</h2>
+<pre>
+void <b>SetToolCoolantThroughTool</b> (
+	System::Int64 tl_id,
+	System::Int64 on_off
+	);
+</pre>
+
+<P>The <b>SetToolCoolantThroughTool()</b> function sets the coolant
+value for a tool. The tool may be selected using its id or the
+identity of a workingstep that uses the tool.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>tl_id <DD> Identity of the tool.
+<DT>on_off <DD> Set coolant to on or off. Use zero for off. The
+default is off.
+</DL>
+
+
+<h3>Related Functions</h3>
+<UL>
+<li>The <a href="AptStepMaker.html">APT object</a> contains many functions to create tools.
+</UL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project. Bad identity for the tool.
+</UL>
+
+<!-- ================================ -->
+<h2 class=rule><a name=SetToolCornerRadius></a>SetToolCornerRadius()</h2>
+<pre>
+void <b>SetToolCornerRadius</b> (
+	System::Int64 tl_id,
+	double radius
+	);
+</pre>
+
+<P>The <b>SetToolCornerRadius()</b> function sets the corner radius
+for a tool. The tool may be selected using its id or the identity of a
+workingstep that uses the tool. The units will be as before.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>tl_id <DD> Identity of the tool.
+<DT>radius <DD> New corner radius.
+</DL>
+
+
+<h3>Related Functions</h3>
+<UL>
+<li>The <a href="AptStepMaker.html">APT object</a> contains many functions to create tools.
+</UL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project. Bad identity for the tool. This type of tool does
+not support a corner radius.
+</UL>
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=SetToolCurrentCornerRadius></a>SetToolCurrentCornerRadius()</h2>
+<pre>
+void <b>SetToolCurrentCornerRadius</b> (
+	System::Int64 tl_id,
+	double current_corner_radius
+	);
+</pre>
+
+<P>The <b>SetToolCurrentCornerRadius()</b> function 
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=SetToolCurrentDiameter></a>SetToolCurrentDiameter()</h2>
+<pre>
+void <b>SetToolCurrentDiameter</b> (
+	System::Int64 tl_id,
+	double current_diameter
+	);
+</pre>
+
+<P>The <b>SetToolCurrentDiameter()</b> function 
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=SetToolCurrentLength></a>SetToolCurrentLength()</h2>
+<pre>
+void <b>SetToolCurrentLength</b> (
+	System::Int64 tl_id,
+	double current_length
+	);
+</pre>
+
+<P>The <b>SetToolCurrentLength()</b> function 
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=SetToolCuttingEdgeAngle></a>SetToolCuttingEdgeAngle()</h2>
+<pre>
+void <b>SetToolCuttingEdgeAngle</b> (
+	System::Int64 tl_id,
+	double angle
+	);
+</pre>
+
+<P>The <b>SetToolCuttingEdgeAngle()</b> function sets the corner
+radius for a tool. The tool may be selected using its id or the
+identity of a workingstep that uses the tool. The units will be as
+before.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>tl_id <DD> Identity of the tool.
+<DT>angle <DD> New angle.
+</DL>
+
+
+<h3>Related Functions</h3>
+<UL>
+<li>The <a href="AptStepMaker.html">APT object</a> contains many functions to create tools.
+</UL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project. Bad identity for the tool. This type of tool does
+not support a cutting edge angle.
+</UL>
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=SetToolCuttingEdgeAngleLowerUpper></a>SetToolCuttingEdgeAngleLowerUpper()</h2>
+<pre>
+void <b>SetToolCuttingEdgeAngleLowerUpper</b> (
+	System::Int64 tl_id,
+	double value,
+	double lower,
+	System::String^ lreason,
+	double upper,
+	System::String^ ureason
+	);
+</pre>
+
+<P>The <b>SetToolCuttingEdgeAngleLowerUpper()</b> function 
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=SetToolDiameter></a>SetToolDiameter()</h2>
+<pre>
+void <b>SetToolDiameter</b> (
+	System::Int64 tl_id,
+	double diameter
+	);
+</pre>
+
+<P>The <b>SetToolDiameter()</b> function changes the diameter of a
+tool to the give value. The tool may be selected using its id or the
+identity of a workingstep that uses the tool. The units will be as
+before.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>tl_id <DD> Identity of the tool.
+<DT>diameter <DD> New tool diameter
+</DL>
+
+
+<h3>Related Functions</h3>
+<UL>
+<li>The <a href="AptStepMaker.html">APT object</a> contains many functions to create tools.
+</UL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project. Bad identity for the tool.
+</UL>
+
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=SetToolDiameterLowerUpper></a>SetToolDiameterLowerUpper()</h2>
+<pre>
+void <b>SetToolDiameterLowerUpper</b> (
+	System::Int64 tl_id,
+	double value,
+	double lower,
+	System::String^ lreason,
+	double upper,
+	System::String^ ureason
+	);
+</pre>
+
+<P>The <b>SetToolDiameterLowerUpper()</b> function 
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=SetToolExpectedLife></a>SetToolExpectedLife()</h2>
+<pre>
+void <b>SetToolExpectedLife</b> (
+	System::Int64 tl_id,
+	double minutes
+	);
+</pre>
+
+<P>The <b>SetToolExpectedLife()</b> function sets the expected
+remaining life of a tool. The tool may be selected using its id or the
+identity of a workingstep that uses the tool. The units will be as
+before.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>tl_id <DD> Identity of the tool.
+<DT>minutes <DD> New tool life
+</DL>
+
+
+<h3>Related Functions</h3>
+<UL>
+<li>The <a href="AptStepMaker.html">APT object</a> contains many functions to create tools.
+</UL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project. Bad identity for the tool.
+<li>
+</UL>
+
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=SetToolExpectedLifeLowerUpper></a>SetToolExpectedLifeLowerUpper()</h2>
+<pre>
+void <b>SetToolExpectedLifeLowerUpper</b> (
+	System::Int64 tl_id,
+	double value,
+	double lower,
+	System::String^ lreason,
+	double upper,
+	System::String^ ureason
+	);
+</pre>
+
+<P>The <b>SetToolExpectedLifeLowerUpper()</b> function 
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=SetToolFluteCount></a>SetToolFluteCount()</h2>
+<pre>
+void <b>SetToolFluteCount</b> (
+	System::Int64 tl_id,
+	double flute_count
+	);
+</pre>
+
+<P>The <b>SetToolFluteCount()</b> function sets the number of
+flutes. The tool may be selected using its id or the identity of a
+workingstep that uses the tool. The number is given as a double
+because the tool may have a flute count that is equivalent to a
+fractional number.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>tl_id <DD> Identity of the tool.
+<DT>count <DD> Number of flutes (as float)
+</DL>
+
+
+<h3>Related Functions</h3>
+<UL>
+<li>The <a href="AptStepMaker.html">APT object</a> contains many functions to create tools.
+</UL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project. Bad identity for the tool.
+</UL>
+
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=SetToolFluteLength></a>SetToolFluteLength()</h2>
+<pre>
+void <b>SetToolFluteLength</b> (
+	System::Int64 tl_id,
+	double flute_length
+	);
+</pre>
+
+<P>The <b>SetToolFluteLength()</b> function sets the flute length of a
+tool. The tool may be selected using its id or the identity of a
+workingstep that uses the tool. The units will be as before. The flute
+length determines the maximum depth of cut.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>tl_id <DD> Identity of the tool.
+<DT>length <DD> New flute length
+</DL>
+
+
+<h3>Related Functions</h3>
+<UL>
+<li>The <a href="AptStepMaker.html">APT object</a> contains many functions to create tools.
+</UL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project. Bad identity for the tool.
+</UL>
+
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=SetToolFluteLengthLowerUpper></a>SetToolFluteLengthLowerUpper()</h2>
+<pre>
+void <b>SetToolFluteLengthLowerUpper</b> (
+	System::Int64 tl_id,
+	double value,
+	double lower,
+	System::String^ lreason,
+	double upper,
+	System::String^ ureason
+	);
+</pre>
+
+<P>The <b>SetToolFluteLengthLowerUpper()</b> function 
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=SetToolHandOfCut></a>SetToolHandOfCut()</h2>
+<pre>
+void <b>SetToolHandOfCut</b> (
+	System::Int64 tl_id,
+	System::String^ left_neutral_right
+	);
+</pre>
+
+<P>The <b>SetToolHandOfCut()</b> function sets the hand of cut of a
+tool. The tool may be selected using its id or the identity of a
+workingstep that uses the tool.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>tl_id <DD> Identity of the tool.
+<DT>string <DD> &ldquo;left&rdquo; or &ldquo;right&rdquo; or
+&ldquo;neutral&rdquo;.
+</DL>
+
+
+<h3>Related Functions</h3>
+<UL>
+<li>The <a href="AptStepMaker.html">APT object</a> contains many functions to create tools.
+</UL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project. Bad identity for the tool.
+</UL>
+
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=SetToolLength></a>SetToolLength()</h2>
+<pre>
+void <b>SetToolLength</b> (
+	System::Int64 tl_id,
+	double length
+	);
+</pre>
+
+<P>The <b>SetToolLength()</b> function changes the length of a tool to
+the given value. The tool may be selected using its id or the identity
+of a workingstep that uses the tool. The units will be as before.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>tl_id <DD> Identity of the tool.
+<DT>length <DD> New tool length
+</DL>
+
+
+<h3>Related Functions</h3>
+<UL>
+<li>The <a href="AptStepMaker.html">APT object</a> contains many functions to create tools.
+</UL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project. Bad identity for the tool.
+</UL>
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=SetToolLengthLowerUpper></a>SetToolLengthLowerUpper()</h2>
+<pre>
+void <b>SetToolLengthLowerUpper</b> (
+	System::Int64 tl_id,
+	double value,
+	double lower,
+	System::String^ lreason,
+	double upper,
+	System::String^ ureason
+	);
+</pre>
+
+<P>The <b>SetToolLengthLowerUpper()</b> function 
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=SetToolMaterial></a>SetToolMaterial()</h2>
+<pre>
+void <b>SetToolMaterial</b> (
+	System::Int64 tl_id,
+	System::String^ material
+	);
+</pre>
+
+<P>The <b>SetToolMaterial()</b> function changes the tool material to
+the given value. The tool may be selected using its id or the identity
+of a workingstep that uses the tool.  The material description can be
+with respect to a defined standard.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>tl_id <DD> Identity of the tool.
+<DT>string <DD> Material description
+</DL>
+
+
+<h3>Related Functions</h3>
+<UL>
+<li><a href="#SetToolMaterialStandard">SetToolMaterialStandard</a>
+Define the standard that describes the material.
+</UL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project. Bad identity for the tool.
+</UL>
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=SetToolMaterialStandard></a>SetToolMaterialStandard()</h2>
+<pre>
+void <b>SetToolMaterialStandard</b> (
+	System::Int64 tl_id,
+	System::String^ standard
+	);
+</pre>
+
+<P>The <b>SetToolMaterialStandard()</b> function changes the material
+standard for a tool. The tool may be selected using its id or the
+identity of a workingstep that uses the tool. The material description
+must be meaningful with respect to this standard.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>tl_id <DD> Identity of the tool.
+<DT>string <DD> Material standard
+</DL>
+
+
+<h3>Related Functions</h3>
+<UL>
+<li><a href="#SetToolMaterial">SetToolMaterial</a> Define the tool
+material.
+</UL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project. Bad identity for the tool.
+</UL>
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=SetToolOverallAssemblyLength></a>SetToolOverallAssemblyLength()</h2>
+<pre>
+void <b>SetToolOverallAssemblyLength</b> (
+	System::Int64 tl_id,
+	double length
+	);
+</pre>
+
+<P>The <b>SetToolOverallAssemblyLength()</b> function changes the
+overall assembly length of a tool to the given value. The tool may be
+selected using its id or the identity of a workingstep that uses the
+tool. The units will be as before.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>tl_id <DD> Identity of the tool.
+<DT>length <DD> New tool overall assembly length
+</DL>
+
+
+<h3>Related Functions</h3>
+<UL>
+<li>The <a href="AptStepMaker.html">APT object</a> contains many functions to create tools.
+</UL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project. Bad identity for the tool.
+</UL>
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=SetToolOverallAssemblyLengthLowerUpper></a>SetToolOverallAssemblyLengthLowerUpper()</h2>
+<pre>
+void <b>SetToolOverallAssemblyLengthLowerUpper</b> (
+	System::Int64 tl_id,
+	double value,
+	double lower,
+	System::String^ lreason,
+	double upper,
+	System::String^ ureason
+	);
+</pre>
+
+<P>The <b>SetToolOverallAssemblyLengthLowerUpper()</b> function 
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=SetToolRadiusLowerUpper></a>SetToolRadiusLowerUpper()</h2>
+<pre>
+void <b>SetToolRadiusLowerUpper</b> (
+	System::Int64 tl_id,
+	double value,
+	double lower,
+	System::String^ lreason,
+	double upper,
+	System::String^ ureason
+	);
+</pre>
+
+<P>The <b>SetToolRadiusLowerUpper()</b> function 
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=SetToolRecommendedFeed></a>SetToolRecommendedFeed()</h2>
+<pre>
+void <b>SetToolRecommendedFeed</b> (
+	System::Int64 tl_id,
+	double feedrate
+	);
+</pre>
+
+<P>The <b>SetToolRecommendedFeed()</b> function changes the
+recommended feed of a tool to the given value.  The tool may be
+selected using its id or the identity of a workingstep that uses the
+tool. The units will be as before.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>tl_id <DD> Identity of the tool.
+<DT>feed <DD> New recommended feed
+</DL>
+
+
+<h3>Related Functions</h3>
+<UL>
+<li>The <a href="AptStepMaker.html">APT object</a> contains many functions to create tools.
+</UL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project. Bad identity for the tool.
+</UL>
+
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=SetToolRecommendedFeedLowerUpper></a>SetToolRecommendedFeedLowerUpper()</h2>
+<pre>
+void <b>SetToolRecommendedFeedLowerUpper</b> (
+	System::Int64 tl_id,
+	double value,
+	double lower,
+	System::String^ lreason,
+	double upper,
+	System::String^ ureason
+	);
+</pre>
+
+<P>The <b>SetToolRecommendedFeedLowerUpper()</b> function 
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=SetToolRecommendedSpeed></a>SetToolRecommendedSpeed()</h2>
+<pre>
+void <b>SetToolRecommendedSpeed</b> (
+	System::Int64 tl_id,
+	double spindle_speed
+	);
+</pre>
+
+<P>The <b>SetToolRecommendedSpeed()</b> function changes the
+recommended speed of a tool to the given value.  The tool may be
+selected using its id or the identity of a workingstep that uses the
+tool. The units will be as before.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>tl_id <DD> Identity of the tool.
+<DT>spindle <DD> New recommended speed
+</DL>
+
+
+<h3>Related Functions</h3>
+<UL>
+<li>The <a href="AptStepMaker.html">APT object</a> contains many functions to create tools.
+</UL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project. Bad identity for the tool.
+</UL>
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=SetToolRecommendedSpeedLowerUpper></a>SetToolRecommendedSpeedLowerUpper()</h2>
+<pre>
+void <b>SetToolRecommendedSpeedLowerUpper</b> (
+	System::Int64 tl_id,
+	double value,
+	double lower,
+	System::String^ lreason,
+	double upper,
+	System::String^ ureason
+	);
+</pre>
+
+<P>The <b>SetToolRecommendedSpeedLowerUpper()</b> function 
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=SetToolReferenceDataName></a>SetToolReferenceDataName()</h2>
+<pre>
+void <b>SetToolReferenceDataName</b> (
+	System::Int64 tl_id,
+	System::String^ name
+	);
+</pre>
+
+<P>The <b>SetToolReferenceDataName()</b> function changes the
+manufacturers name of a tool to the given value. The tool may be
+selected using its id or the identity of a workingstep that uses the
+tool.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>tl_id <DD> Identity of the tool.
+<DT>name <DD> New manufacturers name.
+</DL>
+
+
+<h3>Related Functions</h3>
+<UL>
+<li>The <a href="AptStepMaker.html">APT object</a> contains many functions to create tools.
+</UL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project. Bad identity for the tool.
+</UL>
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=SetToolReferenceDataSTRL></a>SetToolReferenceDataSTRL()</h2>
+<pre>
+void <b>SetToolReferenceDataSTRL</b> (
+	System::Int64 tl_id,
+	System::String^ strl
+	);
+</pre>
+
+<P>The <b>SetToolReferenceDataSTRL()</b> function changes the URL to
+the manufacturers data for the tool.  The tool may be selected using
+its id or the identity of a workingstep that uses the tool.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>tl_id <DD> Identity of the tool.
+<DT>URL <DD> New URL to manufacturers data.
+</DL>
+
+<h3>Related Functions</h3>
+<UL>
+<li>The <a href="AptStepMaker.html">APT object</a> contains many functions to create tools.
+</UL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project.  Bad identity for the tool.
+</UL>
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=SetToolTaperThreadCount></a>SetToolTaperThreadCount()</h2>
+<pre>
+void <b>SetToolTaperThreadCount</b> (
+	System::Int64 tl_id,
+	double count
+	);
+</pre>
+
+<P>The <b>SetToolTaperThreadCount()</b> function changes the taper
+count for the thread of a tapping tool.  The tool may be selected
+using its id or the identity of a workingstep that uses the tool.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>tl_id <DD> Identity of the tool.
+<DT>count <DD> New taper count.
+</DL>
+
+<h3>Related Functions</h3>
+<UL>
+<li>The <a href="AptStepMaker.html">APT object</a> contains many functions to create tools.
+</UL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project. Bad identity for the tool. Not a tapping tool.
+</UL>
+
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=SetToolThreadFormType></a>SetToolThreadFormType()</h2>
+<pre>
+void <b>SetToolThreadFormType</b> (
+	System::Int64 tl_id,
+	System::String^ form_type
+	);
+</pre>
+
+<P>The <b>SetToolThreadFormType()</b> function changes the thread form
+type of a tapping tool. The tool may be selected using its id or the
+identity of a workingstep that uses the tool.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>tl_id <DD> Identity of the tool.
+<DT>string <DD> New thread form type.
+</DL>
+
+
+<h3>Related Functions</h3>
+<UL>
+<li>The <a href="AptStepMaker.html">APT object</a> contains many functions to create tools.
+</UL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project. Bad identity for the tool. Not a tapping tool.
+</UL>
+
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=SetToolThreadPitch></a>SetToolThreadPitch()</h2>
+<pre>
+void <b>SetToolThreadPitch</b> (
+	System::Int64 tl_id,
+	double pitch
+	);
+</pre>
+
+<P>The <b>SetToolThreadPitch()</b> function changes the thread pitch
+of a tapping tool. The tool may be selected using its id or the
+identity of a workingstep that uses the tool.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>tl_id <DD> Identity of the tool.
+<DT>angle as radian <DD> New angle for the thread pitch.
+</DL>
+
+<h3>Related Functions</h3>
+<UL>
+<li>The <a href="AptStepMaker.html">APT object</a> contains many functions to create tools.
+</UL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project. Bad identity for the tool. Not a tapping tool.
+</UL>
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=SetToolThreadPitchLowerUpper></a>SetToolThreadPitchLowerUpper()</h2>
+<pre>
+void <b>SetToolThreadPitchLowerUpper</b> (
+	System::Int64 tl_id,
+	double value,
+	double lower,
+	System::String^ lreason,
+	double upper,
+	System::String^ ureason
+	);
+</pre>
+
+<P>The <b>SetToolThreadPitchLowerUpper()</b> function 
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=SetToolThreadSize></a>SetToolThreadSize()</h2>
+<pre>
+void <b>SetToolThreadSize</b> (
+	System::Int64 tl_id,
+	double size
+	);
+</pre>
+
+<P>The <b>SetToolThreadSize()</b> function changes the thread size of
+a tapping tool. The tool may be selected using its id or the identity
+of a workingstep that uses the tool.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>tl_id <DD> Identity of the tool.
+<DT>size <DD> New size for the thread pitch.
+</DL>
+
+
+<h3>Related Functions</h3>
+<UL>
+<li>The <a href="AptStepMaker.html">APT object</a> contains many functions to create tools.
+</UL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project. Bad identity for the tool. Not a tapping tool.
+</UL>
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=SetToolThreadSizeLowerUpper></a>SetToolThreadSizeLowerUpper()</h2>
+<pre>
+void <b>SetToolThreadSizeLowerUpper</b> (
+	System::Int64 tl_id,
+	double value,
+	double lower,
+	System::String^ lreason,
+	double upper,
+	System::String^ ureason
+	);
+</pre>
+
+<P>The <b>SetToolThreadSizeLowerUpper()</b> function 
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=SetToolTipAngle></a>SetToolTipAngle()</h2>
+<pre>
+void <b>SetToolTipAngle</b> (
+	System::Int64 tl_id,
+	double angle
+	);
+</pre>
+
+<P>The <b>SetToolTipAngle()</b> function sets the tip angle for a
+tool. The tool may be selected using its id or the identity of a
+workingstep that uses the tool. The units will be as before.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>tl_id <DD> Identity of the tool.
+<DT>angle <DD> New angle.
+</DL>
+
+
+<h3>Related Functions</h3>
+<UL>
+<li>The <a href="AptStepMaker.html">APT object</a> contains many
+functions to create tools.
+</UL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project. Bad identity for the tool. This type of tool does
+not support a cutting edge angle.
+</UL>
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=SetToolTipAngleLowerUpper></a>SetToolTipAngleLowerUpper()</h2>
+<pre>
+void <b>SetToolTipAngleLowerUpper</b> (
+	System::Int64 tl_id,
+	double value,
+	double lower,
+	System::String^ lreason,
+	double upper,
+	System::String^ ureason
+	);
+</pre>
+
+<P>The <b>SetToolTipAngleLowerUpper()</b> function 
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=Shutdown></a>Shutdown()</h2>
+<pre>
+void <b>Shutdown</b> ();
+</pre>
+
+<P>The <b>Shutdown()</b> function 
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=SideFinishMilling></a>SideFinishMilling()</h2>
+<pre>
+void <b>SideFinishMilling</b> (
+	System::Int64 ws_id,
+	double side_allowance,
+	double radial_depth,
+	double axial_depth
+	);
+</pre>
+
+<P>The <b>SideFinishMilling()</b> function defines parameters for an
+operation that removes material using the side of the tool.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>ws_id <DD> Workingstep that will contain the operation.
+<DT>side_allowance <DD> Material to be left on the side
+<DT>radial_depth <DD> How much material is to be cut from the side on
+each pass.
+<DT>axial_depth <DD>
+</DL>
+
+
+<h3>Related Functions</h3>
+<UL>
+<li><a href="#BottomSideFinishMilling">BottomSideFinishMilling</a>
+Defines a bottom and side milling operation.
+<li><a href="#BottomSideRoughMilling">BottomSideRoughMilling</a>
+Defines a bottom and side milling operation.
+<li><a href="#PlaneFinishMilling">PlaneFinishMilling</a> Defines a
+bottom milling operation.
+<li><a href="#PlaneRoughMilling">PlaneRoughMilling</a> Defines a
+bottom milling operation.
+<li><a href="#SideRoughMilling">SideRoughMilling</a> Defines a side
+milling operation.
+</UL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project.
+<li>Bad identity for the workingstep
+</UL>
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=SideRoughMilling></a>SideRoughMilling()</h2>
+<pre>
+void <b>SideRoughMilling</b> (
+	System::Int64 ws_id,
+	double side_allowance,
+	double radial_depth,
+	double axial_depth
+	);
+</pre>
+
+<P>The <b>SideRoughMilling()</b> function defines parameters for an
+operation that removes material using the side of the tool.
+
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>ws_id <DD> Workingstep that will contain the operation.
+<DT>side_allowance <DD> Material to be left on the side
+<DT>radial_depth <DD> How much material is to be cut from the side on
+each pass.
+<DT>axial_depth <DD>
+</DL>
+
+
+<h3>Related Functions</h3>
+<UL>
+<li><a href="#BottomSideFinishMilling">BottomSideFinishMilling</a>
+Defines a bottom and side milling operation.
+<li><a href="#BottomSideRoughMilling">BottomSideRoughMilling</a>
+Defines a bottom and side milling operation.
+<li><a href="#PlaneFinishMilling">PlaneFinishMilling</a> Defines a
+bottom milling operation.
+<li><a href="#PlaneRoughMilling">PlaneRoughMilling</a> Defines a
+bottom milling operation.
+<li><a href="#SideFinishMilling">SideFinishMilling</a> Defines a side
+milling operation.
+</UL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project.
+<li>Bad identity for the workingstep
+</UL>
+
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=Tapping></a>Tapping()</h2>
+<pre>
+void <b>Tapping</b> (
+	System::Int64 ws_id,
+	double cutting_depth,
+	System::Boolean compensation_chuck_required,
+	double dwell_time_bottom,
+	double feed_on_retract,
+	double previous_diameter
+	);
+</pre>
+
+<P>The <b>Tapping()</b> function defines a tapping operation. For
+additional details see the ISO 14649 documentation.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>ws_id <DD>Workingstep that will contain the operation.
+<DT>cutting depth <DD> In current length units.
+<DT>compensation_chuck_required <DD> True or false
+<DT>dwell time bottom <DD> In seconds
+<DT>feed_on_retract <DD> In current federate
+<DT>previous diameter <DD> The diameter of the hole before the
+drilling
+</DL>
+
+
+<h3>Related Functions</h3>
+<UL>
+<li><a href="#Boring">Boring</a> Defines a boring operation.
+<li><a href="#Drilling">Drilling</a> Defines a single step drilling
+operation.
+</UL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No open project.
+<li>Bad identity for the workingstep
+</UL>
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=ToolAssemblyUsingISO13399Data></a>ToolAssemblyUsingISO13399Data()</h2>
+<pre>
+double <b>ToolAssemblyUsingISO13399Data</b> (
+	System::Int64 tl_id,
+	[System::Runtime::InteropServices::Out] System::Boolean %has_13399_data,
+	[System::Runtime::InteropServices::Out] System::Boolean %tool_assembled
+	);
+</pre>
+
+<P>The <b>ToolAssemblyUsingISO13399Data()</b> function 
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=ToolAssemblyUsingISO13399DataChangeFilename></a>ToolAssemblyUsingISO13399DataChangeFilename()</h2>
+<pre>
+void <b>ToolAssemblyUsingISO13399DataChangeFilename</b> (
+	System::Int64 tl_id,
+	System::String^ file_name,
+	System::Boolean force_load
+	);
+</pre>
+
+<P>The <b>ToolAssemblyUsingISO13399DataChangeFilename()</b> function 
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=ToolAssemblyUsingISO13399DataChangeToolFunctionalLength></a>ToolAssemblyUsingISO13399DataChangeToolFunctionalLength()</h2>
+<pre>
+void <b>ToolAssemblyUsingISO13399DataChangeToolFunctionalLength</b> (
+	System::Int64 tl_id,
+	double change_length,
+	[System::Runtime::InteropServices::Out] System::Boolean %new_length_set,
+	[System::Runtime::InteropServices::Out] double %new_length
+	);
+</pre>
+
+<P>The <b>ToolAssemblyUsingISO13399DataChangeToolFunctionalLength()</b> function 
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=ToolAssemblyUsingISO13399DataHasAssembly></a>ToolAssemblyUsingISO13399DataHasAssembly()</h2>
+<pre>
+System::Boolean <b>ToolAssemblyUsingISO13399DataHasAssembly</b> (
+	System::Int64 tl_id
+	);
+</pre>
+
+<P>The <b>ToolAssemblyUsingISO13399DataHasAssembly()</b> function 
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=ToolAssemblyUsingISO13399DataRecommendedValues></a>ToolAssemblyUsingISO13399DataRecommendedValues()</h2>
+<pre>
+double <b>ToolAssemblyUsingISO13399DataRecommendedValues</b> (
+	System::Int64 tl_id,
+	[System::Runtime::InteropServices::Out] double %low_value,
+	[System::Runtime::InteropServices::Out] System::Boolean %low_set,
+	[System::Runtime::InteropServices::Out] double %high_value,
+	[System::Runtime::InteropServices::Out] System::Boolean %high_set
+	);
+</pre>
+
+<P>The <b>ToolAssemblyUsingISO13399DataRecommendedValues()</b> function 
+
+
+<!-- ================================ -->
+<h2 class=rule><a name=ToolIdentifier></a>ToolIdentifier()</h2>
+<pre>
+void <b>ToolIdentifier</b> (
+	System::Int64 ws_id,
+	System::String^ identifier
+	);
+</pre>
+
+<P>The <b>ToolIdentifier()</b> function 
+
+
+</div>
+
+<div class="copyright">
+  Copyright &copy; 2016 STEP Tools Inc. All Rights Reserved.<br>
+</div>
+</BODY>
+</HTML>

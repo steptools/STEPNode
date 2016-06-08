@@ -1,0 +1,920 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+   <TITLE>Toolpath Programming Class</TITLE>
+   <link rel="stylesheet" type="text/css" href="../pkgcss/style.css">
+</HEAD>
+
+<BODY>
+<TABLE class=pagehead><TR>
+<TD class=logo>Toolpath</TD>
+<TD class=quicklinks>
+  <A HREF="http://www.steptools.com">[www.steptools.com]</a>
+  <A HREF="../index.html">[STEP-NC Machine]</A>
+  <A HREF=index.html>[STEP-NC DLL]</a>
+</TD></TR>
+</TABLE>
+
+<div class=bktoc>
+<FORM class=bksearch method=GET action="http://www.google.com/search">
+Search STEP Tools Web Support<br>
+<INPUT TYPE=text name=q size=22 maxlength=255 value="">
+<INPUT TYPE=hidden name=q value="site:www.steptools.com/support">
+<INPUT class=button type=submit name=sa VALUE="Google">
+</FORM>
+<ul>
+<li><a href=#oview>Overview</a>
+<li><a href=#CurrentToolpathName>CurrentToolpathName()</a>
+<li><a href=#CurrentWorkingstepName>CurrentWorkingstepName()</a>
+<li><a href=#CurrentWorkplanName>CurrentWorkplanName()</a>
+<li><a href=#FindTolerance>FindTolerance()</a>
+<li><a href=#FindToolpath>FindToolpath()</a>
+<li><a href=#FindToolpathInWorkingstep>FindToolpathInWorkingstep()</a>
+<li><a href=#FindToolpathInWorkplan>FindToolpathInWorkplan()</a>
+<li><a href=#FindWorkingstep>FindWorkingstep()</a>
+<li><a href=#FindWorkingstepInWorkplan>FindWorkingstepInWorkplan()</a>
+<li><a href=#FindWorkplan>FindWorkplan()</a>
+<li><a href=#FindXYZ>FindXYZ()</a>
+<li><a href=#FindXYZInToolpath>FindXYZInToolpath()</a>
+<li><a href=#FindXYZInWorkingstep>FindXYZInWorkingstep()</a>
+<li><a href=#FindXYZInWorkplan>FindXYZInWorkplan()</a>
+<li><a href=#GetArc>GetArc()</a>
+<li><a href=#GetAxialDepth>GetAxialDepth()</a>
+<li><a href=#GetAxialDepthOverride>GetAxialDepthOverride()</a>
+<li><a href=#GetAxialDepthUnit>GetAxialDepthUnit()</a>
+<li><a href=#GetCrossSectionParameters>GetCrossSectionParameters()</a>
+<li><a href=#GetFeed>GetFeed()</a>
+<li><a href=#GetFeedOverride>GetFeedOverride()</a>
+<li><a href=#GetFeedUnit>GetFeedUnit()</a>
+<li><a href=#GetHelix>GetHelix()</a>
+<li><a href=#GetIJK>GetIJK()</a>
+<li><a href=#GetRadialOvercut>GetRadialOvercut()</a>
+<li><a href=#GetRadialOvercutOverride>GetRadialOvercutOverride()</a>
+<li><a href=#GetRadialOvercutUnit>GetRadialOvercutUnit()</a>
+<li><a href=#GetSpeed>GetSpeed()</a>
+<li><a href=#GetSpeedUnit>GetSpeedUnit()</a>
+<li><a href=#GetToolDiameter>GetToolDiameter()</a>
+<li><a href=#GetToolDiameterUnit>GetToolDiameterUnit()</a>
+<li><a href=#GetToolLength>GetToolLength()</a>
+<li><a href=#GetToolLengthUnit>GetToolLengthUnit()</a>
+<li><a href=#GetToolNumber>GetToolNumber()</a>
+<li><a href=#GetToolRadius>GetToolRadius()</a>
+<li><a href=#GetToolRadiusUnit>GetToolRadiusUnit()</a>
+<li><a href=#GetToolUsage>GetToolUsage()</a>
+<li><a href=#GetXYZ>GetXYZ()</a>
+<li><a href=#GetXYZUnit>GetXYZUnit()</a>
+<li><a href=#IsArc>IsArc()</a>
+<li><a href=#IsCenter>IsCenter()</a>
+<li><a href=#IsContact>IsContact()</a>
+<li><a href=#IsFullCircle>IsFullCircle()</a>
+<li><a href=#IsFullHelix>IsFullHelix()</a>
+<li><a href=#IsHelix>IsHelix()</a>
+<li><a href=#IsLine>IsLine()</a>
+<li><a href=#IsRapid>IsRapid()</a>
+<li><a href=#Main>Main()</a>
+<li><a href=#NextPoint>NextPoint()</a>
+<li><a href=#NextPointInToolpath>NextPointInToolpath()</a>
+<li><a href=#NextPointInWorkingstep>NextPointInWorkingstep()</a>
+<li><a href=#NextPointInWorkplan>NextPointInWorkplan()</a>
+<li><a href=#NextToolpath>NextToolpath()</a>
+<li><a href=#NextToolpathInWorkingstep>NextToolpathInWorkingstep()</a>
+<li><a href=#NextWorkingstep>NextWorkingstep()</a>
+<li><a href=#NextWorkingstepInWorkplan>NextWorkingstepInWorkplan()</a>
+<li><a href=#Open238>Open238()</a>
+<li><a href=#OpenInMemory>OpenInMemory()</a>
+<li><a href=#OptimizeFeedsUsingCrossSectionParameters>OptimizeFeedsUsingCrossSectionParameters()</a>
+<li><a href=#PlacementsIgnore>PlacementsIgnore()</a>
+<li><a href=#PlacementsUse>PlacementsUse()</a>
+<li><a href=#PutAxialDepth>PutAxialDepth()</a>
+<li><a href=#PutAxialDepthOverride>PutAxialDepthOverride()</a>
+<li><a href=#PutCrossSectionParameters>PutCrossSectionParameters()</a>
+<li><a href=#PutCrossSectionParametersAirMilling>PutCrossSectionParametersAirMilling()</a>
+<li><a href=#PutCrossSectionParametersExceedsLimits>PutCrossSectionParametersExceedsLimits()</a>
+<li><a href=#PutFeed>PutFeed()</a>
+<li><a href=#PutFeedInProject>PutFeedInProject()</a>
+<li><a href=#PutFeedInWorkingstep>PutFeedInWorkingstep()</a>
+<li><a href=#PutFeedOverride>PutFeedOverride()</a>
+<li><a href=#PutRadialOvercut>PutRadialOvercut()</a>
+<li><a href=#PutRadialOvercutOverride>PutRadialOvercutOverride()</a>
+<li><a href=#PutSpeed>PutSpeed()</a>
+<li><a href=#PutSpeedInProject>PutSpeedInProject()</a>
+<li><a href=#PutSpeedInWorkingstep>PutSpeedInWorkingstep()</a>
+<li><a href=#PutToolDiameter>PutToolDiameter()</a>
+<li><a href=#PutToolLength>PutToolLength()</a>
+<li><a href=#PutToolRadius>PutToolRadius()</a>
+<li><a href=#PutToolUsage>PutToolUsage()</a>
+<li><a href=#ReadCrossSectionData>ReadCrossSectionData()</a>
+<li><a href=#SaveAsModules>SaveAsModules()</a>
+<li><a href=#SaveAsP21>SaveAsP21()</a>
+<li><a href=#TraceProcessingOff>TraceProcessingOff()</a>
+<li><a href=#TraceProcessingOn>TraceProcessingOn()</a>
+
+</ul>
+</div>
+<div class=main>
+
+<h2><a name=oview></a>Overview</h2>
+<p>
+The <b>Toolpath</b> class
+</p>
+
+
+<h2 class=rule><a name=CurrentToolpathName></a>CurrentToolpathName()</h2>
+<pre>
+System::String^ <b>CurrentToolpathName</b> ();
+</pre>
+
+<P>The <b>CurrentToolpathName()</b> function 
+
+
+<h2 class=rule><a name=CurrentWorkingstepName></a>CurrentWorkingstepName()</h2>
+<pre>
+System::String^ <b>CurrentWorkingstepName</b> ();
+</pre>
+
+<P>The <b>CurrentWorkingstepName()</b> function 
+
+
+<h2 class=rule><a name=CurrentWorkplanName></a>CurrentWorkplanName()</h2>
+<pre>
+System::String^ <b>CurrentWorkplanName</b> ();
+</pre>
+
+<P>The <b>CurrentWorkplanName()</b> function 
+
+
+<h2 class=rule><a name=FindTolerance></a>FindTolerance()</h2>
+<pre>
+void <b>FindTolerance</b> (
+	double value
+	);
+</pre>
+
+<P>The <b>FindTolerance()</b> function 
+
+
+<h2 class=rule><a name=FindToolpath></a>FindToolpath()</h2>
+<pre>
+System::Int64 <b>FindToolpath</b> (
+	System::String^ name
+	);
+</pre>
+
+<P>The <b>FindToolpath()</b> function 
+
+
+<h2 class=rule><a name=FindToolpathInWorkingstep></a>FindToolpathInWorkingstep()</h2>
+<pre>
+System::Int64 <b>FindToolpathInWorkingstep</b> (
+	System::String^ name
+	);
+</pre>
+
+<P>The <b>FindToolpathInWorkingstep()</b> function 
+
+
+<h2 class=rule><a name=FindToolpathInWorkplan></a>FindToolpathInWorkplan()</h2>
+<pre>
+System::Int64 <b>FindToolpathInWorkplan</b> (
+	System::String^ name
+	);
+</pre>
+
+<P>The <b>FindToolpathInWorkplan()</b> function 
+
+
+<h2 class=rule><a name=FindWorkingstep></a>FindWorkingstep()</h2>
+<pre>
+System::Int64 <b>FindWorkingstep</b> (
+	System::String^ name
+	);
+</pre>
+
+<P>The <b>FindWorkingstep()</b> function 
+
+
+<h2 class=rule><a name=FindWorkingstepInWorkplan></a>FindWorkingstepInWorkplan()</h2>
+<pre>
+System::Int64 <b>FindWorkingstepInWorkplan</b> (
+	System::String^ name
+	);
+</pre>
+
+<P>The <b>FindWorkingstepInWorkplan()</b> function 
+
+
+<h2 class=rule><a name=FindWorkplan></a>FindWorkplan()</h2>
+<pre>
+System::Int64 <b>FindWorkplan</b> (
+	System::String^ name
+	);
+</pre>
+
+<P>The <b>FindWorkplan()</b> function 
+
+
+<h2 class=rule><a name=FindXYZ></a>FindXYZ()</h2>
+<pre>
+System::Int64 <b>FindXYZ</b> (
+	double x,
+	double y,
+	double z,
+	System::Int64 limit,
+	[System::Runtime::InteropServices::Out] System::Int64 %visits
+	);
+</pre>
+
+<P>The <b>FindXYZ()</b> function 
+
+
+<h2 class=rule><a name=FindXYZInToolpath></a>FindXYZInToolpath()</h2>
+<pre>
+System::Int64 <b>FindXYZInToolpath</b> (
+	double x,
+	double y,
+	double z,
+	System::Int64 limit,
+	[System::Runtime::InteropServices::Out] System::Int64 %visits
+	);
+</pre>
+
+<P>The <b>FindXYZInToolpath()</b> function 
+
+
+<h2 class=rule><a name=FindXYZInWorkingstep></a>FindXYZInWorkingstep()</h2>
+<pre>
+System::Int64 <b>FindXYZInWorkingstep</b> (
+	double x,
+	double y,
+	double z,
+	System::Int64 limit,
+	[System::Runtime::InteropServices::Out] System::Int64 %visits
+	);
+</pre>
+
+<P>The <b>FindXYZInWorkingstep()</b> function 
+
+
+<h2 class=rule><a name=FindXYZInWorkplan></a>FindXYZInWorkplan()</h2>
+<pre>
+System::Int64 <b>FindXYZInWorkplan</b> (
+	double x,
+	double y,
+	double z,
+	System::Int64 limit,
+	[System::Runtime::InteropServices::Out] System::Int64 %visits
+	);
+</pre>
+
+<P>The <b>FindXYZInWorkplan()</b> function 
+
+
+<h2 class=rule><a name=GetArc></a>GetArc()</h2>
+<pre>
+System::Int64 <b>GetArc</b> (
+	[System::Runtime::InteropServices::Out] double %radius,
+	[System::Runtime::InteropServices::Out] double %cx,
+	[System::Runtime::InteropServices::Out] double %cy,
+	[System::Runtime::InteropServices::Out] double %cz,
+	[System::Runtime::InteropServices::Out] System::Int64 %ccw
+	);
+</pre>
+
+<P>The <b>GetArc()</b> function 
+
+
+<h2 class=rule><a name=GetAxialDepth></a>GetAxialDepth()</h2>
+<pre>
+double <b>GetAxialDepth</b> ();
+</pre>
+
+<P>The <b>GetAxialDepth()</b> function 
+
+
+<h2 class=rule><a name=GetAxialDepthOverride></a>GetAxialDepthOverride()</h2>
+<pre>
+double <b>GetAxialDepthOverride</b> ();
+</pre>
+
+<P>The <b>GetAxialDepthOverride()</b> function 
+
+
+<h2 class=rule><a name=GetAxialDepthUnit></a>GetAxialDepthUnit()</h2>
+<pre>
+System::String^ <b>GetAxialDepthUnit</b> ();
+</pre>
+
+<P>The <b>GetAxialDepthUnit()</b> function 
+
+
+<h2 class=rule><a name=GetCrossSectionParameters></a>GetCrossSectionParameters()</h2>
+<pre>
+System::String^ <b>GetCrossSectionParameters</b> (
+	[System::Runtime::InteropServices::Out] double %RC_max,
+	[System::Runtime::InteropServices::Out] double %AC_max,
+	[System::Runtime::InteropServices::Out] double %X_offset,
+	[System::Runtime::InteropServices::Out] double %Y_offset,
+	[System::Runtime::InteropServices::Out] double %RD_max,
+	[System::Runtime::InteropServices::Out] double %RD_avg,
+	[System::Runtime::InteropServices::Out] double %RD_offset
+	);
+</pre>
+
+<P>The <b>GetCrossSectionParameters()</b> function 
+
+
+<h2 class=rule><a name=GetFeed></a>GetFeed()</h2>
+<pre>
+double <b>GetFeed</b> ();
+</pre>
+
+<P>The <b>GetFeed()</b> function 
+
+
+<h2 class=rule><a name=GetFeedOverride></a>GetFeedOverride()</h2>
+<pre>
+double <b>GetFeedOverride</b> ();
+</pre>
+
+<P>The <b>GetFeedOverride()</b> function 
+
+
+<h2 class=rule><a name=GetFeedUnit></a>GetFeedUnit()</h2>
+<pre>
+System::String^ <b>GetFeedUnit</b> ();
+</pre>
+
+<P>The <b>GetFeedUnit()</b> function 
+
+
+<h2 class=rule><a name=GetHelix></a>GetHelix()</h2>
+<pre>
+System::Int64 <b>GetHelix</b> (
+	[System::Runtime::InteropServices::Out] double %depth,
+	[System::Runtime::InteropServices::Out] double %radius,
+	[System::Runtime::InteropServices::Out] double %cx,
+	[System::Runtime::InteropServices::Out] double %cy,
+	[System::Runtime::InteropServices::Out] double %cz,
+	[System::Runtime::InteropServices::Out] System::Int64 %ccw
+	);
+</pre>
+
+<P>The <b>GetHelix()</b> function 
+
+
+<h2 class=rule><a name=GetIJK></a>GetIJK()</h2>
+<pre>
+System::Int64 <b>GetIJK</b> (
+	double i,
+	double j,
+	double k
+	);
+</pre>
+
+<P>The <b>GetIJK()</b> function 
+
+
+<h2 class=rule><a name=GetRadialOvercut></a>GetRadialOvercut()</h2>
+<pre>
+double <b>GetRadialOvercut</b> ();
+</pre>
+
+<P>The <b>GetRadialOvercut()</b> function 
+
+
+<h2 class=rule><a name=GetRadialOvercutOverride></a>GetRadialOvercutOverride()</h2>
+<pre>
+double <b>GetRadialOvercutOverride</b> ();
+</pre>
+
+<P>The <b>GetRadialOvercutOverride()</b> function 
+
+
+<h2 class=rule><a name=GetRadialOvercutUnit></a>GetRadialOvercutUnit()</h2>
+<pre>
+System::String^ <b>GetRadialOvercutUnit</b> ();
+</pre>
+
+<P>The <b>GetRadialOvercutUnit()</b> function 
+
+
+<h2 class=rule><a name=GetSpeed></a>GetSpeed()</h2>
+<pre>
+double <b>GetSpeed</b> ();
+</pre>
+
+<P>The <b>GetSpeed()</b> function 
+
+
+<h2 class=rule><a name=GetSpeedUnit></a>GetSpeedUnit()</h2>
+<pre>
+System::String^ <b>GetSpeedUnit</b> ();
+</pre>
+
+<P>The <b>GetSpeedUnit()</b> function 
+
+
+<h2 class=rule><a name=GetToolDiameter></a>GetToolDiameter()</h2>
+<pre>
+double <b>GetToolDiameter</b> ();
+</pre>
+
+<P>The <b>GetToolDiameter()</b> function 
+
+
+<h2 class=rule><a name=GetToolDiameterUnit></a>GetToolDiameterUnit()</h2>
+<pre>
+System::String^ <b>GetToolDiameterUnit</b> ();
+</pre>
+
+<P>The <b>GetToolDiameterUnit()</b> function 
+
+
+<h2 class=rule><a name=GetToolLength></a>GetToolLength()</h2>
+<pre>
+double <b>GetToolLength</b> ();
+</pre>
+
+<P>The <b>GetToolLength()</b> function 
+
+
+<h2 class=rule><a name=GetToolLengthUnit></a>GetToolLengthUnit()</h2>
+<pre>
+System::String^ <b>GetToolLengthUnit</b> ();
+</pre>
+
+<P>The <b>GetToolLengthUnit()</b> function 
+
+
+<h2 class=rule><a name=GetToolNumber></a>GetToolNumber()</h2>
+<pre>
+System::String^ <b>GetToolNumber</b> ();
+</pre>
+
+<P>The <b>GetToolNumber()</b> function 
+
+
+<h2 class=rule><a name=GetToolRadius></a>GetToolRadius()</h2>
+<pre>
+double <b>GetToolRadius</b> ();
+</pre>
+
+<P>The <b>GetToolRadius()</b> function 
+
+
+<h2 class=rule><a name=GetToolRadiusUnit></a>GetToolRadiusUnit()</h2>
+<pre>
+System::String^ <b>GetToolRadiusUnit</b> ();
+</pre>
+
+<P>The <b>GetToolRadiusUnit()</b> function 
+
+
+<h2 class=rule><a name=GetToolUsage></a>GetToolUsage()</h2>
+<pre>
+System::String^ <b>GetToolUsage</b> ();
+</pre>
+
+<P>The <b>GetToolUsage()</b> function 
+
+
+<h2 class=rule><a name=GetXYZ></a>GetXYZ()</h2>
+<pre>
+System::Int64 <b>GetXYZ</b> (
+	[System::Runtime::InteropServices::Out] double %x,
+	[System::Runtime::InteropServices::Out] double %y,
+	[System::Runtime::InteropServices::Out] double %z
+	);
+</pre>
+
+<P>The <b>GetXYZ()</b> function 
+
+
+<h2 class=rule><a name=GetXYZUnit></a>GetXYZUnit()</h2>
+<pre>
+System::String^ <b>GetXYZUnit</b> ();
+</pre>
+
+<P>The <b>GetXYZUnit()</b> function 
+
+
+<h2 class=rule><a name=IsArc></a>IsArc()</h2>
+<pre>
+System::Int64 <b>IsArc</b> ();
+</pre>
+
+<P>The <b>IsArc()</b> function 
+
+
+<h2 class=rule><a name=IsCenter></a>IsCenter()</h2>
+<pre>
+System::Int64 <b>IsCenter</b> ();
+</pre>
+
+<P>The <b>IsCenter()</b> function 
+
+
+<h2 class=rule><a name=IsContact></a>IsContact()</h2>
+<pre>
+System::Int64 <b>IsContact</b> ();
+</pre>
+
+<P>The <b>IsContact()</b> function 
+
+
+<h2 class=rule><a name=IsFullCircle></a>IsFullCircle()</h2>
+<pre>
+System::Int64 <b>IsFullCircle</b> ();
+</pre>
+
+<P>The <b>IsFullCircle()</b> function 
+
+
+<h2 class=rule><a name=IsFullHelix></a>IsFullHelix()</h2>
+<pre>
+System::Int64 <b>IsFullHelix</b> ();
+</pre>
+
+<P>The <b>IsFullHelix()</b> function 
+
+
+<h2 class=rule><a name=IsHelix></a>IsHelix()</h2>
+<pre>
+System::Int64 <b>IsHelix</b> ();
+</pre>
+
+<P>The <b>IsHelix()</b> function 
+
+
+<h2 class=rule><a name=IsLine></a>IsLine()</h2>
+<pre>
+System::Int64 <b>IsLine</b> ();
+</pre>
+
+<P>The <b>IsLine()</b> function 
+
+
+<h2 class=rule><a name=IsRapid></a>IsRapid()</h2>
+<pre>
+System::Int64 <b>IsRapid</b> ();
+</pre>
+
+<P>The <b>IsRapid()</b> function 
+
+
+<h2 class=rule><a name=Main></a>Main()</h2>
+<pre>
+void <b>Main</b> ();
+</pre>
+
+<P>The <b>Main()</b> function 
+
+
+<h2 class=rule><a name=NextPoint></a>NextPoint()</h2>
+<pre>
+System::Int64 <b>NextPoint</b> ();
+</pre>
+
+<P>The <b>NextPoint()</b> function 
+
+
+<h2 class=rule><a name=NextPointInToolpath></a>NextPointInToolpath()</h2>
+<pre>
+System::Int64 <b>NextPointInToolpath</b> ();
+</pre>
+
+<P>The <b>NextPointInToolpath()</b> function 
+
+
+<h2 class=rule><a name=NextPointInWorkingstep></a>NextPointInWorkingstep()</h2>
+<pre>
+System::Int64 <b>NextPointInWorkingstep</b> ();
+</pre>
+
+<P>The <b>NextPointInWorkingstep()</b> function 
+
+
+<h2 class=rule><a name=NextPointInWorkplan></a>NextPointInWorkplan()</h2>
+<pre>
+System::Int64 <b>NextPointInWorkplan</b> ();
+</pre>
+
+<P>The <b>NextPointInWorkplan()</b> function 
+
+
+<h2 class=rule><a name=NextToolpath></a>NextToolpath()</h2>
+<pre>
+System::Int64 <b>NextToolpath</b> ();
+</pre>
+
+<P>The <b>NextToolpath()</b> function 
+
+
+<h2 class=rule><a name=NextToolpathInWorkingstep></a>NextToolpathInWorkingstep()</h2>
+<pre>
+System::Int64 <b>NextToolpathInWorkingstep</b> ();
+</pre>
+
+<P>The <b>NextToolpathInWorkingstep()</b> function 
+
+
+<h2 class=rule><a name=NextWorkingstep></a>NextWorkingstep()</h2>
+<pre>
+System::Int64 <b>NextWorkingstep</b> ();
+</pre>
+
+<P>The <b>NextWorkingstep()</b> function 
+
+
+<h2 class=rule><a name=NextWorkingstepInWorkplan></a>NextWorkingstepInWorkplan()</h2>
+<pre>
+System::Int64 <b>NextWorkingstepInWorkplan</b> ();
+</pre>
+
+<P>The <b>NextWorkingstepInWorkplan()</b> function 
+
+
+<h2 class=rule><a name=Open238></a>Open238()</h2>
+<pre>
+System::Int64 <b>Open238</b> (
+	System::String^ file
+	);
+</pre>
+
+<P>The <b>Open238()</b> function 
+
+
+<h2 class=rule><a name=OpenInMemory></a>OpenInMemory()</h2>
+<pre>
+System::Int64 <b>OpenInMemory</b> (
+	System::String^ file
+	);
+</pre>
+
+<P>The <b>OpenInMemory()</b> function 
+
+
+<h2 class=rule><a name=OptimizeFeedsUsingCrossSectionParameters></a>OptimizeFeedsUsingCrossSectionParameters()</h2>
+<pre>
+System::Int64 <b>OptimizeFeedsUsingCrossSectionParameters</b> (
+	System::Int64 exe_id,
+	double max_feed,
+	System::Int64 set_override
+	);
+</pre>
+
+<P>The <b>OptimizeFeedsUsingCrossSectionParameters()</b> function 
+
+
+<h2 class=rule><a name=PlacementsIgnore></a>PlacementsIgnore()</h2>
+<pre>
+void <b>PlacementsIgnore</b> ();
+</pre>
+
+<P>The <b>PlacementsIgnore()</b> function 
+
+
+<h2 class=rule><a name=PlacementsUse></a>PlacementsUse()</h2>
+<pre>
+void <b>PlacementsUse</b> ();
+</pre>
+
+<P>The <b>PlacementsUse()</b> function 
+
+
+<h2 class=rule><a name=PutAxialDepth></a>PutAxialDepth()</h2>
+<pre>
+System::Int64 <b>PutAxialDepth</b> (
+	double new_depth
+	);
+</pre>
+
+<P>The <b>PutAxialDepth()</b> function 
+
+
+<h2 class=rule><a name=PutAxialDepthOverride></a>PutAxialDepthOverride()</h2>
+<pre>
+System::Int64 <b>PutAxialDepthOverride</b> (
+	double override
+	);
+</pre>
+
+<P>The <b>PutAxialDepthOverride()</b> function 
+
+
+<h2 class=rule><a name=PutCrossSectionParameters></a>PutCrossSectionParameters()</h2>
+<pre>
+System::Int64 <b>PutCrossSectionParameters</b> (
+	double RC_max,
+	double AC_max,
+	double X_offset,
+	double Y_offset,
+	double RD_max,
+	double RD_avg,
+	double RD_offset
+	);
+</pre>
+
+<P>The <b>PutCrossSectionParameters()</b> function 
+
+
+<h2 class=rule><a name=PutCrossSectionParametersAirMilling></a>PutCrossSectionParametersAirMilling()</h2>
+<pre>
+System::Int64 <b>PutCrossSectionParametersAirMilling</b> ();
+</pre>
+
+<P>The <b>PutCrossSectionParametersAirMilling()</b> function 
+
+
+<h2 class=rule><a name=PutCrossSectionParametersExceedsLimits></a>PutCrossSectionParametersExceedsLimits()</h2>
+<pre>
+System::Int64 <b>PutCrossSectionParametersExceedsLimits</b> ();
+</pre>
+
+<P>The <b>PutCrossSectionParametersExceedsLimits()</b> function 
+
+
+<h2 class=rule><a name=PutFeed></a>PutFeed()</h2>
+<pre>
+System::Int64 <b>PutFeed</b> (
+	double new_feed
+	);
+</pre>
+
+<P>The <b>PutFeed()</b> function 
+
+
+<h2 class=rule><a name=PutFeedInProject></a>PutFeedInProject()</h2>
+<pre>
+System::Int64 <b>PutFeedInProject</b> (
+	double new_feed
+	);
+</pre>
+
+<P>The <b>PutFeedInProject()</b> function 
+
+
+<h2 class=rule><a name=PutFeedInWorkingstep></a>PutFeedInWorkingstep()</h2>
+<pre>
+System::Int64 <b>PutFeedInWorkingstep</b> (
+	double new_feed
+	);
+</pre>
+
+<P>The <b>PutFeedInWorkingstep()</b> function 
+
+
+<h2 class=rule><a name=PutFeedOverride></a>PutFeedOverride()</h2>
+<pre>
+System::Int64 <b>PutFeedOverride</b> (
+	double override
+	);
+</pre>
+
+<P>The <b>PutFeedOverride()</b> function 
+
+
+<h2 class=rule><a name=PutRadialOvercut></a>PutRadialOvercut()</h2>
+<pre>
+System::Int64 <b>PutRadialOvercut</b> (
+	double new_overcut
+	);
+</pre>
+
+<P>The <b>PutRadialOvercut()</b> function 
+
+
+<h2 class=rule><a name=PutRadialOvercutOverride></a>PutRadialOvercutOverride()</h2>
+<pre>
+System::Int64 <b>PutRadialOvercutOverride</b> (
+	double override
+	);
+</pre>
+
+<P>The <b>PutRadialOvercutOverride()</b> function 
+
+
+<h2 class=rule><a name=PutSpeed></a>PutSpeed()</h2>
+<pre>
+System::Int64 <b>PutSpeed</b> (
+	double new_speed
+	);
+</pre>
+
+<P>The <b>PutSpeed()</b> function 
+
+
+<h2 class=rule><a name=PutSpeedInProject></a>PutSpeedInProject()</h2>
+<pre>
+System::Int64 <b>PutSpeedInProject</b> (
+	double new_speed
+	);
+</pre>
+
+<P>The <b>PutSpeedInProject()</b> function 
+
+
+<h2 class=rule><a name=PutSpeedInWorkingstep></a>PutSpeedInWorkingstep()</h2>
+<pre>
+System::Int64 <b>PutSpeedInWorkingstep</b> (
+	double new_speed
+	);
+</pre>
+
+<P>The <b>PutSpeedInWorkingstep()</b> function 
+
+
+<h2 class=rule><a name=PutToolDiameter></a>PutToolDiameter()</h2>
+<pre>
+System::Int64 <b>PutToolDiameter</b> (
+	double diameter
+	);
+</pre>
+
+<P>The <b>PutToolDiameter()</b> function 
+
+
+<h2 class=rule><a name=PutToolLength></a>PutToolLength()</h2>
+<pre>
+System::Int64 <b>PutToolLength</b> (
+	double length
+	);
+</pre>
+
+<P>The <b>PutToolLength()</b> function 
+
+
+<h2 class=rule><a name=PutToolRadius></a>PutToolRadius()</h2>
+<pre>
+System::Int64 <b>PutToolRadius</b> (
+	double radius
+	);
+</pre>
+
+<P>The <b>PutToolRadius()</b> function 
+
+
+<h2 class=rule><a name=PutToolUsage></a>PutToolUsage()</h2>
+<pre>
+System::Int64 <b>PutToolUsage</b> (
+	System::String^ usage
+	);
+</pre>
+
+<P>The <b>PutToolUsage()</b> function 
+
+
+<h2 class=rule><a name=ReadCrossSectionData></a>ReadCrossSectionData()</h2>
+<pre>
+System::Int64 <b>ReadCrossSectionData</b> (
+	System::String^ file_name,
+	System::Int64 exe_id
+	);
+</pre>
+
+<P>The <b>ReadCrossSectionData()</b> function 
+
+
+<h2 class=rule><a name=SaveAsModules></a>SaveAsModules()</h2>
+<pre>
+System::Int64 <b>SaveAsModules</b> (
+	System::String^ file_name
+	);
+</pre>
+
+<P>The <b>SaveAsModules()</b> function 
+
+
+<h2 class=rule><a name=SaveAsP21></a>SaveAsP21()</h2>
+<pre>
+System::Int64 <b>SaveAsP21</b> (
+	System::String^ file_name
+	);
+</pre>
+
+<P>The <b>SaveAsP21()</b> function 
+
+
+<h2 class=rule><a name=TraceProcessingOff></a>TraceProcessingOff()</h2>
+<pre>
+void <b>TraceProcessingOff</b> ();
+</pre>
+
+<P>The <b>TraceProcessingOff()</b> function 
+
+
+<h2 class=rule><a name=TraceProcessingOn></a>TraceProcessingOn()</h2>
+<pre>
+void <b>TraceProcessingOn</b> ();
+</pre>
+
+<P>The <b>TraceProcessingOn()</b> function 
+
+
+</div>
+
+<div class="copyright">
+  Copyright &copy; 2016 STEP Tools Inc. All Rights Reserved.<br>
+</div>
+</BODY>
+</HTML>
