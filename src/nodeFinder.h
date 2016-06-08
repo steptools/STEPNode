@@ -85,9 +85,6 @@ public:
     //string GetProjectName();
     static NAN_METHOD(GetProjectName);
 
-    //bool IsEnabled (int exe_id);
-    static NAN_METHOD(IsEnabled);
-
     //bool IsSelective(long exe_id);
     static NAN_METHOD(IsSelective);
 
