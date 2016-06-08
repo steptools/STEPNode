@@ -64,8 +64,14 @@ public:
     // string GetExecutableType(int exe_id)
     static NAN_METHOD(GetExecutableType);
 
+    // int GetExecutableWorkpieceAsIs(int exe_id)
+    static NAN_METHOD(GetExecutableWorkpieceAsIs);
+
     // int GetExecutableWorkpieceRemoval(int exe_id)
     static NAN_METHOD(GetExecutableWorkpieceRemoval);
+
+    // int GetExecutableWorkpieceRemovalLocal(int exe_id)
+    static NAN_METHOD(GetExecutableWorkpieceRemovalLocal);
 
     //int GetMainWorkplan();
     static NAN_METHOD(GetMainWorkplan);
@@ -82,6 +88,12 @@ public:
     //long GetFeatureID(long ws_id);
     static NAN_METHOD(GetFeatureID);
 
+    //int GetNestedExecutableCount (int exe_id);
+    static NAN_METHOD(GetNestedExecutableCount);
+
+    //int GetNestedExecutableNext (int wp_id, int index);
+    static NAN_METHOD(GetNestedExecutableNext);
+
     //double GetProcessFeed (int ws_id);
     static NAN_METHOD(GetProcessFeed);
 
@@ -90,6 +102,12 @@ public:
 
     //string GetProjectName();
     static NAN_METHOD(GetProjectName);
+
+    //string GetWorkplanName();
+    static NAN_METHOD(GetWorkplanName);
+
+    //int GetWorkplanSize();
+    static NAN_METHOD(GetWorkplanSize);
 
     //int GetSelectiveExecutableCount( int sl_id)
     static NAN_METHOD(GetSelectiveExecutableCount);
