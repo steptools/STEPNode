@@ -52,8 +52,11 @@ public:
     //System::int64 GetCompoundFeatureCount(system::int64 compound_id)'
     static NAN_METHOD(GetCompoundFeatureCount);
 
-    // double GetExecutableDistance(System::Int64 exe_id)
+    // double GetExecutableDistance(long exe_id)
     static NAN_METHOD(GetExecutableDistance);
+
+	// string GetExecutableDistanceUnit(long exe_id)
+	static NAN_METHOD(GetExecutableDistanceUnit);
 
     //int GetMainWorkplan();
     static NAN_METHOD(GetMainWorkplan);
