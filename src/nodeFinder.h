@@ -67,6 +67,9 @@ public:
     // int GetExecutableWorkpieceRemoval(int exe_id)
     static NAN_METHOD(GetExecutableWorkpieceRemoval);
 
+    // int GetExecutableWorkpieceRemovalLocal(int exe_id)
+    static NAN_METHOD(GetExecutableWorkpieceRemovalLocal);
+
     //int GetMainWorkplan();
     static NAN_METHOD(GetMainWorkplan);
 
