@@ -63,6 +63,8 @@ NAN_MODULE_INIT(Finder::Init)
 	Nan::SetPrototypeMethod(tpl, "GetFeatureName", GetFeatureName);
 	Nan::SetPrototypeMethod(tpl, "GetFeatureOutsideProfileClosedCircular", GetFeatureOutsideProfileClosedCircular);
 	Nan::SetPrototypeMethod(tpl, "GetMainWorkplan", GetMainWorkplan);
+	Nan::SetPrototypeMethod(tpl, "GetNestedExecutableCount", GetNestedExecutableCount);
+	Nan::SetPrototypeMethod(tpl, "GetNestedExecutableNext", GetNestedExecutableNext);
 	Nan::SetPrototypeMethod(tpl, "GetProcessFeed", GetProcessFeed);
 	Nan::SetPrototypeMethod(tpl, "GetProcessFeedUnit", GetProcessFeedUnit);
 	Nan::SetPrototypeMethod(tpl, "GetProjectName", GetProjectName);
@@ -494,6 +496,43 @@ NAN_METHOD(Finder::GetMainWorkplan) {
     if (!find->_find->main(rtn, sz))
 	    return;//Error in c++ code
     info.GetReturnValue().Set(rtn);
+    return;
+}
+
+NAN_METHOD(Finder::GetNestedExecutableCount)
+{
+    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (find == 0) //Throw Exception
+	return;
+    if (info.Length() != 1) //This function should get one argument.
+	return;
+    if (!info[0]->IsInt32())
+	return;
+    Nan::Maybe<int32_t> exe_id = Nan::To<int32_t>(info[0]);
+    int count = 0;
+    if (!find->_find->nested_executable_count(exe_id.FromJust(), count)) //TODO: Handle error
+	return;
+    info.GetReturnValue().Set(count);
+    return;
+}
+
+NAN_METHOD(Finder::GetNestedExecutableNext)
+{
+    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (find == 0)  //Throw Exception
+	return;
+    if (info.Length() != 2) //This function should get two arguments.
+	return;
+    if (!info[0]->IsInt32())
+	return;
+    if (!info[1]->IsInt32())
+	return;
+    Nan::Maybe<int32_t> wp_id = Nan::To<int32_t>(info[0]);
+    Nan::Maybe<int32_t> index = Nan::To<int32_t>(info[1]);
+    int exe_id = 0;
+    if (!find->_find->nested_executable_next(wp_id.FromJust(), index.FromJust(), exe_id))
+	return;
+    info.GetReturnValue().Set(exe_id);
     return;
 }
 
