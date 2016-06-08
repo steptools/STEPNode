@@ -88,6 +88,9 @@ public:
     //string GetProjectName();
     static NAN_METHOD(GetProjectName);
 
+    //string GetWorkplanName();
+    static NAN_METHOD(GetWorkplanName);
+
     //bool IsEnabled(int exe_id);
     static NAN_METHOD(IsEnabled);
 

@@ -63,6 +63,7 @@ NAN_MODULE_INIT(Finder::Init)
 	Nan::SetPrototypeMethod(tpl, "GetProcessFeed", GetProcessFeed);
 	Nan::SetPrototypeMethod(tpl, "GetProcessFeedUnit", GetProcessFeedUnit);
 	Nan::SetPrototypeMethod(tpl, "GetProjectName", GetProjectName);
+	Nan::SetPrototypeMethod(tpl, "GetWorkplanName", GetWorkplanName);
 	Nan::SetPrototypeMethod(tpl, "IsEnabled", IsEnabled);
 	Nan::SetPrototypeMethod(tpl, "IsSelective", IsSelective);
 	Nan::SetPrototypeMethod(tpl, "IsWorkingstep", IsWorkingstep);
@@ -465,6 +466,21 @@ NAN_METHOD(Finder::GetProjectName) {
 	return; //Throw Error
     }
     info.GetReturnValue().Set(CharTov8String((char *)prj_name));
+}
+
+NAN_METHOD(Finder::GetWorkplanName) {
+    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (find == 0) //Throw Exception
+	return;
+    if (info.Length() != 1) //Throw Exception
+	return;
+    
+    const char  * wp_name = "";
+    int nSize;
+    Nan::Maybe<int32_t> wp_id = Nan::To<int32_t>(info[0]);
+    if (!find->_find->workplan(wp_id.FromJust(), nSize, (const char*&)wp_name)) //Throw Exception
+	return;
+    info.GetReturnValue().Set(CharTov8String((char *)wp_name));
 }
 
 NAN_METHOD(Finder::IsEnabled)
