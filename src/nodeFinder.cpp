@@ -173,7 +173,7 @@ NAN_METHOD(Finder::GetCompoundFeatureCount) {
     double y;
     double z;
 
-    if (!find->_find->first_feature_in_compound(info[0]->Int32Value(), feature_id, size, x, y, z)) {
+    if (!find->_find->first_feature_in_compound(Nan::To<int32_t>(info[0]).FromJust(), feature_id, size, x, y, z)) {
 	return; //throw Error
     }
 
@@ -270,7 +270,7 @@ NAN_METHOD(Finder::GetFaceEdgeCount)
 
     int count = 0;
     double dummy1, dummy2, dummy3;
-    if (!find->_find->first_face_edge_point(info[0]->Int32Value(), count, dummy1, dummy2, dummy3))
+    if (!find->_find->first_face_edge_point(Nan::To<int32_t>(info[0]).FromJust(), count, dummy1, dummy2, dummy3))
 	return;
 
     info.GetReturnValue().Set(count);
@@ -407,7 +407,7 @@ NAN_METHOD(Finder::GetProcessFeed) {
 	return;
     double feed = 0.0;
     double dummy;
-    int ws_id = info[0]->Int32Value();
+    int ws_id = Nan::To<int32_t>(info[0]).FromJust();
     if (!find->_find->feed_speed(ws_id, feed, dummy)) //Throw Exception
 	return;
     info.GetReturnValue().Set(feed);
@@ -423,7 +423,7 @@ NAN_METHOD(Finder::GetProcessFeedUnit) {
 	return;
     const char* unit = "";
     const char* dummy = "";
-    int ws_id = info[0]->Int32Value();
+    int ws_id = Nan::To<int32_t>(info[0]).FromJust();
     if (!find->_find->feed_speed_unit(ws_id, (const char*&)unit, (const char*&)dummy)) //Throw Exception
 	return;
     info.GetReturnValue().Set(CharTov8String((char *)unit));
@@ -460,7 +460,7 @@ NAN_METHOD(Finder::IsSelective)
 
     int flag = 0;
 
-    if (!find->_find->is_selective(info[0]->Int32Value(), flag)) //Throw Exception
+    if (!find->_find->is_selective(Nan::To<int32_t>(info[0]).FromJust(), flag)) //Throw Exception
 	return;
 
     info.GetReturnValue().Set((flag != 0));
@@ -481,7 +481,7 @@ NAN_METHOD(Finder::IsWorkingstep)
 
     int flag = 0;
 
-    if (!find->_find->is_workingstep(info[0]->Int32Value(), flag)) //Throw Exception
+    if (!find->_find->is_workingstep(Nan::To<int32_t>(info[0]).FromJust(), flag)) //Throw Exception
 	return;
 
     info.GetReturnValue().Set((flag != 0));
@@ -502,7 +502,7 @@ NAN_METHOD(Finder::IsWorkplan)
 
     int flag = 0;
 
-    if (!find->_find->is_workplan(info[0]->Int32Value(), flag)) //Throw Exception
+    if (!find->_find->is_workplan(Nan::To<int32_t>(info[0]).FromJust(), flag)) //Throw Exception
 	return;
 
     info.GetReturnValue().Set((flag != 0));
