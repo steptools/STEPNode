@@ -3733,9 +3733,20 @@ the <a href="#NewProject">NewProject</a> function.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetToolNumber></a>GetToolNumber()</h2>
-<pre>
+<pre class="dotnet">
 System::String^ <b>GetToolNumber</b> (
 	System::Int64 ws_or_tl_id
+	);
+</pre>
+<pre class="nodejs">
+string <b>GetToolNumber</b> (
+	int id
+	);
+</pre>
+<pre class="cpp">
+RoseBoolean <b>get_tool_number</b> (
+	int ws_id,
+	const char * &tool_number
 	);
 </pre>
 
