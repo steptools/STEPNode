@@ -58,6 +58,8 @@ NAN_MODULE_INIT(Finder::Init)
 	Nan::SetPrototypeMethod(tpl, "GetExecutableWorkpieceAsIsLocal", GetExecutableWorkpieceAsIsLocal);
 	Nan::SetPrototypeMethod(tpl, "GetExecutableWorkpieceRemoval", GetExecutableWorkpieceRemoval);
 	Nan::SetPrototypeMethod(tpl, "GetExecutableWorkpieceRemovalLocal", GetExecutableWorkpieceRemovalLocal);
+	Nan::SetPrototypeMethod(tpl, "GetExecutableWorkpieceToBe", GetExecutableWorkpieceToBe);
+	Nan::SetPrototypeMethod(tpl, "GetExecutableWorkpieceToBeLocal", GetExecutableWorkpieceToBeLocal);
 	Nan::SetPrototypeMethod(tpl, "GetFaceEdgeCount", GetFaceEdgeCount);
 	Nan::SetPrototypeMethod(tpl, "GetFaceEdgeNextPoint", GetFaceEdgeCount);
 	Nan::SetPrototypeMethod(tpl, "GetFeatureID", GetFeatureID);
@@ -387,6 +389,50 @@ NAN_METHOD(Finder::GetExecutableWorkpieceRemovalLocal)
 
     info.GetReturnValue().Set(wp_id);
 
+    return;
+}
+
+NAN_METHOD(Finder::GetExecutableWorkpieceToBe) {
+    Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (find == 0) // Throw exception
+	return;
+
+    if (info.Length() != 1) // incorrect number of arguments
+	return;
+
+
+    if (!info[0]->IsInt32())// invalid argument
+	return;
+
+    Nan::Maybe<int32_t> exe_id = Nan::To<int32_t>(info[0]);
+    int wp_id = 0;
+
+    if (!find->_find->executable_to_be_workpiece(exe_id.FromJust(), wp_id))// error in cpp
+	return;
+
+    info.GetReturnValue().Set(wp_id);
+    return;
+}
+
+NAN_METHOD(Finder::GetExecutableWorkpieceToBeLocal) {
+    Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (find == 0) // Throw exception
+	return;
+
+    if (info.Length() != 1) // incorrect number of arguments
+	return;
+
+
+    if (!info[0]->IsInt32())// invalid argument
+	return;
+
+    Nan::Maybe<int32_t> exe_id = Nan::To<int32_t>(info[0]);
+    int wp_id = 0;
+
+    if (!find->_find->local_executable_to_be_workpiece(exe_id.FromJust(), wp_id))// error in cpp
+	return;
+
+    info.GetReturnValue().Set(wp_id);
     return;
 }
 
