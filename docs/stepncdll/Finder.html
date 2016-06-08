@@ -1706,7 +1706,14 @@ System::Int64 <b>GetFaceEdgeCount</b> (
 </pre>
 
     <pre class="nodejs">
-int <b>GetFaceEdgeCount</b> (
+{
+    "ret_x1":double,
+    "ret_y1":double,
+    "ret_z1":double,
+    "ret_x2":double,
+    "ret_y2":double,
+    "ret_z2":double
+} <b>GetFaceEdgeCount</b> (
 	int face_id
 	);
 </pre>
@@ -11797,9 +11804,22 @@ workplan that leads to all other executables.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=IsWorkplan></a>IsWorkplan()</h2>
-<pre>
+    <pre class="dotnet">
 System::Boolean <b>IsWorkplan</b> (
 	System::Int64 exe_id
+	);
+</pre>
+
+    <pre class="nodejs">
+Boolean <b>IsWorkplan</b> (
+	int exe_id
+	);
+</pre>
+
+    <pre class="cpp">
+RoseBoolean <b>is_workplan</b> (
+	int exe_id,
+	int &flag
 	);
 </pre>
 
