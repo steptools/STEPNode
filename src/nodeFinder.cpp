@@ -415,6 +415,26 @@ NAN_METHOD(Finder::GetNestedExecutableCount)
     return;
 }
 
+NAN_METHOD(Finder::GetNestedExecutableNext)
+{
+    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (find == 0)  //Throw Exception
+	return;
+    if (info.Length() != 2) //This function should get two arguments.
+	return;
+    if (!info[0]->IsInt32())
+	return;
+    if (!info[1]->IsInt32())
+	return;
+    Nan::Maybe<int32_t> wp_id = Nan::To<int32_t>(info[0]);
+    Nan::Maybe<int32_t> index = Nan::To<int32_t>(info[1]);
+    int exe_id = 0;
+    if (!find->_find->nested_executable_next(wp_id.FromJust(), index.FromJust(), exe_id))
+	return;
+    info.GetReturnValue().Set(exe_id);
+    return;
+}
+
 NAN_METHOD(Finder::GetProcessFeed) {
     Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
     if (info.Length() != 1) //Throw Exception
