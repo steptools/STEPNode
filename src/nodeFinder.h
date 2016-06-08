@@ -112,6 +112,9 @@ public:
     //int GetWorkplanSize();
     static NAN_METHOD(GetWorkplanSize);
 
+    //int[] GetSelectiveExecutableAll( int wp_id)
+    static NAN_METHOD(GetSelectiveExecutableAll);
+
     //int GetSelectiveExecutableCount( int sl_id)
     static NAN_METHOD(GetSelectiveExecutableCount);
     
