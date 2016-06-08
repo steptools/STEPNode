@@ -7728,14 +7728,28 @@ int <b>GetSelectiveExecutableCount</b> (
 <pre class = "cpp">
 RoseBoolean <b>selective_executable_count</b>(
 	int sl_id,
-	int count
+	int &size
 	);
 </pre>
-<pre>
+<pre class = "dotnet">
 System::Int64 <b>GetSelectiveExecutableNext</b> (
 	System::Int64 sl_id,
 	System::Int64 index
 	);
+</pre>
+<pre clas = "nodejs">
+int <b>GetSelectiveExecutableNext</b> (
+  int sl_id;
+  int index;
+  );
+</pre>
+<pre class = "cpp">
+RoseBoolean <b>selective_executable_next</b> (
+  int sl_id,
+  int index,
+  int &exe_id
+  );
+</pre>
 
 System::Collections::Generic::List<System::Int64>^ <b>GetSelectiveExecutableAll</b> (
 	System::Int64 wp_id
