@@ -1706,14 +1706,7 @@ System::Int64 <b>GetFaceEdgeCount</b> (
 </pre>
 
     <pre class="nodejs">
-{
-    "ret_x1":double,
-    "ret_y1":double,
-    "ret_z1":double,
-    "ret_x2":double,
-    "ret_y2":double,
-    "ret_z2":double
-} <b>GetFaceEdgeCount</b> (
+int <b>GetFaceEdgeCount</b> (
 	int face_id
 	);
 </pre>
@@ -1748,15 +1741,16 @@ void <b>GetFaceEdgeNextPoint</b> (
 </pre>
 
     <pre class="nodejs">
-void <b>GetFaceEdgeNextPoint</b> (
+{
+    "ret_x1":double,
+    "ret_y1":double,
+    "ret_z1":double,
+    "ret_x2":double,
+    "ret_y2":double,
+    "ret_z2":double
+} <b>GetFaceEdgeNextPoint</b> (
 	int face_id,
-	int index,
-	double %x1,
-	double %y1,
-	double %z1,
-	double %x2,
-	double %y2,
-	double %z2
+	int index
 	);
 </pre>
 
