@@ -458,11 +458,7 @@ NAN_METHOD(Finder::IsEnabled)
 
     int flag = 0;
 
-<<<<<<< HEAD
     if (!find->_find->is_enabled(info[0]->Int32Value(), flag)) //Throw Exception
-=======
-    if (!find->_find->is_enabled((int)info[0]->Int32Value(), flag)) //Throw Exception
->>>>>>> refs/remotes/origin/master
 	return;
     info.GetReturnValue().Set((flag != 0));
 }
