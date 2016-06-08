@@ -109,6 +109,12 @@ public:
     //string GetWorkplanName();
     static NAN_METHOD(GetWorkplanName);
 
+    //int GetWorkplanProcessFeatureCount();
+    static NAN_METHOD(GetWorkplanProcessFeatureCount);
+
+    //int GetWorkplanProcessFeatureNext();
+    static NAN_METHOD(GetWorkplanProcessFeatureNext);
+
     //int GetWorkplanSize();
     static NAN_METHOD(GetWorkplanSize);
 
