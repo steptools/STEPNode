@@ -44,7 +44,7 @@ NAN_MODULE_INIT(Finder::Init)
 	v8::Local<v8::FunctionTemplate> tpl = Nan::New<v8::FunctionTemplate>(New);
 	tpl->SetClassName(Nan::New("Finder").ToLocalChecked());
 	tpl->InstanceTemplate()->SetInternalFieldCount(1);
-	Nan::SetPrototypeMethod(tpl, "APIUnitsInches", APIUnitsInches);
+	Nan::SetPrototypeMethod(tpl, "APIUnitsInch", APIUnitsInch);
 	Nan::SetPrototypeMethod(tpl, "APIUnitsMM", APIUnitsMM);
 	Nan::SetPrototypeMethod(tpl, "APIUnitsNative", APIUnitsNative);
 	Nan::SetPrototypeMethod(tpl, "APIUnitsFeed", APIUnitsFeed);
@@ -61,6 +61,7 @@ NAN_MODULE_INIT(Finder::Init)
 	Nan::SetPrototypeMethod(tpl, "GetMainWorkplan", GetMainWorkplan);
 	Nan::SetPrototypeMethod(tpl, "GetProcessFeed", GetProcessFeed);
 	Nan::SetPrototypeMethod(tpl, "GetProcessFeedUnit", GetProcessFeedUnit);
+	Nan::SetPrototypeMethod(tpl, "GetProjectName", GetProjectName);
 	Nan::SetPrototypeMethod(tpl, "IsSelective", IsSelective);
 	Nan::SetPrototypeMethod(tpl, "OpenProject", OpenProject);
 	Nan::SetPrototypeMethod(tpl, "SaveAsModules", SaveAsModules);
@@ -85,7 +86,7 @@ NAN_METHOD(Finder::APIUnitsFeed) {
 	return;
     delete[] b;
 }
-NAN_METHOD(Finder::APIUnitsInches) {
+NAN_METHOD(Finder::APIUnitsInch) {
 
     Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
     if (find == 0) {
@@ -424,6 +425,23 @@ NAN_METHOD(Finder::GetProcessFeedUnit) {
     if (!find->_find->feed_speed_unit(ws_id, (const char*&)unit, (const char*&)dummy)) //Throw Exception
 	return;
     info.GetReturnValue().Set(CharTov8String((char *)unit));
+}
+
+NAN_METHOD(Finder::GetProjectName) {
+    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (find == 0) {
+	return; //throw exception
+    }
+    if (info[0]->IsUndefined()) {
+	return; //throw exception
+    }
+    const char * prj_name = 0;
+    const char * szWP;
+
+    if (!(find->_find->project(prj_name, szWP))) {
+	return; //Throw Error
+    }
+    info.GetReturnValue().Set(CharTov8String((char *)prj_name));
 }
 
 NAN_METHOD(Finder::IsSelective)
