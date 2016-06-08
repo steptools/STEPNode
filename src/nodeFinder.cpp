@@ -50,10 +50,12 @@ NAN_MODULE_INIT(Finder::Init)
 	Nan::SetPrototypeMethod(tpl, "APIUnitsFeed", APIUnitsFeed);
 	Nan::SetPrototypeMethod(tpl, "APIUnitsSpeed", APIUnitsSpeed);
 	Nan::SetPrototypeMethod(tpl, "GetCompoundFeatureCount", GetCompoundFeatureCount);
+	Nan::SetPrototypeMethod(tpl, "GetExecutableDistance", GetExecutableDistance);
 	Nan::SetPrototypeMethod(tpl, "GetFaceEdgeCount", GetFaceEdgeCount);
 	Nan::SetPrototypeMethod(tpl, "GetFaceEdgeNextPoint", GetFaceEdgeCount);
 	Nan::SetPrototypeMethod(tpl, "GetFeatureID", GetFeatureID);
 	Nan::SetPrototypeMethod(tpl, "GetFeatureName", GetFeatureName);
+	Nan::SetPrototypeMethod(tpl, "GetFeatureOutsideProfileClosedCircular", GetFeatureOutsideProfileClosedCircular);
 	Nan::SetPrototypeMethod(tpl, "GetMainWorkplan", GetMainWorkplan);
 	Nan::SetPrototypeMethod(tpl, "GetProcessFeed", GetProcessFeed);
 	Nan::SetPrototypeMethod(tpl, "GetProcessFeedUnit", GetProcessFeedUnit);
@@ -145,6 +147,8 @@ NAN_METHOD(Finder::APIUnitsSpeed) {
     delete[] b;
 }
 
+
+
 NAN_METHOD(Finder::GetCompoundFeatureCount) {
 
     Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
@@ -169,6 +173,35 @@ NAN_METHOD(Finder::GetCompoundFeatureCount) {
 
     info.GetReturnValue().Set(size);
     return;
+}
+
+NAN_METHOD(Finder::GetExecutableDistance)
+{
+	Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+	if (find == 0) // Throw exception
+		return;
+
+	if (info.Length() != 1) // incorrect number of arguments
+		return;
+
+	if (!info[0]->IsNumber()) // invalid argument
+		return;
+
+	// get this executable's id
+	int64_t exe_id = info[0]->IntegerValue();
+
+	double distance = 0.0;
+	double over_time, base_time;
+
+	const char *str1, *str2;
+
+	if (!find->_find->compute_best_feed_time(
+		(int)exe_id, distance, base_time, over_time, str1, str2
+		))	// cpp error
+		return;
+
+	info.GetReturnValue().Set(distance);
+	return;
 }
 
 NAN_METHOD(Finder::GetFaceEdgeCount)
@@ -232,7 +265,9 @@ NAN_METHOD(Finder::GetFeatureID) {
 
     int feature_id = 0;
 
-    if (!find->_find->feature_id(info[0]->Int32Value(), feature_id))
+    Nan::Maybe<int32_t> t = Nan::To<int32_t>(info[0]);
+
+    if (!find->_find->feature_id(t.FromJust(), feature_id))
 	return;
 
     info.GetReturnValue().Set(feature_id);
@@ -250,12 +285,46 @@ NAN_METHOD(Finder::GetFeatureName) {
 	return;
 
     const char * name = 0;
-
-    if (!find->_find->feature_name(info[0]->Int32Value(), name))
+    Nan::Maybe<int32_t> t = Nan::To<int32_t>(info[0]);
+    if (!find->_find->feature_name(t.FromJust(), name))
 	return;
 
     info.GetReturnValue().Set(CharTov8String((char *)name));
     return;
+}
+
+//{rtn: bool, profile_id: long, depth: double, diameter: double, x: double, y: double, z: double}
+NAN_METHOD(Finder::GetFeatureOutsideProfileClosedCircular) {
+    Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+
+    if (info.Length() != 1)
+	return;
+    if (info[0]->IsUndefined())
+	return;
+    if (!info[0]->IsInt32())
+	return;
+    Nan::Maybe<int32_t> t = Nan::To<int32_t>(info[0]);
+    int profile_id = 0;
+    double depth = 0.0;
+    double diameter = 0.0;
+    double x = 0.0;
+    double y = 0.0;
+    double z = 0.0;
+
+
+    if (!find->_find->is_circular_outside_profile(t.FromJust(), profile_id, depth, diameter, x, y, z))
+	return;
+
+    v8::Local<v8::Object> obj = Nan::New<v8::Object>();
+    Nan::Set(obj, CharTov8String("rtn"), Nan::New(true)); //Add case to check if profile_id was found
+    Nan::Set(obj, CharTov8String("profile_id"), Nan::New(profile_id));
+    Nan::Set(obj, CharTov8String("depth"), Nan::New(depth));
+    Nan::Set(obj, CharTov8String("diameter"), Nan::New(diameter));
+    Nan::Set(obj, CharTov8String("x"), Nan::New(x));
+    Nan::Set(obj, CharTov8String("y"), Nan::New(y));
+    Nan::Set(obj, CharTov8String("z"), Nan::New(z));
+
+    info.GetReturnValue().Set(obj);
 }
 
 NAN_METHOD(Finder::GetMainWorkplan) {
@@ -325,7 +394,7 @@ NAN_METHOD(Finder::SaveAsModules)
     if (find == 0) //Throw Exception
 	return;
 
-    if (!info[0]->IsUndefined())
+    if (info[0]->IsUndefined())
 	return;
 
     if (!info[0]->IsString())
@@ -345,7 +414,7 @@ NAN_METHOD(Finder::SaveAsP21)
 	if (find == 0) //Throw Exception
 		return;
 
-	if (!info[0]->IsUndefined())
+	if (info[0]->IsUndefined())
 		return;
 
 	if (!info[0]->IsString())

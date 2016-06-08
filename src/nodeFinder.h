@@ -52,6 +52,9 @@ public:
     //System::int64 Finder::GetCompoundFeatureCount(system::int64 compound_id)'
     static NAN_METHOD(GetCompoundFeatureCount);
 
+    // double GetExecutableDistance(System::Int64 exe_id)
+    static NAN_METHOD(GetExecutableDistance);
+
     //int GetMainWorkplan();
     static NAN_METHOD(GetMainWorkplan);
 
@@ -91,4 +94,7 @@ public:
 
     //void SaveAsP21(v8::String file_name);
     static NAN_METHOD(SaveAsP21);
+
+    //bool GetFeatureOutsideProfileClosedCircular(feature_id, prof_id, depth, diameter, x,y,z)
+    static NAN_METHOD(GetFeatureOutsideProfileClosedCircular);
 };
