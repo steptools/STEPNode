@@ -59,7 +59,7 @@ NAN_MODULE_INIT(Finder::Init)
 	Nan::SetPrototypeMethod(tpl, "GetMainWorkplan", GetMainWorkplan);
 	Nan::SetPrototypeMethod(tpl, "GetProcessFeed", GetProcessFeed);
 	Nan::SetPrototypeMethod(tpl, "GetProcessFeedUnit", GetProcessFeedUnit);
-	Nan::SetPrototypeMethod(tpl, "IsSelective", OpenProject);
+	Nan::SetPrototypeMethod(tpl, "IsSelective", IsSelective);
 	Nan::SetPrototypeMethod(tpl, "OpenProject", OpenProject);
 	Nan::SetPrototypeMethod(tpl, "SaveAsModules", SaveAsModules);
 	Nan::SetPrototypeMethod(tpl, "SaveAsP21", SaveAsP21);
