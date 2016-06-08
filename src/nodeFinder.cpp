@@ -584,51 +584,6 @@ NAN_METHOD(Finder::GetMainWorkplan) {
     return;
 }
 
-<<<<<<< HEAD
-NAN_METHOD(Finder::GetNestedExecutableAll)
-{
-    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
-    if (find == 0) //Throw Exception
-	return;
-    if (info.Length() != 1) //This function should get one argument.
-	return;
-    if (!info[0]->IsInt32())
-	return;
-    Nan::Maybe<int32_t> wp_id = Nan::To<int32_t>(info[0]);
-    v8::Local<v8::Array> exes = Nan::New<v8::Array>();
-    rose_uint_vector tmp;
-    if (!find->_find->nested_executable_all(wp_id.FromJust(), tmp)) //TODO: Handle error
-	return;
-    for (unsigned i = 0; i < tmp.size(); i++)
-    {
-	int pt = tmp.get(i);
-	exes->Set(i, Nan::New(pt));
-    }
-    info.GetReturnValue().Set(exes);
-    return;
-}
-
-NAN_METHOD(Finder::GetNestedExecutableAllEnabled)
-{
-    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
-    if (find == 0)  //Throw Exception
-	return;
-    if (info.Length() != 1) //This function should get one argument
-	return;
-    if (!info[0]->IsInt32())
-	return;
-    Nan::Maybe<int32_t> wp_id = Nan::To<int32_t>(info[0]);
-    v8::Local<v8::Array> exes = Nan::New<v8::Array>();
-    rose_uint_vector tmp;
-    if (!find->_find->nested_executable_all_enabled(wp_id.FromJust(), tmp)) //TODO: Handle error
-	return;
-    for (unsigned i = 0; i < tmp.size(); i++)
-    {
-	int pt = tmp.get(i);
-	exes->Set(i, Nan::New(pt));
-    }
-    info.GetReturnValue().Set(exes);
-=======
 NAN_METHOD(Finder::GetMaterialName)
 {
     Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
@@ -650,7 +605,6 @@ NAN_METHOD(Finder::GetMaterialName)
 
 
     info.GetReturnValue().Set(CharTov8String((char *)name));
->>>>>>> fdb973b4bb44ad99240f762b8f0234012d391a17
     return;
 }
 
