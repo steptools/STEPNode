@@ -450,14 +450,14 @@ NAN_METHOD(Finder::IsEnabled)
     Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
     if (!find) //Throw Exception
 	return;
-    if (info.Length != 1) //Throw Exception
+    if (info.Length() != 1) //Throw Exception
 	return;
     if (!info[0]->IsInt32()) //Throw Exception
 	return;
 
     int flag = 0;
 
-    if (!find->_find->is_enabled((int)info[0]->Int32Value, flag)) //Throw Exception
+    if (!find->_find->is_enabled(info[0]->Int32Value(), flag)) //Throw Exception
 	return;
     info.GetReturnValue().Set((flag != 0));
 }
