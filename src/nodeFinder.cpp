@@ -60,6 +60,7 @@ NAN_MODULE_INIT(Finder::Init)
 	Nan::SetPrototypeMethod(tpl, "GetProcessFeed", GetProcessFeed);
 	Nan::SetPrototypeMethod(tpl, "GetProcessFeedUnit", GetProcessFeedUnit);
 	Nan::SetPrototypeMethod(tpl, "GetProjectName", GetProjectName);
+	Nan::SetPrototypeMethod(tpl, "GetSelectiveExecutableCount", GetSelectiveExecutableCount);
 	Nan::SetPrototypeMethod(tpl, "IsSelective", IsSelective);
 	Nan::SetPrototypeMethod(tpl, "OpenProject", OpenProject);
 	Nan::SetPrototypeMethod(tpl, "SaveAsModules", SaveAsModules);
@@ -389,9 +390,31 @@ NAN_METHOD(Finder::GetProjectName) {
     if (!(find->_find->project(prj_name, szWP))) {
 	return; //Throw Error
     }
+
     info.GetReturnValue().Set(CharTov8String((char *)prj_name));
+    return;
 }
 
+NAN_METHOD(Finder::GetSelectiveExecutableCount) {
+
+    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (find == 0) {
+	return; //throw exception
+    }
+    if (info[0]->IsUndefined()) {
+	return; //throw exception
+    }
+    if (!info[0]->IsInt32()) {
+	return; // Throw exception
+    }
+    int count = 0;
+    int sl_id = info[0]->Int32Value();
+    if (!(find->_find->selective_executable_count(sl_id, count))) {
+	return; // throw error
+    }
+    info.GetReturnValue().Set(count);
+    return;
+}
 NAN_METHOD(Finder::IsSelective)
 {
     Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
