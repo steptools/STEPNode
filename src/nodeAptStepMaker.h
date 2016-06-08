@@ -44,6 +44,9 @@ public:
     //string GetToolNumber(int id)
     static NAN_METHOD(GetToolNumber);
 
+    //string GetUUID(int EID)
+    static NAN_METHOD(GetUUID);
+
     static NAN_METHOD(OpenProject);
 
     //void SaveAsModules(v8::String file_name);
