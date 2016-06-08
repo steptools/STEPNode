@@ -91,8 +91,11 @@ public:
     //bool IsSelective(long exe_id);
     static NAN_METHOD(IsSelective);
 
-    //bool IsSelective(long exe_id);
+    //bool IsWorkingstep(long exe_id);
     static NAN_METHOD(IsWorkingstep);
+
+    //bool IsWorkplan(long exe_id);
+    static NAN_METHOD(IsWorkplan);
 
     //void Open238(String file_name);
     static NAN_METHOD(OpenProject);
