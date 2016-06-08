@@ -700,10 +700,10 @@ NAN_METHOD(Finder::GetWorkplanName) {
     if (!info[0]->IsInt32()) //Throw Exception
 	return;
     
-    const char  * wp_name = "";
+    const char  * wp_name = 0;
     int nSize;
     Nan::Maybe<int32_t> wp_id = Nan::To<int32_t>(info[0]);
-    if (!find->_find->workplan(wp_id.FromJust(), nSize, (const char*&)wp_name)) //Throw Exception
+    if (!find->_find->workplan(wp_id.FromJust(), nSize, wp_name)) //Throw Exception
 	return;
     info.GetReturnValue().Set(CharTov8String((char *)wp_name));
     return;
