@@ -54,6 +54,7 @@ NAN_MODULE_INIT(AptStepMaker::Init)
     Nan::SetPrototypeMethod(tpl, "GetToolEID", GetToolEID);
     Nan::SetPrototypeMethod(tpl, "GetToolIdentifier", GetToolIdentifier);
     Nan::SetPrototypeMethod(tpl, "GetToolNumber", GetToolNumber);
+    Nan::SetPrototypeMethod(tpl, "GetUUID", GetUUID);
     Nan::SetPrototypeMethod(tpl, "OpenProject", OpenProject);
     Nan::SetPrototypeMethod(tpl, "SaveAsModules", SaveAsModules);
     Nan::SetPrototypeMethod(tpl, "SaveAsP21", SaveAsP21);
@@ -108,11 +109,28 @@ NAN_METHOD(AptStepMaker::GetToolNumber)
 	return;
     if (!info[0]->IsInt32())
 	return;
-    int id = info[0]->Int32Value();
-    const char * tlNum;
-    if (!apt->_apt->get_tool_number(id, tlNum)) //TODO: Handle Error
+    Nan::Maybe<int32_t> id = Nan::To<int32_t>(info[0]);
+    const char * tlNum = 0;
+    if (!apt->_apt->get_tool_number(id.FromJust(), tlNum)) //TODO: Handle Error
 	return;
     info.GetReturnValue().Set(CharTov8String((char *)tlNum));
+    return;
+}
+
+NAN_METHOD(AptStepMaker::GetUUID)
+{
+    AptStepMaker * apt = Nan::ObjectWrap::Unwrap<AptStepMaker>(info.This());
+    if (apt == 0) //Throw Exception
+	return;
+    if (info.Length() != 1) //Function should get one argument.
+	return;
+    if (!info[0]->IsInt32())
+	return;
+    Nan::Maybe<int32_t> eid = Nan::To<int32_t>(info[0]);
+    const char * uuid;
+    if (!apt->_apt->get_uuid(eid.FromJust(), uuid)) //TODO: Handle error
+	return;
+    info.GetReturnValue().Set(CharTov8String((char *)uuid));
     return;
 }
 
