@@ -64,17 +64,7 @@ public:
     //long GetFaceEdgeCount(long face_id);
     static NAN_METHOD(GetFaceEdgeCount);
 
-    //void GetFaceEdgeNextPoint(
-    /*
-    System::Int64 face_id,
-    System::Int64 index,
-    [System::Runtime::InteropServices::Out] double %ret_x1,
-    [System::Runtime::InteropServices::Out] double %ret_y1,
-    [System::Runtime::InteropServices::Out] double %ret_z1,
-    [System::Runtime::InteropServices::Out] double %ret_x2,
-    [System::Runtime::InteropServices::Out] double %ret_y2,
-    [System::Runtime::InteropServices::Out] double %ret_z2
-    */ //);
+    //void GetFaceEdgeNextPoint(int face_id, int index, double %ret_x1, double %ret_y1, double %ret_z1, double %ret_x2, double %ret_y2, double %ret_z2);
     static NAN_METHOD(GetFaceEdgeNextPoint);
 
     //string GetFeatureName(long id)
