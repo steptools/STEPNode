@@ -1646,9 +1646,22 @@ Function currently returns the same result as this function.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetExecutableWorkpieceRemovalLocal></a>GetExecutableWorkpieceRemovalLocal()</h2>
-<pre>
+<pre class="dotnet">
 System::Int64 <b>GetExecutableWorkpieceRemovalLocal</b> (
 	System::Int64 exe_id
+	);
+</pre>
+
+<pre class="nodejs">
+int <b>GetExecutableWorkpieceRemovalLocal</b> (
+	int exe_id
+	);
+</pre>
+
+<pre class="cpp">
+RoseBoolean <b>local_executable_removal_workpiece</b> (
+	int ws_id,
+	int &wp_id
 	);
 </pre>
 
@@ -1758,14 +1771,7 @@ System::Int64 <b>GetFaceEdgeCount</b> (
 </pre>
 
     <pre class="nodejs">
-{
-    "ret_x1":double,
-    "ret_y1":double,
-    "ret_z1":double,
-    "ret_x2":double,
-    "ret_y2":double,
-    "ret_z2":double
-} <b>GetFaceEdgeCount</b> (
+int <b>GetFaceEdgeCount</b> (
 	int face_id
 	);
 </pre>
@@ -1800,15 +1806,16 @@ void <b>GetFaceEdgeNextPoint</b> (
 </pre>
 
     <pre class="nodejs">
-void <b>GetFaceEdgeNextPoint</b> (
+{
+    "ret_x1":double,
+    "ret_y1":double,
+    "ret_z1":double,
+    "ret_x2":double,
+    "ret_y2":double,
+    "ret_z2":double
+} <b>GetFaceEdgeNextPoint</b> (
 	int face_id,
-	int index,
-	double %x1,
-	double %y1,
-	double %z1,
-	double %x2,
-	double %y2,
-	double %z2
+	int index
 	);
 </pre>
 
@@ -11218,9 +11225,21 @@ by <a href="#GetWorkplanFinalFeatureCount">GetWorkplanFinalFeatureCount</a>
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetWorkplanName></a>GetWorkplanName()</h2>
-<pre>
+<pre class = "dotnet">
 System::String^ <b>GetWorkplanName</b> (
 	System::Int64 wp_id
+	);
+</pre>
+<pre class = "nodejs">
+string <b>GetWorkplanName()</b> (
+	int wp_id
+	);
+</pre>
+<pre class = "cpp">
+RoseBoolean <b>workplan</b> (
+	int wp_id, 
+	int &size, 
+	const char * &name
 	);
 </pre>
 
@@ -11307,9 +11326,21 @@ GetWorkplanFinalFeatureCount
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetWorkplanSize></a>GetWorkplanSize()</h2>
-<pre>
+<pre class = "dotnet">
 System::Int64 <b>GetWorkplanSize</b> (
 	System::Int64 wp_id
+	);
+</pre>
+<pre class = "nodejs">
+int <b>GetWorkplanSize</b> (
+	int wp_id
+	);
+</pre>
+<pre class = "cpp">
+RoseBoolean <b>workplan</b> (
+	int wp_id, 
+	int &size, 
+	const char * &name
 	);
 </pre>
 
