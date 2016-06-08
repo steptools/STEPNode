@@ -179,60 +179,60 @@ NAN_METHOD(Finder::GetCompoundFeatureCount) {
 
 NAN_METHOD(Finder::GetExecutableDistance)
 {
-	Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
-	if (find == 0) // Throw exception
-		return;
-
-	if (info.Length() != 1) // incorrect number of arguments
-		return;
-
-	if (!info[0]->IsNumber()) // invalid argument
-		return;
-
-	// get this executable's id
-	int64_t exe_id = info[0]->IntegerValue();
-
-	double distance = 0.0;
-	double over_time, base_time;
-
-	const char *str1, *str2;
-
-	if (!find->_find->compute_best_feed_time(
-		(int)exe_id, distance, base_time, over_time, str1, str2
-		))	// cpp error
-		return;
-
-	info.GetReturnValue().Set(distance);
+    Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (find == 0) // Throw exception
 	return;
+
+    if (info.Length() != 1) // incorrect number of arguments
+	return;
+
+    if (!info[0]->IsNumber()) // invalid argument
+	return;
+
+    // get this executable's id
+    int64_t exe_id = info[0]->IntegerValue();
+
+    double distance = 0.0;
+    double over_time, base_time;
+
+    const char *str1, *str2;
+
+    if (!find->_find->compute_best_feed_time(
+	(int)exe_id, distance, base_time, over_time, str1, str2
+	))	// cpp error
+	return;
+
+    info.GetReturnValue().Set(distance);
+    return;
 }
 
 NAN_METHOD(Finder::GetExecutableDistanceUnit)
 {
-	Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
-	if (find == 0) // Throw exception
-		return;
+    Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (find == 0) // Throw exception
+	return;
 
-	if (info.Length() != 1) // incorrect number of arguments
-		return;
+    if (info.Length() != 1) // incorrect number of arguments
+	return;
 
-	if (!info[0]->IsNumber()) // invalid argument
-		return;
+    if (!info[0]->IsNumber()) // invalid argument
+	return;
 
-	// get this executable's id
-	int64_t exe_id = info[0]->IntegerValue();
+    // get this executable's id
+    int64_t exe_id = info[0]->IntegerValue();
 
     const char *dist_unit = 0;
     double over_time, base_time, distance;
     const char *str2;
 
-	if (!find->_find->compute_best_feed_time(
-		(int)exe_id, distance, base_time, over_time, dist_unit, str2
-		))
-		return;
-
-	info.GetReturnValue().Set(CharTov8String((char*) dist_unit));
-
+    if (!find->_find->compute_best_feed_time(
+	(int)exe_id, distance, base_time, over_time, dist_unit, str2
+	))
 	return;
+
+    info.GetReturnValue().Set(CharTov8String((char*) dist_unit));
+
+    return;
 }
 
 NAN_METHOD(Finder::GetFaceEdgeCount)
