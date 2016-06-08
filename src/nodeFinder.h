@@ -79,7 +79,7 @@ public:
     //long GetFeatureID(long ws_id);
     static NAN_METHOD(GetFeatureID);
 
-    //object GetNestedExecutableAll (int wp_id);
+    //int[] GetNestedExecutableAll (int wp_id);
     static NAN_METHOD(GetNestedExecutableAll);
 
     //int GetNestedExecutableCount (int exe_id);
