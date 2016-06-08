@@ -64,6 +64,18 @@ public:
     // string GetExecutableType(int exe_id)
     static NAN_METHOD(GetExecutableType);
 
+    // int GetExecutableWorkpieceAsIs(int exe_id)
+    static NAN_METHOD(GetExecutableWorkpieceAsIs);
+
+    // int GetExecutableWorkpieceAsIsLocal(int exe_id)
+    static NAN_METHOD(GetExecutableWorkpieceAsIsLocal);
+
+    // int GetExecutableWorkpieceRemoval(int exe_id)
+    static NAN_METHOD(GetExecutableWorkpieceRemoval);
+
+    // int GetExecutableWorkpieceRemovalLocal(int exe_id)
+    static NAN_METHOD(GetExecutableWorkpieceRemovalLocal);
+
     //int GetMainWorkplan();
     static NAN_METHOD(GetMainWorkplan);
 
@@ -96,6 +108,18 @@ public:
 
     //string GetProjectName();
     static NAN_METHOD(GetProjectName);
+
+    //string GetWorkplanName();
+    static NAN_METHOD(GetWorkplanName);
+
+    //int GetWorkplanSize();
+    static NAN_METHOD(GetWorkplanSize);
+
+    //int GetSelectiveExecutableCount( int sl_id)
+    static NAN_METHOD(GetSelectiveExecutableCount);
+
+    //bool IsEnabled(int exe_id);
+    static NAN_METHOD(IsEnabled);
 
     //bool IsSelective(long exe_id);
     static NAN_METHOD(IsSelective);
