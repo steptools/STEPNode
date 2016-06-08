@@ -763,10 +763,20 @@ identical because the final feature will be made in one operation.
 
 <!-- ================================ -->
 <h2 class=rule>
-<a name=APIUnitsFeed></a>APIUnitsFeed()</h2>
-<pre>
+<a name=APIUnitsFeed></a>APIUnitsSpeed()</h2>
+<pre class = "dotnet">
 void <b>APIUnitsFeed</b> (
 	System::String^ units
+	);
+</pre>
+<pre class = "nodejs">
+void <b>APIUnitsFeed</b> (
+	string units
+	);
+</pre>
+<pre class = "cpp">
+RoseBoolean <b>api_unit_feed</b> (
+	const char * units
 	);
 </pre>
 
@@ -808,8 +818,14 @@ the units used by a feedrate in the data.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=APIUnitsInch></a>APIUnitsInch()</h2>
-<pre>
+<pre class = "dotnet">
 void <b>APIUnitsInch</b> ();
+</pre>
+<ore class = "nodejs">
+  void <v>APIUnitsInch</b> ();
+</pre>
+<pre class = "cpp">
+  RoseBoolean <b>api_unit_inch </b> ();
 </pre>
 
 <P>The <b>APIUnitsInch()</b> function tells all of the other functions
@@ -834,10 +850,15 @@ to millimeter.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=APIUnitsMM></a>APIUnitsMM()</h2>
-<pre>
+<pre class = "dotnet">
 void <b>APIUnitsMM</b> ();
 </pre>
-
+<pre class = "nodejs">
+  void <b>APIUnitsMM</b> ();
+</pre>
+<pre class = "cpp">
+  RoseBoolean <b>api_unit_mm </b> ();
+</pre>
 <P>The <b>APIUnitsMM()</b> function tells all of the other functions
 to return length units as millimeter values. For example, if a value
 is 3 inches then the value returned will be "76.2", and it the value
@@ -862,9 +883,16 @@ values to inch.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=APIUnitsNative></a>APIUnitsNative()</h2>
-<pre>
-void <b>APIUnitsNative</b> ();
+<pre class = "dotnet">
+  void <b>APIUnitsNative</b> ();
 </pre>
+<pre class = "nodejs">
+  void <b>APIUnitsNatie</b> ();
+</pre>
+<pre class = "cpp">
+  RoseBoolean <b>api_unit_native</b> ();
+</pre>
+
 
 <P>The <b>APIUnitsNative()</b> function tells all of the other
 functions to return units in their native unit system.  For example,
@@ -890,9 +918,19 @@ to millimeter.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=APIUnitsSpeed></a>APIUnitsSpeed()</h2>
-<pre>
+<pre class = "dotnet">
 void <b>APIUnitsSpeed</b> (
 	System::String^ units
+	);
+</pre>
+<pre class = "nodejs">
+void <b>APIUnitsSpeed</b> (
+	string units
+	);
+</pre>
+<pre class = "cpp">
+RoseBoolean <b>api_unit_speed</b> (
+	const char * units
 	);
 </pre>
 
@@ -952,7 +990,7 @@ turning machine.
 <h2 class=rule>
 <a name=GetCompoundFeatureNext></a>
 <a name=GetCompoundFeatureCount></a>GetCompoundFeatureCount/Next()</h2>
-<pre>
+<pre class = "dotnet">
 System::Int64 <b>GetCompoundFeatureCount</b> (
 	System::Int64 compound_id
 	);
@@ -962,7 +1000,21 @@ System::Int64 <b>GetCompoundFeatureNext</b> (
 	System::Int64 index
 	);
 </pre>
-
+<pre class = "nodejs">
+int <b>GetCompoundFeatureCount</b> (
+  int compound_id;
+  );
+</pre>
+<pre class = "cpp">
+RoseBoolean <b>first_feature_in_compound</b> (
+    int compound_id,
+    int &feature_id,
+    int &size,s
+    double x,
+    double y,
+    double z
+    );
+</pre>
 <P>The <b>GetCompoundFeatureCount()</b> function returns the number of
 features in a compound feature and the <b>GetCompoundFeatureNext()</b>
 function returns the identity of the feature at a position index.  A
@@ -1142,7 +1194,7 @@ the type of an executable as a string.
 <h2 class=rule>
 <a name=GetExecutableDistanceUnit></a>
 <a name=GetExecutableDistance></a>GetExecutableDistance() and Unit</h2>
-<pre>
+<pre class="dotnet">
 double <b>GetExecutableDistance</b> (
 	System::Int64 exe_id
 	);
@@ -1151,6 +1203,29 @@ System::String^ <b>GetExecutableDistanceUnit</b> (
 	System::Int64 exe_id
 	);
 </pre>
+
+<pre class="nodejs">
+double <b>GetExecutableDistance</b> (
+	int exe_id
+	);
+
+string <b>GetExecutableDistanceUnit</b> (
+	int exe_id
+	);
+</pre>
+
+<pre class="cpp">
+RoseBoolean <b>compute_best_feed_time</b> (
+	int exe_id,
+	double &distance,
+	double &base_time,
+	double &over_time,
+	const char * &dist_unit,
+	const char * &time_unit
+	);
+</pre>
+
+
 
 <P>The <b>GetExecutableDistance()</b> function returns the total
 length of the non-rapid tool paths in the executable. For more
@@ -1165,9 +1240,20 @@ name for the unit used for the distance.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetExecutableName></a>GetExecutableName()</h2>
-<pre>
+<pre class = "dotnet">
 System::String^ <b>GetExecutableName</b> (
 	System::Int64 exe_id
+	);
+</pre>
+<pre class="nodejs">
+string <b>GetExecutableName</b> (
+	int exe_id
+	);
+</pre>
+<pre class="cpp">
+RoseBoolean <b>executable_name</b> (
+	int exe_id,
+	const char * &name
 	);
 </pre>
 
@@ -1602,19 +1688,39 @@ an executable.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetFaceEdgeCount></a>GetFaceEdgeCount()</h2>
-<pre>
+    <pre class="dotnet">
 System::Int64 <b>GetFaceEdgeCount</b> (
 	System::Int64 face_id
 	);
 </pre>
 
+<<<<<<< HEAD
 <P>The <b>GetFaceEdgeCount()</b> function
+=======
+    <pre class="nodejs">
+int <b>GetFaceEdgeCount</b> (
+	int face_id
+	);
+</pre>
+
+    <pre class="cpp">
+RoseBoolean <b>first_face_edge_point</b> (
+	int face_id,
+	int & size,
+	double &x,
+	double &y,
+	double &z
+	);
+</pre>
+
+<P>The <b>GetFaceEdgeCount()</b> function
+>>>>>>> 34206bc97e9f6a22b74bb3b5401ef86c345df45c
 
 
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetFaceEdgeNextPoint></a>GetFaceEdgeNextPoint()</h2>
-<pre>
+    <pre class="dotnet">
 void <b>GetFaceEdgeNextPoint</b> (
 	System::Int64 face_id,
 	System::Int64 index,
@@ -1627,7 +1733,37 @@ void <b>GetFaceEdgeNextPoint</b> (
 	);
 </pre>
 
+<<<<<<< HEAD
 <P>The <b>GetFaceEdgeNextPoint()</b> function
+=======
+    <pre class="nodejs">
+void <b>GetFaceEdgeNextPoint</b> (
+	int face_id,
+	int index,
+	double %x1,
+	double %y1,
+	double %z1,
+	double %x2,
+	double %y2,
+	double %z2
+	);
+</pre>
+
+    <pre class="cpp">
+    RoseBoolean <b>next_face_edge_point</b> (
+	int face_id,
+	int index,
+	double &x1,
+	double &y1,
+	double &z1,
+	double &x2,
+	double &y2,
+	double &z2
+	);
+</pre>
+
+<P>The <b>GetFaceEdgeNextPoint()</b> function
+>>>>>>> 34206bc97e9f6a22b74bb3b5401ef86c345df45c
 
 
 
@@ -2693,9 +2829,20 @@ a feature.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetFeatureID></a>GetFeatureID()</h2>
-<pre>
+<pre class="dotnet">
 System::Int64 <b>GetFeatureID</b> (
 	System::Int64 ws_id
+	);
+</pre>
+<pre class="nodejs">
+int <b>GetFeatureID</b> (
+	int ws_id
+	);
+</pre>
+<pre class="cpp">
+RoseBoolean <b>feature_id</b> (
+	int ws_id,
+	int &feature_id
 	);
 </pre>
 
@@ -2705,9 +2852,20 @@ System::Int64 <b>GetFeatureID</b> (
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetFeatureName></a>GetFeatureName()</h2>
-<pre>
+<pre class="dotnet">
 System::String^ <b>GetFeatureName</b> (
 	System::Int64 ws_or_fe_id
+	);
+</pre>
+<pre class="nodejs">
+string <b>GetFeatureName</b> (
+	int ws_or_fe_id
+	);
+</pre>
+<pre class="cpp">
+RoseBoolean <b>feature_name</b> (
+	int ws_or_fe_id,
+	const char * &name
 	);
 </pre>
 
@@ -7196,7 +7354,7 @@ executables that may be workingsteps.
 <h2 class=rule>
 <a name=GetProcessFeedUnit></a>
 <a name=GetProcessFeed></a>GetProcessFeed() and Unit</h2>
-<pre>
+<pre class = "dotnet">
 double <b>GetProcessFeed</b> (
 	System::Int64 ws_id
 	);
@@ -7204,6 +7362,27 @@ double <b>GetProcessFeed</b> (
 System::String^ <b>GetProcessFeedUnit</b> (
 	System::Int64 ws_id
 	);
+</pre>
+<pre class = "nodejs">
+double <b>GetProcessFeed</b> (
+	int ws_id
+	);
+
+string <b>GetProcessFeedUnit</b> (
+	int ws_id
+	);
+</pre>
+<pre class = "cpp">
+RoseBoolean <b>feed_speed</b> (
+	int ws_id,
+	double &feed,
+	double &speed
+	);
+
+RoseBoolean <b>feed_speed_unit</b> (
+	int ws_id,
+	const char * &feed_unit,
+	const char * &speed_unit);
 </pre>
 
 <P>The <b>GetProcessFeed()</b> function returns the feedrate value of
@@ -7361,8 +7540,17 @@ step, tool path or technology entity.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetProjectName></a>GetProjectName()</h2>
-<pre>
+<pre class = "dotnet">
 System::String^ <b>GetProjectName</b> ();
+</pre>
+<pre class = "nodejs">
+string <b>GetProjectName</b> ();
+</pre>
+<pre class = "cpp">
+RoseBoolean project(
+  const char* &prj_name,
+  const char* &wpk_name
+  );
 </pre>
 
 <P>The <b>GetProjectName()</b> function returns the string containing
@@ -11494,12 +11682,24 @@ operation.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=IsSelective></a>IsSelective()</h2>
-<pre>
+    <pre class="dotnet">
 System::Boolean <b>IsSelective</b> (
 	System::Int64 exe_id
 	);
 </pre>
 
+    <pre class="nodejs">
+Boolean <b>IsSelective</b> (
+	int exe_id
+	);
+</pre>
+
+    <pre class="cpp">
+RoseBoolean <b>is_selective</b> (
+	int exe_id,
+	int &flag
+	);
+</pre>
 <P>The <b>IsSelective()</b> function returns true if an executable
 decribes a selective. A selective is a program structure describing a
 list of executables of which one is to be executed at run time.
@@ -11874,6 +12074,19 @@ void <b>SaveAsModules</b> (
 	);
 </pre>
 
+    <pre class="nodejs">
+void <b>SaveAsModules</b> (
+	string file_name
+	);
+</pre>
+
+    <pre class="cpp">
+RoseBoolean <b>save_file</b> (
+	const char * filename,
+	RoseBoolean asModules
+	);
+</pre>
+
 <P>The <b>SaveAsModules()</b> function saves the STEP-NC program as an
 AP-238 file in the XML (Part 28) format. A similar function
 called <a href="#SaveAsPart21">SaveAsPart21</a> save the STEP-NC
@@ -11905,9 +12118,22 @@ Part 21 format files.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=SaveAsP21></a>SaveAsP21()</h2>
-<pre>
+    <pre class="dotnet">
 void <b>SaveAsP21</b> (
 	System::String^ file_name
+	);
+</pre>
+
+    <pre class="nodejs">
+void <b>SaveAsP21</b> (
+	string file_name
+	);
+</pre>
+
+    <pre class="cpp">
+RoseBoolean <b>save_file</b> (
+	const char * filename,
+	RoseBoolean asModules
 	);
 </pre>
 

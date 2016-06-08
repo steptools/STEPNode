@@ -37,8 +37,8 @@ public:
     //void APIUnitsFeed(System::String^ units);
     static NAN_METHOD(APIUnitsFeed);
 
-    //void APIUnitsInches();
-    static NAN_METHOD(APIUnitsInches);
+    //void APIUnitsInch();
+    static NAN_METHOD(APIUnitsInch);
 
     //void APIUnitsMM();
     static NAN_METHOD(APIUnitsMM);
@@ -49,29 +49,25 @@ public:
     //void APIUnitsSpeed(System::String^ units);
     static NAN_METHOD(APIUnitsSpeed);
     
-    //System::int64 Finder::GetCompoundFeatureCount(system::int64 compound_id)'
+    //System::int64 GetCompoundFeatureCount(system::int64 compound_id)'
     static NAN_METHOD(GetCompoundFeatureCount);
 
-    // double GetExecutableDistance(System::Int64 exe_id)
+    // double GetExecutableDistance(int exe_id)
     static NAN_METHOD(GetExecutableDistance);
+
+    // string GetExecutableDistanceUnit(int exe_id)
+    static NAN_METHOD(GetExecutableDistanceUnit);
+
+    // string GetExecutableName(int exe_id)
+    static NAN_METHOD(GetExecutableName);
 
     //int GetMainWorkplan();
     static NAN_METHOD(GetMainWorkplan);
 
-    //long Finder::GetFaceEdgeCount(long face_id);
+    //long GetFaceEdgeCount(long face_id);
     static NAN_METHOD(GetFaceEdgeCount);
 
-    //void Finder::GetFaceEdgeNextPoint(
-    /*
-    System::Int64 face_id,
-    System::Int64 index,
-    [System::Runtime::InteropServices::Out] double %ret_x1,
-    [System::Runtime::InteropServices::Out] double %ret_y1,
-    [System::Runtime::InteropServices::Out] double %ret_z1,
-    [System::Runtime::InteropServices::Out] double %ret_x2,
-    [System::Runtime::InteropServices::Out] double %ret_y2,
-    [System::Runtime::InteropServices::Out] double %ret_z2
-    */ //);
+    //void Finder::GetFaceEdgeNextPoint(needs to be fixed);
     static NAN_METHOD(GetFaceEdgeNextPoint);
 
     //string GetFeatureName(long id)
@@ -83,11 +79,17 @@ public:
     //int GetNestedExecutableCount(int exe_id);
     static NAN_METHOD(GetNestedExecutableCount);
 
-    //double GetProcessFeed (long ws_id);
+    //double GetProcessFeed (int ws_id);
     static NAN_METHOD(GetProcessFeed);
 
-    //string GetProcessFeedUnit (long ws_id);
+    //string GetProcessFeedUnit (int ws_id);
     static NAN_METHOD(GetProcessFeedUnit);
+
+    //string GetProjectName();
+    static NAN_METHOD(GetProjectName);
+
+    //bool IsSelective(long exe_id);
+    static NAN_METHOD(IsSelective);
 
     //void Open238(String file_name);
     static NAN_METHOD(OpenProject);
