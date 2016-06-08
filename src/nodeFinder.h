@@ -88,6 +88,9 @@ public:
     //bool IsSelective(long exe_id);
     static NAN_METHOD(IsSelective);
 
+    //bool IsSelective(long exe_id);
+    static NAN_METHOD(IsWorkingstep);
+
     //void Open238(String file_name);
     static NAN_METHOD(OpenProject);
 
