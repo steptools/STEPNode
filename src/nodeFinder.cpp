@@ -185,13 +185,13 @@ NAN_METHOD(Finder::GetExecutableDistance)
 {
     Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
     if (find == 0) // Throw exception
-	    return;
+	return;
 
     if (info.Length() != 1) // incorrect number of arguments
-	    return;
+	return;
 
     if (!info[0]->IsNumber()) // invalid argument
-	    return;
+	return;
 
     // get this executable's id
     int64_t exe_id = info[0]->IntegerValue();
@@ -202,9 +202,9 @@ NAN_METHOD(Finder::GetExecutableDistance)
     const char *str1, *str2;
 
     if (!find->_find->compute_best_feed_time(
-	    (int)exe_id, distance, base_time, over_time, str1, str2
-	    ))	// cpp error
-	    return;
+	(int)exe_id, distance, base_time, over_time, str1, str2
+	))	// cpp error
+	return;
 
     info.GetReturnValue().Set(distance);
     return;
@@ -214,13 +214,13 @@ NAN_METHOD(Finder::GetExecutableDistanceUnit)
 {
     Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
     if (find == 0) // Throw exception
-	    return;
+	return;
 
     if (info.Length() != 1) // incorrect number of arguments
-	    return;
+	return;
 
     if (!info[0]->IsNumber()) // invalid argument
-	    return;
+	return;
 
     // get this executable's id
     int64_t exe_id = info[0]->IntegerValue();
@@ -230,9 +230,9 @@ NAN_METHOD(Finder::GetExecutableDistanceUnit)
     const char *str2;
 
     if (!find->_find->compute_best_feed_time(
-	    (int)exe_id, distance, base_time, over_time, dist_unit, str2
-	    ))
-	    return;
+	(int)exe_id, distance, base_time, over_time, dist_unit, str2
+	))
+	return;
 
     info.GetReturnValue().Set(CharTov8String((char*) dist_unit));
 
@@ -451,14 +451,14 @@ NAN_METHOD(Finder::IsEnabled)
     Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
     if (!find) //Throw Exception
 	return;
-    if (info.Length != 1) //Throw Exception
+    if (info.Length() != 1) //Throw Exception
 	return;
     if (!info[0]->IsInt32()) //Throw Exception
 	return;
 
     int flag = 0;
 
-    if (!find->_find->is_enabled((int)info[0]->Int32Value, flag)) //Throw Exception
+    if (!find->_find->is_enabled((int)info[0]->Int32Value(), flag)) //Throw Exception
 	return;
     info.GetReturnValue().Set((flag != 0));
 }
