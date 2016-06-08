@@ -53,6 +53,7 @@ NAN_MODULE_INIT(Finder::Init)
 	Nan::SetPrototypeMethod(tpl, "GetExecutableDistance", GetExecutableDistance);
 	Nan::SetPrototypeMethod(tpl, "GetExecutableDistanceUnit", GetExecutableDistanceUnit);
 	Nan::SetPrototypeMethod(tpl, "GetExecutableName", GetExecutableName);
+	Nan::SetPrototypeMethod(tpl, "GetExecutableType", GetExecutableType);
 	Nan::SetPrototypeMethod(tpl, "GetFaceEdgeCount", GetFaceEdgeCount);
 	Nan::SetPrototypeMethod(tpl, "GetFaceEdgeNextPoint", GetFaceEdgeCount);
 	Nan::SetPrototypeMethod(tpl, "GetFeatureID", GetFeatureID);
@@ -253,6 +254,26 @@ NAN_METHOD(Finder::GetExecutableName) {
 	return;
 
     info.GetReturnValue().Set(CharTov8String((char *)name));
+    return;
+}
+
+NAN_METHOD(Finder::GetExecutableType) {
+    Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (find == 0) // Throw exception
+	return;
+
+    if (info.Length() != 1) // incorrect number of arguments
+	return;
+
+    if (!info[0]->IsInt32()) // invalid argument
+	return;
+
+    const char * type = 0;
+    Nan::Maybe<int32_t> t = Nan::To<int32_t>(info[0]);
+    if (!find->_find->executable_type(t.FromJust(), type))
+	return;
+
+    info.GetReturnValue().Set(CharTov8String((char *)type));
     return;
 }
 
