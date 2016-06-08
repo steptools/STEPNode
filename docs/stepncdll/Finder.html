@@ -1502,9 +1502,20 @@ type of an executable.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetExecutableWorkpieceAsIs></a>GetExecutableWorkpieceAsIs()</h2>
-<pre>
+<pre class="dotnet">
 System::Int64 <b>GetExecutableWorkpieceAsIs</b> (
 	System::Int64 exe_id
+	);
+</pre>
+<pre class="nodejs">
+int <b>GetExecutableWorkpieceAsIs</b> (
+	int exe_id
+	);
+</pre>
+<pre class="cpp">
+RoseBoolean <b>executable_as_is_workpiece</b> (
+	int ws_id, 
+	int &wp_id
 	);
 </pre>
 
