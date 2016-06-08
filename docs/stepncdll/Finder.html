@@ -1198,18 +1198,10 @@ the type of an executable as a string.
 double <b>GetExecutableDistance</b> (
 	System::Int64 exe_id
 	);
-
-System::String^ <b>GetExecutableDistanceUnit</b> (
-	System::Int64 exe_id
-	);
 </pre>
 
 <pre class="nodejs">
 double <b>GetExecutableDistance</b> (
-	int exe_id
-	);
-
-string <b>GetExecutableDistanceUnit</b> (
 	int exe_id
 	);
 </pre>
@@ -1225,6 +1217,29 @@ RoseBoolean <b>compute_best_feed_time</b> (
 	);
 </pre>
 
+
+<pre class="dotnet">
+System::String^ <b>GetExecutableDistanceUnit</b> (
+	System::Int64 exe_id
+	);
+</pre>
+
+<pre class="nodejs">
+string <b>GetExecutableDistanceUnit</b> (
+	int exe_id
+	);
+</pre>
+
+<pre class="cpp">
+RoseBoolean <b>compute_best_feed_time</b> (
+	int exe_id,
+	double &distance,
+	double &base_time,
+	double &over_time,
+	const char * &dist_unit,
+	const char * &time_unit
+	);
+</pre>
 
 
 <P>The <b>GetExecutableDistance()</b> function returns the total
