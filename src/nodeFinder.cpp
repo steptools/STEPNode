@@ -1,15 +1,15 @@
 // $RCSfile: $
 // $Revision: $ $Date: $
 // Auth: Samson Bonfante (bonfante@steptools.com)
-// 
-// Copyright (c) 1991-2016 by STEP Tools Inc. 
-// 
+//
+// Copyright (c) 1991-2016 by STEP Tools Inc.
+//
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-// 
+//
 //     http://www.apache.org/licenses/LICENSE-2.0
-// 
+//
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -41,30 +41,34 @@ NAN_METHOD(Finder::New)
 
 NAN_MODULE_INIT(Finder::Init)
 {
-    v8::Local<v8::FunctionTemplate> tpl = Nan::New<v8::FunctionTemplate>(New);
-    tpl->SetClassName(Nan::New("Finder").ToLocalChecked());
-    tpl->InstanceTemplate()->SetInternalFieldCount(1);
-    Nan::SetPrototypeMethod(tpl, "APIUnitsInches", APIUnitsInches);
-    Nan::SetPrototypeMethod(tpl, "APIUnitsMM", APIUnitsMM);
-    Nan::SetPrototypeMethod(tpl, "APIUnitsNative", APIUnitsNative);
-    Nan::SetPrototypeMethod(tpl, "APIUnitsFeed", APIUnitsFeed);
-    Nan::SetPrototypeMethod(tpl, "APIUnitsSpeed", APIUnitsSpeed);
-    Nan::SetPrototypeMethod(tpl, "GetCompoundFeatureCount", GetCompoundFeatureCount);
-    Nan::SetPrototypeMethod(tpl, "GetExecutableDistance", GetExecutableDistance);
-    Nan::SetPrototypeMethod(tpl, "GetFaceEdgeCount", GetFaceEdgeCount);
-    Nan::SetPrototypeMethod(tpl, "GetFaceEdgeNextPoint", GetFaceEdgeCount);
-    Nan::SetPrototypeMethod(tpl, "GetFeatureID", GetFeatureID);
-    Nan::SetPrototypeMethod(tpl, "GetFeatureName", GetFeatureName);
-    Nan::SetPrototypeMethod(tpl, "GetFeatureOutsideProfileClosedCircular", GetFeatureOutsideProfileClosedCircular);
-    Nan::SetPrototypeMethod(tpl, "GetMainWorkplan", GetMainWorkplan);
-    Nan::SetPrototypeMethod(tpl, "GetNestedExecutableCount", GetNestedExecutableCount);
-    Nan::SetPrototypeMethod(tpl, "GetProcessFeed", GetProcessFeed);
-    Nan::SetPrototypeMethod(tpl, "GetProcessFeedUnit", GetProcessFeedUnit);
-    Nan::SetPrototypeMethod(tpl, "OpenProject", OpenProject);
-    Nan::SetPrototypeMethod(tpl, "SaveAsModules", SaveAsModules);
-    Nan::SetPrototypeMethod(tpl, "SaveAsP21", SaveAsP21);
-    constructor().Reset(Nan::GetFunction(tpl).ToLocalChecked());
-    Nan::Set(target, Nan::New("Finder").ToLocalChecked(), Nan::GetFunction(tpl).ToLocalChecked());
+	v8::Local<v8::FunctionTemplate> tpl = Nan::New<v8::FunctionTemplate>(New);
+	tpl->SetClassName(Nan::New("Finder").ToLocalChecked());
+	tpl->InstanceTemplate()->SetInternalFieldCount(1);
+	Nan::SetPrototypeMethod(tpl, "APIUnitsInch", APIUnitsInch);
+	Nan::SetPrototypeMethod(tpl, "APIUnitsMM", APIUnitsMM);
+	Nan::SetPrototypeMethod(tpl, "APIUnitsNative", APIUnitsNative);
+	Nan::SetPrototypeMethod(tpl, "APIUnitsFeed", APIUnitsFeed);
+	Nan::SetPrototypeMethod(tpl, "APIUnitsSpeed", APIUnitsSpeed);
+	Nan::SetPrototypeMethod(tpl, "GetCompoundFeatureCount", GetCompoundFeatureCount);
+	Nan::SetPrototypeMethod(tpl, "GetExecutableDistance", GetExecutableDistance);
+	Nan::SetPrototypeMethod(tpl, "GetExecutableDistanceUnit", GetExecutableDistanceUnit);
+	Nan::SetPrototypeMethod(tpl, "GetExecutableName", GetExecutableName);
+	Nan::SetPrototypeMethod(tpl, "GetFaceEdgeCount", GetFaceEdgeCount);
+	Nan::SetPrototypeMethod(tpl, "GetFaceEdgeNextPoint", GetFaceEdgeCount);
+	Nan::SetPrototypeMethod(tpl, "GetFeatureID", GetFeatureID);
+	Nan::SetPrototypeMethod(tpl, "GetFeatureName", GetFeatureName);
+	Nan::SetPrototypeMethod(tpl, "GetFeatureOutsideProfileClosedCircular", GetFeatureOutsideProfileClosedCircular);
+	Nan::SetPrototypeMethod(tpl, "GetMainWorkplan", GetMainWorkplan);
+	Nan::SetPrototypeMethod(tpl, "GetProcessFeed", GetProcessFeed);
+	Nan::SetPrototypeMethod(tpl, "GetProcessFeedUnit", GetProcessFeedUnit);
+	Nan::SetPrototypeMethod(tpl, "GetProjectName", GetProjectName);
+	Nan::SetPrototypeMethod(tpl, "IsEnabled", IsEnabled);
+	Nan::SetPrototypeMethod(tpl, "IsSelective", IsSelective);
+	Nan::SetPrototypeMethod(tpl, "OpenProject", OpenProject);
+	Nan::SetPrototypeMethod(tpl, "SaveAsModules", SaveAsModules);
+	Nan::SetPrototypeMethod(tpl, "SaveAsP21", SaveAsP21);
+	constructor().Reset(Nan::GetFunction(tpl).ToLocalChecked());
+	Nan::Set(target, Nan::New("Finder").ToLocalChecked(), Nan::GetFunction(tpl).ToLocalChecked());
 }
 
 NAN_METHOD(Finder::APIUnitsFeed) {
@@ -209,13 +213,13 @@ NAN_METHOD(Finder::GetExecutableDistanceUnit)
 {
     Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
     if (find == 0) // Throw exception
-	    return;
+	return;
 
     if (info.Length() != 1) // incorrect number of arguments
-	    return;
+	return;
 
     if (!info[0]->IsNumber()) // invalid argument
-	    return;
+	return;
 
     // get this executable's id
     int64_t exe_id = info[0]->IntegerValue();
@@ -225,9 +229,9 @@ NAN_METHOD(Finder::GetExecutableDistanceUnit)
     const char *str2;
 
     if (!find->_find->compute_best_feed_time(
-	    (int)exe_id, distance, base_time, over_time, dist_unit, str2
-	    ))
-	    return;
+	(int)exe_id, distance, base_time, over_time, dist_unit, str2
+	))
+	return;
 
     info.GetReturnValue().Set(CharTov8String((char*) dist_unit));
 
@@ -456,6 +460,23 @@ NAN_METHOD(Finder::GetProjectName) {
 	return; //Throw Error
     }
     info.GetReturnValue().Set(CharTov8String((char *)prj_name));
+}
+
+NAN_METHOD(Finder::IsEnabled)
+{
+    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (!find) //Throw Exception
+	return;
+    if (info.Length() != 1) //Throw Exception
+	return;
+    if (!info[0]->IsInt32()) //Throw Exception
+	return;
+
+    int flag = 0;
+
+    if (!find->_find->is_enabled((int)info[0]->Int32Value(), flag)) //Throw Exception
+	return;
+    info.GetReturnValue().Set((flag != 0));
 }
 
 NAN_METHOD(Finder::IsSelective)
