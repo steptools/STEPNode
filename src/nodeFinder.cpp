@@ -62,6 +62,7 @@ NAN_MODULE_INIT(Finder::Init)
 	Nan::SetPrototypeMethod(tpl, "GetProcessFeed", GetProcessFeed);
 	Nan::SetPrototypeMethod(tpl, "GetProcessFeedUnit", GetProcessFeedUnit);
 	Nan::SetPrototypeMethod(tpl, "GetProjectName", GetProjectName);
+	Nan::SetPrototypeMethod(tpl, "IsEnabled", IsEnabled);
 	Nan::SetPrototypeMethod(tpl, "IsSelective", IsSelective);
 	Nan::SetPrototypeMethod(tpl, "OpenProject", OpenProject);
 	Nan::SetPrototypeMethod(tpl, "SaveAsModules", SaveAsModules);
@@ -442,6 +443,23 @@ NAN_METHOD(Finder::GetProjectName) {
 	return; //Throw Error
     }
     info.GetReturnValue().Set(CharTov8String((char *)prj_name));
+}
+
+NAN_METHOD(Finder::IsEnabled)
+{
+    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (!find) //Throw Exception
+	return;
+    if (info.Length != 1) //Throw Exception
+	return;
+    if (!info[0]->IsInt32()) //Throw Exception
+	return;
+
+    int flag = 0;
+
+    if (!find->_find->is_enabled((int)info[0]->Int32Value, flag)) //Throw Exception
+	return;
+    info.GetReturnValue().Set((flag != 0));
 }
 
 NAN_METHOD(Finder::IsSelective)
