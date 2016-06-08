@@ -61,6 +61,9 @@ public:
     // string GetExecutableName(int exe_id)
     static NAN_METHOD(GetExecutableName);
 
+    // string GetExecutableType(int exe_id)
+    static NAN_METHOD(GetExecutableType);
+
     //int GetMainWorkplan();
     static NAN_METHOD(GetMainWorkplan);
 
