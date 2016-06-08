@@ -4822,19 +4822,6 @@ function cannot pick the material.
 System::Int64 <b>GetNestedExecutableCount</b> (
 	System::Int64 exe_id
 	);
-
-System::Int64 <b>GetNestedExecutableNext</b> (
-	System::Int64 wp_id,
-	System::Int64 index
-	);
-
-System::Collections::Generic::List<System::Int64>^ <b>GetNestedExecutableAll</b> (
-	System::Int64 wp_id
-	);
-
-System::Collections::Generic::List<System::Int64>^ <b>GetNestedExecutableAllEnabled</b> (
-	System::Int64 wp_id
-	);
 </pre>
 <pre class="nodejs">
 int <b>GetNestedExecutableCount</b> (
@@ -4845,6 +4832,22 @@ int <b>GetNestedExecutableCount</b> (
 RoseBoolean <b>nested_executable_count</b> (
 	int own_id,
 	int &size
+	);
+</pre>
+<pre class="dotnet">
+System::Int64 <b>GetNestedExecutableNext</b> (
+	System::Int64 wp_id,
+	System::Int64 index
+	);
+</pre>
+<pre class="dotnet">
+System::Collections::Generic::List<System::Int64>^ <b>GetNestedExecutableAll</b> (
+	System::Int64 wp_id
+	);
+</pre>
+<pre class="dotnet">
+System::Collections::Generic::List<System::Int64>^ <b>GetNestedExecutableAllEnabled</b> (
+	System::Int64 wp_id
 	);
 </pre>
 
