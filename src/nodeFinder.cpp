@@ -407,8 +407,8 @@ NAN_METHOD(Finder::GetProcessFeed) {
 	return;
     double feed = 0.0;
     double dummy;
-    int ws_id = info[0]->Int32Value();
-    if (!find->_find->feed_speed(ws_id, feed, dummy)) //Throw Exception
+    Nan::Maybe<int32_t> ws_id = Nan::To<int32_t>(info[0]);
+    if (!find->_find->feed_speed(ws_id.FromJust(), feed, dummy)) //Throw Exception
 	return;
     info.GetReturnValue().Set(feed);
 }
@@ -423,8 +423,8 @@ NAN_METHOD(Finder::GetProcessFeedUnit) {
 	return;
     const char* unit = "";
     const char* dummy = "";
-    int ws_id = info[0]->Int32Value();
-    if (!find->_find->feed_speed_unit(ws_id, (const char*&)unit, (const char*&)dummy)) //Throw Exception
+    Nan::Maybe<int32_t> ws_id = Nan::To<int32_t>(info[0]);
+    if (!find->_find->feed_speed_unit(ws_id.FromJust(), (const char*&)unit, (const char*&)dummy)) //Throw Exception
 	return;
     info.GetReturnValue().Set(CharTov8String((char *)unit));
 }
@@ -458,7 +458,9 @@ NAN_METHOD(Finder::IsEnabled)
 
     int flag = 0;
 
-    if (!find->_find->is_enabled(info[0]->Int32Value(), flag)) //Throw Exception
+    Nan::Maybe<int32_t> exe_id = Nan::To<int32_t>(info[0]);
+
+    if (!find->_find->is_enabled(exe_id.FromJust(), flag)) //Throw Exception
 	return;
     info.GetReturnValue().Set((flag != 0));
 }
