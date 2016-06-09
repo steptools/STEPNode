@@ -587,7 +587,6 @@ NAN_METHOD(Finder::GetMainWorkplan) {
     return;
 }
 
-<<<<<<< HEAD
 NAN_METHOD(Finder::GetNestedExecutableAll)
 {
     Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
@@ -631,7 +630,9 @@ NAN_METHOD(Finder::GetNestedExecutableAllEnabled)
 	exes->Set(i, Nan::New(pt));
     }
     info.GetReturnValue().Set(exes);
-=======
+    return;
+}
+
 NAN_METHOD(Finder::GetMaterialName)
 {
     Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
@@ -653,7 +654,6 @@ NAN_METHOD(Finder::GetMaterialName)
 
 
     info.GetReturnValue().Set(CharTov8String((char *)name));
->>>>>>> fdb973b4bb44ad99240f762b8f0234012d391a17
     return;
 }
 
