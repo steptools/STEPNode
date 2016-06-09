@@ -32,6 +32,9 @@
 		],
 	    "conditions": [
 		    ["OS == 'mac' ", {
+                "xcode_settings": {
+                    'MACOSX_DEPLOYMENT_TARGET': '10.10'
+                },
 			    "libraries": [
 				    '<(Rose_lib)'+"/macosx_all_clang/libstncapt.a",
 				    '<(Rose_lib)'+"/macosx_all_clang/libstixctl.a",
