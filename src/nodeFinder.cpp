@@ -67,6 +67,8 @@ NAN_MODULE_INIT(Finder::Init)
 	Nan::SetPrototypeMethod(tpl, "GetFeatureOutsideProfileClosedCircular", GetFeatureOutsideProfileClosedCircular);
 	Nan::SetPrototypeMethod(tpl, "GetMainWorkplan", GetMainWorkplan);
 	Nan::SetPrototypeMethod(tpl, "GetMaterialName", GetMaterialName);
+	Nan::SetPrototypeMethod(tpl, "GetNestedExecutableAll", GetNestedExecutableAll);
+	Nan::SetPrototypeMethod(tpl, "GetNestedExecutableAllEnabled", GetNestedExecutableAllEnabled);
 	Nan::SetPrototypeMethod(tpl, "GetNestedExecutableCount", GetNestedExecutableCount);
 	Nan::SetPrototypeMethod(tpl, "GetNestedExecutableNext", GetNestedExecutableNext);
 	Nan::SetPrototypeMethod(tpl, "GetProcessFeed", GetProcessFeed);
@@ -78,9 +80,11 @@ NAN_MODULE_INIT(Finder::Init)
 	Nan::SetPrototypeMethod(tpl, "GetWorkplanProcessFeatureCount", GetWorkplanProcessFeatureCount);
 	Nan::SetPrototypeMethod(tpl, "GetWorkplanProcessFeatureNext", GetWorkplanProcessFeatureNext);
 	Nan::SetPrototypeMethod(tpl, "GetWorkplanSize", GetWorkplanSize);
-	Nan::SetPrototypeMethod(tpl, "GetWorkplanToolCount", GetWorkplanToolCount);
-	Nan::SetPrototypeMethod(tpl, "GetWorkplanToolNext", GetWorkplanToolNext);
+	Nan::SetPrototypeMethod(tpl, "GetSelectiveExecutableAll", GetSelectiveExecutableAll); 
 	Nan::SetPrototypeMethod(tpl, "GetSelectiveExecutableCount", GetSelectiveExecutableCount);
+	Nan::SetPrototypeMethod(tpl, "GetSelectiveExecutableNext", GetSelectiveExecutableNext);
+    Nan::SetPrototypeMethod(tpl, "GetWorkplanToolCount", GetWorkplanToolCount);
+    Nan::SetPrototypeMethod(tpl, "GetWorkplanToolNext", GetWorkplanToolNext);
 	Nan::SetPrototypeMethod(tpl, "IsEnabled", IsEnabled);
 	Nan::SetPrototypeMethod(tpl, "IsSelective", IsSelective);
 	Nan::SetPrototypeMethod(tpl, "IsWorkingstep", IsWorkingstep);
@@ -684,7 +688,7 @@ NAN_METHOD(Finder::GetProjectName) {
     if (find == 0) {
 	return; //throw exception
     }
-    if (info[0]->IsUndefined()) {
+    if (!info[0]->IsUndefined()) {
 	return; //throw exception
     }
     const char * prj_name = 0;
@@ -695,6 +699,32 @@ NAN_METHOD(Finder::GetProjectName) {
     }
 
     info.GetReturnValue().Set(CharTov8String((char *)prj_name));
+    return;
+}
+
+NAN_METHOD(Finder::GetSelectiveExecutableAll) {
+    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (find == 0) {
+	return; //throw exception
+    }
+    if (info.Length() != 1) {
+	return; //throw exception
+    }
+    if (!info[0]->IsNumber()) {
+	return; // Throw exception
+    }
+    Nan::Maybe<int32_t> wp_id = Nan::To<int32_t>(info[0]);
+    v8::Local<v8::Array> exes = Nan::New<v8::Array>();
+    rose_uint_vector tmp;
+    if (!find->_find->selective_executable_all(wp_id.FromJust(), tmp)) {
+	return; //Throw error
+    }
+    for (unsigned i = 0; i < tmp.size(); i++) {
+	int pt = tmp.get(i);
+	exes->Set(i, Nan::New(pt));
+    }
+
+    info.GetReturnValue().Set(exes);
     return;
 }
 
@@ -718,6 +748,27 @@ NAN_METHOD(Finder::GetSelectiveExecutableCount) {
     return;
 }
 
+NAN_METHOD(Finder::GetSelectiveExecutableNext) {
+    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (find == 0) {
+	return; //throw exception
+    }
+    if (info.Length() != 2) {
+	return; //throw exception
+    }
+    if (!info[0]->IsNumber()) {
+	return; // Throw exception
+    }
+    if (!info[1]->IsNumber()) {
+	return; // Throw exception
+    }
+
+    int exe_id = 0;
+    if (!(find->_find->selective_executable_next(Nan::To<int32_t>(info[0]).FromJust(), Nan::To<int32_t>(info[1]).FromJust(), exe_id))) {
+	return; //Throw Error
+    }
+    info.GetReturnValue().Set(exe_id);
+}
 NAN_METHOD(Finder::GetWorkingstep) {
     Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
     if (find == 0) //Throw Exception
@@ -869,6 +920,7 @@ NAN_METHOD(Finder::GetWorkplanToolNext) {
 }
 
 NAN_METHOD(Finder::IsEnabled) {
+
     Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
     if (!find) //Throw Exception
 	return;

@@ -100,6 +100,12 @@ public:
     //long GetFeatureID(long ws_id);
     static NAN_METHOD(GetFeatureID);
 
+    //int[] GetNestedExecutableAll (int wp_id);
+    static NAN_METHOD(GetNestedExecutableAll);
+
+    //int[] GetNestedExecutableAllEnabled (int wp_id);
+    static NAN_METHOD(GetNestedExecutableAllEnabled);
+
     //int GetNestedExecutableCount (int exe_id);
     static NAN_METHOD(GetNestedExecutableCount);
 
@@ -133,15 +139,21 @@ public:
     //int GetWorkplanSize();
     static NAN_METHOD(GetWorkplanSize);
 
+    //int[] GetSelectiveExecutableAll( int wp_id)
+    static NAN_METHOD(GetSelectiveExecutableAll);
+
+    //int GetSelectiveExecutableCount( int sl_id)
+    static NAN_METHOD(GetSelectiveExecutableCount);
+    
+    //int GetSelectiveExecutableNext(int wp_id, int index)
+    static NAN_METHOD(GetSelectiveExecutableNext);
+
     //int GetWorkplanToolCount();
     static NAN_METHOD(GetWorkplanToolCount);
 
     //int GetWorkplanToolNext();
     static NAN_METHOD(GetWorkplanToolNext);
-
-    //int GetSelectiveExecutableCount( int sl_id)
-    static NAN_METHOD(GetSelectiveExecutableCount);
-
+    
     //bool IsEnabled(int exe_id);
     static NAN_METHOD(IsEnabled);
 
