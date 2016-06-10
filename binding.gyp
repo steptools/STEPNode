@@ -1,31 +1,30 @@
 {
-	"targets": [
-        {
-            "target_name": "StepNC",
-            "sources": [ 
-		"./src/nodeStepNC.cpp",
-		"./src/nodeUtils.h",
-		"./src/nodeUtils.cpp",
-		"./src/nodeMachineState.h",
-		"./src/nodeMachineState.cpp",
-		"./src/nodeFinder.h",
-		"./src/nodeFinder.cpp",
-		"./src/nodeAptStepMaker.h",
-		"./src/nodeAptStepMaker.cpp",
-		"./src/nodeTolerance.h",
-		"./src/nodeTolerance.cpp",
+	"targets": [{
+		"target_name": "StepNC",
+		"sources": [ 
+			"./src/nodeStepNC.cpp",
+			"./src/nodeUtils.h",
+			"./src/nodeUtils.cpp",
+			"./src/nodeMachineState.h",
+			"./src/nodeMachineState.cpp",
+			"./src/nodeFinder.h",
+			"./src/nodeFinder.cpp",
+			"./src/nodeAptStepMaker.h",
+			"./src/nodeAptStepMaker.cpp",
+			"./src/nodeTolerance.h",
+			"./src/nodeTolerance.cpp",
 		],
 	    "include_dirs": [
-		"<!(node -e \"require('nan')\")",
-		"$(ROSE_INCLUDE)",
-		"$(ROSE_INCLUDE)/stpman",
-		"$(ROSE_INCLUDE)/stpman_arm",
-		"$(ROSE_INCLUDE)/stmodule",
-		"$(ROSE_INCLUDE)/stix",
-		"$(ROSE_INCLUDE)/stgl",
-		"$(ROSE_INCLUDE)/stixmesh",
-		"$(ROSE_INCLUDE)/stixsim",
-		"$(ROSE_INCLUDE)/stixctl"
+			"<!(node -e \"require('nan')\")",
+			"$(ROSE_INCLUDE)",
+			"$(ROSE_INCLUDE)/stpman",
+			"$(ROSE_INCLUDE)/stpman_arm",
+			"$(ROSE_INCLUDE)/stmodule",
+			"$(ROSE_INCLUDE)/stix",
+			"$(ROSE_INCLUDE)/stgl",
+			"$(ROSE_INCLUDE)/stixmesh",
+			"$(ROSE_INCLUDE)/stixsim",
+			"$(ROSE_INCLUDE)/stixctl"
 		],
 	    "conditions": [
 		    ["OS == 'mac' ", {
