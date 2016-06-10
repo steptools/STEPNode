@@ -9447,9 +9447,23 @@ workingstep.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetToolPartName></a>GetToolPartName()</h2>
-<pre>
+<pre class="dotnet">
 System::String^ <b>GetToolPartName</b> (
 	System::Int64 ws_id
+	);
+</pre>
+
+<pre class="nodejs">
+string <b>GetToolPartName</b> (
+	int ws_id
+	);
+</pre>
+
+<pre class="cpp">
+RoseBoolean <b>tool_part_name</b> (
+	int ws_id, 
+	int &pd_id, 
+	const char * &part_name
 	);
 </pre>
 
