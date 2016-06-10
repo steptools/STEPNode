@@ -1,7 +1,4 @@
 {
-	'variables' : {
-		'Rose_lib':'$(ROSE)/lib'
-	},
 	"targets": [
         {
             "target_name": "StepNC",
@@ -35,38 +32,44 @@
                 "xcode_settings": {
                     'MACOSX_DEPLOYMENT_TARGET': '10.10'
                 },
+            	'variables' : {
+            		'Rose_lib':'$(ROSE)/lib/macosx_all_clang/'
+            	},
 			    "libraries": [
-				    '<(Rose_lib)'+"/macosx_all_clang/libstncapt.a",
-				    '<(Rose_lib)'+"/macosx_all_clang/libstixctl.a",
-				    '<(Rose_lib)'+"/macosx_all_clang/libstpman_arm.a",
-				    '<(Rose_lib)'+"/macosx_all_clang/libstmodule.a",
-				    '<(Rose_lib)'+"/macosx_all_clang/libstpman_stixsim.a",
-				    '<(Rose_lib)'+"/macosx_all_clang/libstpman_stixmesh.a",
-				    '<(Rose_lib)'+"/macosx_all_clang/libstpman_stix.a",
-				    '<(Rose_lib)'+"/macosx_all_clang/libstpman.a",
-				    '<(Rose_lib)'+"/macosx_all_clang/libp28e2.a",
-				    '<(Rose_lib)'+"/macosx_all_clang/librosemath.a",
-				    '<(Rose_lib)'+"/macosx_all_clang/librose.a",
-				    '<(Rose_lib)'+"/macosx_all_clang/libdtnurbsc.a",
-				    '<(Rose_lib)'+"/macosx_all_clang/libf2c.a",
+				    '<(Rose_lib)'+"libstncapt.a",
+				    '<(Rose_lib)'+"libstixctl.a",
+				    '<(Rose_lib)'+"libstpman_arm.a",
+				    '<(Rose_lib)'+"libstmodule.a",
+				    '<(Rose_lib)'+"libstpman_stixsim.a",
+				    '<(Rose_lib)'+"libstpman_stixmesh.a",
+				    '<(Rose_lib)'+"libstpman_stix.a",
+				    '<(Rose_lib)'+"libstpman.a",
+				    '<(Rose_lib)'+"libp28e2.a",
+				    '<(Rose_lib)'+"librosemath.a",
+				    '<(Rose_lib)'+"librose.a",
+				    '<(Rose_lib)'+"libdtnurbsc.a",
+				    '<(Rose_lib)'+"libf2c.a",
 			    ]
 		    }],
 		    ["OS =='win' ", {
+            	'variables' : {
+            		'Rose_lib':'$(ROSE)\\lib\\x64_win64_vc14_md\\'
+            	},
 			    "libraries": [
-				    '<(Rose_lib)'+"\\x64_win64_vc14_md\\stgl.lib",
-				    '<(Rose_lib)'+"\\x64_win64_vc14_md\\stncapt.lib",
-				    '<(Rose_lib)'+"\\x64_win64_vc14_md\\stixctl.lib",
-				    '<(Rose_lib)'+"\\x64_win64_vc14_md\\stpman_arm.lib",
-				    '<(Rose_lib)'+"\\x64_win64_vc14_md\\stmodule.lib",
-				    '<(Rose_lib)'+"\\x64_win64_vc14_md\\stpman_stixsim.lib",
-				    '<(Rose_lib)'+"\\x64_win64_vc14_md\\stpman_stixmesh.lib",
-				    '<(Rose_lib)'+"\\x64_win64_vc14_md\\stpman_stix.lib",
-				    '<(Rose_lib)'+"\\x64_win64_vc14_md\\stpman.lib",
-				    '<(Rose_lib)'+"\\x64_win64_vc14_md\\p28e2.lib",
-				    '<(Rose_lib)'+"\\x64_win64_vc14_md\\rosemath.lib",
-				    '<(Rose_lib)'+"\\x64_win64_vc14_md\\rose.lib",
-				    '<(Rose_lib)'+"\\x64_win64_vc14_md\\dtnurbsc.lib",
-				    '<(Rose_lib)'+"\\x64_win64_vc14_md\\vcf2c.lib",
+				    '<(Rose_lib)'+"stgl.lib",
+				    '<(Rose_lib)'+"stncapt.lib",
+				    '<(Rose_lib)'+"stixctl.lib",
+				    '<(Rose_lib)'+"stpman_arm.lib",
+				    '<(Rose_lib)'+"stmodule.lib",
+				    '<(Rose_lib)'+"stpman_stixsim.lib",
+				    '<(Rose_lib)'+"stpman_stixmesh.lib",
+				    '<(Rose_lib)'+"stpman_stix.lib",
+				    '<(Rose_lib)'+"stpman.lib",
+				    '<(Rose_lib)'+"p28e2.lib",
+				    '<(Rose_lib)'+"rosemath.lib",
+				    '<(Rose_lib)'+"rose.lib",
+				    '<(Rose_lib)'+"dtnurbsc.lib",
+				    '<(Rose_lib)'+"vcf2c.lib",
 				    "opengl32.lib",
 				    "glu32.lib",
 				    "msvcrt.lib"
