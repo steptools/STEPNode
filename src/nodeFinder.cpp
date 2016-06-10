@@ -987,7 +987,7 @@ NAN_METHOD(Finder::GetWorkplanExecutableAll)
     if (!find->_find->workplan_executable_all(wp_id.FromJust(), tmp))
 	return; // error in cpp
 
-    for (int i = 0; i < tmp.size(); i++)
+    for (uint i = 0; i < tmp.size(); i++)
     {
 	int pt = tmp.get(i);
 	exes->Set(i, Nan::New(pt));
@@ -1019,7 +1019,7 @@ NAN_METHOD(Finder::GetWorkplanExecutableAllEnabled)
     if (!find->_find->workplan_executable_all_enabled(wp_id.FromJust(), tmp))
 	return; // error in cpp
 
-    for (int i = 0; i < tmp.size(); i++)
+    for (uint i = 0; i < tmp.size(); i++)
     {
 	int pt = tmp.get(i);
 	exes->Set(i, Nan::New(pt));
