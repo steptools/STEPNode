@@ -1,7 +1,7 @@
 {
 	'variables' : {
 		"conditions": [
-            ["OS == 'linux"], {
+            ["OS == 'linux' ", {
                'Rose_lib': '$(ROSE)/lib/linux_x86_64_gcc_3.4/lib',
                'lib_ext': '.a' 
             }],
@@ -65,7 +65,7 @@
 					"glu32.lib",
 					"msvcrt.lib"
 				]
-			}]
+			}],
 			['OS!="win"', {
 				"libraries": ['<(Rose_lib)'+"f2c"+'<(lib_ext)']
 			}],
