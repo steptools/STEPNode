@@ -9061,10 +9061,21 @@ of the ISO 13399 file.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetToolIdentifier></a>GetToolIdentifier()</h2>
-<pre>
+<pre class="dotnet">
 System::String^ <b>GetToolIdentifier</b> (
 	System::Int64 ws_id
 	);
+</pre>
+<pre class="nodejs">
+string <b>GetToolIdentifier</b>(
+	int ws_id
+	);
+</pre>
+<pre class="cpp">
+RoseBoolean <b>tool_reference_data_name</b> (
+	int ws_id,
+	const char * &identifier
+	);    
 </pre>
 
 <P>The <b>GetToolIdentifier()</b> function 
