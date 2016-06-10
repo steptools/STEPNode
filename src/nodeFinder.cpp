@@ -79,6 +79,7 @@ NAN_MODULE_INIT(Finder::Init)
 	Nan::SetPrototypeMethod(tpl, "GetToolNumberAsNumber", GetToolNumberAsNumber);
 	Nan::SetPrototypeMethod(tpl, "GetToolPartName", GetToolPartName);
 	Nan::SetPrototypeMethod(tpl, "GetWorkingstep", GetWorkingstep);
+	Nan::SetPrototypeMethod(tpl, "GetWorkingstepTool", GetWorkingstepTool);
 	Nan::SetPrototypeMethod(tpl, "GetWorkplanName", GetWorkplanName);
 	Nan::SetPrototypeMethod(tpl, "GetWorkplanProcessFeatureCount", GetWorkplanProcessFeatureCount);
 	Nan::SetPrototypeMethod(tpl, "GetWorkplanProcessFeatureNext", GetWorkplanProcessFeatureNext);
@@ -936,6 +937,30 @@ NAN_METHOD(Finder::GetWorkingstep) {
     if (!find->_find->is_workingstep(wp_id.FromJust(), index.FromJust(), exe_id, name))
 	return;
     info.GetReturnValue().Set(exe_id);
+    return;
+}
+
+NAN_METHOD(Finder::GetWorkingstepTool)
+{
+    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+
+    if (find == 0)  // throw exception
+	return;
+
+    if (info.Length() != 1) // throw exception
+	return;
+
+    if (!info[0]->IsInt32())	// invalid argument
+	return;
+
+    Nan::Maybe<int32_t> ws_id = Nan::To<int32_t>(info[0]);
+
+    int tl_id = 0;
+
+    if (!find->_find->tool_from_ws(ws_id.FromJust(), tl_id))
+	return; // error in cpp
+
+    info.GetReturnValue().Set(tl_id);
     return;
 }
 
