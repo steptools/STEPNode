@@ -148,6 +148,9 @@ public:
     //string GetToolIdentifier(int ws_id)
     static NAN_METHOD(GetToolIdentifier);
 
+    //string GetToolNumber(int ws_id)
+    static NAN_METHOD(GetToolNumber);
+
     //int GetWorkplanToolCount();
     static NAN_METHOD(GetWorkplanToolCount);
 
