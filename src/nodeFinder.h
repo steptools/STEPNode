@@ -124,6 +124,9 @@ public:
     //int GetWorkingstep(int wp_id, int index)
     static NAN_METHOD(GetWorkingstep);
 
+    //int GetWorkingstepTool(int ws_id)
+    static NAN_METHOD(GetWorkingstepTool);
+
     //string GetWorkplanName();
     static NAN_METHOD(GetWorkplanName);
 
@@ -144,6 +147,18 @@ public:
     
     //int GetSelectiveExecutableNext(int wp_id, int index)
     static NAN_METHOD(GetSelectiveExecutableNext);
+
+    //string GetToolIdentifier(int ws_id)
+    static NAN_METHOD(GetToolIdentifier);
+
+    //string GetToolNumber(int ws_id)
+    static NAN_METHOD(GetToolNumber);
+
+    //int GetToolNumberAsNumber(int ws_id)
+    static NAN_METHOD(GetToolNumberAsNumber);
+
+    //string GetToolPartName(int ws_id)
+    static NAN_METHOD(GetToolPartName);
 
     //int GetWorkplanToolCount();
     static NAN_METHOD(GetWorkplanToolCount);
