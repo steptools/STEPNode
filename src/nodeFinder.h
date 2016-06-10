@@ -49,7 +49,7 @@ public:
     //void APIUnitsSpeed(System::String^ units);
     static NAN_METHOD(APIUnitsSpeed);
     
-    //System::int64 GetCompoundFeatureCount(system::int64 compound_id)'
+    //long GetCompoundFeatureCount(long compound_id)
     static NAN_METHOD(GetCompoundFeatureCount);
 
     // double GetExecutableDistance(int exe_id)
@@ -61,8 +61,32 @@ public:
     // string GetExecutableName(int exe_id)
     static NAN_METHOD(GetExecutableName);
 
+    // string GetExecutableType(int exe_id)
+    static NAN_METHOD(GetExecutableType);
+
+    // int GetExecutableWorkpieceAsIs(int exe_id)
+    static NAN_METHOD(GetExecutableWorkpieceAsIs);
+
+    // int GetExecutableWorkpieceAsIsLocal(int exe_id)
+    static NAN_METHOD(GetExecutableWorkpieceAsIsLocal);
+
+    // int GetExecutableWorkpieceRemoval(int exe_id)
+    static NAN_METHOD(GetExecutableWorkpieceRemoval);
+
+    // int GetExecutableWorkpieceRemovalLocal(int exe_id)
+    static NAN_METHOD(GetExecutableWorkpieceRemovalLocal);
+
+    // int GetExecutableWorkpieceToBe(int exe_id)
+    static NAN_METHOD(GetExecutableWorkpieceToBe);
+
+    // int GetExecutableWorkpieceToBeLocal(int exe_id)
+    static NAN_METHOD(GetExecutableWorkpieceToBeLocal);
+
     //int GetMainWorkplan();
     static NAN_METHOD(GetMainWorkplan);
+
+    //string GetMaterialName(long wp_id);
+    static NAN_METHOD(GetMaterialName);
 
     //long GetFaceEdgeCount(long face_id);
     static NAN_METHOD(GetFaceEdgeCount);
@@ -76,6 +100,18 @@ public:
     //long GetFeatureID(long ws_id);
     static NAN_METHOD(GetFeatureID);
 
+    //int[] GetNestedExecutableAll (int wp_id);
+    static NAN_METHOD(GetNestedExecutableAll);
+
+    //int[] GetNestedExecutableAllEnabled (int wp_id);
+    static NAN_METHOD(GetNestedExecutableAllEnabled);
+
+    //int GetNestedExecutableCount (int exe_id);
+    static NAN_METHOD(GetNestedExecutableCount);
+
+    //int GetNestedExecutableNext (int wp_id, int index);
+    static NAN_METHOD(GetNestedExecutableNext);
+
     //double GetProcessFeed (int ws_id);
     static NAN_METHOD(GetProcessFeed);
 
@@ -85,11 +121,59 @@ public:
     //string GetProjectName();
     static NAN_METHOD(GetProjectName);
 
+    //int GetWorkingstep(int wp_id, int index)
+    static NAN_METHOD(GetWorkingstep);
+
+    //string GetWorkplanName();
+    static NAN_METHOD(GetWorkplanName);
+
+    //int GetWorkplanProcessFeatureCount();
+    static NAN_METHOD(GetWorkplanProcessFeatureCount);
+
+    //int GetWorkplanProcessFeatureNext();
+    static NAN_METHOD(GetWorkplanProcessFeatureNext);
+
+    //int GetWorkplanSize();
+    static NAN_METHOD(GetWorkplanSize);
+
+    //int[] GetSelectiveExecutableAll( int wp_id)
+    static NAN_METHOD(GetSelectiveExecutableAll);
+
+    //int GetSelectiveExecutableCount( int sl_id)
+    static NAN_METHOD(GetSelectiveExecutableCount);
+    
+    //int GetSelectiveExecutableNext(int wp_id, int index)
+    static NAN_METHOD(GetSelectiveExecutableNext);
+
+    //int GetWorkplanToolCount();
+    static NAN_METHOD(GetWorkplanToolCount);
+
+    //int GetWorkplanToolNext();
+    static NAN_METHOD(GetWorkplanToolNext);
+    
+    //bool IsEnabled(int exe_id);
+    static NAN_METHOD(IsEnabled);
+
     //bool IsSelective(long exe_id);
     static NAN_METHOD(IsSelective);
 
-    //bool IsSelective(long exe_id);
+    //bool IsWorkingstep(long exe_id);
     static NAN_METHOD(IsWorkingstep);
+
+    //bool IsWorkplan(long exe_id);
+    static NAN_METHOD(IsWorkplan);
+
+    //bool IsWorkplanWIthSetupAndFixture(long exe_id);
+    static NAN_METHOD(IsWorkplanWIthSetupAndFixture);
+
+    //bool IsWorkplanWithSetup(long exe_id);
+    static NAN_METHOD(IsWorkplanWithSetup);
+
+    //bool IsWorkplanWithSetupAndFixtureMount(long exe_id);
+    static NAN_METHOD(IsWorkplanWithSetupAndFixtureMount);
+
+    //bool IsWorkplanWithSetupAndWorkpieceMount(long exe_id);
+    static NAN_METHOD(IsWorkplanWithSetupAndWorkpieceMount);
 
     //void Open238(String file_name);
     static NAN_METHOD(OpenProject);

@@ -763,11 +763,11 @@ identical because the final feature will be made in one operation.
 
 <!-- ================================ -->
 <h2 class=rule>
-<a name=APIUnitsFeed></a>APIUnitsSpeed()</h2>
+<a name=APIUnitsFeed></a>APIUnitsFeed()</h2>
 <pre class = "dotnet">
 void <b>APIUnitsFeed</b> (
-	System::String^ units
-	);
+	    System::String^ units
+	    );
 </pre>
 <pre class = "nodejs">
 void <b>APIUnitsFeed</b> (
@@ -776,8 +776,8 @@ void <b>APIUnitsFeed</b> (
 </pre>
 <pre class = "cpp">
 RoseBoolean <b>api_unit_feed</b> (
-	const char * units
-	);
+	    const char * units
+	    );
 </pre>
 
 <P>The <b>APIUnitsFeed()</b> function function tells all of the other
@@ -821,11 +821,11 @@ the units used by a feedrate in the data.
 <pre class = "dotnet">
 void <b>APIUnitsInch</b> ();
 </pre>
-<ore class = "nodejs">
-  void <v>APIUnitsInch</b> ();
+<pre class = "nodejs">
+void <b>APIUnitsInch</b> ();
 </pre>
 <pre class = "cpp">
-  RoseBoolean <b>api_unit_inch </b> ();
+	RoseBoolean <b>api_unit_inch </b> ();
 </pre>
 
 <P>The <b>APIUnitsInch()</b> function tells all of the other functions
@@ -854,10 +854,10 @@ to millimeter.
 void <b>APIUnitsMM</b> ();
 </pre>
 <pre class = "nodejs">
-  void <b>APIUnitsMM</b> ();
+void <b>APIUnitsMM</b> ();
 </pre>
 <pre class = "cpp">
-  RoseBoolean <b>api_unit_mm </b> ();
+    RoseBoolean <b>api_unit_mm </b> ();
 </pre>
 <P>The <b>APIUnitsMM()</b> function tells all of the other functions
 to return length units as millimeter values. For example, if a value
@@ -884,13 +884,13 @@ values to inch.
 <h2 class=rule>
 <a name=APIUnitsNative></a>APIUnitsNative()</h2>
 <pre class = "dotnet">
-  void <b>APIUnitsNative</b> ();
+void <b>APIUnitsNative</b> ();
 </pre>
 <pre class = "nodejs">
-  void <b>APIUnitsNatie</b> ();
+void <b>APIUnitsNative</b> ();
 </pre>
 <pre class = "cpp">
-  RoseBoolean <b>api_unit_native</b> ();
+    RoseBoolean <b>api_unit_native</b> ();
 </pre>
 
 
@@ -988,32 +988,34 @@ turning machine.
 
 <!-- ================================ -->
 <h2 class=rule>
-<a name=GetCompoundFeatureNext></a>
-<a name=GetCompoundFeatureCount></a>GetCompoundFeatureCount/Next()</h2>
+<a name=GetCompoundFeatureCount></a>GetCompoundFeatureCount</h2>
 <pre class = "dotnet">
 System::Int64 <b>GetCompoundFeatureCount</b> (
 	System::Int64 compound_id
 	);
-
-System::Int64 <b>GetCompoundFeatureNext</b> (
-	System::Int64 compound_id,
-	System::Int64 index
-	);
 </pre>
 <pre class = "nodejs">
 int <b>GetCompoundFeatureCount</b> (
-  int compound_id;
-  );
+	int compound_id;
+	);
 </pre>
 <pre class = "cpp">
 RoseBoolean <b>first_feature_in_compound</b> (
-    int compound_id,
-    int &feature_id,
-    int &size,s
-    double x,
-    double y,
-    double z
-    );
+	int compound_id,
+	int &feature_id,
+	int &size,s
+	double x,
+	double y,
+	double z
+	);
+</pre>
+<h2 class=rule>
+<a name=GetCompoundFeatureNext></a>GetCompoundFeatureNext</h2>
+<pre class>
+System::Int64 <b>GetCompoundFeatureNext</b> (
+  System::Int64 compound_id,
+  System::Int64 index
+  );
 </pre>
 <P>The <b>GetCompoundFeatureCount()</b> function returns the number of
 features in a compound feature and the <b>GetCompoundFeatureNext()</b>
@@ -1198,18 +1200,10 @@ the type of an executable as a string.
 double <b>GetExecutableDistance</b> (
 	System::Int64 exe_id
 	);
-
-System::String^ <b>GetExecutableDistanceUnit</b> (
-	System::Int64 exe_id
-	);
 </pre>
 
 <pre class="nodejs">
 double <b>GetExecutableDistance</b> (
-	int exe_id
-	);
-
-string <b>GetExecutableDistanceUnit</b> (
 	int exe_id
 	);
 </pre>
@@ -1225,6 +1219,29 @@ RoseBoolean <b>compute_best_feed_time</b> (
 	);
 </pre>
 
+
+<pre class="dotnet">
+System::String^ <b>GetExecutableDistanceUnit</b> (
+	System::Int64 exe_id
+	);
+</pre>
+
+<pre class="nodejs">
+string <b>GetExecutableDistanceUnit</b> (
+	int exe_id
+	);
+</pre>
+
+<pre class="cpp">
+RoseBoolean <b>compute_best_feed_time</b> (
+	int exe_id,
+	double &distance,
+	double &base_time,
+	double &over_time,
+	const char * &dist_unit,
+	const char * &time_unit
+	);
+</pre>
 
 
 <P>The <b>GetExecutableDistance()</b> function returns the total
@@ -1389,9 +1406,20 @@ and <a href="#GetExecutableOptimizedTime">GetExecutableOptimizedTime</a>.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetExecutableType></a>GetExecutableType()</h2>
-<pre>
+<pre class="dotnet">
 System::String^ <b>GetExecutableType</b> (
 	System::Int64 exe_id
+	);
+</pre>
+<pre class="nodejs">
+string <b>GetExecutableType</b> (
+	int exe_id
+	);
+</pre>
+<pre class="cpp">
+RoseBoolean <b>executable_type</b> (
+	int exe_id, 
+	const char * &type
 	);
 </pre>
 
@@ -1476,9 +1504,20 @@ type of an executable.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetExecutableWorkpieceAsIs></a>GetExecutableWorkpieceAsIs()</h2>
-<pre>
+<pre class="dotnet">
 System::Int64 <b>GetExecutableWorkpieceAsIs</b> (
 	System::Int64 exe_id
+	);
+</pre>
+<pre class="nodejs">
+int <b>GetExecutableWorkpieceAsIs</b> (
+	int exe_id
+	);
+</pre>
+<pre class="cpp">
+RoseBoolean <b>executable_as_is_workpiece</b> (
+	int ws_id, 
+	int &wp_id
 	);
 </pre>
 
@@ -1516,9 +1555,20 @@ Function to return only a locally defined workpiece of an executable.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetExecutableWorkpieceAsIsLocal></a>GetExecutableWorkpieceAsIsLocal()</h2>
-<pre>
+<pre class="dotnet">
 System::Int64 <b>GetExecutableWorkpieceAsIsLocal</b> (
 	System::Int64 exe_id
+	);
+</pre>
+<pre class="nodejs">
+int <b>GetExecutableWorkpieceAsIsLocal</b> (
+	int exe_id
+	);
+</pre>
+<pre class="cpp">
+RoseBoolean <b>local_executable_as_is_workpiece</b> (
+	int ws_id, 
+	int &wp_id
 	);
 </pre>
 
@@ -1549,9 +1599,22 @@ of an executable.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetExecutableWorkpieceRemoval></a>GetExecutableWorkpieceRemoval()</h2>
-<pre>
+<pre class="dotnet">
 System::Int64 <b>GetExecutableWorkpieceRemoval</b> (
 	System::Int64 exe_id
+	);
+</pre>
+
+<pre class="nodejs">
+int <b>GetExecutableWorkpieceRemoval</b> (
+	int exe_id
+	);
+</pre>
+
+<pre class="cpp">
+RoseBoolean <b>executable_removal_workpiece</b> (
+	int ws_id,
+	int &wp_id
 	);
 </pre>
 
@@ -1583,9 +1646,22 @@ Function currently returns the same result as this function.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetExecutableWorkpieceRemovalLocal></a>GetExecutableWorkpieceRemovalLocal()</h2>
-<pre>
+<pre class="dotnet">
 System::Int64 <b>GetExecutableWorkpieceRemovalLocal</b> (
 	System::Int64 exe_id
+	);
+</pre>
+
+<pre class="nodejs">
+int <b>GetExecutableWorkpieceRemovalLocal</b> (
+	int exe_id
+	);
+</pre>
+
+<pre class="cpp">
+RoseBoolean <b>local_executable_removal_workpiece</b> (
+	int ws_id,
+	int &wp_id
 	);
 </pre>
 
@@ -1616,9 +1692,20 @@ Function to a computed or locally defined removal volume.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetExecutableWorkpieceToBe></a>GetExecutableWorkpieceToBe()</h2>
-<pre>
+<pre class="dotnet">
 System::Int64 <b>GetExecutableWorkpieceToBe</b> (
 	System::Int64 exe_id
+	);
+</pre>
+<pre class="nodejs">
+int <b>GetExecutableWorkpieceToBe</b> (
+	int exe_id
+	);
+</pre>
+<pre class="cpp">
+RoseBoolean <b>executable_to_be_workpiece</b> (
+	int ws_id, 
+	int &wp_id
 	);
 </pre>
 
@@ -1655,9 +1742,20 @@ Function to return only a locally defined workpiece of an executable.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetExecutableWorkpieceToBeLocal></a>GetExecutableWorkpieceToBeLocal()</h2>
-<pre>
+<pre class="dotnet">
 System::Int64 <b>GetExecutableWorkpieceToBeLocal</b> (
 	System::Int64 exe_id
+	);
+</pre>
+<pre class="nodejs">
+int <b>GetExecutableWorkpieceToBeLocal</b> (
+	int exe_id
+	);
+</pre>
+<pre class="cpp">
+RoseBoolean <b>local_executable_to_be_workpiece</b> (
+	int ws_id, 
+	int &wp_id
 	);
 </pre>
 
@@ -1730,15 +1828,16 @@ void <b>GetFaceEdgeNextPoint</b> (
 </pre>
 
     <pre class="nodejs">
-void <b>GetFaceEdgeNextPoint</b> (
+{
+    "ret_x1":double,
+    "ret_y1":double,
+    "ret_z1":double,
+    "ret_x2":double,
+    "ret_y2":double,
+    "ret_z2":double
+} <b>GetFaceEdgeNextPoint</b> (
 	int face_id,
-	int index,
-	double %x1,
-	double %y1,
-	double %z1,
-	double %x2,
-	double %y2,
-	double %z2
+	int index
 	);
 </pre>
 
@@ -2890,7 +2989,7 @@ a feature.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetFeatureOutsideProfileClosedCircular></a>GetFeatureOutsideProfileClosedCircular()</h2>
-<pre>
+<pre class="dotnet">
 System::Boolean <b>GetFeatureOutsideProfileClosedCircular</b> (
 	System::Int64 feature_id,
 	[System::Runtime::InteropServices::Out] System::Int64 %profile_id,
@@ -2900,6 +2999,30 @@ System::Boolean <b>GetFeatureOutsideProfileClosedCircular</b> (
 	[System::Runtime::InteropServices::Out] double %y,
 	[System::Runtime::InteropServices::Out] double %z
 	);
+</pre>
+<pre class="nodejs">
+{
+	rtn: bool,
+	profile_id: int,
+	depth: double,
+	diameter: double,
+	x: double,
+	y: double,
+	z: double,
+} <b>GetFeatureOutsideProfileClosedCircular</b> (
+	int feature_id
+	);
+</pre>
+<pre class="cpp">
+RoseBoolean <b>is_circular_outside_profile</b> (
+	int feature_id,
+	int &profile_id,
+	double &depth,
+	double &diameter,
+	double &x,
+	double &y,
+	double &z
+    );
 </pre>
 
 <P>The <b>GetFeatureOutsideProfileClosedCircular()</b> function
@@ -4774,9 +4897,22 @@ name of an executable.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetMaterialName></a>GetMaterialName()</h2>
-<pre>
+    <pre class="dotnet">
 System::String^ <b>GetMaterialName</b> (
 	System::Int64 wp_id
+	);
+</pre>
+
+    <pre class="nodejs">
+string <b>GetMaterialName</b> (
+	int wp_id
+	);
+</pre>
+
+    <pre class="cpp">
+RoseBoolean <b>material</b> (
+	int wp_id,
+	const char * &name
 	);
 </pre>
 
@@ -4810,24 +4946,61 @@ function cannot pick the material.
 <h2 class=rule>
 <a name=GetNestedExecutableNext></a>
 <a name=GetNestedExecutableCount></a>GetNestedExecutableCount/Next/All/AllEnabled()</h2>
-<pre>
+<pre class="dotnet">
 System::Int64 <b>GetNestedExecutableCount</b> (
 	System::Int64 exe_id
 	);
-
+</pre>
+<pre class="nodejs">
+int <b>GetNestedExecutableCount</b> (
+	int exe_id
+	);
+</pre>
+<pre class="cpp">
+RoseBoolean <b>nested_executable_count</b> (
+	int own_id,
+	int &size
+	);
+</pre>
+<pre class="dotnet">
 System::Int64 <b>GetNestedExecutableNext</b> (
 	System::Int64 wp_id,
 	System::Int64 index
 	);
-
+</pre>
+<pre class="nodejs">
+int <b>GetNestedExecutableNext</b> (
+	int exe_id,
+	int index
+	);
+</pre>
+<pre class="cpp">
+RoseBoolean <b>nested_executable_next</b> (
+	int own_id,
+	int index,
+	int &exe_id
+	);
+</pre>
+<pre class="dotnet">
 System::Collections::Generic::List<System::Int64>^ <b>GetNestedExecutableAll</b> (
 	System::Int64 wp_id
 	);
-
+</pre>
+<pre class="nodejs">
+int[] <b>GetNestedExecutableAll</b> (
+	int wp_id
+	);
+</pre>
+<pre class="cpp">
+RoseBoolean <b>nested_executable_all</b> (
+	int own_id,
+	rose_uint_vector &tmp
+	);
+</pre>
+<pre class="dotnet">
 System::Collections::Generic::List<System::Int64>^ <b>GetNestedExecutableAllEnabled</b> (
 	System::Int64 wp_id
 	);
-
 </pre>
 
 <P>The <b>GetNestedExecutableCount()</b> function returns a count of
@@ -7340,17 +7513,9 @@ executables that may be workingsteps.
 double <b>GetProcessFeed</b> (
 	System::Int64 ws_id
 	);
-
-System::String^ <b>GetProcessFeedUnit</b> (
-	System::Int64 ws_id
-	);
 </pre>
 <pre class = "nodejs">
 double <b>GetProcessFeed</b> (
-	int ws_id
-	);
-
-string <b>GetProcessFeedUnit</b> (
 	int ws_id
 	);
 </pre>
@@ -7360,7 +7525,18 @@ RoseBoolean <b>feed_speed</b> (
 	double &feed, 
 	double &speed
 	);
-
+</pre>
+<pre class = "dotnet">
+System::String^ <b>GetProcessFeedUnit</b> (
+	System::Int64 ws_id
+	);
+</pre>
+<pre class = "nodejs">
+string <b>GetProcessFeedUnit</b> (
+	int ws_id
+	);
+</pre>
+<pre class = "cpp">
 RoseBoolean <b>feed_speed_unit</b> (
 	int ws_id, 
 	const char * &feed_unit, 
@@ -7529,10 +7705,10 @@ System::String^ <b>GetProjectName</b> ();
 string <b>GetProjectName</b> ();
 </pre>
 <pre class = "cpp">
-RoseBoolean project(
-  const char* &prj_name,
-  const char* &wpk_name
-  );
+RoseBoolean <b>project</b>(
+    const char* &prj_name,
+    const char* &wpk_name
+    );
 </pre>
 
 <P>The <b>GetProjectName()</b> function returns the string containing
@@ -7596,15 +7772,41 @@ Get the id of a workpiece in the setup of a workplan.
 <h2 class=rule>
 <a name=GetSelectiveExecutableNext></a>
 <a name=GetSelectiveExecutableCount></a>GetSelectiveExecutableCount/Next/All/AllEnabled()</h2>
-<pre>
+<pre class = "dotnet">
 System::Int64 <b>GetSelectiveExecutableCount</b> (
 	System::Int64 sl_id
 	);
-
+</pre>
+<pre class = "nodejs">
+int <b>GetSelectiveExecutableCount</b> (
+	int sl_id
+	);
+</pre>
+<pre class = "cpp">
+RoseBoolean <b>selective_executable_count</b>(
+	int sl_id,
+	int &size
+	);
+</pre>
+<pre class = "dotnet">
 System::Int64 <b>GetSelectiveExecutableNext</b> (
 	System::Int64 sl_id,
 	System::Int64 index
 	);
+</pre>
+<pre clas = "nodejs">
+int <b>GetSelectiveExecutableNext</b> (
+	int sl_id;
+	int index;
+	);
+</pre>
+<pre class = "cpp">
+RoseBoolean <b>selective_executable_next</b> (
+	int sl_id,
+	int index,
+	int &exe_id
+	);
+</pre>
 
 System::Collections::Generic::List<System::Int64>^ <b>GetSelectiveExecutableAll</b> (
 	System::Int64 wp_id
@@ -10076,10 +10278,24 @@ workingstep.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetWorkingstep></a>GetWorkingstep()</h2>
-<pre>
+<pre class="dotnet">
 System::Int64 <b>GetWorkingstep</b> (
 	System::Int64 wp_id,
 	System::Int64 index
+	);
+</pre>
+<pre class="nodejs">
+int <b>GetWorkingstep</b> (
+	int wp_id,
+	int index
+	);
+</pre>
+<pre class="cpp">
+RoseBoolean <b>is_workingstep</b> (
+	int wp_id, 
+	int index, 
+	int &ws_id,
+	const char * &name
 	);
 </pre>
 
@@ -11109,9 +11325,21 @@ by <a href="#GetWorkplanFinalFeatureCount">GetWorkplanFinalFeatureCount</a>
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetWorkplanName></a>GetWorkplanName()</h2>
-<pre>
+<pre class = "dotnet">
 System::String^ <b>GetWorkplanName</b> (
 	System::Int64 wp_id
+	);
+</pre>
+<pre class = "nodejs">
+string <b>GetWorkplanName()</b> (
+	int wp_id
+	);
+</pre>
+<pre class = "cpp">
+RoseBoolean <b>workplan</b> (
+	int wp_id, 
+	int &size, 
+	const char * &name
 	);
 </pre>
 
@@ -11147,14 +11375,39 @@ of objects.
 <h2 class=rule>
 <a name=GetWorkplanProcessFeatureNext></a>
 <a name=GetWorkplanProcessFeatureCount></a>GetWorkplanProcessFeatureCount/Next()</h2>
-<pre>
+<pre class = "dotnet">
 System::Int64 <b>GetWorkplanProcessFeatureCount</b> (
 	System::Int64 wp_id
 	);
-
+</pre>
+<pre class = "nodejs">
+int <b>GetWorkplanProcessFeatureCount</b> (
+	int wp_id
+	);
+</pre>
+<pre class = "cpp">
+RoseBoolean <b>wp_process_feature_count</b> (
+	int wp_id, 
+	int &size
+	);
+</pre>
+<pre class = "dotnet">
 System::Int64 <b>GetWorkplanProcessFeatureNext</b> (
 	System::Int64 wp_id,
 	System::Int64 index
+	);
+</pre>
+<pre class = "nodejs">
+int <b>GetWorkplanProcessFeatureNext</b> (
+	int wp_id,
+	int index
+	);
+</pre>
+<pre class = "cpp">
+RoseBoolean <b>wp_process_feature_next</b> (
+	int wp_id, 
+	int index, 
+	int &fe_id
 	);
 </pre>
 
@@ -11198,9 +11451,21 @@ GetWorkplanFinalFeatureCount
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetWorkplanSize></a>GetWorkplanSize()</h2>
-<pre>
+<pre class = "dotnet">
 System::Int64 <b>GetWorkplanSize</b> (
 	System::Int64 wp_id
+	);
+</pre>
+<pre class = "nodejs">
+int <b>GetWorkplanSize</b> (
+	int wp_id
+	);
+</pre>
+<pre class = "cpp">
+RoseBoolean <b>workplan</b> (
+	int wp_id, 
+	int &size, 
+	const char * &name
 	);
 </pre>
 
@@ -11253,14 +11518,39 @@ value.
 <h2 class=rule>
 <a name=GetWorkplanToolNext></a>
 <a name=GetWorkplanToolCount></a>GetWorkplanToolCount/Next()</h2>
-<pre>
+<pre class = "dotnet">
 System::Int64 <b>GetWorkplanToolCount</b> (
 	System::Int64 wp_id
 	);
-
+</pre>
+<pre class = "nodejs">
+int <b>GetWorkplanToolCount</b> (
+	int wp_id
+	);
+</pre>
+<pre class = "cpp">
+RoseBoolean <b>wp_tool_count</b> (
+	int wp_id, 
+	int &size
+	);
+</pre>
+<pre class = "dotnet">
 System::Int64 <b>GetWorkplanToolNext</b> (
 	System::Int64 wp_id,
 	System::Int64 index
+	);
+</pre>
+<pre class = "nodejs">
+int <b>GetWorkplanToolNext</b> (
+	int wp_id,
+	int index
+	);
+</pre>
+<pre class = "cpp">
+RoseBoolean <b>wp_tool_next</b> (
+	int wp_id, 
+	int index, 
+	int &tl_id
 	);
 </pre>
 
@@ -11448,9 +11738,20 @@ simpler type of tool path which describes the center line of the tool axis
 <!-- ================================ -->
 <h2 class=rule>
 <a name=IsEnabled></a>IsEnabled()</h2>
-<pre>
+<pre class = "dotnet">
 System::Boolean <b>IsEnabled</b> (
 	System::Int64 exe_id
+	);
+</pre>
+<pre class = "nodejs">
+bool <b>IsEnabled</b> (
+	int exe_id
+	);
+</pre>
+<pre class = "cpp">
+RoseBoolean <b>is_enabled</b> (
+	int exe_id, 
+	int &flag
 	);
 </pre>
 
@@ -11760,9 +12061,22 @@ workplan that leads to all other executables.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=IsWorkplan></a>IsWorkplan()</h2>
-<pre>
+    <pre class="dotnet">
 System::Boolean <b>IsWorkplan</b> (
 	System::Int64 exe_id
+	);
+</pre>
+
+    <pre class="nodejs">
+Boolean <b>IsWorkplan</b> (
+	int exe_id
+	);
+</pre>
+
+    <pre class="cpp">
+RoseBoolean <b>is_workplan</b> (
+	int exe_id,
+	int &flag
 	);
 </pre>
 
@@ -11795,9 +12109,22 @@ workplan that leads to all other executables.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=IsWorkplanWIthSetupAndFixture></a>IsWorkplanWIthSetupAndFixture()</h2>
-<pre>
+    <pre class="dotnet">
 System::Boolean <b>IsWorkplanWIthSetupAndFixture</b> (
 	System::Int64 exe_id
+	);
+</pre>
+
+    <pre class="nodejs">
+Boolean <b>IsWorkplanWIthSetupAndFixture</b> (
+	int exe_id
+	);
+</pre>
+
+    <pre class="cpp">
+RoseBoolean <b>is_workplan_with_setup_and_fixture</b> (
+	int exe_id,
+	int &flag
 	);
 </pre>
 
@@ -11807,9 +12134,22 @@ System::Boolean <b>IsWorkplanWIthSetupAndFixture</b> (
 <!-- ================================ -->
 <h2 class=rule>
 <a name=IsWorkplanWithSetup></a>IsWorkplanWithSetup()</h2>
-<pre>
+    <pre class="dotnet">
 System::Boolean <b>IsWorkplanWithSetup</b> (
 	System::Int64 exe_id
+	);
+</pre>
+
+    <pre class="nodejs">
+Boolean <b>IsWorkplanWithSetup</b> (
+	int exe_id
+	);
+</pre>
+
+    <pre class="cpp">
+RoseBoolean <b>is_workplan_with_setup</b> (
+	int exe_id,
+	int &flag
 	);
 </pre>
 
@@ -11831,9 +12171,22 @@ true if an executable is a workplan with a setup.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=IsWorkplanWithSetupAndFixtureMount></a>IsWorkplanWithSetupAndFixtureMount()</h2>
-<pre>
+    <pre class="dotnet">
 System::Boolean <b>IsWorkplanWithSetupAndFixtureMount</b> (
 	System::Int64 exe_id
+	);
+</pre>
+
+    <pre class="nodejs">
+Boolean <b>IsWorkplanWithSetupAndFixtureMount</b> (
+	int exe_id
+	);
+</pre>
+
+    <pre class="cpp">
+RoseBoolean <b>is_workplan_with_setup_and_fixture_mount</b> (
+	int exe_id,
+	int &flag
 	);
 </pre>
 
@@ -11857,9 +12210,22 @@ true if an executable is a workplan with a setup and a fixture.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=IsWorkplanWithSetupAndWorkpieceMount></a>IsWorkplanWithSetupAndWorkpieceMount()</h2>
-<pre>
+    <pre class="dotnet">
 System::Boolean <b>IsWorkplanWithSetupAndWorkpieceMount</b> (
 	System::Int64 exe_id
+	);
+</pre>
+
+    <pre class="nodejs">
+Boolean <b>IsWorkplanWithSetupAndWorkpieceMount</b> (
+	int exe_id
+	);
+</pre>
+
+    <pre class="cpp">
+RoseBoolean <b>is_workplan_with_setup_and_workpiece_mount</b> (
+	int exe_id,
+	int &flag
 	);
 </pre>
 
