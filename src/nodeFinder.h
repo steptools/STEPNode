@@ -142,6 +142,9 @@ public:
     //int[] GetSelectiveExecutableAll( int wp_id)
     static NAN_METHOD(GetSelectiveExecutableAll);
 
+    //int[] GetSelectiveExecutableAllEnabled( int wp_id)
+    static NAN_METHOD(GetSelectiveExecutableAllEnabled);
+
     //int GetSelectiveExecutableCount( int sl_id)
     static NAN_METHOD(GetSelectiveExecutableCount);
     
