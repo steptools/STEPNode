@@ -10672,9 +10672,21 @@ the speed and feed values in a technology entity
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetWorkingstepTool></a>GetWorkingstepTool()</h2>
-<pre>
+<pre class="dotnet">
 System::Int64 <b>GetWorkingstepTool</b> (
 	System::Int64 ws_id
+	);
+</pre>
+<pre class="nodejs">
+int <b>GetWorkingstepTool</b> (
+	int ws_id
+	);
+</pre>
+
+<pre class="cpp">
+RoseBoolean <b>tool_from_ws</b> (
+	int ws_id,
+	int &tl_id
 	);
 </pre>
 
