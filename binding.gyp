@@ -1,6 +1,10 @@
 {
 	'variables' : {
 		"conditions": [
+            ["OS == 'linux"], {
+               'Rose_lib': '$(ROSE)/lib/linux_x86_64_gcc_3.4/lib',
+               'lib_ext': '.a' 
+            }],
 			["OS == 'mac' ", {
 				'Rose_lib':'$(ROSE)/lib/macosx_all_clang/lib',
 				'lib_ext':'.a'
@@ -54,9 +58,6 @@
 			'<(Rose_lib)'+"dtnurbsc"+'<(lib_ext)',
 		],
 		"conditions": [
-			['OS=="mac"', {
-				"libraries": ['<(Rose_lib)'+"f2c"+'<(lib_ext)']
-			}],
 			['OS=="win"', {
 				"libraries": [
 					'<(Rose_lib)'+"vcf2c"+'<(lib_ext)',
@@ -65,6 +66,9 @@
 					"msvcrt.lib"
 				]
 			}]
+			['OS!="win"', {
+				"libraries": ['<(Rose_lib)'+"f2c"+'<(lib_ext)']
+			}],
 		]
 	}]
 }
