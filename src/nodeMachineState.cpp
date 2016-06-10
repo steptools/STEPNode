@@ -18,6 +18,8 @@
 
 #include "nodeMachineState.h"
 #include "nodeUtils.h"
+#include "stixmesh/stixmesh_jobmgr.h"
+#include "stixmesh/stixmesh_worker.h"
 
 
 StixSimGeomType GeomTypeFromString(char* typ)
@@ -147,6 +149,11 @@ NAN_METHOD(machineState::GetKeystateJSON)
     return;
 }
 
+static void mach_stop(void * arg)
+{
+	printf("Shutting down");
+}
+
 NAN_MODULE_INIT(machineState::Init) 
 {
     v8::Local<v8::FunctionTemplate> tpl = Nan::New<v8::FunctionTemplate>(New);
@@ -162,6 +169,10 @@ NAN_MODULE_INIT(machineState::Init)
 
     constructor().Reset(Nan::GetFunction(tpl).ToLocalChecked());
     Nan::Set(target, Nan::New("machineState").ToLocalChecked(), Nan::GetFunction(tpl).ToLocalChecked());
+
+//	AtExit(::mach_stop, 0);
+	StixMeshJobMgr * jmgr = stixmesh_worker_get_jobmgr();
+	jmgr->setShutdownOnDtor(0);
 
     MachineState::init();
 }
