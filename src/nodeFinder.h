@@ -163,6 +163,9 @@ public:
     //int[] GetWorkplanExecutableAll(int wp_id);
     static NAN_METHOD(GetWorkplanExecutableAll);
 
+    //int[] GetWorkplanExecutableAllEnabled(int wp_id);
+    static NAN_METHOD(GetWorkplanExecutableAllEnabled);
+
     //int GetWorkplanToolCount();
     static NAN_METHOD(GetWorkplanToolCount);
 
