@@ -11268,11 +11268,27 @@ System::Int64 <b>GetWorkplanExecutableNext</b> (
 	System::Int64 wp_id,
 	System::Int64 index
 	);
+</pre>
 
+<pre class="dotnet">
 System::Collections::Generic::List<System::Int64>^ <b>GetWorkplanExecutableAll</b> (
 	System::Int64 wp_id
 	);
+</pre>
+<pre class="nodejs">
+int[] <b>GetWorkplanExecutableAll</b>(
+	int wp_id
+	);
+</pre>
 
+<pre class="cpp">
+RoseBoolean <b>workplan_executable_all</b> (
+	int wp_id,
+	rose_uint_vector &tmp
+	);
+</pre>
+
+<pre>
 System::Collections::Generic::List<System::Int64>^ <b>GetWorkplanExecutableAllEnabled</b> (
 	System::Int64 wp_id
 	);
