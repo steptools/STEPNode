@@ -758,7 +758,7 @@ NAN_METHOD(Finder::GetToolIdentifier)
     if (find == 0)
 	return; //throw exception
 
-    if (!info.Length() != 1)
+    if (info.Length() != 1)
 	return; //throw exception
 
     if (!info[0]->IsInt32())
@@ -781,7 +781,7 @@ NAN_METHOD(Finder::GetToolNumber)
     if (find == 0)
 	return; //throw exception
 
-    if (!info.Length() != 1)
+    if (info.Length() != 1)
 	return; //throw exception
 
     if (!info[0]->IsInt32())
@@ -807,7 +807,7 @@ NAN_METHOD(Finder::GetToolNumberAsNumber)
     if (find == 0)
 	return; //throw exception
 
-    if (!info.Length() != 1)
+    if (info.Length() != 1)
 	return; //throw exception
 
     if (!info[0]->IsInt32())
@@ -833,7 +833,7 @@ NAN_METHOD(Finder::GetToolPartName)
     if (find == 0)
 	return; //throw exception
 
-    if (!info.Length() != 1)
+    if (info.Length() != 1)
 	return; //throw exception
 
     if (!info[0]->IsInt32())
