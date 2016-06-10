@@ -7808,14 +7808,29 @@ RoseBoolean <b>selective_executable_next</b> (
 	);
 </pre>
 
+<pre class="dotnet">
 System::Collections::Generic::List<System::Int64>^ <b>GetSelectiveExecutableAll</b> (
 	System::Int64 wp_id
 	);
+</pre>
 
+<pre class="dotnet">
 System::Collections::Generic::List<System::Int64>^ <b>GetSelectiveExecutableAllEnabled</b> (
 	System::Int64 wp_id
 	);
+</pre>
 
+<pre class="nodejs">
+int[] <b>GetSelectiveExecutableAllEnabled</b> (
+	int wp_id
+	);
+</pre>
+
+<pre class="cpp">
+RoseBoolean <b>selective_executable_all_enabled</b> (
+	int wp_id,
+	rose_uint_vector &tmp
+	);
 </pre>
 
 <P>The <b>GetSelectiveExecutableCount()</b> function returns a count
