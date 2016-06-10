@@ -145,6 +145,9 @@ public:
     //int GetSelectiveExecutableNext(int wp_id, int index)
     static NAN_METHOD(GetSelectiveExecutableNext);
 
+    //string GetToolIdentifier(int ws_id)
+    static NAN_METHOD(GetToolIdentifier);
+
     //int GetWorkplanToolCount();
     static NAN_METHOD(GetWorkplanToolCount);
 

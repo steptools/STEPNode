@@ -74,6 +74,7 @@ NAN_MODULE_INIT(Finder::Init)
 	Nan::SetPrototypeMethod(tpl, "GetProcessFeed", GetProcessFeed);
 	Nan::SetPrototypeMethod(tpl, "GetProcessFeedUnit", GetProcessFeedUnit);
 	Nan::SetPrototypeMethod(tpl, "GetProjectName", GetProjectName);
+	Nan::SetPrototypeMethod(tpl, "GetToolIdentifier", GetToolIdentifier);
 	Nan::SetPrototypeMethod(tpl, "GetWorkingstep", GetWorkingstep);
 	Nan::SetPrototypeMethod(tpl, "GetWorkplanName", GetWorkplanName);
 	Nan::SetPrototypeMethod(tpl, "GetWorkplanProcessFeatureCount", GetWorkplanProcessFeatureCount);
@@ -746,6 +747,30 @@ NAN_METHOD(Finder::GetProjectName) {
     info.GetReturnValue().Set(CharTov8String((char *)prj_name));
     return;
 }
+
+NAN_METHOD(Finder::GetToolIdentifier)
+{
+    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+
+    if (find == 0)
+	return; //throw exception
+
+    if (!info.Length() != 1)
+	return; //throw exception
+
+    if (!info[0]->IsInt32())
+	return;	//  invalid argument
+
+    Nan::Maybe<int32_t> ws_id = Nan::To<int32_t>(info[0]);
+    const char * name = 0;
+
+    if (!find->_find->tool_reference_data_name(ws_id.FromJust(), name))
+	return;	// error in cpp
+
+    info.GetReturnValue().Set(CharTov8String((char *) name));
+    return;
+}
+
 
 NAN_METHOD(Finder::GetSelectiveExecutableAll) {
     Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
