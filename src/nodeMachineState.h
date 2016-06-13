@@ -34,7 +34,7 @@ public:
     static NAN_MODULE_INIT(Init);
 
     //Load a machine model from a file. 
-    //void LoadMachine(string file);
+    //bool LoadMachine(string file);
     static NAN_METHOD(LoadMachine);
     
     //void nextWS();
