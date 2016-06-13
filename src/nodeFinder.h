@@ -163,6 +163,9 @@ public:
     //string GetToolPartName(int ws_id)
     static NAN_METHOD(GetToolPartName);
 
+    //int GetToolProductID(int tl_id)
+    static NAN_METHOD(GetToolProductID);
+
     //int[] GetWorkplanExecutableAll(int wp_id);
     static NAN_METHOD(GetWorkplanExecutableAll);
 
