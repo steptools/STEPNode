@@ -79,6 +79,7 @@ NAN_MODULE_INIT(Finder::Init)
 	Nan::SetPrototypeMethod(tpl, "GetToolNumberAsNumber", GetToolNumberAsNumber);
 	Nan::SetPrototypeMethod(tpl, "GetToolPartName", GetToolPartName);
 	Nan::SetPrototypeMethod(tpl, "GetToolProductID", GetToolProductID);
+	Nan::SetPrototypeMethod(tpl, "GetToolUsingNumber", GetToolUsingNumber);
 	Nan::SetPrototypeMethod(tpl, "GetWorkingstep", GetWorkingstep);
 	Nan::SetPrototypeMethod(tpl, "GetWorkingstepTool", GetWorkingstepTool);
 	Nan::SetPrototypeMethod(tpl, "GetWorkplanExecutableAll", GetWorkplanExecutableAll);
@@ -881,6 +882,32 @@ NAN_METHOD(Finder::GetToolProductID)
     return;
 }
 
+NAN_METHOD(Finder::GetToolUsingNumber)
+{
+    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+
+    if (find == 0)
+	return; //throw exception
+
+    if (info.Length() != 1)
+	return; //throw exception
+
+    if (!info[0]->IsString())
+	return;	//  invalid argument
+
+    int tool_id = 0;
+    char* id = 0;
+    size_t id_len = v8StringToChar(info[0], id);
+
+    if (!find->_find->find_tool_using_its_id(id, tool_id))
+	return; // error in cpp
+
+    info.GetReturnValue().Set(tool_id);
+
+    delete[] id;
+    
+    return;
+}
 
 NAN_METHOD(Finder::GetSelectiveExecutableAll) {
     Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
