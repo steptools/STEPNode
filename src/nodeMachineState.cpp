@@ -102,8 +102,8 @@ NAN_METHOD(machineState::GetGeometryJSON)
     }
     else
     {
-	if (info[1]->IsUndefined()) return; //No Given ID
-	if (!info[2]->IsUndefined()) return; //No Given Typ
+	if (info[0]->IsUndefined()) return; //No Given ID
+	if (!info[1]->IsUndefined()) return; //No Given Typ
 	if (!info[0]->IsString()) return; //ID is not valid
 	if (!info[1]->IsString()) return; //Typ is not valid
 	char * id;
@@ -154,7 +154,7 @@ NAN_MODULE_INIT(machineState::Init)
     tpl->InstanceTemplate()->SetInternalFieldCount(1);
 
     Nan::SetPrototypeMethod(tpl, "LoadMachine", LoadMachine);
-    Nan::SetPrototypeMethod(tpl, "nextWS", NextWS);
+    Nan::SetPrototypeMethod(tpl, "NextWS", NextWS);
     Nan::SetPrototypeMethod(tpl, "AdvanceState", AdvanceState);
     Nan::SetPrototypeMethod(tpl, "GetGeometryJSON", GetGeometryJSON);
     Nan::SetPrototypeMethod(tpl, "GetDeltaJSON", GetDeltaJSON);
@@ -165,4 +165,3 @@ NAN_MODULE_INIT(machineState::Init)
 
     MachineState::init();
 }
-
