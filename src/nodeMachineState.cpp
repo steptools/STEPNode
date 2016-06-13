@@ -102,8 +102,8 @@ NAN_METHOD(machineState::GetGeometryJSON)
     }
     else
     {
-	if (info[1]->IsUndefined()) return; //No Given ID
-	if (!info[2]->IsUndefined()) return; //No Given Typ
+	if (info[0]->IsUndefined()) return; //No Given ID
+	if (!info[1]->IsUndefined()) return; //No Given Typ
 	if (!info[0]->IsString()) return; //ID is not valid
 	if (!info[1]->IsString()) return; //Typ is not valid
 	char * id;

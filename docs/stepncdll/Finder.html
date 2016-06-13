@@ -9061,10 +9061,21 @@ of the ISO 13399 file.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetToolIdentifier></a>GetToolIdentifier()</h2>
-<pre>
+<pre class="dotnet">
 System::String^ <b>GetToolIdentifier</b> (
 	System::Int64 ws_id
 	);
+</pre>
+<pre class="nodejs">
+string <b>GetToolIdentifier</b>(
+	int ws_id
+	);
+</pre>
+<pre class="cpp">
+RoseBoolean <b>tool_reference_data_name</b> (
+	int ws_id,
+	const char * &identifier
+	);    
 </pre>
 
 <P>The <b>GetToolIdentifier()</b> function 
@@ -9244,9 +9255,20 @@ workingstep.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetToolNumber></a>GetToolNumber()</h2>
-<pre>
+<pre class="dotnet">
 System::String^ <b>GetToolNumber</b> (
 	System::Int64 ws_id
+	);
+</pre>
+<pre class="nodejs">
+string <b>GetToolNumber</b> (
+	int ws_id
+	);
+</pre>
+<pre class="cpp">
+RoseBoolean <b>tool_number_as_id</b> (
+	int tl_or_ws_id,
+	const char * &its_num
 	);
 </pre>
 
@@ -9301,9 +9323,20 @@ workingstep.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetToolNumberAsNumber></a>GetToolNumberAsNumber()</h2>
-<pre>
+<pre class="dotnet">
 System::Int64 <b>GetToolNumberAsNumber</b> (
 	System::Int64 ws_id
+	);
+</pre>
+<pre class="nodejs">
+int <b>GetToolNumberAsNumber</b> (
+	int ws_id
+	);
+</pre>
+<pre class="cpp">
+RoseBoolean <b>tool_number</b> (
+	int tl_or_ws_id,
+	int &its_num
 	);
 </pre>
 
@@ -10639,9 +10672,21 @@ the speed and feed values in a technology entity
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetWorkingstepTool></a>GetWorkingstepTool()</h2>
-<pre>
+<pre class="dotnet">
 System::Int64 <b>GetWorkingstepTool</b> (
 	System::Int64 ws_id
+	);
+</pre>
+<pre class="nodejs">
+int <b>GetWorkingstepTool</b> (
+	int ws_id
+	);
+</pre>
+
+<pre class="cpp">
+RoseBoolean <b>tool_from_ws</b> (
+	int ws_id,
+	int &tl_id
 	);
 </pre>
 

@@ -74,7 +74,12 @@ NAN_MODULE_INIT(Finder::Init)
 	Nan::SetPrototypeMethod(tpl, "GetProcessFeed", GetProcessFeed);
 	Nan::SetPrototypeMethod(tpl, "GetProcessFeedUnit", GetProcessFeedUnit);
 	Nan::SetPrototypeMethod(tpl, "GetProjectName", GetProjectName);
+	Nan::SetPrototypeMethod(tpl, "GetToolIdentifier", GetToolIdentifier);
+	Nan::SetPrototypeMethod(tpl, "GetToolNumber", GetToolNumber);
+	Nan::SetPrototypeMethod(tpl, "GetToolNumberAsNumber", GetToolNumberAsNumber);
+	Nan::SetPrototypeMethod(tpl, "GetToolPartName", GetToolPartName);
 	Nan::SetPrototypeMethod(tpl, "GetWorkingstep", GetWorkingstep);
+	Nan::SetPrototypeMethod(tpl, "GetWorkingstepTool", GetWorkingstepTool);
 	Nan::SetPrototypeMethod(tpl, "GetWorkplanName", GetWorkplanName);
 	Nan::SetPrototypeMethod(tpl, "GetWorkplanProcessFeatureCount", GetWorkplanProcessFeatureCount);
 	Nan::SetPrototypeMethod(tpl, "GetWorkplanProcessFeatureNext", GetWorkplanProcessFeatureNext);
@@ -747,6 +752,106 @@ NAN_METHOD(Finder::GetProjectName) {
     return;
 }
 
+NAN_METHOD(Finder::GetToolIdentifier)
+{
+    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+
+    if (find == 0)
+	return; //throw exception
+
+    if (info.Length() != 1)
+	return; //throw exception
+
+    if (!info[0]->IsInt32())
+	return;	//  invalid argument
+
+    Nan::Maybe<int32_t> ws_id = Nan::To<int32_t>(info[0]);
+    const char * name = 0;
+
+    if (!find->_find->tool_reference_data_name(ws_id.FromJust(), name))
+	return;	// error in cpp
+
+    info.GetReturnValue().Set(CharTov8String((char *) name));
+    return;
+}
+
+NAN_METHOD(Finder::GetToolNumber)
+{
+    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+
+    if (find == 0)
+	return; //throw exception
+
+    if (info.Length() != 1)
+	return; //throw exception
+
+    if (!info[0]->IsInt32())
+	return;	//  invalid argument
+
+    Nan::Maybe<int32_t> ws_id = Nan::To<int32_t>(info[0]);
+    const char * its_id = 0;
+
+    if (!find->_find->tool_number_as_id(ws_id.FromJust(), its_id))
+	return;	// error in cpp
+
+    if (!(its_id && *its_id))
+	return;	// value not set, return undefined
+
+    info.GetReturnValue().Set(CharTov8String((char *)its_id));
+    return;
+}
+
+NAN_METHOD(Finder::GetToolNumberAsNumber)
+{
+    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+
+    if (find == 0)
+	return; //throw exception
+
+    if (info.Length() != 1)
+	return; //throw exception
+
+    if (!info[0]->IsInt32())
+	return;	//  invalid argument
+
+    Nan::Maybe<int32_t> ws_id = Nan::To<int32_t>(info[0]);
+    int toolno = 0;
+
+    if (!find->_find->tool_number(ws_id.FromJust(), toolno))
+	return;	// error in cpp
+
+    if (toolno == 0)
+	return;	// value not set, return undefined
+
+    info.GetReturnValue().Set(toolno);
+    return;
+}
+
+NAN_METHOD(Finder::GetToolPartName)
+{
+    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+
+    if (find == 0)
+	return; //throw exception
+
+    if (info.Length() != 1)
+	return; //throw exception
+
+    if (!info[0]->IsInt32())
+	return;	//  invalid argument
+
+    Nan::Maybe<int32_t> ws_id = Nan::To<int32_t>(info[0]);
+    const char * name = 0;
+    int pd_id;
+
+    if (!find->_find->tool_part_name(ws_id.FromJust(), pd_id, name))
+	return; // error in cpp
+
+    info.GetReturnValue().Set(CharTov8String((char*)name));
+    return;
+}
+
+
 NAN_METHOD(Finder::GetSelectiveExecutableAll) {
     Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
     if (find == 0) {
@@ -832,6 +937,30 @@ NAN_METHOD(Finder::GetWorkingstep) {
     if (!find->_find->is_workingstep(wp_id.FromJust(), index.FromJust(), exe_id, name))
 	return;
     info.GetReturnValue().Set(exe_id);
+    return;
+}
+
+NAN_METHOD(Finder::GetWorkingstepTool)
+{
+    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+
+    if (find == 0)  // throw exception
+	return;
+
+    if (info.Length() != 1) // throw exception
+	return;
+
+    if (!info[0]->IsInt32())	// invalid argument
+	return;
+
+    Nan::Maybe<int32_t> ws_id = Nan::To<int32_t>(info[0]);
+
+    int tl_id = 0;
+
+    if (!find->_find->tool_from_ws(ws_id.FromJust(), tl_id))
+	return; // error in cpp
+
+    info.GetReturnValue().Set(tl_id);
     return;
 }
 
