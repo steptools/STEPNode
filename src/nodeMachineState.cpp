@@ -66,8 +66,11 @@ NAN_METHOD(machineState::LoadMachine)
     if (info[0]->IsUndefined()) return;
     char * b;
     size_t len = v8StringToChar(info[0], b);
-    ms->_ms->SetMachine(b);
+    bool success = ms->_ms->SetMachine(b);
+    info.GetReturnValue().Set(success);
     delete[] b;
+
+    return;
 }
 
 NAN_METHOD(machineState::NextWS)
