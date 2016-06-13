@@ -154,7 +154,7 @@ NAN_MODULE_INIT(machineState::Init)
     tpl->InstanceTemplate()->SetInternalFieldCount(1);
 
     Nan::SetPrototypeMethod(tpl, "LoadMachine", LoadMachine);
-    Nan::SetPrototypeMethod(tpl, "nextWS", NextWS);
+    Nan::SetPrototypeMethod(tpl, "NextWS", NextWS);
     Nan::SetPrototypeMethod(tpl, "AdvanceState", AdvanceState);
     Nan::SetPrototypeMethod(tpl, "GetGeometryJSON", GetGeometryJSON);
     Nan::SetPrototypeMethod(tpl, "GetDeltaJSON", GetDeltaJSON);
@@ -165,4 +165,3 @@ NAN_MODULE_INIT(machineState::Init)
 
     MachineState::init();
 }
-
