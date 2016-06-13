@@ -142,6 +142,9 @@ public:
     //int[] GetSelectiveExecutableAll( int wp_id)
     static NAN_METHOD(GetSelectiveExecutableAll);
 
+    //int[] GetSelectiveExecutableAllEnabled( int wp_id)
+    static NAN_METHOD(GetSelectiveExecutableAllEnabled);
+
     //int GetSelectiveExecutableCount( int sl_id)
     static NAN_METHOD(GetSelectiveExecutableCount);
     
@@ -159,6 +162,12 @@ public:
 
     //string GetToolPartName(int ws_id)
     static NAN_METHOD(GetToolPartName);
+
+    //int[] GetWorkplanExecutableAll(int wp_id);
+    static NAN_METHOD(GetWorkplanExecutableAll);
+
+    //int[] GetWorkplanExecutableAllEnabled(int wp_id);
+    static NAN_METHOD(GetWorkplanExecutableAllEnabled);
 
     //int GetWorkplanToolCount();
     static NAN_METHOD(GetWorkplanToolCount);

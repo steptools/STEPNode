@@ -80,11 +80,14 @@ NAN_MODULE_INIT(Finder::Init)
 	Nan::SetPrototypeMethod(tpl, "GetToolPartName", GetToolPartName);
 	Nan::SetPrototypeMethod(tpl, "GetWorkingstep", GetWorkingstep);
 	Nan::SetPrototypeMethod(tpl, "GetWorkingstepTool", GetWorkingstepTool);
+	Nan::SetPrototypeMethod(tpl, "GetWorkplanExecutableAll", GetWorkplanExecutableAll);
+	Nan::SetPrototypeMethod(tpl, "GetWorkplanExecutableAllEnabled", GetWorkplanExecutableAllEnabled);
 	Nan::SetPrototypeMethod(tpl, "GetWorkplanName", GetWorkplanName);
 	Nan::SetPrototypeMethod(tpl, "GetWorkplanProcessFeatureCount", GetWorkplanProcessFeatureCount);
 	Nan::SetPrototypeMethod(tpl, "GetWorkplanProcessFeatureNext", GetWorkplanProcessFeatureNext);
 	Nan::SetPrototypeMethod(tpl, "GetWorkplanSize", GetWorkplanSize);
 	Nan::SetPrototypeMethod(tpl, "GetSelectiveExecutableAll", GetSelectiveExecutableAll); 
+	Nan::SetPrototypeMethod(tpl, "GetSelectiveExecutableAllEnabled", GetSelectiveExecutableAllEnabled); 
 	Nan::SetPrototypeMethod(tpl, "GetSelectiveExecutableCount", GetSelectiveExecutableCount);
 	Nan::SetPrototypeMethod(tpl, "GetSelectiveExecutableNext", GetSelectiveExecutableNext);
     Nan::SetPrototypeMethod(tpl, "GetWorkplanToolCount", GetWorkplanToolCount);
@@ -878,6 +881,34 @@ NAN_METHOD(Finder::GetSelectiveExecutableAll) {
     return;
 }
 
+NAN_METHOD(Finder::GetSelectiveExecutableAllEnabled)
+{
+    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (find == 0)
+	return; //throw exception
+
+    if (info.Length() != 1)
+	return; // invalid num of args
+
+    if (!info[0]->IsNumber())
+	return; // invalid argument
+
+    Nan::Maybe<int32_t> wp_id = Nan::To<int32_t>(info[0]);
+    v8::Local<v8::Array> exes = Nan::New<v8::Array>();
+
+    rose_uint_vector tmp;
+    if (!find->_find->selective_executable_all_enabled(wp_id.FromJust(), tmp))
+	return; //Throw error
+
+    for (unsigned i = 0; i < tmp.size(); i++) {
+	int pt = tmp.get(i);
+	exes->Set(i, Nan::New(pt));
+    }
+
+    info.GetReturnValue().Set(exes);
+    return;
+}
+
 NAN_METHOD(Finder::GetSelectiveExecutableCount) {
 
     Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
@@ -961,6 +992,70 @@ NAN_METHOD(Finder::GetWorkingstepTool)
 	return; // error in cpp
 
     info.GetReturnValue().Set(tl_id);
+    return;
+}
+
+NAN_METHOD(Finder::GetWorkplanExecutableAll)
+{
+    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+
+    if (find == 0)  // throw exception
+	return;
+
+    if (info.Length() != 1) // throw exception
+	return;
+
+    if (!info[0]->IsInt32())	// invalid argument
+	return;
+
+    Nan::Maybe<int32_t> wp_id = Nan::To<int32_t>(info[0]);
+    v8::Local<v8::Array> exes = Nan::New<v8::Array>();
+
+    rose_uint_vector tmp;
+
+    if (!find->_find->workplan_executable_all(wp_id.FromJust(), tmp))
+	return; // error in cpp
+
+    for (uint i = 0; i < tmp.size(); i++)
+    {
+	int pt = tmp.get(i);
+	exes->Set(i, Nan::New(pt));
+    }
+
+    info.GetReturnValue().Set(exes);
+
+    return;
+}
+
+NAN_METHOD(Finder::GetWorkplanExecutableAllEnabled)
+{
+    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+
+    if (find == 0)  // throw exception
+	return;
+
+    if (info.Length() != 1) // throw exception
+	return;
+
+    if (!info[0]->IsInt32())	// invalid argument
+	return;
+
+    Nan::Maybe<int32_t> wp_id = Nan::To<int32_t>(info[0]);
+    v8::Local<v8::Array> exes = Nan::New<v8::Array>();
+
+    rose_uint_vector tmp;
+
+    if (!find->_find->workplan_executable_all_enabled(wp_id.FromJust(), tmp))
+	return; // error in cpp
+
+    for (uint i = 0; i < tmp.size(); i++)
+    {
+	int pt = tmp.get(i);
+	exes->Set(i, Nan::New(pt));
+    }
+
+    info.GetReturnValue().Set(exes);
+
     return;
 }
 
