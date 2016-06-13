@@ -9539,9 +9539,23 @@ workingstep.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetToolProductID></a>GetToolProductID()</h2>
-<pre>
+<pre class="dotnet">
 System::Int64 <b>GetToolProductID</b> (
 	System::Int64 tl_id
+	);
+</pre>
+
+<pre class="nodejs">
+int <b>GetToolProductID</b> (
+	int tl_id
+	);
+</pre>
+
+<pre class="cpp">
+RoseBoolean <b>tool_part_name</b> (
+	int ws_id,
+	int &pd_id,
+	const char * &part_name
 	);
 </pre>
 
@@ -9708,10 +9722,23 @@ workingstep.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetToolReferenceDataName></a>GetToolReferenceDataName()</h2>
-<pre>
+<pre class="dotnet">
 System::String^ <b>GetToolReferenceDataName</b> (
 	System::Int64 ws_id,
 	[System::Runtime::InteropServices::Out] System::Boolean %value_set
+	);
+</pre>
+
+<pre class="nodejs">
+string <b>GetToolReferenceDataName</b> (
+	int ws_id
+	);
+</pre>
+
+<pre class="cpp">
+RoseBoolean <b>tool_reference_data_name</b> (
+	int ws_id,
+	const char * &identifier
 	);
 </pre>
 
@@ -10249,9 +10276,22 @@ System::Int64 <b>GetToolUsingIdentifier</b> (
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetToolUsingNumber></a>GetToolUsingNumber()</h2>
-<pre>
+<pre class="dotnet">
 System::Int64 <b>GetToolUsingNumber</b> (
 	System::String^ id
+	);
+</pre>
+
+<pre class="nodejs">
+int <b>GetToolUsingNumber</b> (
+	string id
+	);
+</pre>
+
+<pre class="cpp">
+RoseBoolean <b>find_tool_using_its_id</b> (
+	const char *its_id,
+	int &tl_id
 	);
 </pre>
 
