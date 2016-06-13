@@ -9722,10 +9722,23 @@ workingstep.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetToolReferenceDataName></a>GetToolReferenceDataName()</h2>
-<pre>
+<pre class="dotnet">
 System::String^ <b>GetToolReferenceDataName</b> (
 	System::Int64 ws_id,
 	[System::Runtime::InteropServices::Out] System::Boolean %value_set
+	);
+</pre>
+
+<pre class="nodejs">
+string <b>GetToolReferenceDataName</b> (
+	int ws_id
+	);
+</pre>
+
+<pre class="cpp">
+RoseBoolean <b>tool_reference_data_name</b> (
+	int ws_id,
+	const char * &identifier
 	);
 </pre>
 
