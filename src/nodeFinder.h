@@ -121,6 +121,10 @@ public:
     //string GetProjectName();
     static NAN_METHOD(GetProjectName);
 
+
+	//string GetToolType (int ws_id)
+	static NAN_METHOD(GetToolType);
+
     //int GetWorkingstep(int wp_id, int index)
     static NAN_METHOD(GetWorkingstep);
 

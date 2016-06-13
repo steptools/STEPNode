@@ -93,6 +93,7 @@ NAN_MODULE_INIT(Finder::Init)
 	Nan::SetPrototypeMethod(tpl, "GetSelectiveExecutableAllEnabled", GetSelectiveExecutableAllEnabled); 
 	Nan::SetPrototypeMethod(tpl, "GetSelectiveExecutableCount", GetSelectiveExecutableCount);
 	Nan::SetPrototypeMethod(tpl, "GetSelectiveExecutableNext", GetSelectiveExecutableNext);
+	Nan::SetPrototypeMethod(tpl, "GetToolType", GetToolType);
     Nan::SetPrototypeMethod(tpl, "GetWorkplanToolCount", GetWorkplanToolCount);
     Nan::SetPrototypeMethod(tpl, "GetWorkplanToolNext", GetWorkplanToolNext);
 	Nan::SetPrototypeMethod(tpl, "IsEnabled", IsEnabled);
@@ -1054,6 +1055,21 @@ NAN_METHOD(Finder::GetWorkingstep) {
 	return;
     info.GetReturnValue().Set(exe_id);
     return;
+}
+NAN_METHOD(Finder::GetToolType) {
+	Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+	if (find == 0) //Throw Exception
+		return;
+	if (info.Length() != 1) //Throw Exception
+		return;
+
+	Nan::Maybe<int32_t> ws_id = Nan::To<int32_t>(info[0]);
+	const char * type = 0;
+
+	if (!find->_find->tool_type((int)ws_id.FromJust(), type))
+		return;
+
+	info.GetReturnValue().Set(CharTov8String((char *)type));
 }
 
 NAN_METHOD(Finder::GetWorkingstepTool)
