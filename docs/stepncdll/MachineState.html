@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+   <TITLE>MachineState Programming Class</TITLE>
+   <link rel="stylesheet" type="text/css" href="../pkgcss/style.css">
+</HEAD>
+
+<BODY>
+<TABLE class=pagehead><TR>
+<TD class=logo>MachineState</TD>
+<TD class=quicklinks>
+  <A HREF="http://www.steptools.com">[www.steptools.com]</a>
+  <A HREF="../index.html">[STEP-NC Machine]</A>
+  <A HREF=index.html>[STEP-NC DLL]</a>
+</TD></TR>
+</TABLE>
+
+<div class=bktoc>
+<FORM class=bksearch method=GET action="http://www.google.com/search">
+Search STEP Tools Web Support<br>
+<INPUT TYPE=text name=q size=22 maxlength=255 value="">
+<INPUT TYPE=hidden name=q value="site:www.steptools.com/support">
+<INPUT class=button type=submit name=sa VALUE="Google">
+</FORM>
+<ul>
+<li><a href="#oview">Overview</a>
+<li><a href=""></a>
+</ul>
+</div>
+
+<div class=main>
+
+<!-- ================================ -->
+<h2><a name=oview></a>Overview</h2>
+<p>
+<b>MachineState</b> objects are slightly different from the other StepNC API objects- you need a unique MachineState object for every file you wish to simulate. Call the constructor with the path to the file you wish to simulate to instantiate an instance of it- ms = new MachineState("File.stpnc");
+</p>
+
+
+<!-- ======================================== -->
+<!-- ================================ -->
+<h2 class=rule>
+<a name=AdvanceState></a>AdvanceState()</h2>
+<pre>
+int <b>AdvanceState</b> ();
+</pre>
+
+<P>The <b>AdvanceState()</b> function advances the simulation by the smallest possible amount. This will move a tool along a toolpath. Returns something if it's at the end of a workingstep, I don't remember if it will switch workingsteps or not- will update.
+
+<h2 class=rule>
+<a name=></a>NextWS()</h2>
+<pre>
+void <b>NextWS</b> ();
+</pre>
+
+<P>The <b>NextWS()</b> function advances the simulation to the next sequential workingstep.
+<h2 class=rule> 
+	Undocumented (working on it): </h2>
+void LoadMachine(string file);
+<br>
+string GetGeometryJSON();
+<br>
+string GetGeometryJSON(string id, string typ);
+<br>
+string GetDeltaJSON();
+<br>
+string GetKeystateJSON();
+<!-- ================================ -->
+</div>
+
+<div class="copyright">
+  Copyright &copy; 2016 STEP Tools Inc. All Rights Reserved.<br>
+</div>
+</BODY>
+</HTML>
+
