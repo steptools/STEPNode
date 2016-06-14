@@ -22,6 +22,6 @@
 //NOTE: caller needs to delete[] lest we end up with a memory leak.
 size_t v8StringToChar(v8::Local<v8::Value> in, char* &arr);
 
-v8::Local<v8::Value> CharTov8String(char* arr);
+v8::Local<v8::Value> CharTov8String(const char* arr);
 
 

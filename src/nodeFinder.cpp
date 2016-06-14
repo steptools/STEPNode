@@ -126,7 +126,7 @@ NAN_METHOD(Finder::APIUnitsFeed) {
     if (!info[0]->IsString()) //Throw Exception
 	return;
     char * b;
-    size_t len = v8StringToChar(info[0], b);
+    v8StringToChar(info[0], b);
     if (!find->_find->api_unit_feed(b)) //Throw Exception
 	return;
     delete[] b;
@@ -190,7 +190,7 @@ NAN_METHOD(Finder::APIUnitsSpeed) {
     if (!info[0]->IsString()) //Throw Exception
 	return;
     char * b;
-    size_t len = v8StringToChar(info[0], b);
+    v8StringToChar(info[0], b);
     if (!find->_find->api_unit_speed(b)) //Throw Exception
 	return;
     delete[] b;
@@ -933,7 +933,7 @@ NAN_METHOD(Finder::GetToolUsingNumber)
 
     int tool_id = 0;
     char* id = 0;
-    size_t id_len = v8StringToChar(info[0], id);
+    v8StringToChar(info[0], id);
 
     if (!find->_find->find_tool_using_its_id(id, tool_id))
 	return; // error in cpp
@@ -1556,7 +1556,7 @@ NAN_METHOD(Finder::OpenProject) {
     if (!info[0]->IsString())
 	    return;
     char * fname = 0;
-    ssize_t fnamelen = v8StringToChar(info[0], fname);
+    v8StringToChar(info[0], fname);
     if(!find->_find->search(fname)) //TODO: Handle Error.
 	    return;
     return; //Success finding, return.
