@@ -45,7 +45,7 @@ NAN_METHOD(machineState::New)
 	    return;
 	}
 	char * b;
-	ssize_t len = v8StringToChar(info[0], b);
+	v8StringToChar(info[0], b);
 	machineState * ms = new machineState();
 	ms->_ms = MachineState::InitializeState(b);
 	delete[] b;
@@ -65,7 +65,7 @@ NAN_METHOD(machineState::LoadMachine)
     if (!ms || !(ms->_ms)) return;
     if (info[0]->IsUndefined()) return;
     char * b;
-    size_t len = v8StringToChar(info[0], b);
+    v8StringToChar(info[0], b);
     bool success = ms->_ms->SetMachine(b);
     info.GetReturnValue().Set(success);
     delete[] b;

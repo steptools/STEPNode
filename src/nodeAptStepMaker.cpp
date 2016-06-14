@@ -74,7 +74,7 @@ NAN_METHOD(AptStepMaker::GetToolEID)
     if (!info[0]->IsString())
 	return;
     char * toolNum = 0;
-    size_t toolNumLen = v8StringToChar(info[0], toolNum);
+    v8StringToChar(info[0], toolNum);
     int toolEID;
     if (!apt->_apt->get_tool_id(toolNum, toolEID)) //TODO: Handle error
 	return;
@@ -92,7 +92,7 @@ NAN_METHOD(AptStepMaker::GetToolIdentifier)
     if (!info[0]->IsString())
 	return;
     char * toolNum = 0;
-    size_t toolNumLength = v8StringToChar(info[0], toolNum);
+    v8StringToChar(info[0], toolNum);
     const char * toolID = 0;
     if (!apt->_apt->get_tool_identifier(toolNum, toolID)) // TODO: Handle error
 	return;
@@ -143,7 +143,7 @@ NAN_METHOD(AptStepMaker::OpenProject) {
     if (!info[0]->IsString())
 	return;
     char * fname = 0;
-    ssize_t fnamelen = v8StringToChar(info[0], fname);
+    v8StringToChar(info[0], fname);
     if (!apt->_apt->read_238_file(fname)) //TODO: Handle Error.
 	return;
     return; //Success finding, return.
