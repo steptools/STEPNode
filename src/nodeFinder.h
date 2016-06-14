@@ -121,6 +121,17 @@ public:
     //string GetProjectName();
     static NAN_METHOD(GetProjectName);
 
+	//double GetToolCurrentLength (int tl_id, bool nominal_set, bool current_set, double nominal_value)
+	static NAN_METHOD(GetToolCurrentLength);
+
+	//double GetToolLength (int tl_id)
+	static NAN_METHOD(GetToolLength);
+
+	//double GetToolLengthUnit (int tl_id)
+	static NAN_METHOD(GetToolLengthUnit);
+
+	//string GetToolMaterial(int tl_id)
+	static NAN_METHOD(GetToolMaterial);
 
 	//string GetToolType (int ws_id)
 	static NAN_METHOD(GetToolType);
