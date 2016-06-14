@@ -96,7 +96,7 @@ NAN_METHOD(machineState::GetGeometryJSON)
     machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
     if (!ms || !(ms->_ms)) return;
     //This function has a 2 argument and a no argument version.
-    if (info[0]->IsUndefined())
+    if (info.Length() == 0)
     {
 	ms->_ms->GetGeometryJSON();
 	char* rtn = ms->_ms->strbuff()->ro_str();
@@ -105,8 +105,9 @@ NAN_METHOD(machineState::GetGeometryJSON)
     }
     else
     {
+	if (info.Length() != 2) return;	// invalid number of arguments
 	if (info[0]->IsUndefined()) return; //No Given ID
-	if (!info[1]->IsUndefined()) return; //No Given Typ
+	if (info[1]->IsUndefined()) return; //No Given Typ
 	if (!info[0]->IsString()) return; //ID is not valid
 	if (!info[1]->IsString()) return; //Typ is not valid
 	char * id;
