@@ -121,6 +121,21 @@ public:
     //string GetProjectName();
     static NAN_METHOD(GetProjectName);
 
+	//double GetToolCurrentLength (int tl_id, bool nominal_set, bool current_set, double nominal_value)
+	static NAN_METHOD(GetToolCurrentLength);
+
+	//double GetToolLength (int tl_id)
+	static NAN_METHOD(GetToolLength);
+
+	//double GetToolLengthUnit (int tl_id)
+	static NAN_METHOD(GetToolLengthUnit);
+
+	//string GetToolMaterial(int tl_id)
+	static NAN_METHOD(GetToolMaterial);
+
+	//string GetToolType (int ws_id)
+	static NAN_METHOD(GetToolType);
+
     //int GetWorkingstep(int wp_id, int index)
     static NAN_METHOD(GetWorkingstep);
 
@@ -145,6 +160,9 @@ public:
     //int[] GetSelectiveExecutableAll( int wp_id)
     static NAN_METHOD(GetSelectiveExecutableAll);
 
+    //int[] GetSelectiveExecutableAllEnabled( int wp_id)
+    static NAN_METHOD(GetSelectiveExecutableAllEnabled);
+
     //int GetSelectiveExecutableCount( int sl_id)
     static NAN_METHOD(GetSelectiveExecutableCount);
     
@@ -162,6 +180,21 @@ public:
 
     //string GetToolPartName(int ws_id)
     static NAN_METHOD(GetToolPartName);
+
+    //int GetToolProductID(int tl_id)
+    static NAN_METHOD(GetToolProductID);
+
+    //string GetToolReferenceDataName(int ws_id)
+    static NAN_METHOD(GetToolReferenceDataName);
+
+    //int GetToolUsingNumber(string id)
+    static NAN_METHOD(GetToolUsingNumber);
+
+    //int[] GetWorkplanExecutableAll(int wp_id);
+    static NAN_METHOD(GetWorkplanExecutableAll);
+
+    //int[] GetWorkplanExecutableAllEnabled(int wp_id);
+    static NAN_METHOD(GetWorkplanExecutableAllEnabled);
 
     //int GetWorkplanToolCount();
     static NAN_METHOD(GetWorkplanToolCount);

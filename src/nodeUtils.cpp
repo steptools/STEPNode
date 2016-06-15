@@ -26,7 +26,7 @@ size_t v8StringToChar(v8::Local<v8::Value> in, char* &arr)
 	arr[len + 1] = '\0';
 	return len;
 }
-v8::Local<v8::Value> CharTov8String(char* arr)
+v8::Local<v8::Value> CharTov8String(const char* arr)
 {
     return Nan::Encode(arr, strlen(arr), Nan::Encoding::UTF8);
 }

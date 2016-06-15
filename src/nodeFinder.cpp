@@ -78,16 +78,27 @@ NAN_MODULE_INIT(Finder::Init)
 	Nan::SetPrototypeMethod(tpl, "GetToolNumber", GetToolNumber);
 	Nan::SetPrototypeMethod(tpl, "GetToolNumberAsNumber", GetToolNumberAsNumber);
 	Nan::SetPrototypeMethod(tpl, "GetToolPartName", GetToolPartName);
+	Nan::SetPrototypeMethod(tpl, "GetToolProductID", GetToolProductID);
+	Nan::SetPrototypeMethod(tpl, "GetToolReferenceDataName", GetToolReferenceDataName);
+	Nan::SetPrototypeMethod(tpl, "GetToolUsingNumber", GetToolUsingNumber);
 	Nan::SetPrototypeMethod(tpl, "GetWorkingstep", GetWorkingstep);
 	Nan::SetPrototypeMethod(tpl, "GetWorkingstepName", GetWorkingstepName);
 	Nan::SetPrototypeMethod(tpl, "GetWorkingstepTool", GetWorkingstepTool);
+	Nan::SetPrototypeMethod(tpl, "GetWorkplanExecutableAll", GetWorkplanExecutableAll);
+	Nan::SetPrototypeMethod(tpl, "GetWorkplanExecutableAllEnabled", GetWorkplanExecutableAllEnabled);
 	Nan::SetPrototypeMethod(tpl, "GetWorkplanName", GetWorkplanName);
 	Nan::SetPrototypeMethod(tpl, "GetWorkplanProcessFeatureCount", GetWorkplanProcessFeatureCount);
 	Nan::SetPrototypeMethod(tpl, "GetWorkplanProcessFeatureNext", GetWorkplanProcessFeatureNext);
 	Nan::SetPrototypeMethod(tpl, "GetWorkplanSize", GetWorkplanSize);
 	Nan::SetPrototypeMethod(tpl, "GetSelectiveExecutableAll", GetSelectiveExecutableAll); 
+	Nan::SetPrototypeMethod(tpl, "GetSelectiveExecutableAllEnabled", GetSelectiveExecutableAllEnabled); 
 	Nan::SetPrototypeMethod(tpl, "GetSelectiveExecutableCount", GetSelectiveExecutableCount);
 	Nan::SetPrototypeMethod(tpl, "GetSelectiveExecutableNext", GetSelectiveExecutableNext);
+	Nan::SetPrototypeMethod(tpl, "GetToolCurrentLength", GetToolCurrentLength);
+	Nan::SetPrototypeMethod(tpl, "GetToolLength", GetToolLength);
+	Nan::SetPrototypeMethod(tpl, "GetToolLengthUnit", GetToolLengthUnit);
+	Nan::SetPrototypeMethod(tpl, "GetToolMaterial", GetToolMaterial);
+	Nan::SetPrototypeMethod(tpl, "GetToolType", GetToolType);
     Nan::SetPrototypeMethod(tpl, "GetWorkplanToolCount", GetWorkplanToolCount);
     Nan::SetPrototypeMethod(tpl, "GetWorkplanToolNext", GetWorkplanToolNext);
 	Nan::SetPrototypeMethod(tpl, "IsEnabled", IsEnabled);
@@ -116,7 +127,7 @@ NAN_METHOD(Finder::APIUnitsFeed) {
     if (!info[0]->IsString()) //Throw Exception
 	return;
     char * b;
-    size_t len = v8StringToChar(info[0], b);
+    v8StringToChar(info[0], b);
     if (!find->_find->api_unit_feed(b)) //Throw Exception
 	return;
     delete[] b;
@@ -180,7 +191,7 @@ NAN_METHOD(Finder::APIUnitsSpeed) {
     if (!info[0]->IsString()) //Throw Exception
 	return;
     char * b;
-    size_t len = v8StringToChar(info[0], b);
+    v8StringToChar(info[0], b);
     if (!find->_find->api_unit_speed(b)) //Throw Exception
 	return;
     delete[] b;
@@ -852,6 +863,88 @@ NAN_METHOD(Finder::GetToolPartName)
     return;
 }
 
+NAN_METHOD(Finder::GetToolProductID)
+{
+    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+
+    if (find == 0)
+	return; //throw exception
+
+    if (info.Length() != 1)
+	return; //throw exception
+
+    if (!info[0]->IsInt32())
+	return;	//  invalid argument
+
+    Nan::Maybe<int32_t> tl_id = Nan::To<int32_t>(info[0]);
+
+    const char* szPN;
+    int pd_id = 0;
+
+    if (!find->_find->tool_part_name(tl_id.FromJust(), pd_id, szPN))
+	return; // error in cpp
+
+    info.GetReturnValue().Set(pd_id);
+
+    return;
+}
+
+NAN_METHOD(Finder::GetToolReferenceDataName)
+{
+    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+
+    if (find == 0)
+	return; //throw exception
+
+    if (info.Length() != 1)
+	return; //throw exception
+
+    if (!info[0]->IsInt32())
+	return;	//  invalid argument
+
+    Nan::Maybe<int32_t> ws_id = Nan::To<int32_t>(info[0]);
+
+    const char* name = 0;
+
+    if (!find->_find->tool_reference_data_name(ws_id.FromJust(), name))
+	return;
+
+    if (!(name && *name))   // if we got no return value
+	return;	// return undefined
+
+    info.GetReturnValue().Set(CharTov8String((char*)name));
+
+    delete[] name;
+
+    return;
+}
+
+NAN_METHOD(Finder::GetToolUsingNumber)
+{
+    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+
+    if (find == 0)
+	return; //throw exception
+
+    if (info.Length() != 1)
+	return; //throw exception
+
+    if (!info[0]->IsString())
+	return;	//  invalid argument
+
+    int tool_id = 0;
+    char* id = 0;
+    v8StringToChar(info[0], id);
+
+    if (!find->_find->find_tool_using_its_id(id, tool_id))
+	return; // error in cpp
+
+    info.GetReturnValue().Set(tool_id);
+
+    delete[] id;
+    
+    return;
+}
 
 NAN_METHOD(Finder::GetSelectiveExecutableAll) {
     Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
@@ -870,6 +963,34 @@ NAN_METHOD(Finder::GetSelectiveExecutableAll) {
     if (!find->_find->selective_executable_all(wp_id.FromJust(), tmp)) {
 	return; //Throw error
     }
+    for (unsigned i = 0; i < tmp.size(); i++) {
+	int pt = tmp.get(i);
+	exes->Set(i, Nan::New(pt));
+    }
+
+    info.GetReturnValue().Set(exes);
+    return;
+}
+
+NAN_METHOD(Finder::GetSelectiveExecutableAllEnabled)
+{
+    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (find == 0)
+	return; //throw exception
+
+    if (info.Length() != 1)
+	return; // invalid num of args
+
+    if (!info[0]->IsNumber())
+	return; // invalid argument
+
+    Nan::Maybe<int32_t> wp_id = Nan::To<int32_t>(info[0]);
+    v8::Local<v8::Array> exes = Nan::New<v8::Array>();
+
+    rose_uint_vector tmp;
+    if (!find->_find->selective_executable_all_enabled(wp_id.FromJust(), tmp))
+	return; //Throw error
+
     for (unsigned i = 0; i < tmp.size(); i++) {
 	int pt = tmp.get(i);
 	exes->Set(i, Nan::New(pt));
@@ -960,6 +1081,107 @@ NAN_METHOD(Finder::GetWorkingstepName) {
     return;
 }
 
+NAN_METHOD(Finder::GetToolCurrentLength){ /*
+	Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+	if (find == 0) //Throw Exception
+	return;
+	if (info.Length() != 4) //Throw Exception
+	return;
+	if (!info[0]->IsInt32()) //Throw Exception
+		return;
+
+	Nan::Maybe<int32_t> tl_id = Nan::To<int32_t>(info[0]);
+
+	double nominal_value = 0.0;
+	double current_value = 0.0;
+	double dummy;
+
+	if (!find->_find->tool_current(
+		tl_id.FromJust(), dummy, dummy, nominal_value, dummy, dummy, current_value
+	))
+		return;
+
+	ret_nominal_set = (nominal_value != ROSE_NULL_REAL);
+	ret_current_set = (current_value != ROSE_NULL_REAL);
+	ret_nominal_value = nominal_value;
+
+
+
+	info.GetReturnValue().Set((bool)current_value));
+	return;*/
+}
+
+NAN_METHOD(Finder::GetToolLength) {
+	Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+	if (find == 0) //Throw Exception
+		return;
+	if (info.Length() != 1) //Throw Exception
+		return;
+
+	Nan::Maybe<int32_t> tl_id = Nan::To<int32_t>(info[0]);
+	printf("%d\n", (int)tl_id.FromJust());
+	double length = 0.0;
+	double dummy;
+
+
+	if (!find->_find->tool_current(
+		tl_id.FromJust(), length, dummy, dummy, dummy, dummy, dummy
+		)
+	)
+		return;
+	info.GetReturnValue().Set(length);
+}
+
+NAN_METHOD(Finder::GetToolLengthUnit) {
+	Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+	if (find == 0) //Throw Exception
+		return;
+	if (info.Length() != 1) //Throw Exception
+		return;
+
+	Nan::Maybe<int32_t> tl_id = Nan::To<int32_t>(info[0]);
+	const char * unit = 0;
+	const char * dummy = 0;
+
+	if (!find->_find->tool_current_unit((int)tl_id.FromJust(), unit, dummy, dummy))
+		return;
+
+	info.GetReturnValue().Set(CharTov8String((char *)unit));
+}
+
+NAN_METHOD(Finder::GetToolMaterial) {
+	Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+	if (find == 0)
+		return;
+	if (info.Length() != 1)
+		return;
+	
+	Nan::Maybe<int32_t> tl_id = Nan::To<int32_t>(info[0]);
+	const char * material = 0;
+	const char * szName1;
+
+	if (!find->_find->tool_material((int)tl_id.FromJust(), material, szName1))
+		return;
+
+	info.GetReturnValue().Set(CharTov8String((char *)material));
+}
+
+NAN_METHOD(Finder::GetToolType) {
+	Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+	if (find == 0) //Throw Exception
+		return;
+	if (info.Length() != 1) //Throw Exception
+		return;
+
+	Nan::Maybe<int32_t> ws_id = Nan::To<int32_t>(info[0]);
+	const char * type = 0;
+
+	if (!find->_find->tool_type((int)ws_id.FromJust(), type))
+		return;
+
+	info.GetReturnValue().Set(CharTov8String((char *)type));
+}
+
 NAN_METHOD(Finder::GetWorkingstepTool)
 {
     Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
@@ -984,6 +1206,70 @@ NAN_METHOD(Finder::GetWorkingstepTool)
     return;
 }
 
+NAN_METHOD(Finder::GetWorkplanExecutableAll)
+{
+    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+
+    if (find == 0)  // throw exception
+	return;
+
+    if (info.Length() != 1) // throw exception
+	return;
+
+    if (!info[0]->IsInt32())	// invalid argument
+	return;
+
+    Nan::Maybe<int32_t> wp_id = Nan::To<int32_t>(info[0]);
+    v8::Local<v8::Array> exes = Nan::New<v8::Array>();
+
+    rose_uint_vector tmp;
+
+    if (!find->_find->workplan_executable_all(wp_id.FromJust(), tmp))
+	return; // error in cpp
+
+    for (uint i = 0; i < tmp.size(); i++)
+    {
+	int pt = tmp.get(i);
+	exes->Set(i, Nan::New(pt));
+    }
+
+    info.GetReturnValue().Set(exes);
+
+    return;
+}
+
+NAN_METHOD(Finder::GetWorkplanExecutableAllEnabled)
+{
+    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+
+    if (find == 0)  // throw exception
+	return;
+
+    if (info.Length() != 1) // throw exception
+	return;
+
+    if (!info[0]->IsInt32())	// invalid argument
+	return;
+
+    Nan::Maybe<int32_t> wp_id = Nan::To<int32_t>(info[0]);
+    v8::Local<v8::Array> exes = Nan::New<v8::Array>();
+
+    rose_uint_vector tmp;
+
+    if (!find->_find->workplan_executable_all_enabled(wp_id.FromJust(), tmp))
+	return; // error in cpp
+
+    for (uint i = 0; i < tmp.size(); i++)
+    {
+	int pt = tmp.get(i);
+	exes->Set(i, Nan::New(pt));
+    }
+
+    info.GetReturnValue().Set(exes);
+
+    return;
+}
+
 NAN_METHOD(Finder::GetWorkplanName) {
     Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
     if (find == 0) //Throw Exception
@@ -995,8 +1281,8 @@ NAN_METHOD(Finder::GetWorkplanName) {
     
     const char  * wp_name = 0;
     int nSize;
-    Nan::Maybe<int32_t> wp_id = Nan::To<int32_t>(info[0]);
-    if (!find->_find->workplan(wp_id.FromJust(), nSize, wp_name)) //Throw Exception
+    Nan::Maybe<int32_t> tl_id = Nan::To<int32_t>(info[0]);
+    if (!find->_find->workplan(tl_id.FromJust(), nSize, wp_name)) //Throw Exception
 	return;
     info.GetReturnValue().Set(CharTov8String((char *)wp_name));
     return;
@@ -1290,7 +1576,7 @@ NAN_METHOD(Finder::OpenProject) {
     if (!info[0]->IsString())
 	    return;
     char * fname = 0;
-    ssize_t fnamelen = v8StringToChar(info[0], fname);
+    v8StringToChar(info[0], fname);
     if(!find->_find->search(fname)) //TODO: Handle Error.
 	    return;
     return; //Success finding, return.

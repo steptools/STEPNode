@@ -68,7 +68,7 @@
 			}],
 			['OS!="win"', {
 				"libraries": ['<(Rose_lib)'+"f2c"+'<(lib_ext)']
-			}],
+			}]
 		]
 	}]
 }

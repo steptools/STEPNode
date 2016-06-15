@@ -45,7 +45,7 @@ NAN_METHOD(machineState::New)
 	    return;
 	}
 	char * b;
-	ssize_t len = v8StringToChar(info[0], b);
+	v8StringToChar(info[0], b);
 	machineState * ms = new machineState();
 	ms->_ms = MachineState::InitializeState(b);
 	delete[] b;
@@ -65,9 +65,12 @@ NAN_METHOD(machineState::LoadMachine)
     if (!ms || !(ms->_ms)) return;
     if (info[0]->IsUndefined()) return;
     char * b;
-    size_t len = v8StringToChar(info[0], b);
-    ms->_ms->SetMachine(b);
+    v8StringToChar(info[0], b);
+    bool success = ms->_ms->SetMachine(b);
+    info.GetReturnValue().Set(success);
     delete[] b;
+
+    return;
 }
 
 NAN_METHOD(machineState::NextWS)
@@ -93,7 +96,7 @@ NAN_METHOD(machineState::GetGeometryJSON)
     machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
     if (!ms || !(ms->_ms)) return;
     //This function has a 2 argument and a no argument version.
-    if (info[0]->IsUndefined())
+    if (info.Length() == 0)
     {
 	ms->_ms->GetGeometryJSON();
 	char* rtn = ms->_ms->strbuff()->ro_str();
@@ -102,8 +105,9 @@ NAN_METHOD(machineState::GetGeometryJSON)
     }
     else
     {
+	if (info.Length() != 2) return;	// invalid number of arguments
 	if (info[0]->IsUndefined()) return; //No Given ID
-	if (!info[1]->IsUndefined()) return; //No Given Typ
+	if (info[1]->IsUndefined()) return; //No Given Typ
 	if (!info[0]->IsString()) return; //ID is not valid
 	if (!info[1]->IsString()) return; //Typ is not valid
 	char * id;
