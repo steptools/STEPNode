@@ -43,6 +43,9 @@ public:
     //int AdvanceState();
     static NAN_METHOD(AdvanceState);
 
+    //int switchWS(int wsid)
+    static NAN_METHOD(GoToWS);
+
     //String GetGeometryJSON() //Get all Geometry
     //String GetGeometryJSON(string id,string typ) //Get a specific piece of geometry data. types are "NONE" "MESH" and "POLYLINE"
     static NAN_METHOD(GetGeometryJSON);

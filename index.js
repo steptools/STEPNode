@@ -1,12 +1,12 @@
 var StepNC = require('./build/Release/StepNC');
 
-var finder = new StepNC.Finder();
-finder.OpenProject("model.stpnc");
-var a = 89308;
+var ms = new StepNC.machineState("model.stpnc");
+//ms.LoadMachine("model.stpnc");
+var a = 89387;
 
-console.log(finder.GetWorkingstepName(a));
+var fs = require('fs');
+console.log(ms.GetKeystateJSON());
+ms.GoToWS(a);
+console.log(ms.GetKeystateJSON());
 
 process.exit();
-
-//Don't do GetCount/GetNext Functions, only do GetAll
-//If get all isn't implemented yet mark red so that Sam can do
