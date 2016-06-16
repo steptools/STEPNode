@@ -1,0 +1,33 @@
+{
+  "name": "stepncnode",
+  "version": "0.1.0",
+  "description": "Step-NC Node.js library",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "dependencies": {
+    "nan": "^2.3.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "install": "node-gyp rebuild"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://ian-h-chamberlain@github.com/steptools/StepNCNode.git"
+  },
+  "keywords": [
+    "step",
+    "nc",
+    "node"
+  ],
+  "author": "",
+  "license": "",
+  "gypfile": true,
+  "bugs": {
+    "url": "https://github.com/steptools/StepNCNode/issues"
+  },
+  "homepage": "https://github.com/steptools/StepNCNode"
+}
