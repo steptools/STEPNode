@@ -2,7 +2,7 @@
 	'variables' : {
 		"conditions": [
             ["OS == 'linux' ", {
-               'Rose_lib': '$(ROSE)/lib/linux_x86_64_gcc_3.4/lib',
+               'Rose_lib': '$(ROSE)/lib/linux_x86_64_gcc_3.4_pic/lib',
                'lib_ext': '.a' 
             }],
 			["OS == 'mac' ", {
