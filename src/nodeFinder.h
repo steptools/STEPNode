@@ -139,6 +139,9 @@ public:
     //int GetWorkingstep(int wp_id, int index)
     static NAN_METHOD(GetWorkingstep);
 
+    //string GetWorkingstepName(int ws_id)
+    static NAN_METHOD(GetWorkingstepName);
+
     //int GetWorkingstepTool(int ws_id)
     static NAN_METHOD(GetWorkingstepTool);
 

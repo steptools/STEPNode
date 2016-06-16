@@ -82,6 +82,7 @@ NAN_MODULE_INIT(Finder::Init)
 	Nan::SetPrototypeMethod(tpl, "GetToolReferenceDataName", GetToolReferenceDataName);
 	Nan::SetPrototypeMethod(tpl, "GetToolUsingNumber", GetToolUsingNumber);
 	Nan::SetPrototypeMethod(tpl, "GetWorkingstep", GetWorkingstep);
+	Nan::SetPrototypeMethod(tpl, "GetWorkingstepName", GetWorkingstepName);
 	Nan::SetPrototypeMethod(tpl, "GetWorkingstepTool", GetWorkingstepTool);
 	Nan::SetPrototypeMethod(tpl, "GetWorkplanExecutableAll", GetWorkplanExecutableAll);
 	Nan::SetPrototypeMethod(tpl, "GetWorkplanExecutableAllEnabled", GetWorkplanExecutableAllEnabled);
@@ -1058,6 +1059,25 @@ NAN_METHOD(Finder::GetWorkingstep) {
     if (!find->_find->is_workingstep(wp_id.FromJust(), index.FromJust(), exe_id, name))
 	return;
     info.GetReturnValue().Set(exe_id);
+    return;
+}
+
+NAN_METHOD(Finder::GetWorkingstepName) {
+    Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+
+    if (info.Length() != 1)
+	return;
+    if (info[0]->IsUndefined())
+	return;
+    if (!info[0]->IsInt32())
+	return;
+
+    const char * name = 0;
+    Nan::Maybe<int32_t> t = Nan::To<int32_t>(info[0]);
+    if (!find->_find->workingstep_name(t.FromJust(), name))
+	return;
+
+    info.GetReturnValue().Set(CharTov8String((char *)name));
     return;
 }
 
