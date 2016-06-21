@@ -1,0 +1,19 @@
+ul.tabs li {
+  display: inline;
+}
+
+ul.tabs li a {
+  background-color: black;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 4px 4px 0 0;
+}
+
+ul.tabs li.live a{
+  color:black;
+  background-color: silver;
+}
+ul.tabs li a:hover {
+    background-color: teal;
+}
