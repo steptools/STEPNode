@@ -766,17 +766,17 @@ identical because the final feature will be made in one operation.
 <h2 class=rule>
 <a name=APIUnitsFeed></a>APIUnitsFeed()</h2>
 <div class = "tabview">
-<pre class = "dotnet">
+<pre class = ".net">
 void <b>APIUnitsFeed</b> (
 	    System::String^ units
 	    );
 </pre>
-<pre class = "nodejs">
+<pre class = "node.js">
 void <b>APIUnitsFeed</b> (
 	string units
 	);
 </pre>
-<pre class = "cpp">
+<pre class = "C++">
 RoseBoolean <b>api_unit_feed</b> (
 	    const char * units
 	    );
@@ -821,13 +821,13 @@ the units used by a feedrate in the data.
 <h2 class=rule>
 <a name=APIUnitsInch></a>APIUnitsInch()</h2>
 <div class = "tabview">
-<pre class = "dotnet">
+<pre class = ".net">
 void <b>APIUnitsInch</b> ();
 </pre>
-<pre class = "nodejs">
+<pre class = "node.js">
 void <b>APIUnitsInch</b> ();
 </pre>
-<pre class = "cpp">
+<pre class = "C++">
 	RoseBoolean <b>api_unit_inch </b> ();
 </pre>
 </div>
@@ -854,13 +854,13 @@ to millimeter.
 <h2 class=rule>
 <a name=APIUnitsMM></a>APIUnitsMM()</h2>
 <div class = "tabview">
-<pre class = "dotnet">
+<pre class = ".net">
 void <b>APIUnitsMM</b> ();
 </pre>
-<pre class = "nodejs">
+<pre class = "node.js">
 void <b>APIUnitsMM</b> ();
 </pre>
-<pre class = "cpp">
+<pre class = "C++">
     RoseBoolean <b>api_unit_mm </b> ();
 </pre>
 </div>
@@ -889,13 +889,13 @@ values to inch.
 <h2 class=rule>
 <a name=APIUnitsNative></a>APIUnitsNative()</h2>
 <div class = "tabview">
-<pre class = "dotnet">
+<pre class = ".net">
 void <b>APIUnitsNative</b> ();
 </pre>
-<pre class = "nodejs">
+<pre class = "node.js">
 void <b>APIUnitsNative</b> ();
 </pre>
-<pre class = "cpp">
+<pre class = "C++">
     RoseBoolean <b>api_unit_native</b> ();
 </pre>
 </div>
@@ -925,17 +925,17 @@ to millimeter.
 <h2 class=rule>
 <a name=APIUnitsSpeed></a>APIUnitsSpeed()</h2>
 <div class = "tabview">
-<pre class = "dotnet">
+<pre class = ".net">
 void <b>APIUnitsSpeed</b> (
 	System::String^ units
 	);
 </pre>
-<pre class = "nodejs">
+<pre class = "node.js">
 void <b>APIUnitsSpeed</b> (
 	string units
 	);
 </pre>
-<pre class = "cpp">
+<pre class = "C++">
 RoseBoolean <b>api_unit_speed</b> (
 	const char * units
 	);
@@ -997,17 +997,17 @@ turning machine.
 <h2 class=rule>
 <a name=GetCompoundFeatureCount></a>GetCompoundFeatureCount</h2>
 <div class = "tabview">
-<pre class = "dotnet">
+<pre class = ".net">
 System::Int64 <b>GetCompoundFeatureCount</b> (
 	System::Int64 compound_id
 	);
 </pre>
-<pre class = "nodejs">
+<pre class = "node.js">
 int <b>GetCompoundFeatureCount</b> (
 	int compound_id;
 	);
 </pre>
-<pre class = "cpp">
+<pre class = "C++">
 RoseBoolean <b>first_feature_in_compound</b> (
 	int compound_id,
 	int &feature_id,
@@ -1207,19 +1207,19 @@ the type of an executable as a string.
 <a name=GetExecutableDistanceUnit></a>
 <a name=GetExecutableDistance></a>GetExecutableDistance() and Unit</h2>
 <div class = "tabview">
-<pre class="dotnet">
+<pre class=".net">
 double <b>GetExecutableDistance</b> (
 	System::Int64 exe_id
 	);
 </pre>
 
-<pre class="nodejs">
+<pre class="node.js">
 double <b>GetExecutableDistance</b> (
 	int exe_id
 	);
 </pre>
 
-<pre class="cpp">
+<pre class="C++">
 RoseBoolean <b>compute_best_feed_time</b> (
 	int exe_id,
 	double &distance,
@@ -1231,19 +1231,19 @@ RoseBoolean <b>compute_best_feed_time</b> (
 </pre>
 </div>
 <div class = "tabview">
-<pre class="dotnet">
+<pre class=".net">
 System::String^ <b>GetExecutableDistanceUnit</b> (
 	System::Int64 exe_id
 	);
 </pre>
 
-<pre class="nodejs">
+<pre class="node.js">
 string <b>GetExecutableDistanceUnit</b> (
 	int exe_id
 	);
 </pre>
 
-<pre class="cpp">
+<pre class="C++">
 RoseBoolean <b>compute_best_feed_time</b> (
 	int exe_id,
 	double &distance,
@@ -1269,17 +1269,17 @@ name for the unit used for the distance.
 <h2 class=rule>
 <a name=GetExecutableName></a>GetExecutableName()</h2>
 <div class = "tabview">
-<pre class = "dotnet">
+<pre class = ".net">
 System::String^ <b>GetExecutableName</b> (
 	System::Int64 exe_id
 	);
 </pre>
-<pre class="nodejs">
+<pre class="node.js">
 string <b>GetExecutableName</b> (
 	int exe_id
 	);
 </pre>
-<pre class="cpp">
+<pre class="C++">
 RoseBoolean <b>executable_name</b> (
 	int exe_id, 
 	const char * &name
@@ -1420,17 +1420,17 @@ and <a href="#GetExecutableOptimizedTime">GetExecutableOptimizedTime</a>.
 <h2 class=rule>
 <a name=GetExecutableType></a>GetExecutableType()</h2>
 <div class = "tabview">
-<pre class="dotnet">
+<pre class=".net">
 System::String^ <b>GetExecutableType</b> (
 	System::Int64 exe_id
 	);
 </pre>
-<pre class="nodejs">
+<pre class="node.js">
 string <b>GetExecutableType</b> (
 	int exe_id
 	);
 </pre>
-<pre class="cpp">
+<pre class="C++">
 RoseBoolean <b>executable_type</b> (
 	int exe_id, 
 	const char * &type
@@ -1520,17 +1520,17 @@ type of an executable.
 <h2 class=rule>
 <a name=GetExecutableWorkpieceAsIs></a>GetExecutableWorkpieceAsIs()</h2>
 <div class = "tabview">
-<pre class="dotnet">
+<pre class=".net">
 System::Int64 <b>GetExecutableWorkpieceAsIs</b> (
 	System::Int64 exe_id
 	);
 </pre>
-<pre class="nodejs">
+<pre class="node.js">
 int <b>GetExecutableWorkpieceAsIs</b> (
 	int exe_id
 	);
 </pre>
-<pre class="cpp">
+<pre class="C++">
 RoseBoolean <b>executable_as_is_workpiece</b> (
 	int ws_id, 
 	int &wp_id
@@ -1573,17 +1573,17 @@ Function to return only a locally defined workpiece of an executable.
 <h2 class=rule>
 <a name=GetExecutableWorkpieceAsIsLocal></a>GetExecutableWorkpieceAsIsLocal()</h2>
 <div class = "tabview">
-<pre class="dotnet">
+<pre class=".net">
 System::Int64 <b>GetExecutableWorkpieceAsIsLocal</b> (
 	System::Int64 exe_id
 	);
 </pre>
-<pre class="nodejs">
+<pre class="node.js">
 int <b>GetExecutableWorkpieceAsIsLocal</b> (
 	int exe_id
 	);
 </pre>
-<pre class="cpp">
+<pre class="C++">
 RoseBoolean <b>local_executable_as_is_workpiece</b> (
 	int ws_id, 
 	int &wp_id
@@ -1618,19 +1618,19 @@ of an executable.
 <h2 class=rule>
 <a name=GetExecutableWorkpieceRemoval></a>GetExecutableWorkpieceRemoval()</h2>
 <div class = "tabview">
-<pre class="dotnet">
+<pre class=".net">
 System::Int64 <b>GetExecutableWorkpieceRemoval</b> (
 	System::Int64 exe_id
 	);
 </pre>
 
-<pre class="nodejs">
+<pre class="node.js">
 int <b>GetExecutableWorkpieceRemoval</b> (
 	int exe_id
 	);
 </pre>
 
-<pre class="cpp">
+<pre class="C++">
 RoseBoolean <b>executable_removal_workpiece</b> (
 	int ws_id,
 	int &wp_id
@@ -1667,19 +1667,19 @@ Function currently returns the same result as this function.
 <h2 class=rule>
 <a name=GetExecutableWorkpieceRemovalLocal></a>GetExecutableWorkpieceRemovalLocal()</h2>
 <div class = "tabview">
-<pre class="dotnet">
+<pre class=".net">
 System::Int64 <b>GetExecutableWorkpieceRemovalLocal</b> (
 	System::Int64 exe_id
 	);
 </pre>
 
-<pre class="nodejs">
+<pre class="node.js">
 int <b>GetExecutableWorkpieceRemovalLocal</b> (
 	int exe_id
 	);
 </pre>
 
-<pre class="cpp">
+<pre class="C++">
 RoseBoolean <b>local_executable_removal_workpiece</b> (
 	int ws_id,
 	int &wp_id
@@ -1714,17 +1714,17 @@ Function to a computed or locally defined removal volume.
 <h2 class=rule>
 <a name=GetExecutableWorkpieceToBe></a>GetExecutableWorkpieceToBe()</h2>
 <div class = "tabview">
-<pre class="dotnet">
+<pre class=".net">
 System::Int64 <b>GetExecutableWorkpieceToBe</b> (
 	System::Int64 exe_id
 	);
 </pre>
-<pre class="nodejs">
+<pre class="node.js">
 int <b>GetExecutableWorkpieceToBe</b> (
 	int exe_id
 	);
 </pre>
-<pre class="cpp">
+<pre class="C++">
 RoseBoolean <b>executable_to_be_workpiece</b> (
 	int ws_id, 
 	int &wp_id
@@ -1765,17 +1765,17 @@ Function to return only a locally defined workpiece of an executable.
 <h2 class=rule>
 <a name=GetExecutableWorkpieceToBeLocal></a>GetExecutableWorkpieceToBeLocal()</h2>
 <div class = "tabview">
-<pre class="dotnet">
+<pre class=".net">
 System::Int64 <b>GetExecutableWorkpieceToBeLocal</b> (
 	System::Int64 exe_id
 	);
 </pre>
-<pre class="nodejs">
+<pre class="node.js">
 int <b>GetExecutableWorkpieceToBeLocal</b> (
 	int exe_id
 	);
 </pre>
-<pre class="cpp">
+<pre class="C++">
 RoseBoolean <b>local_executable_to_be_workpiece</b> (
 	int ws_id, 
 	int &wp_id
@@ -1810,19 +1810,19 @@ an executable.
 <h2 class=rule>
 <a name=GetFaceEdgeCount></a>GetFaceEdgeCount()</h2>
 <div class = "tabview">
-    <pre class="dotnet">
+    <pre class=".net">
 System::Int64 <b>GetFaceEdgeCount</b> (
 	System::Int64 face_id
 	);
 </pre>
 
-    <pre class="nodejs">
+    <pre class="node.js">
 int <b>GetFaceEdgeCount</b> (
 	int face_id
 	);
 </pre>
 
-    <pre class="cpp">
+    <pre class="C++">
 RoseBoolean <b>first_face_edge_point</b> (
 	int face_id,
 	int & size,
@@ -1839,7 +1839,7 @@ RoseBoolean <b>first_face_edge_point</b> (
 <h2 class=rule>
 <a name=GetFaceEdgeNextPoint></a>GetFaceEdgeNextPoint()</h2>
 <div class = "tabview">
-    <pre class="dotnet">
+    <pre class=".net">
 void <b>GetFaceEdgeNextPoint</b> (
 	System::Int64 face_id,
 	System::Int64 index,
@@ -1852,7 +1852,7 @@ void <b>GetFaceEdgeNextPoint</b> (
 	);
 </pre>
 
-    <pre class="nodejs">
+    <pre class="node.js">
 {
     "ret_x1":double,
     "ret_y1":double,
@@ -1866,7 +1866,7 @@ void <b>GetFaceEdgeNextPoint</b> (
 	);
 </pre>
 
-    <pre class="cpp">
+    <pre class="C++">
     RoseBoolean <b>next_face_edge_point</b> (
 	int face_id,
 	int index,
@@ -2946,17 +2946,17 @@ a feature.
 <h2 class=rule>
 <a name=GetFeatureID></a>GetFeatureID()</h2>
 <div class = "tabview">
-<pre class="dotnet">
+<pre class=".net">
 System::Int64 <b>GetFeatureID</b> (
 	System::Int64 ws_id
 	);
 </pre>
-<pre class="nodejs">
+<pre class="node.js">
 int <b>GetFeatureID</b> (
 	int ws_id
 	);
 </pre>
-<pre class="cpp">
+<pre class="C++">
 RoseBoolean <b>feature_id</b> (
 	int ws_id, 
 	int &feature_id
@@ -2970,17 +2970,17 @@ RoseBoolean <b>feature_id</b> (
 <h2 class=rule>
 <a name=GetFeatureName></a>GetFeatureName()</h2>
 <div class = "tabview">
-<pre class="dotnet">
+<pre class=".net">
 System::String^ <b>GetFeatureName</b> (
 	System::Int64 ws_or_fe_id
 	);
 </pre>
-<pre class="nodejs">
+<pre class="node.js">
 string <b>GetFeatureName</b> (
 	int ws_or_fe_id
 	);
 </pre>
-<pre class="cpp">
+<pre class="C++">
 RoseBoolean <b>feature_name</b> (
 	int ws_or_fe_id, 
 	const char * &name
@@ -3017,7 +3017,7 @@ a feature.
 <h2 class=rule>
 <a name=GetFeatureOutsideProfileClosedCircular></a>GetFeatureOutsideProfileClosedCircular()</h2>
 <div class = "tabview">
-<pre class="dotnet">
+<pre class=".net">
 System::Boolean <b>GetFeatureOutsideProfileClosedCircular</b> (
 	System::Int64 feature_id,
 	[System::Runtime::InteropServices::Out] System::Int64 %profile_id,
@@ -3028,7 +3028,7 @@ System::Boolean <b>GetFeatureOutsideProfileClosedCircular</b> (
 	[System::Runtime::InteropServices::Out] double %z
 	);
 </pre>
-<pre class="nodejs">
+<pre class="node.js">
 {
 	rtn: bool,
 	profile_id: int,
@@ -3041,7 +3041,7 @@ System::Boolean <b>GetFeatureOutsideProfileClosedCircular</b> (
 	int feature_id
 	);
 </pre>
-<pre class="cpp">
+<pre class="C++">
 RoseBoolean <b>is_circular_outside_profile</b> (
 	int feature_id,
 	int &profile_id,
@@ -4926,19 +4926,19 @@ name of an executable.
 <h2 class=rule>
 <a name=GetMaterialName></a>GetMaterialName()</h2>
 <div class = "tabview">
-    <pre class="dotnet">
+    <pre class=".net">
 System::String^ <b>GetMaterialName</b> (
 	System::Int64 wp_id
 	);
 </pre>
 
-    <pre class="nodejs">
+    <pre class="node.js">
 string <b>GetMaterialName</b> (
 	int wp_id
 	);
 </pre>
 
-    <pre class="cpp">
+    <pre class="C++">
 RoseBoolean <b>material</b> (
 	int wp_id,
 	const char * &name
@@ -4976,17 +4976,17 @@ function cannot pick the material.
 <a name=GetNestedExecutableNext></a>
 <a name=GetNestedExecutableCount></a>GetNestedExecutableCount/Next/All/AllEnabled()</h2>
 <div class = "tabview">
-<pre class="dotnet">
+<pre class=".net">
 System::Int64 <b>GetNestedExecutableCount</b> (
 	System::Int64 exe_id
 	);
 </pre>
-<pre class="nodejs">
+<pre class="node.js">
 int <b>GetNestedExecutableCount</b> (
 	int exe_id
 	);
 </pre>
-<pre class="cpp">
+<pre class="C++">
 RoseBoolean <b>nested_executable_count</b> (
 	int own_id,
 	int &size
@@ -4994,19 +4994,19 @@ RoseBoolean <b>nested_executable_count</b> (
 </pre>
 </div>
 <div class = "tabview">
-<pre class="dotnet">
+<pre class=".net">
 System::Int64 <b>GetNestedExecutableNext</b> (
 	System::Int64 wp_id,
 	System::Int64 index
 	);
 </pre>
-<pre class="nodejs">
+<pre class="node.js">
 int <b>GetNestedExecutableNext</b> (
 	int exe_id,
 	int index
 	);
 </pre>
-<pre class="cpp">
+<pre class="C++">
 RoseBoolean <b>nested_executable_next</b> (
 	int own_id,
 	int index,
@@ -5015,24 +5015,24 @@ RoseBoolean <b>nested_executable_next</b> (
 </pre>
 </div>
 <div class = "tabview">
-<pre class="dotnet">
+<pre class=".net">
 System::Collections::Generic::List<System::Int64>^ <b>GetNestedExecutableAll</b> (
 	System::Int64 wp_id
 	);
 </pre>
-<pre class="nodejs">
+<pre class="node.js">
 int[] <b>GetNestedExecutableAll</b> (
 	int wp_id
 	);
 </pre>
-<pre class="cpp">
+<pre class="C++">
 RoseBoolean <b>nested_executable_all</b> (
 	int own_id,
 	rose_uint_vector &tmp
 	);
 </pre>
 </div>
-<pre class="dotnet">
+<pre class=".net">
 System::Collections::Generic::List<System::Int64>^ <b>GetNestedExecutableAllEnabled</b> (
 	System::Int64 wp_id
 	);
@@ -7545,17 +7545,17 @@ executables that may be workingsteps.
 <a name=GetProcessFeedUnit></a>
 <a name=GetProcessFeed></a>GetProcessFeed() and Unit</h2>
 <div class = "tabview">
-<pre class = "dotnet">
+<pre class = ".net">
 double <b>GetProcessFeed</b> (
 	System::Int64 ws_id
 	);
 </pre>
-<pre class = "nodejs">
+<pre class = "node.js">
 double <b>GetProcessFeed</b> (
 	int ws_id
 	);
 </pre>
-<pre class = "cpp">
+<pre class = "C++">
 RoseBoolean <b>feed_speed</b> (
 	int ws_id,
 	double &feed, 
@@ -7564,17 +7564,17 @@ RoseBoolean <b>feed_speed</b> (
 </pre>
 </div>
 <div class = "tabview">
-<pre class = "dotnet">
+<pre class = ".net">
 System::String^ <b>GetProcessFeedUnit</b> (
 	System::Int64 ws_id
 	);
 </pre>
-<pre class = "nodejs">
+<pre class = "node.js">
 string <b>GetProcessFeedUnit</b> (
 	int ws_id
 	);
 </pre>
-<pre class = "cpp">
+<pre class = "C++">
 RoseBoolean <b>feed_speed_unit</b> (
 	int ws_id, 
 	const char * &feed_unit, 
@@ -7737,13 +7737,13 @@ step, tool path or technology entity.
 <h2 class=rule>
 <a name=GetProjectName></a>GetProjectName()</h2>
 <div class = "tabview">
-<pre class = "dotnet">
+<pre class = ".net">
 System::String^ <b>GetProjectName</b> ();
 </pre>
-<pre class = "nodejs">
+<pre class = "node.js">
 string <b>GetProjectName</b> ();
 </pre>
-<pre class = "cpp">
+<pre class = "C++">
 RoseBoolean <b>project</b>(
     const char* &prj_name,
     const char* &wpk_name
@@ -7812,17 +7812,17 @@ Get the id of a workpiece in the setup of a workplan.
 <a name=GetSelectiveExecutableNext></a>
 <a name=GetSelectiveExecutableCount></a>GetSelectiveExecutableCount/Next/All/AllEnabled()</h2>
 <div class = "tabview">
-<pre class = "dotnet">
+<pre class = ".net">
 System::Int64 <b>GetSelectiveExecutableCount</b> (
 	System::Int64 sl_id
 	);
 </pre>
-<pre class = "nodejs">
+<pre class = "node.js">
 int <b>GetSelectiveExecutableCount</b> (
 	int sl_id
 	);
 </pre>
-<pre class = "cpp">
+<pre class = "C++">
 RoseBoolean <b>selective_executable_count</b>(
 	int sl_id,
 	int &size
@@ -7830,19 +7830,19 @@ RoseBoolean <b>selective_executable_count</b>(
 </pre>
 </div>
 <div class = "tabview">
-<pre class = "dotnet">
+<pre class = ".net">
 System::Int64 <b>GetSelectiveExecutableNext</b> (
 	System::Int64 sl_id,
 	System::Int64 index
 	);
 </pre>
-<pre clas = "nodejs">
+<pre clas = "node.js">
 int <b>GetSelectiveExecutableNext</b> (
 	int sl_id;
 	int index;
 	);
 </pre>
-<pre class = "cpp">
+<pre class = "C++">
 RoseBoolean <b>selective_executable_next</b> (
 	int sl_id,
 	int index,
@@ -7851,18 +7851,18 @@ RoseBoolean <b>selective_executable_next</b> (
 </pre>
 </div>
 <div class = "tabview">
-<pre class="dotnet">
+<pre class=".net">
 System::Collections::Generic::List<System::Int64>^ <b>GetSelectiveExecutableAll</b> (
 	System::Int64 wp_id
 	);
 </pre>
 
-<pre class="nodejs">
+<pre class="node.js">
 int[] <b>GetSelectiveExecutableAll</b> (
 	int wp_id
 	);
 </pre>
-<pre class="cpp">
+<pre class="C++">
 RoseBoolean <b>selective_executable_all</b> (
 	int wp_id,
 	rose_uint_vector &tmp
@@ -7870,19 +7870,19 @@ RoseBoolean <b>selective_executable_all</b> (
 </pre>
 </div>
 <div class = "tabview">
-<pre class="dotnet">
+<pre class=".net">
 System::Collections::Generic::List<System::Int64>^ <b>GetSelectiveExecutableAllEnabled</b> (
 	System::Int64 wp_id
 	);
 </pre>
 
-<pre class="nodejs">
+<pre class="node.js">
 int[] <b>GetSelectiveExecutableAllEnabled</b> (
 	int wp_id
 	);
 </pre>
 
-<pre class="cpp">
+<pre class="C++">
 RoseBoolean <b>selective_executable_all_enabled</b> (
 	int wp_id,
 	rose_uint_vector &tmp
@@ -9133,17 +9133,17 @@ of the ISO 13399 file.
 <h2 class=rule>
 <a name=GetToolIdentifier></a>GetToolIdentifier()</h2>
 <div class = "tabview">
-<pre class="dotnet">
+<pre class=".net">
 System::String^ <b>GetToolIdentifier</b> (
 	System::Int64 ws_id
 	);
 </pre>
-<pre class="nodejs">
+<pre class="node.js">
 string <b>GetToolIdentifier</b>(
 	int ws_id
 	);
 </pre>
-<pre class="cpp">
+<pre class="C++">
 RoseBoolean <b>tool_reference_data_name</b> (
 	int ws_id,
 	const char * &identifier
@@ -9328,17 +9328,17 @@ workingstep.
 <h2 class=rule>
 <a name=GetToolNumber></a>GetToolNumber()</h2>
 <div class = "tabview">
-<pre class="dotnet">
+<pre class=".net">
 System::String^ <b>GetToolNumber</b> (
 	System::Int64 ws_id
 	);
 </pre>
-<pre class="nodejs">
+<pre class="node.js">
 string <b>GetToolNumber</b> (
 	int ws_id
 	);
 </pre>
-<pre class="cpp">
+<pre class="C++">
 RoseBoolean <b>tool_number_as_id</b> (
 	int tl_or_ws_id,
 	const char * &its_num
@@ -9397,17 +9397,17 @@ workingstep.
 <h2 class=rule>
 <a name=GetToolNumberAsNumber></a>GetToolNumberAsNumber()</h2>
 <div class = "tabview">
-<pre class="dotnet">
+<pre class=".net">
 System::Int64 <b>GetToolNumberAsNumber</b> (
 	System::Int64 ws_id
 	);
 </pre>
-<pre class="nodejs">
+<pre class="node.js">
 int <b>GetToolNumberAsNumber</b> (
 	int ws_id
 	);
 </pre>
-<pre class="cpp">
+<pre class="C++">
 RoseBoolean <b>tool_number</b> (
 	int tl_or_ws_id,
 	int &its_num
@@ -9522,19 +9522,19 @@ workingstep.
 <h2 class=rule>
 <a name=GetToolPartName></a>GetToolPartName()</h2>
 <div class = "tabview">
-<pre class="dotnet">
+<pre class=".net">
 System::String^ <b>GetToolPartName</b> (
 	System::Int64 ws_id
 	);
 </pre>
 
-<pre class="nodejs">
+<pre class="node.js">
 string <b>GetToolPartName</b> (
 	int ws_id
 	);
 </pre>
 
-<pre class="cpp">
+<pre class="C++">
 RoseBoolean <b>tool_part_name</b> (
 	int ws_id, 
 	int &pd_id, 
@@ -9587,19 +9587,19 @@ workingstep.
 <h2 class=rule>
 <a name=GetToolProductID></a>GetToolProductID()</h2>
 <div class = "tabview">
-<pre class="dotnet">
+<pre class=".net">
 System::Int64 <b>GetToolProductID</b> (
 	System::Int64 tl_id
 	);
 </pre>
 
-<pre class="nodejs">
+<pre class="node.js">
 int <b>GetToolProductID</b> (
 	int tl_id
 	);
 </pre>
 
-<pre class="cpp">
+<pre class="C++">
 RoseBoolean <b>tool_part_name</b> (
 	int ws_id,
 	int &pd_id,
@@ -9771,20 +9771,20 @@ workingstep.
 <h2 class=rule>
 <a name=GetToolReferenceDataName></a>GetToolReferenceDataName()</h2>
 <div class = "tabview">
-<pre class="dotnet">
+<pre class=".net">
 System::String^ <b>GetToolReferenceDataName</b> (
 	System::Int64 ws_id,
 	[System::Runtime::InteropServices::Out] System::Boolean %value_set
 	);
 </pre>
 
-<pre class="nodejs">
+<pre class="node.js">
 string <b>GetToolReferenceDataName</b> (
 	int ws_id
 	);
 </pre>
 
-<pre class="cpp">
+<pre class="C++">
 RoseBoolean <b>tool_reference_data_name</b> (
 	int ws_id,
 	const char * &identifier
@@ -10326,19 +10326,19 @@ System::Int64 <b>GetToolUsingIdentifier</b> (
 <h2 class=rule>
 <a name=GetToolUsingNumber></a>GetToolUsingNumber()</h2>
 <div class = "tabview">
-<pre class="dotnet">
+<pre class=".net">
 System::Int64 <b>GetToolUsingNumber</b> (
 	System::String^ id
 	);
 </pre>
 
-<pre class="nodejs">
+<pre class="node.js">
 int <b>GetToolUsingNumber</b> (
 	string id
 	);
 </pre>
 
-<pre class="cpp">
+<pre class="C++">
 RoseBoolean <b>find_tool_using_its_id</b> (
 	const char *its_id,
 	int &tl_id
@@ -10444,19 +10444,19 @@ workingstep.
 <h2 class=rule>
 <a name=GetWorkingstep></a>GetWorkingstep()</h2>
 <div class = "tabview">
-<pre class="dotnet">
+<pre class=".net">
 System::Int64 <b>GetWorkingstep</b> (
 	System::Int64 wp_id,
 	System::Int64 index
 	);
 </pre>
-<pre class="nodejs">
+<pre class="node.js">
 int <b>GetWorkingstep</b> (
 	int wp_id,
 	int index
 	);
 </pre>
-<pre class="cpp">
+<pre class="C++">
 RoseBoolean <b>is_workingstep</b> (
 	int wp_id, 
 	int index, 
@@ -10806,18 +10806,18 @@ the speed and feed values in a technology entity
 <h2 class=rule>
 <a name=GetWorkingstepTool></a>GetWorkingstepTool()</h2>
 <div class = "tabview">
-<pre class="dotnet">
+<pre class=".net">
 System::Int64 <b>GetWorkingstepTool</b> (
 	System::Int64 ws_id
 	);
 </pre>
-<pre class="nodejs">
+<pre class="node.js">
 int <b>GetWorkingstepTool</b> (
 	int ws_id
 	);
 </pre>
 
-<pre class="cpp">
+<pre class="C++">
 RoseBoolean <b>tool_from_ws</b> (
 	int ws_id,
 	int &tl_id
@@ -11390,18 +11390,18 @@ System::Int64 <b>GetWorkplanExecutableNext</b> (
 	);
 </pre>
 <div class = "tabview">
-<pre class="dotnet">
+<pre class=".net">
 System::Collections::Generic::List<System::Int64>^ <b>GetWorkplanExecutableAll</b> (
 	System::Int64 wp_id
 	);
 </pre>
-<pre class="nodejs">
+<pre class="node.js">
 int[] <b>GetWorkplanExecutableAll</b>(
 	int wp_id
 	);
 </pre>
 
-<pre class="cpp">
+<pre class="C++">
 RoseBoolean <b>workplan_executable_all</b> (
 	int wp_id,
 	rose_uint_vector &tmp
@@ -11409,19 +11409,19 @@ RoseBoolean <b>workplan_executable_all</b> (
 </pre>
 </div>
 <div class = "tabview">
-<pre class="dotnet">
+<pre class=".net">
 System::Collections::Generic::List<System::Int64>^ <b>GetWorkplanExecutableAllEnabled</b> (
 	System::Int64 wp_id
 	);
 </pre>
 
-<pre class="nodejs">
+<pre class="node.js">
 int[] <b>GetWorkplanExecutableAllEnabled</b> (
 	int wp_id
 	);
 </pre>
 
-<pre class="cpp">
+<pre class="C++">
 RoseBoolean <b>workplan_executable_all_enabled</b> (
 	int wp_id,
 	rose_uint_vector &tmp
@@ -11535,17 +11535,17 @@ by <a href="#GetWorkplanFinalFeatureCount">GetWorkplanFinalFeatureCount</a>
 <h2 class=rule>
 <a name=GetWorkplanName></a>GetWorkplanName()</h2>
 <div class = "tabview">
-<pre class = "dotnet">
+<pre class = ".net">
 System::String^ <b>GetWorkplanName</b> (
 	System::Int64 wp_id
 	);
 </pre>
-<pre class = "nodejs">
+<pre class = "node.js">
 string <b>GetWorkplanName()</b> (
 	int wp_id
 	);
 </pre>
-<pre class = "cpp">
+<pre class = "C++">
 RoseBoolean <b>workplan</b> (
 	int wp_id, 
 	int &size, 
@@ -11586,17 +11586,17 @@ of objects.
 <a name=GetWorkplanProcessFeatureNext></a>
 <a name=GetWorkplanProcessFeatureCount></a>GetWorkplanProcessFeatureCount/Next()</h2>
 <div class = "tabview">
-<pre class = "dotnet">
+<pre class = ".net">
 System::Int64 <b>GetWorkplanProcessFeatureCount</b> (
 	System::Int64 wp_id
 	);
 </pre>
-<pre class = "nodejs">
+<pre class = "node.js">
 int <b>GetWorkplanProcessFeatureCount</b> (
 	int wp_id
 	);
 </pre>
-<pre class = "cpp">
+<pre class = "C++">
 RoseBoolean <b>wp_process_feature_count</b> (
 	int wp_id, 
 	int &size
@@ -11604,19 +11604,19 @@ RoseBoolean <b>wp_process_feature_count</b> (
 </pre>
 </div>
 <div class = "tabview">
-<pre class = "dotnet">
+<pre class = ".net">
 System::Int64 <b>GetWorkplanProcessFeatureNext</b> (
 	System::Int64 wp_id,
 	System::Int64 index
 	);
 </pre>
-<pre class = "nodejs">
+<pre class = "node.js">
 int <b>GetWorkplanProcessFeatureNext</b> (
 	int wp_id,
 	int index
 	);
 </pre>
-<pre class = "cpp">
+<pre class = "C++">
 RoseBoolean <b>wp_process_feature_next</b> (
 	int wp_id, 
 	int index, 
@@ -11665,17 +11665,17 @@ GetWorkplanFinalFeatureCount
 <h2 class=rule>
 <a name=GetWorkplanSize></a>GetWorkplanSize()</h2>
 <div class = "tabview">
-<pre class = "dotnet">
+<pre class = ".net">
 System::Int64 <b>GetWorkplanSize</b> (
 	System::Int64 wp_id
 	);
 </pre>
-<pre class = "nodejs">
+<pre class = "node.js">
 int <b>GetWorkplanSize</b> (
 	int wp_id
 	);
 </pre>
-<pre class = "cpp">
+<pre class = "C++">
 RoseBoolean <b>workplan</b> (
 	int wp_id, 
 	int &size, 
@@ -11733,17 +11733,17 @@ value.
 <a name=GetWorkplanToolNext></a>
 <a name=GetWorkplanToolCount></a>GetWorkplanToolCount/Next()</h2>
 <div class = "tabview">
-<pre class = "dotnet">
+<pre class = ".net">
 System::Int64 <b>GetWorkplanToolCount</b> (
 	System::Int64 wp_id
 	);
 </pre>
-<pre class = "nodejs">
+<pre class = "node.js">
 int <b>GetWorkplanToolCount</b> (
 	int wp_id
 	);
 </pre>
-<pre class = "cpp">
+<pre class = "C++">
 RoseBoolean <b>wp_tool_count</b> (
 	int wp_id, 
 	int &size
@@ -11751,19 +11751,19 @@ RoseBoolean <b>wp_tool_count</b> (
 </pre>
 </div>
 <div class = "tabview">
-<pre class = "dotnet">
+<pre class = ".net">
 System::Int64 <b>GetWorkplanToolNext</b> (
 	System::Int64 wp_id,
 	System::Int64 index
 	);
 </pre>
-<pre class = "nodejs">
+<pre class = "node.js">
 int <b>GetWorkplanToolNext</b> (
 	int wp_id,
 	int index
 	);
 </pre>
-<pre class = "cpp">
+<pre class = "C++">
 RoseBoolean <b>wp_tool_next</b> (
 	int wp_id, 
 	int index, 
@@ -11956,17 +11956,17 @@ simpler type of tool path which describes the center line of the tool axis
 <h2 class=rule>
 <a name=IsEnabled></a>IsEnabled()</h2>
 <div class = "tabview">
-<pre class = "dotnet">
+<pre class = ".net">
 System::Boolean <b>IsEnabled</b> (
 	System::Int64 exe_id
 	);
 </pre>
-<pre class = "nodejs">
+<pre class = "node.js">
 bool <b>IsEnabled</b> (
 	int exe_id
 	);
 </pre>
-<pre class = "cpp">
+<pre class = "C++">
 RoseBoolean <b>is_enabled</b> (
 	int exe_id, 
 	int &flag
@@ -12184,19 +12184,19 @@ operation.
 <h2 class=rule>
 <a name=IsSelective></a>IsSelective()</h2>
 <div class = "tabview">
-    <pre class="dotnet">
+    <pre class=".net">
 System::Boolean <b>IsSelective</b> (
 	System::Int64 exe_id
 	);
 </pre>
 
-    <pre class="nodejs">
+    <pre class="node.js">
 Boolean <b>IsSelective</b> (
 	int exe_id
 	);
 </pre>
 
-    <pre class="cpp">
+    <pre class="C++">
 RoseBoolean <b>is_selective</b> (
 	int exe_id,
 	int &flag
@@ -12235,19 +12235,19 @@ the program structure is a workplan.
 <h2 class=rule>
 <a name=IsWorkingstep></a>IsWorkingstep()</h2>
 <div class = "tabview">
-    <pre class="dotnet">
+    <pre class=".net">
 System::Boolean <b>IsWorkingstep</b> (
 	System::Int64 exe_id
 	);
 </pre>
 
-    <pre class="nodejs">
+    <pre class="node.js">
 Boolean <b>IsWorkingstep</b> (
 	int exe_id
 	);
 </pre>
 
-    <pre class="cpp">
+    <pre class="C++">
 RoseBoolean <b>is_workingstep</b> (
 	int exe_id,
 	int &flag
@@ -12283,19 +12283,19 @@ workplan that leads to all other executables.
 <h2 class=rule>
 <a name=IsWorkplan></a>IsWorkplan()</h2>
 <div class = "tabview">
-    <pre class="dotnet">
+    <pre class=".net">
 System::Boolean <b>IsWorkplan</b> (
 	System::Int64 exe_id
 	);
 </pre>
 
-    <pre class="nodejs">
+    <pre class="node.js">
 Boolean <b>IsWorkplan</b> (
 	int exe_id
 	);
 </pre>
 
-    <pre class="cpp">
+    <pre class="C++">
 RoseBoolean <b>is_workplan</b> (
 	int exe_id,
 	int &flag
@@ -12332,19 +12332,19 @@ workplan that leads to all other executables.
 <h2 class=rule>
 <a name=IsWorkplanWIthSetupAndFixture></a>IsWorkplanWIthSetupAndFixture()</h2>
 <div class = "tabview">
-    <pre class="dotnet">
+    <pre class=".net">
 System::Boolean <b>IsWorkplanWIthSetupAndFixture</b> (
 	System::Int64 exe_id
 	);
 </pre>
 
-    <pre class="nodejs">
+    <pre class="node.js">
 Boolean <b>IsWorkplanWIthSetupAndFixture</b> (
 	int exe_id
 	);
 </pre>
 
-    <pre class="cpp">
+    <pre class="C++">
 RoseBoolean <b>is_workplan_with_setup_and_fixture</b> (
 	int exe_id,
 	int &flag
@@ -12358,19 +12358,19 @@ RoseBoolean <b>is_workplan_with_setup_and_fixture</b> (
 <h2 class=rule>
 <a name=IsWorkplanWithSetup></a>IsWorkplanWithSetup()</h2>
 <div class = "tabview">
-    <pre class="dotnet">
+    <pre class=".net">
 System::Boolean <b>IsWorkplanWithSetup</b> (
 	System::Int64 exe_id
 	);
 </pre>
 
-    <pre class="nodejs">
+    <pre class="node.js">
 Boolean <b>IsWorkplanWithSetup</b> (
 	int exe_id
 	);
 </pre>
 
-    <pre class="cpp">
+    <pre class="C++">
 RoseBoolean <b>is_workplan_with_setup</b> (
 	int exe_id,
 	int &flag
@@ -12396,19 +12396,19 @@ true if an executable is a workplan with a setup.
 <h2 class=rule>
 <a name=IsWorkplanWithSetupAndFixtureMount></a>IsWorkplanWithSetupAndFixtureMount()</h2>
 <div class = "tabview">
-    <pre class="dotnet">
+    <pre class=".net">
 System::Boolean <b>IsWorkplanWithSetupAndFixtureMount</b> (
 	System::Int64 exe_id
 	);
 </pre>
 
-    <pre class="nodejs">
+    <pre class="node.js">
 Boolean <b>IsWorkplanWithSetupAndFixtureMount</b> (
 	int exe_id
 	);
 </pre>
 
-    <pre class="cpp">
+    <pre class="C++">
 RoseBoolean <b>is_workplan_with_setup_and_fixture_mount</b> (
 	int exe_id,
 	int &flag
@@ -12436,19 +12436,19 @@ true if an executable is a workplan with a setup and a fixture.
 <h2 class=rule>
 <a name=IsWorkplanWithSetupAndWorkpieceMount></a>IsWorkplanWithSetupAndWorkpieceMount()</h2>
 <div class = "tabview">
-    <pre class="dotnet">
+    <pre class=".net">
 System::Boolean <b>IsWorkplanWithSetupAndWorkpieceMount</b> (
 	System::Int64 exe_id
 	);
 </pre>
 
-    <pre class="nodejs">
+    <pre class="node.js">
 Boolean <b>IsWorkplanWithSetupAndWorkpieceMount</b> (
 	int exe_id
 	);
 </pre>
 
-    <pre class="cpp">
+    <pre class="C++">
 RoseBoolean <b>is_workplan_with_setup_and_workpiece_mount</b> (
 	int exe_id,
 	int &flag
@@ -12656,19 +12656,19 @@ object as well as setting it back to its initial state.
 <h2 class=rule>
 <a name=SaveAsModules></a>SaveAsModules()</h2>
 <div class = "tabview">
-<pre class="dotnet">
+<pre class=".net">
 void <b>SaveAsModules</b> (
 	System::String^ file_name
 	);
 </pre>
 
-    <pre class="nodejs">
+    <pre class="node.js">
 void <b>SaveAsModules</b> (
 	string file_name
 	);
 </pre>
 
-    <pre class="cpp">
+    <pre class="C++">
 RoseBoolean <b>save_file</b> (
 	const char * filename,
 	RoseBoolean asModules
@@ -12707,19 +12707,19 @@ Part 21 format files.
 <h2 class=rule>
 <a name=SaveAsP21></a>SaveAsP21()</h2>
 <div class = "tabview">
-    <pre class="dotnet">
+    <pre class=".net">
 void <b>SaveAsP21</b> (
 	System::String^ file_name
 	);
 </pre>
 
-    <pre class="nodejs">
+    <pre class="node.js">
 void <b>SaveAsP21</b> (
 	string file_name
 	);
 </pre>
 
-    <pre class="cpp">
+    <pre class="C++">
 RoseBoolean <b>save_file</b> (
 	const char * filename,
 	RoseBoolean asModules

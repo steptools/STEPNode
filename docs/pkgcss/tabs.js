@@ -40,12 +40,12 @@ function onrun() {
   for (i = 0; i < tabs.length; i++) {
     let ul = document.createElement('ul');
     ul.className = "tabs";
-    addli(ul, function(){hideClick('dotnet');hideClick('cpp');showClick('nodejs');return false;}, 'nodejs');
-    addli(ul, function(){hideClick('nodejs');hideClick('cpp');showClick('dotnet');return false;}, 'dotnet');
-    addli(ul, function(){hideClick('dotnet');hideClick('nodejs');showClick('cpp');return false;}, 'cpp');
+    addli(ul, function(){hideClick('.net');hideClick('C++');showClick('node.js');return false;}, 'node.js');
+    addli(ul, function(){hideClick('node.js');hideClick('C++');showClick('.net');return false;}, '.net');
+    addli(ul, function(){hideClick('.net');hideClick('node.js');showClick('C++');return false;}, 'C++');
     tabs[i].insertBefore(ul,tabs[i].firstChild);
   }
-  hideClick('nodejs');
-  hideClick('cpp');
-  showClick('dotnet');
+  hideClick('node.js');
+  hideClick('C++');
+  showClick('.net');
 }
