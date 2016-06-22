@@ -2,10 +2,11 @@
 <HTML>
 <HEAD>
    <TITLE>AptStepMaker Programming Class</TITLE>
-   <link rel="stylesheet" type="text/css" href="../pkgcss/style.css">
+   <link rel="stylesheet" type="text/css" href="../pkgcss/style.css" media = 'screen'>
 </HEAD>
 
-<BODY>
+<BODY onload='onrun();'>
+  <script type="text/javascript" src="../pkgcss/tabs.js"></script>
 <TABLE class=pagehead><TR>
 <TD class=logo>AptStepMaker</TD>
 <TD class=quicklinks>
@@ -3625,23 +3626,24 @@ System::Int64 <b>GetSetupBestGuessForExecutable</b> (
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetToolId></a>GetToolId()</h2>
-<pre class="dotnet">
+<div class = "tabview">
+<pre class=".net">
 System::Int64 <b>GetToolId</b> (
 	System::String^ tool_number
 	);
 </pre>
-<pre class="nodejs">
+<pre class="node.js">
 int <b>GetToolEID</b>(
 	string tool_number
 	);
 </pre>
-<pre class="cpp">
+<pre class="C++">
 RoseBoolean <b>get_tool_id</b> (
 	const char *number,
 	int &tl_id
 	);
 </pre>
-
+</div>
 <P>The <b>GetToolId()</b> function returns the entity id of the tool object associated with a tool number.
 APT programs identify a tool using a tool number. STEP programs identify an object using the entity id of its
 root in a STEP file.
@@ -3671,23 +3673,24 @@ relationships to other objects.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetToolIdentifier></a>GetToolIdentifier()</h2>
-<pre class="dotnet">
+<div class = "tabview">
+<pre class=".net">
 System::String^ <b>GetToolIdentifier</b> (
 	System::String^ tool_number
 	);
 </pre>
-<pre class="nodejs">
+<pre class="node.js">
 string <b>GetToolIdentifier</b> (
 	string tool_number
 	);
 </pre>
-<pre class="cpp">
+<pre class="C++">
 RoseBoolean <b>get_tool_number</b> (
 	int ws_id,
 	const char * &tool_number
 	);
 </pre>
-
+</div>
 <P>The <b>GetToolIdentifier()</b> function returns the string
 identifier of a tool.  This is the manufacturers name for the
 tool. This name is used to search for information about the tool in
@@ -3733,23 +3736,24 @@ the <a href="#NewProject">NewProject</a> function.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetToolNumber></a>GetToolNumber()</h2>
-<pre class="dotnet">
+<div class = "tabview">
+<pre class=".net">
 System::String^ <b>GetToolNumber</b> (
 	System::Int64 ws_or_tl_id
 	);
 </pre>
-<pre class="nodejs">
+<pre class="node.js">
 string <b>GetToolNumber</b> (
 	int id
 	);
 </pre>
-<pre class="cpp">
+<pre class="C++">
 RoseBoolean <b>get_tool_number</b> (
 	int ws_id,
 	const char * &tool_number
 	);
 </pre>
-
+</div>
 <P>The <b>GetToolNumber()</b> function returns the tool number as a
 string.  Traditionally this is an integer that corresponds to the
 position of the tool in a tool carousel. STEP-NC allows any string to
@@ -3794,23 +3798,24 @@ the <a href="#NewProject">NewProject</a> function.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetUUID></a>GetUUID()</h2>
-<pre class="dotnet">
+<div class = "tabview">
+<pre class=".net">
 System::String^ <b>GetUUID</b> (
 	System::Int64 entity_id
 	);
 </pre>
-<pre class="nodejs">
+<pre class="node.js">
 string <b>GetUUID</b> (
 	int EID
 	);
 </pre>
-<pre class="cpp">
+<pre class="C++">
 RoseBoolean <b>get_uuid</b> (
 	int ent_id,
 	const char * &uuid
 	);
 </pre>
-
+</div>
 <P>The <b>GetUUID()</b> function returns the Universally Unique IDentifier
 currently assigned to an entity or NULL. A UUID is a number that in practice
 will never be generated again.
@@ -6023,25 +6028,26 @@ the <a href="#NewProject">NewProject</a> function.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=SaveAsModules></a>SaveAsModules()</h2>
-    <pre class="dotnet">
+<div class = "tabview">
+    <pre class=".net">
 void <b>SaveAsModules</b> (
 	System::String^ file_name
 	);
 </pre>
 
-    <pre class="nodejs">
+    <pre class="node.js">
 void <b>SaveAsModules</b> (
 	string file_name
 	);
 </pre>
 
-    <pre class="cpp">
+    <pre class="C++">
 RoseBoolean <b>save_file</b> (
 	const char * filename,
 	RoseBoolean asModules
 	);
 </pre>
-
+</div>
 <P>The <b>SaveAsModules()</b> function saves the STEP-NC program as a
 STEP file with lots of system generated comments. A similar function
 called <a href="#SaveAsPart21">SaveAsPart21</a> saves the STEP-NC
@@ -6089,25 +6095,26 @@ void <b>SaveAsModulesWithSTRL</b> (
 <!-- ================================ -->
 <h2 class=rule>
 <a name=SaveAsP21></a>SaveAsP21()</h2>
-    <pre class="dotnet">
+<div class = "tabview">
+    <pre class=".net">
 void <b>SaveAsP21</b> (
 	System::String^ file_name
 	);
 </pre>
 
-    <pre class="nodejs">
+    <pre class="node.js">
 void <b>SaveAsP21</b> (
 	string file_name
 	);
 </pre>
 
-    <pre class="cpp">
+    <pre class="C++">
 RoseBoolean <b>save_file</b> (
 	const char * filename,
 	RoseBoolean asModules
 	);
 </pre>
-
+</div>
 <P>The <b>SaveAsP21()</b> function saves the STEP-NC program as an
 file in clear text without comments. A similar function
 called <a href="#SaveAsModules">SaveAsModules</a> save the STEP-NC
