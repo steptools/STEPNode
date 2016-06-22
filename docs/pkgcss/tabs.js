@@ -15,7 +15,13 @@ function showClick(name) {
   let i = 0;
   for (i = 0; i < v.length; i++) {
     v[i].style.marginLeft = "40px"
+    v[i].style.marginTop = "-8px";
     v[i].style.display = 'inline-block';
+    v[i].style.height = "166px";
+    v[i].style.width = "575px";
+    v[i].style.border = "ridge";
+    v[i].style.borderColor = "silver";
+    v[i].style.borderWidth = "7px";
     console.log(v[i].classList);
   }
   v = document.getElementsByClassName('li'+name);
