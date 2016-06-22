@@ -9,15 +9,13 @@ function hideClick(name) {
       v[i].classList.remove('live');
     }
 }
-
 function showClick(name) {
   let v = document.getElementsByClassName(name);
   let i = 0;
   for (i = 0; i < v.length; i++) {
-    v[i].style.marginLeft = "40px"
+    v[i].style.marginLeft = "39.33px"
     v[i].style.marginTop = "-8px";
     v[i].style.display = 'inline-block';
-    v[i].style.height = "166px";
     v[i].style.width = "575px";
     v[i].style.border = "ridge";
     v[i].style.borderColor = "silver";

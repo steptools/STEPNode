@@ -282,7 +282,21 @@ Search STEP Tools Web Support<br>
 </ul>
 </div>
 <div class=main>
+<div class = "tabview">
+  <pre class = ".net">
+ Currently showing .net documentation.
 
+</pre>
+<pre class = "node.js">
+ Currently showing node.js documentation.
+
+</pre>
+<pre class = "C++">
+ Currently showing C++ documentation.
+
+</pre>
+
+</div>
 <h2><a name=oview></a>Overview</h2>
 <p>
 The <b>Finder</b> class is used to traverse AP-238 files and find
@@ -770,16 +784,19 @@ identical because the final feature will be made in one operation.
  void <b>APIUnitsFeed</b> (
 	 System::String^ units
 	 );
+
 </pre>
 <pre class = "node.js">
  void <b>APIUnitsFeed</b> (
 	 string units
 	 );
+
 </pre>
 <pre class = "C++">
  RoseBoolean <b>api_unit_feed</b> (
 	 const char * units
          );
+
 </pre>
 </div>
 <P>The <b>APIUnitsFeed()</b> function function tells all of the other
@@ -938,16 +955,19 @@ to millimeter.
  void <b>APIUnitsSpeed</b> (
 	 System::String^ units
 	 );
+
 </pre>
 <pre class = "node.js">
  void <b>APIUnitsSpeed</b> (
 	 string units
 	 );
+
 </pre>
 <pre class = "C++">
  RoseBoolean <b>api_unit_speed</b> (
 	 const char * units
 	 );
+
 </pre>
 </div>
 <P>The <b>APIUnitsSpeed()</b> function tells all of the other
@@ -1010,11 +1030,13 @@ turning machine.
  System::Int64 <b>GetCompoundFeatureCount</b> (
 	 System::Int64 compound_id
 	 );
+
 </pre>
 <pre class = "node.js">
  int <b>GetCompoundFeatureCount</b> (
 	 int compound_id;
 	 );
+
 </pre>
 <pre class = "C++">
  RoseBoolean <b>first_feature_in_compound</b> (
@@ -1025,6 +1047,7 @@ turning machine.
 	 double y,
 	 double z
 	 );
+
 </pre>
 </div>
 
@@ -1035,6 +1058,7 @@ System::Int64 <b>GetCompoundFeatureNext</b> (
   System::Int64 compound_id,
   System::Int64 index
   );
+
 </pre>
 <P>The <b>GetCompoundFeatureCount()</b> function returns the number of
 features in a compound feature and the <b>GetCompoundFeatureNext()</b>
@@ -1220,12 +1244,14 @@ the type of an executable as a string.
  double <b>GetExecutableDistance</b> (
 	 System::Int64 exe_id
 	 );
+
 </pre>
 
 <pre class="node.js">
 double <b>GetExecutableDistance</b> (
 	int exe_id
 	);
+
 </pre>
 
 <pre class="C++">
@@ -1237,6 +1263,7 @@ double <b>GetExecutableDistance</b> (
 	 const char * &dist_unit,
 	 const char * &time_unit
 	 );
+
 </pre>
 </div>
 <div class = "tabview">
@@ -1244,12 +1271,14 @@ double <b>GetExecutableDistance</b> (
  System::String^ <b>GetExecutableDistanceUnit</b> (
 	 System::Int64 exe_id
 	 );
+
 </pre>
 
 <pre class="node.js">
  string <b>GetExecutableDistanceUnit</b> (
 	 int exe_id
 	 );
+
 </pre>
 
 <pre class="C++">
@@ -1261,6 +1290,7 @@ double <b>GetExecutableDistance</b> (
 	 const char * &dist_unit,
 	 const char * &time_unit
 	 );
+
 </pre>
 </div>
 
@@ -1282,17 +1312,20 @@ name for the unit used for the distance.
  System::String^ <b>GetExecutableName</b> (
 	 System::Int64 exe_id
 	 );
+
 </pre>
 <pre class="node.js">
  string <b>GetExecutableName</b> (
 	 int exe_id
 	 );
+
 </pre>
 <pre class="C++">
  RoseBoolean <b>executable_name</b> (
 	 int exe_id, 
 	 const char * &name
 	 );
+
 </pre>
 </div>
 
@@ -1433,17 +1466,20 @@ and <a href="#GetExecutableOptimizedTime">GetExecutableOptimizedTime</a>.
 System::String^ <b>GetExecutableType</b> (
 	System::Int64 exe_id
 	);
+
 </pre>
 <pre class="node.js">
 string <b>GetExecutableType</b> (
 	int exe_id
 	);
+
 </pre>
 <pre class="C++">
 RoseBoolean <b>executable_type</b> (
 	int exe_id, 
 	const char * &type
 	);
+
 </pre>
 </div>
 
@@ -1530,20 +1566,23 @@ type of an executable.
 <a name=GetExecutableWorkpieceAsIs></a>GetExecutableWorkpieceAsIs()</h2>
 <div class = "tabview">
 <pre class=".net">
-System::Int64 <b>GetExecutableWorkpieceAsIs</b> (
-	System::Int64 exe_id
-	);
+ System::Int64 <b>GetExecutableWorkpieceAsIs</b> (
+	 System::Int64 exe_id
+	 );
+
 </pre>
 <pre class="node.js">
-int <b>GetExecutableWorkpieceAsIs</b> (
-	int exe_id
-	);
+ int <b>GetExecutableWorkpieceAsIs</b> (
+	 int exe_id
+	 );
+
 </pre>
 <pre class="C++">
-RoseBoolean <b>executable_as_is_workpiece</b> (
-	int ws_id, 
-	int &wp_id
-	);
+ RoseBoolean <b>executable_as_is_workpiece</b> (
+	 int ws_id, 
+	 int &wp_id
+	 );
+
 </pre>
 </div>
 
@@ -1583,20 +1622,23 @@ Function to return only a locally defined workpiece of an executable.
 <a name=GetExecutableWorkpieceAsIsLocal></a>GetExecutableWorkpieceAsIsLocal()</h2>
 <div class = "tabview">
 <pre class=".net">
-System::Int64 <b>GetExecutableWorkpieceAsIsLocal</b> (
-	System::Int64 exe_id
-	);
+ System::Int64 <b>GetExecutableWorkpieceAsIsLocal</b> (
+	 System::Int64 exe_id
+	 );
+
 </pre>
 <pre class="node.js">
-int <b>GetExecutableWorkpieceAsIsLocal</b> (
-	int exe_id
-	);
+ int <b>GetExecutableWorkpieceAsIsLocal</b> (
+	 int exe_id
+	 );
+
 </pre>
 <pre class="C++">
-RoseBoolean <b>local_executable_as_is_workpiece</b> (
-	int ws_id, 
-	int &wp_id
-	);
+ RoseBoolean <b>local_executable_as_is_workpiece</b> (
+	 int ws_id, 
+	 int &wp_id
+	 );
+
 </pre>
 </div>
 <P>The <b>GetExecutableWorkpieceAsIsLocal()</b> function returns the
@@ -1628,22 +1670,25 @@ of an executable.
 <a name=GetExecutableWorkpieceRemoval></a>GetExecutableWorkpieceRemoval()</h2>
 <div class = "tabview">
 <pre class=".net">
-System::Int64 <b>GetExecutableWorkpieceRemoval</b> (
-	System::Int64 exe_id
-	);
+ System::Int64 <b>GetExecutableWorkpieceRemoval</b> (
+	 System::Int64 exe_id
+	 );
+
 </pre>
 
 <pre class="node.js">
-int <b>GetExecutableWorkpieceRemoval</b> (
-	int exe_id
-	);
+ int <b>GetExecutableWorkpieceRemoval</b> (
+	 int exe_id
+	 );
+
 </pre>
 
 <pre class="C++">
-RoseBoolean <b>executable_removal_workpiece</b> (
-	int ws_id,
-	int &wp_id
-	);
+ RoseBoolean <b>executable_removal_workpiece</b> (
+	 int ws_id,
+	 int &wp_id
+	 );
+
 </pre>
 </div>
 
@@ -1775,20 +1820,23 @@ Function to return only a locally defined workpiece of an executable.
 <a name=GetExecutableWorkpieceToBeLocal></a>GetExecutableWorkpieceToBeLocal()</h2>
 <div class = "tabview">
 <pre class=".net">
-System::Int64 <b>GetExecutableWorkpieceToBeLocal</b> (
-	System::Int64 exe_id
-	);
+ System::Int64 <b>GetExecutableWorkpieceToBeLocal</b> (
+	 System::Int64 exe_id
+	 );
+
 </pre>
 <pre class="node.js">
-int <b>GetExecutableWorkpieceToBeLocal</b> (
-	int exe_id
-	);
+ int <b>GetExecutableWorkpieceToBeLocal</b> (
+	 int exe_id
+	 );
+
 </pre>
 <pre class="C++">
-RoseBoolean <b>local_executable_to_be_workpiece</b> (
-	int ws_id, 
-	int &wp_id
-	);
+ RoseBoolean <b>local_executable_to_be_workpiece</b> (
+	 int ws_id, 
+	 int &wp_id
+	 );
+
 </pre>
 </div>
 <P>The <b>GetExecutableWorkpieceToBeLocal()</b> function returns the
@@ -1820,25 +1868,28 @@ an executable.
 <a name=GetFaceEdgeCount></a>GetFaceEdgeCount()</h2>
 <div class = "tabview">
     <pre class=".net">
-System::Int64 <b>GetFaceEdgeCount</b> (
-	System::Int64 face_id
-	);
+ System::Int64 <b>GetFaceEdgeCount</b> (
+	 System::Int64 face_id
+	 );
+
 </pre>
 
     <pre class="node.js">
-int <b>GetFaceEdgeCount</b> (
-	int face_id
-	);
+ int <b>GetFaceEdgeCount</b> (
+	 int face_id
+	 );
+
 </pre>
 
     <pre class="C++">
-RoseBoolean <b>first_face_edge_point</b> (
-	int face_id,
-	int & size,
-	double &x,
-	double &y,
-	double &z
-	);
+ RoseBoolean <b>first_face_edge_point</b> (
+	 int face_id,
+	 int & size,
+	 double &x,
+	 double &y,
+	 double &z
+	 );
+
 </pre>
 </div>
 <P>The <b>GetFaceEdgeCount()</b> function 
@@ -1849,30 +1900,25 @@ RoseBoolean <b>first_face_edge_point</b> (
 <a name=GetFaceEdgeNextPoint></a>GetFaceEdgeNextPoint()</h2>
 <div class = "tabview">
     <pre class=".net">
-void <b>GetFaceEdgeNextPoint</b> (
-	System::Int64 face_id,
-	System::Int64 index,
-	[System::Runtime::InteropServices::Out] double %x1,
-	[System::Runtime::InteropServices::Out] double %y1,
-	[System::Runtime::InteropServices::Out] double %z1,
-	[System::Runtime::InteropServices::Out] double %x2,
-	[System::Runtime::InteropServices::Out] double %y2,
-	[System::Runtime::InteropServices::Out] double %z2
-	);
+ void <b>GetFaceEdgeNextPoint</b> (
+	 System::Int64 face_id,
+	 System::Int64 index,
+	 [System::Runtime::InteropServices::Out] double %x1,
+	 [System::Runtime::InteropServices::Out] double %y1,
+	 [System::Runtime::InteropServices::Out] double %z1,
+	 [System::Runtime::InteropServices::Out] double %x2,
+	 [System::Runtime::InteropServices::Out] double %y2,
+	 [System::Runtime::InteropServices::Out] double %z2
+	 );
+
 </pre>
 
-    <pre class="node.js">
-{
-    "ret_x1":double,
-    "ret_y1":double,
-    "ret_z1":double,
-    "ret_x2":double,
-    "ret_y2":double,
-    "ret_z2":double
-} <b>GetFaceEdgeNextPoint</b> (
-	int face_id,
-	int index
-	);
+<pre class="node.js">
+  <b>GetFaceEdgeNextPoint</b> (
+	  int face_id,
+	  int index
+	  );
+
 </pre>
 
     <pre class="C++">
@@ -1886,6 +1932,7 @@ void <b>GetFaceEdgeNextPoint</b> (
 	double &y2,
 	double &z2
 	);
+
 </pre>
 </div>
 <P>The <b>GetFaceEdgeNextPoint()</b> function 
@@ -7840,23 +7887,26 @@ RoseBoolean <b>selective_executable_count</b>(
 </div>
 <div class = "tabview">
 <pre class = ".net">
-System::Int64 <b>GetSelectiveExecutableNext</b> (
-	System::Int64 sl_id,
-	System::Int64 index
-	);
+ System::Int64 <b>GetSelectiveExecutableNext</b> (
+	 System::Int64 sl_id,
+	 System::Int64 index
+	 );
+
 </pre>
-<pre clas = "node.js">
-int <b>GetSelectiveExecutableNext</b> (
-	int sl_id;
-	int index;
-	);
+<pre class = "node.js">
+ int <b>GetSelectiveExecutableNext</b> (
+	 int sl_id;
+	 int index;
+	 );
+
 </pre>
 <pre class = "C++">
-RoseBoolean <b>selective_executable_next</b> (
-	int sl_id,
-	int index,
-	int &exe_id
-	);
+ RoseBoolean <b>selective_executable_next</b> (
+	 int sl_id,
+	 int index,
+	 int &exe_id
+	 );
+
 </pre>
 </div>
 <div class = "tabview">
@@ -7864,18 +7914,21 @@ RoseBoolean <b>selective_executable_next</b> (
 System::Collections::Generic::List<System::Int64>^ <b>GetSelectiveExecutableAll</b> (
 	System::Int64 wp_id
 	);
+
 </pre>
 
 <pre class="node.js">
 int[] <b>GetSelectiveExecutableAll</b> (
 	int wp_id
 	);
+
 </pre>
 <pre class="C++">
 RoseBoolean <b>selective_executable_all</b> (
 	int wp_id,
 	rose_uint_vector &tmp
 	);
+
 </pre>
 </div>
 <div class = "tabview">
@@ -7883,12 +7936,14 @@ RoseBoolean <b>selective_executable_all</b> (
 System::Collections::Generic::List<System::Int64>^ <b>GetSelectiveExecutableAllEnabled</b> (
 	System::Int64 wp_id
 	);
+
 </pre>
 
 <pre class="node.js">
 int[] <b>GetSelectiveExecutableAllEnabled</b> (
 	int wp_id
 	);
+
 </pre>
 
 <pre class="C++">
@@ -7896,6 +7951,7 @@ RoseBoolean <b>selective_executable_all_enabled</b> (
 	int wp_id,
 	rose_uint_vector &tmp
 	);
+
 </pre>
 </div>
 <P>The <b>GetSelectiveExecutableCount()</b> function returns a count
