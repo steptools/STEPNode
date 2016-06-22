@@ -14,7 +14,8 @@ function showClick(name) {
   let v = document.getElementsByClassName(name);
   let i = 0;
   for (i = 0; i < v.length; i++) {
-    v[i].style.display = 'initial';
+    v[i].style.marginLeft = "40px"
+    v[i].style.display = 'inline-block';
     console.log(v[i].classList);
   }
   v = document.getElementsByClassName('li'+name);
