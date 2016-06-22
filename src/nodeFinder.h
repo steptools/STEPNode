@@ -157,6 +157,9 @@ public:
     //int GetWorkplanSize();
     static NAN_METHOD(GetWorkplanSize);
 
+    //New Function for NodeJS using getworkplantoolcount and getworkplantoolall
+    static NAN_METHOD(GetWorkplanToolAll);
+
     //int[] GetSelectiveExecutableAll( int wp_id)
     static NAN_METHOD(GetSelectiveExecutableAll);
 
