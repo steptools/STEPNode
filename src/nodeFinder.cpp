@@ -75,6 +75,7 @@ NAN_MODULE_INIT(Finder::Init)
 	Nan::SetPrototypeMethod(tpl, "GetProcessFeedUnit", GetProcessFeedUnit);
 	Nan::SetPrototypeMethod(tpl, "GetProjectName", GetProjectName);
     Nan::SetPrototypeMethod(tpl, "GetToolAll", GetToolAll);
+    Nan::SetPrototypeMethod(tpl, "GetToolDiameter", GetToolDiameter);
 	Nan::SetPrototypeMethod(tpl, "GetToolIdentifier", GetToolIdentifier);
 	Nan::SetPrototypeMethod(tpl, "GetToolNumber", GetToolNumber);
 	Nan::SetPrototypeMethod(tpl, "GetToolNumberAsNumber", GetToolNumberAsNumber);
@@ -787,6 +788,27 @@ NAN_METHOD(Finder::GetToolAll)
     }
     
     info.GetReturnValue().Set(array);
+    return;
+}
+
+NAN_METHOD(Finder::GetToolDiameter) {
+    Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+
+    if (info.Length() != 1)
+    return;
+    if (info[0]->IsUndefined())
+    return;
+    if (!info[0]->IsInt32())
+    return;
+
+    Nan::Maybe<int32_t> t = Nan::To<int32_t>(info[0]);
+
+    double diam = 0.0;
+    double dummy;
+    if (!find->_find->tool_current(t.FromJust(), diam, dummy, dummy, dummy, dummy, dummy))
+    return;
+
+    info.GetReturnValue().Set(diam);
     return;
 }
 
