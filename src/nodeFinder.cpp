@@ -909,12 +909,10 @@ NAN_METHOD(Finder::GetToolReferenceDataName)
     if (!find->_find->tool_reference_data_name(ws_id.FromJust(), name))
 	return;
 
-    if (!(name && *name))   // if we got no return value
+    if (!name || !(*name))   // if we got no return value
 	return;	// return undefined
 
     info.GetReturnValue().Set(CharTov8String((char*)name));
-
-    delete[] name;
 
     return;
 }
