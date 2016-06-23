@@ -35,12 +35,18 @@ private:
 public:
     static NAN_MODULE_INIT(Init);
 
-    //int GetToleranceAllCount
+    //int GetToleranceAllCount()
     static NAN_METHOD(GetToleranceAllCount);
 
-    //int GetToleranceAllNext
+    //int GetToleranceAllNext(int index)
     static NAN_METHOD(GetToleranceAllNext);
 
     //New Function for NodeJS using GetToleranceAllCount and GetToleranceAllNext
     static NAN_METHOD(GetToleranceAll);
+
+    //string GetToleranceType(int TolId)
+    static NAN_METHOD(GetToleranceType);
+
+    //double GetToleranceValue(int TolId)
+    static NAN_METHOD(GetToleranceValue);
 };
