@@ -121,6 +121,9 @@ public:
     //string GetProjectName();
     static NAN_METHOD(GetProjectName);
 
+    //New Function for NodeJS using gettoolcount and gettoolall
+    static NAN_METHOD(GetToolAll);
+
 	//double GetToolCurrentLength (int tl_id, bool nominal_set, bool current_set, double nominal_value)
 	static NAN_METHOD(GetToolCurrentLength);
 
