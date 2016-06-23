@@ -76,6 +76,7 @@ NAN_MODULE_INIT(Finder::Init)
 	Nan::SetPrototypeMethod(tpl, "GetProjectName", GetProjectName);
     Nan::SetPrototypeMethod(tpl, "GetToolAll", GetToolAll);
     Nan::SetPrototypeMethod(tpl, "GetToolDiameter", GetToolDiameter);
+    Nan::SetPrototypeMethod(tpl, "GetToolDiameterUnit", GetToolDiameterUnit);
 	Nan::SetPrototypeMethod(tpl, "GetToolIdentifier", GetToolIdentifier);
 	Nan::SetPrototypeMethod(tpl, "GetToolNumber", GetToolNumber);
 	Nan::SetPrototypeMethod(tpl, "GetToolNumberAsNumber", GetToolNumberAsNumber);
@@ -809,6 +810,29 @@ NAN_METHOD(Finder::GetToolDiameter) {
     return;
 
     info.GetReturnValue().Set(diam);
+    return;
+}
+
+NAN_METHOD(Finder::GetToolDiameterUnit) {
+    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+
+    if (find == 0)
+    return; //throw exception
+
+    if (info.Length() != 1)
+    return; //throw exception
+
+    if (!info[0]->IsInt32())
+    return; //  invalid argument
+
+    Nan::Maybe<int32_t> ws_id = Nan::To<int32_t>(info[0]);
+    const char * unit = 0;
+    const char * dummy;
+
+    if (!find->_find->tool_current_unit(ws_id.FromJust(), unit, dummy, dummy))
+    return; // error in cpp
+
+    info.GetReturnValue().Set(CharTov8String((char *) unit));
     return;
 }
 
