@@ -9543,7 +9543,8 @@ workingstep.
 <a name=GetToolOverallLengthUpperReason></a>
 <a name=GetToolOverallAssemblyLengthUnit></a>
 <a name=GetToolOverallAssemblyLength></a>GetToolOverallAssemblyLength(), Unit, Lower, Upper, and Reason</h2>
-<pre>
+<div class="tabview">
+<pre class=".net">
 double <b>GetToolOverallAssemblyLength</b> (
 	System::Int64 tl_id,
 	[System::Runtime::InteropServices::Out] System::Boolean %value_set
@@ -9573,6 +9574,18 @@ System::String^ <b>GetToolOverallLengthUpperReason</b> (
 	[System::Runtime::InteropServices::Out] System::Boolean %value_set
 	);
 </pre>
+<pre class="node.js">
+double <b>GetToolOverallAssemblyLength</b> (
+	int tl_id
+	);
+</pre>
+<pre class="C++">
+RoseBoolean <b>tool_overall_assembly_length</b> (
+	int ws_id, 
+	double &length
+	);
+</pre>
+</div>
 
 <P>The <b>GetToolOverallAssemblyLength()</b> function returns the tool
 overall assembly length, which describes the complete length of the
