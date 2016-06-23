@@ -91,9 +91,7 @@ NAN_METHOD(Tolerance::GetToleranceAll) {
     Tolerance * tol = Nan::ObjectWrap::Unwrap<Tolerance>(info.This());
     if (tol == 0) //Throw Exception
     return;
-    if (info.Length() != 1) //Throw Exception
-    return;
-    if (!info[0]->IsInt32()) //Throw Exception
+    if (info.Length() != 0) //Throw Exception
     return;
 
     int size = 0;
