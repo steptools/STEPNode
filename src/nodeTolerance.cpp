@@ -47,6 +47,7 @@ NAN_MODULE_INIT(Tolerance::Init)
 
     Nan::SetPrototypeMethod(tpl, "GetToleranceAllCount", GetToleranceAllCount);
     Nan::SetPrototypeMethod(tpl, "GetToleranceAllNext", GetToleranceAllNext);
+    Nan::SetPrototypeMethod(tpl, "GetToleranceAll", GetToleranceAll);
 
     constructor().Reset(Nan::GetFunction(tpl).ToLocalChecked());
     Nan::Set(target, Nan::New("Tolerance").ToLocalChecked(), Nan::GetFunction(tpl).ToLocalChecked());
@@ -58,7 +59,7 @@ NAN_METHOD(Tolerance::GetToleranceAllCount)
   Tolerance* tol = Nan::ObjectWrap::Unwrap<Tolerance>(info.This());
   if(!tol)
     return;
-  if(info.Length!=0)
+  if(info.Length()!=0)
     return;
   int size = 0;
   if(!tol->_tol->tolerance_count(size))
@@ -72,14 +73,50 @@ NAN_METHOD(Tolerance::GetToleranceAllNext)
   Tolerance* tol = Nan::ObjectWrap::Unwrap<Tolerance>(info.This());
   if(!tol)
     return;
-  if(info.Length!=1)
+  if(info.Length()!=1)
     return;
   if(!info[0]->IsNumber())
     return;
-  int index = (int)info[0];
   int tol_id = 0;
-  if (!tol->_tol->tolerance_next(index, tol_id))
+  Nan::Maybe<int32_t> index = Nan::To<int32_t>(info[0]);
+  if (!tol->_tol->tolerance_next(index.FromJust(), tol_id))
     return;
   info.GetReturnValue().Set(tol_id);
   return;
+}
+
+NAN_METHOD(Tolerance::GetToleranceAll) {
+    Tolerance * tol = Nan::ObjectWrap::Unwrap<Tolerance>(info.This());
+    if (tol == 0) //Throw Exception
+    return;
+    if (info.Length() != 1) //Throw Exception
+    return;
+    if (!info[0]->IsInt32()) //Throw Exception
+    return;
+
+    int size = 0;
+    if (!tol->_tol->tolerance_count(size)) //Throw Exception
+    return;
+
+    v8::Isolate* isolate = v8::Isolate::GetCurrent();
+
+    // We will be creating temporary handles so we use a handle scope.
+    v8::EscapableHandleScope handle_scope(isolate);
+
+    // Create a new empty array.
+    v8::Local<v8::Array> array = v8::Array::New(isolate, size);
+    int tol_id = 0;
+    if(size >= 0){
+        for(int i = 0; i < size; i++){
+            int flag = tol->_tol->tolerance_next(i, tol_id);
+            if (!flag) //Throw Exception
+                return;
+            else{
+                array->Set(i,Nan::New(tol_id));
+            }
+        }
+    }
+
+    info.GetReturnValue().Set(array);
+    return;
 }
