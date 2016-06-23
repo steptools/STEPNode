@@ -8641,6 +8641,10 @@ System::String^ <b>GetToolDiameterUpperReason</b> (
 double <b>GetToolDiameter</b> (
 	int ws_id
 	);
+
+string <b>GetToolDiameterUnit</b> (
+	int ws_id
+	);
 </pre>
 <pre class = "C++">
 RoseBoolean <b>tool_current</b> (
@@ -8651,6 +8655,13 @@ RoseBoolean <b>tool_current</b> (
 	double &tool_current_diameter, 
 	double &tool_current_radius, 
 	double &tool_current_length
+	);
+
+RoseBoolean <b>tool_current_unit</b> (
+	int tl_or_ws_id, 
+	const char * &tool_diameter, 
+	const char * &tool_radius,
+	const char * &tool_length
 	);
 </pre>
 </div>
