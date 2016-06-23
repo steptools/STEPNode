@@ -74,6 +74,7 @@ NAN_MODULE_INIT(Finder::Init)
 	Nan::SetPrototypeMethod(tpl, "GetProcessFeed", GetProcessFeed);
 	Nan::SetPrototypeMethod(tpl, "GetProcessFeedUnit", GetProcessFeedUnit);
 	Nan::SetPrototypeMethod(tpl, "GetProjectName", GetProjectName);
+    Nan::SetPrototypeMethod(tpl, "GetToolAll", GetToolAll);
 	Nan::SetPrototypeMethod(tpl, "GetToolIdentifier", GetToolIdentifier);
 	Nan::SetPrototypeMethod(tpl, "GetToolNumber", GetToolNumber);
 	Nan::SetPrototypeMethod(tpl, "GetToolNumberAsNumber", GetToolNumberAsNumber);
@@ -762,6 +763,30 @@ NAN_METHOD(Finder::GetProjectName) {
     }
 
     info.GetReturnValue().Set(CharTov8String((char *)prj_name));
+    return;
+}
+
+NAN_METHOD(Finder::GetToolAll)
+{
+    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (find == 0) //Throw Exception
+    return;
+    
+    Nan::Maybe<int32_t> wp_id = Nan::To<int32_t>(info[0]);
+    int size = 0;
+    if(!find->_find->tool_count(size))
+    return;
+    
+    v8::Local<v8::Array> array = Nan::New<v8::Array>();
+    for (int i = 0; i < size; i++) {
+        int tl_id = 0;
+        if (!find->_find->tool_next(i, tl_id)) //Throw Exception
+            return;
+        else
+            array->Set(i, Nan::New(tl_id));
+    }
+    
+    info.GetReturnValue().Set(array);
     return;
 }
 
