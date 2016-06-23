@@ -124,6 +124,9 @@ public:
     //New Function for NodeJS using gettoolcount and gettoolall
     static NAN_METHOD(GetToolAll);
 
+    //double GetToolDiameter (int ws_id, bool %ret_value_set)
+    static NAN_METHOD(GetToolDiameter);
+
 	//double GetToolCurrentLength (int tl_id, bool nominal_set, bool current_set, double nominal_value)
 	static NAN_METHOD(GetToolCurrentLength);
 
