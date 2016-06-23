@@ -1345,40 +1345,30 @@ NAN_METHOD(Finder::GetWorkplanSize) {
 }
 
 NAN_METHOD(Finder::GetWorkplanToolAll) {
-    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+	Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
     if (find == 0) //Throw Exception
     return;
     if (info.Length() != 1) //Throw Exception
     return;
     if (!info[0]->IsInt32()) //Throw Exception
     return;
-    
-    int size = 0;
+	
     Nan::Maybe<int32_t> wp_id = Nan::To<int32_t>(info[0]);
+	int size = 0;
     if (!find->_find->wp_tool_count(wp_id.FromJust(), size)) //Throw Exception
     return;
-    
-    v8::Isolate* isolate = v8::Isolate::GetCurrent();
-
-    // We will be creating temporary handles so we use a handle scope.
-    v8::EscapableHandleScope handle_scope(isolate);
-
-    // Create a new empty array.
-    v8::Local<v8::Array> array = v8::Array::New(isolate, size);
-    int tl_id = 0;
-    if(size >= 0){
-        for(int i = 0; i < size; i++){
-            int flag = find->_find->wp_tool_next(wp_id.FromJust(), i, tl_id);
-            if (!flag) //Throw Exception
-                return;
-            else{
-                array->Set(i,Nan::New(tl_id));
-            }
-        }
-    }
-
-    info.GetReturnValue().Set(array);
-    return;
+	
+	v8::Local<v8::Array> array = Nan::New<v8::Array>();
+	for (int i = 0; i < size; i++) {
+		int tl_id = 0;
+		if (!find->_find->wp_tool_next(wp_id.FromJust(), i, tl_id)) //Throw Exception
+		    return;
+		else
+			array->Set(i, Nan::New(tl_id));
+	}
+	
+	info.GetReturnValue().Set(array);
+	return;
 }
 
 NAN_METHOD(Finder::GetWorkplanToolCount) {
