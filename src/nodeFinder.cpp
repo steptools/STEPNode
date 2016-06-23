@@ -1,15 +1,15 @@
 // $RCSfile: $
 // $Revision: $ $Date: $
 // Auth: Samson Bonfante (bonfante@steptools.com)
-// 
-// Copyright (c) 1991-2016 by STEP Tools Inc. 
-// 
+//
+// Copyright (c) 1991-2016 by STEP Tools Inc.
+//
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-// 
+//
 //     http://www.apache.org/licenses/LICENSE-2.0
-// 
+//
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -90,8 +90,8 @@ NAN_MODULE_INIT(Finder::Init)
 	Nan::SetPrototypeMethod(tpl, "GetWorkplanProcessFeatureCount", GetWorkplanProcessFeatureCount);
 	Nan::SetPrototypeMethod(tpl, "GetWorkplanProcessFeatureNext", GetWorkplanProcessFeatureNext);
 	Nan::SetPrototypeMethod(tpl, "GetWorkplanSize", GetWorkplanSize);
-	Nan::SetPrototypeMethod(tpl, "GetSelectiveExecutableAll", GetSelectiveExecutableAll); 
-	Nan::SetPrototypeMethod(tpl, "GetSelectiveExecutableAllEnabled", GetSelectiveExecutableAllEnabled); 
+	Nan::SetPrototypeMethod(tpl, "GetSelectiveExecutableAll", GetSelectiveExecutableAll);
+	Nan::SetPrototypeMethod(tpl, "GetSelectiveExecutableAllEnabled", GetSelectiveExecutableAllEnabled);
 	Nan::SetPrototypeMethod(tpl, "GetSelectiveExecutableCount", GetSelectiveExecutableCount);
 	Nan::SetPrototypeMethod(tpl, "GetSelectiveExecutableNext", GetSelectiveExecutableNext);
 	Nan::SetPrototypeMethod(tpl, "GetToolCurrentLength", GetToolCurrentLength);
@@ -99,9 +99,9 @@ NAN_MODULE_INIT(Finder::Init)
 	Nan::SetPrototypeMethod(tpl, "GetToolLengthUnit", GetToolLengthUnit);
 	Nan::SetPrototypeMethod(tpl, "GetToolMaterial", GetToolMaterial);
 	Nan::SetPrototypeMethod(tpl, "GetToolType", GetToolType);
-    Nan::SetPrototypeMethod(tpl, "GetWorkplanToolAll", GetWorkplanToolAll);
-    Nan::SetPrototypeMethod(tpl, "GetWorkplanToolCount", GetWorkplanToolCount);
-    Nan::SetPrototypeMethod(tpl, "GetWorkplanToolNext", GetWorkplanToolNext);
+  Nan::SetPrototypeMethod(tpl, "GetWorkplanToolAll", GetWorkplanToolAll);
+  Nan::SetPrototypeMethod(tpl, "GetWorkplanToolCount", GetWorkplanToolCount);
+  Nan::SetPrototypeMethod(tpl, "GetWorkplanToolNext", GetWorkplanToolNext);
 	Nan::SetPrototypeMethod(tpl, "IsEnabled", IsEnabled);
 	Nan::SetPrototypeMethod(tpl, "IsSelective", IsSelective);
 	Nan::SetPrototypeMethod(tpl, "IsWorkingstep", IsWorkingstep);
@@ -324,7 +324,7 @@ NAN_METHOD(Finder::GetExecutableType) {
     return;
 }
 
-NAN_METHOD(Finder::GetExecutableWorkpieceAsIs) 
+NAN_METHOD(Finder::GetExecutableWorkpieceAsIs)
 {
     Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
     if (find == 0) // Throw exception
@@ -371,7 +371,7 @@ NAN_METHOD(Finder::GetExecutableWorkpieceAsIsLocal)
 }
 
 NAN_METHOD(Finder::GetExecutableWorkpieceRemoval)
-{   
+{
     Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
     if (find == 0) // Throw exception
 	return;
@@ -396,7 +396,7 @@ NAN_METHOD(Finder::GetExecutableWorkpieceRemoval)
 }
 
 NAN_METHOD(Finder::GetExecutableWorkpieceRemovalLocal)
-{   
+{
     Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
     if (find == 0) // Throw exception
 	return;
@@ -471,8 +471,8 @@ NAN_METHOD(Finder::GetFaceEdgeCount)
 	return;
 
     if (info.Length() != 1)
-	return; 
-    
+	return;
+
     if (info[0]->IsUndefined()) //Needs one arg
 	return;
 
@@ -941,7 +941,7 @@ NAN_METHOD(Finder::GetToolUsingNumber)
     info.GetReturnValue().Set(tool_id);
 
     delete[] id;
-    
+
     return;
 }
 
@@ -1154,7 +1154,7 @@ NAN_METHOD(Finder::GetToolMaterial) {
 		return;
 	if (info.Length() != 1)
 		return;
-	
+
 	Nan::Maybe<int32_t> tl_id = Nan::To<int32_t>(info[0]);
 	const char * material = 0;
 	const char * szName1;
@@ -1277,7 +1277,7 @@ NAN_METHOD(Finder::GetWorkplanName) {
 	return;
     if (!info[0]->IsInt32()) //Throw Exception
 	return;
-    
+
     const char  * wp_name = 0;
     int nSize;
     Nan::Maybe<int32_t> tl_id = Nan::To<int32_t>(info[0]);
@@ -1350,12 +1350,12 @@ NAN_METHOD(Finder::GetWorkplanToolAll) {
     return;
     if (!info[0]->IsInt32()) //Throw Exception
     return;
-    
+
     int size = 0;
     Nan::Maybe<int32_t> wp_id = Nan::To<int32_t>(info[0]);
     if (!find->_find->wp_tool_count(wp_id.FromJust(), size)) //Throw Exception
     return;
-    
+
     v8::Isolate* isolate = v8::Isolate::GetCurrent();
 
     // We will be creating temporary handles so we use a handle scope.
@@ -1443,7 +1443,7 @@ NAN_METHOD(Finder::IsSelective)
 
     if (info.Length() != 1)
 	return;
-    
+
     if (info[0]->IsUndefined())
 	return;
 
@@ -1466,8 +1466,8 @@ NAN_METHOD(Finder::IsWorkingstep)
 	return;
 
     if (info.Length() != 1)
-	return; 
-    
+	return;
+
     if (info[0]->IsUndefined())
 	return;
 
@@ -1490,8 +1490,8 @@ NAN_METHOD(Finder::IsWorkplan)
 	return;
 
     if (info.Length() != 1)
-	return; 
-    
+	return;
+
     if (info[0]->IsUndefined())
 	return;
 
@@ -1514,8 +1514,8 @@ NAN_METHOD(Finder::IsWorkplanWIthSetupAndFixture)
 	return;
 
     if (info.Length() != 1)
-	return; 
-    
+	return;
+
     if (info[0]->IsUndefined())
 	return;
 
@@ -1538,8 +1538,8 @@ NAN_METHOD(Finder::IsWorkplanWithSetup)
 	return;
 
     if (info.Length() != 1)
-	return; 
-    
+	return;
+
     if (info[0]->IsUndefined())
 	return;
 
@@ -1562,8 +1562,8 @@ NAN_METHOD(Finder::IsWorkplanWithSetupAndFixtureMount)
 	return;
 
     if (info.Length() != 1)
-	return; 
-    
+	return;
+
     if (info[0]->IsUndefined())
 	return;
 
@@ -1586,8 +1586,8 @@ NAN_METHOD(Finder::IsWorkplanWithSetupAndWorkpieceMount)
 	return;
 
     if (info.Length() != 1)
-	return; 
-    
+	return;
+
     if (info[0]->IsUndefined())
 	return;
 
@@ -1625,8 +1625,8 @@ NAN_METHOD(Finder::SaveAsModules)
 	return;
 
     if (info.Length() != 1)
-	return; 
-    
+	return;
+
     if (info[0]->IsUndefined())
 	return;
 
@@ -1648,8 +1648,8 @@ NAN_METHOD(Finder::SaveAsP21)
 		return;
 
 	if (info.Length() != 1)
-	    return; 
-	
+	    return;
+
 	if (info[0]->IsUndefined())
 		return;
 
