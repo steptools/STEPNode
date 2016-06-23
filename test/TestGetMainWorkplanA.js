@@ -1,4 +1,7 @@
 var StepNC = require('../build/Release/StepNC');
+var globals = require('./testglobals');
+var find = globals.find;
+var expect = require("chai").expect;
 find.OpenProject('model.stpnc');
 
 describe("Test A GetMainWorkplan", function(){
