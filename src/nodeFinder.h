@@ -142,8 +142,11 @@ public:
 	//string GetToolMaterial(int tl_id)
 	static NAN_METHOD(GetToolMaterial);
 
-    //double GetToolOverallAssemblyLength(int tl_id)
+    //double GetToolOverallAssemblyLength(int ws_id)
     static NAN_METHOD(GetToolOverallAssemblyLength);
+
+    //string GetToolOverallAssemblyLengthUnit(int ws_id)
+    static NAN_METHOD(GetToolOverallAssemblyLengthUnit);
 
 	//string GetToolType (int ws_id)
 	static NAN_METHOD(GetToolType);
