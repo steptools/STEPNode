@@ -48,6 +48,30 @@ public:
 
     //void APIUnitsSpeed(System::String^ units);
     static NAN_METHOD(APIUnitsSpeed);
+
+    //bool IsEnabled(int exe_id);
+    static NAN_METHOD(IsEnabled);
+
+    //bool IsSelective(long exe_id);
+    static NAN_METHOD(IsSelective);
+
+    //bool IsWorkingstep(long exe_id);
+    static NAN_METHOD(IsWorkingstep);
+
+    //bool IsWorkplan(long exe_id);
+    static NAN_METHOD(IsWorkplan);
+
+    //bool IsWorkplanWIthSetupAndFixture(long exe_id);
+    static NAN_METHOD(IsWorkplanWIthSetupAndFixture);
+
+    //bool IsWorkplanWithSetup(long exe_id);
+    static NAN_METHOD(IsWorkplanWithSetup);
+
+    //bool IsWorkplanWithSetupAndFixtureMount(long exe_id);
+    static NAN_METHOD(IsWorkplanWithSetupAndFixtureMount);
+
+    //bool IsWorkplanWithSetupAndWorkpieceMount(long exe_id);
+    static NAN_METHOD(IsWorkplanWithSetupAndWorkpieceMount);
     
     //long GetCompoundFeatureCount(long compound_id)
     static NAN_METHOD(GetCompoundFeatureCount);
@@ -82,12 +106,6 @@ public:
     // int GetExecutableWorkpieceToBeLocal(int exe_id)
     static NAN_METHOD(GetExecutableWorkpieceToBeLocal);
 
-    //int GetMainWorkplan();
-    static NAN_METHOD(GetMainWorkplan);
-
-    //string GetMaterialName(long wp_id);
-    static NAN_METHOD(GetMaterialName);
-
     //long GetFaceEdgeCount(long face_id);
     static NAN_METHOD(GetFaceEdgeCount);
 
@@ -96,6 +114,15 @@ public:
 
     //string GetFeatureName(long id)
     static NAN_METHOD(GetFeatureName);
+
+        //bool GetFeatureOutsideProfileClosedCircular(feature_id, prof_id, depth, diameter, x,y,z)
+    static NAN_METHOD(GetFeatureOutsideProfileClosedCircular);
+
+    //int GetMainWorkplan();
+    static NAN_METHOD(GetMainWorkplan);
+
+    //string GetMaterialName(long wp_id);
+    static NAN_METHOD(GetMaterialName);
 
     //long GetFeatureID(long ws_id);
     static NAN_METHOD(GetFeatureID);
@@ -121,6 +148,18 @@ public:
     //string GetProjectName();
     static NAN_METHOD(GetProjectName);
 
+    //int[] GetSelectiveExecutableAll( int wp_id)
+    static NAN_METHOD(GetSelectiveExecutableAll);
+
+    //int[] GetSelectiveExecutableAllEnabled( int wp_id)
+    static NAN_METHOD(GetSelectiveExecutableAllEnabled);
+
+    //int GetSelectiveExecutableCount( int sl_id)
+    static NAN_METHOD(GetSelectiveExecutableCount);
+    
+    //int GetSelectiveExecutableNext(int wp_id, int index)
+    static NAN_METHOD(GetSelectiveExecutableNext);
+
     //New Function for NodeJS using gettoolcount and gettoolall
     static NAN_METHOD(GetToolAll);
 
@@ -133,20 +172,41 @@ public:
 	//double GetToolCurrentLength (int tl_id, bool nominal_set, bool current_set, double nominal_value)
 	static NAN_METHOD(GetToolCurrentLength);
 
-	//double GetToolLength (int tl_id)
-	static NAN_METHOD(GetToolLength);
+    //string GetToolIdentifier(int ws_id)
+    static NAN_METHOD(GetToolIdentifier);
 
-	//double GetToolLengthUnit (int tl_id)
-	static NAN_METHOD(GetToolLengthUnit);
+    //double GetToolLength (int tl_id)
+    static NAN_METHOD(GetToolLength);
 
-	//string GetToolMaterial(int tl_id)
-	static NAN_METHOD(GetToolMaterial);
+    //double GetToolLengthUnit (int tl_id)
+    static NAN_METHOD(GetToolLengthUnit);
+
+    //string GetToolMaterial(int tl_id)
+    static NAN_METHOD(GetToolMaterial);
+
+    //string GetToolNumber(int ws_id)
+    static NAN_METHOD(GetToolNumber);
+
+    //int GetToolNumberAsNumber(int ws_id)
+    static NAN_METHOD(GetToolNumberAsNumber);
 
     //double GetToolOverallAssemblyLength(int ws_id)
     static NAN_METHOD(GetToolOverallAssemblyLength);
 
     //string GetToolOverallAssemblyLengthUnit(int ws_id)
     static NAN_METHOD(GetToolOverallAssemblyLengthUnit);
+
+    //string GetToolPartName(int ws_id)
+    static NAN_METHOD(GetToolPartName);
+
+    //int GetToolProductID(int tl_id)
+    static NAN_METHOD(GetToolProductID);
+
+    //string GetToolReferenceDataName(int ws_id)
+    static NAN_METHOD(GetToolReferenceDataName);
+
+    //int GetToolUsingNumber(string id)
+    static NAN_METHOD(GetToolUsingNumber);
 
 	//string GetToolType (int ws_id)
 	static NAN_METHOD(GetToolType);
@@ -159,6 +219,12 @@ public:
 
     //int GetWorkingstepTool(int ws_id)
     static NAN_METHOD(GetWorkingstepTool);
+
+    //int[] GetWorkplanExecutableAll(int wp_id);
+    static NAN_METHOD(GetWorkplanExecutableAll);
+
+    //int[] GetWorkplanExecutableAllEnabled(int wp_id);
+    static NAN_METHOD(GetWorkplanExecutableAllEnabled);
 
     //string GetWorkplanName();
     static NAN_METHOD(GetWorkplanName);
@@ -175,74 +241,11 @@ public:
     //New Function for NodeJS using getworkplantoolcount and getworkplantoolall
     static NAN_METHOD(GetWorkplanToolAll);
 
-    //int[] GetSelectiveExecutableAll( int wp_id)
-    static NAN_METHOD(GetSelectiveExecutableAll);
-
-    //int[] GetSelectiveExecutableAllEnabled( int wp_id)
-    static NAN_METHOD(GetSelectiveExecutableAllEnabled);
-
-    //int GetSelectiveExecutableCount( int sl_id)
-    static NAN_METHOD(GetSelectiveExecutableCount);
-    
-    //int GetSelectiveExecutableNext(int wp_id, int index)
-    static NAN_METHOD(GetSelectiveExecutableNext);
-
-    //string GetToolIdentifier(int ws_id)
-    static NAN_METHOD(GetToolIdentifier);
-
-    //string GetToolNumber(int ws_id)
-    static NAN_METHOD(GetToolNumber);
-
-    //int GetToolNumberAsNumber(int ws_id)
-    static NAN_METHOD(GetToolNumberAsNumber);
-
-    //string GetToolPartName(int ws_id)
-    static NAN_METHOD(GetToolPartName);
-
-    //int GetToolProductID(int tl_id)
-    static NAN_METHOD(GetToolProductID);
-
-    //string GetToolReferenceDataName(int ws_id)
-    static NAN_METHOD(GetToolReferenceDataName);
-
-    //int GetToolUsingNumber(string id)
-    static NAN_METHOD(GetToolUsingNumber);
-
-    //int[] GetWorkplanExecutableAll(int wp_id);
-    static NAN_METHOD(GetWorkplanExecutableAll);
-
-    //int[] GetWorkplanExecutableAllEnabled(int wp_id);
-    static NAN_METHOD(GetWorkplanExecutableAllEnabled);
-
     //int GetWorkplanToolCount();
     static NAN_METHOD(GetWorkplanToolCount);
 
     //int GetWorkplanToolNext();
     static NAN_METHOD(GetWorkplanToolNext);
-    
-    //bool IsEnabled(int exe_id);
-    static NAN_METHOD(IsEnabled);
-
-    //bool IsSelective(long exe_id);
-    static NAN_METHOD(IsSelective);
-
-    //bool IsWorkingstep(long exe_id);
-    static NAN_METHOD(IsWorkingstep);
-
-    //bool IsWorkplan(long exe_id);
-    static NAN_METHOD(IsWorkplan);
-
-    //bool IsWorkplanWIthSetupAndFixture(long exe_id);
-    static NAN_METHOD(IsWorkplanWIthSetupAndFixture);
-
-    //bool IsWorkplanWithSetup(long exe_id);
-    static NAN_METHOD(IsWorkplanWithSetup);
-
-    //bool IsWorkplanWithSetupAndFixtureMount(long exe_id);
-    static NAN_METHOD(IsWorkplanWithSetupAndFixtureMount);
-
-    //bool IsWorkplanWithSetupAndWorkpieceMount(long exe_id);
-    static NAN_METHOD(IsWorkplanWithSetupAndWorkpieceMount);
 
     //void Open238(String file_name);
     static NAN_METHOD(OpenProject);
@@ -252,7 +255,4 @@ public:
 
     //void SaveAsP21(v8::String file_name);
     static NAN_METHOD(SaveAsP21);
-
-    //bool GetFeatureOutsideProfileClosedCircular(feature_id, prof_id, depth, diameter, x,y,z)
-    static NAN_METHOD(GetFeatureOutsideProfileClosedCircular);
 };
