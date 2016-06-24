@@ -10446,11 +10446,24 @@ workingstep.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetToolType></a>GetToolType()</h2>
-<pre>
+<div class="tabview">
+<pre class=".net">
 System::String^ <b>GetToolType</b> (
 	System::Int64 ws_id
 	);
 </pre>
+<pre class="node.js">
+string <b>GetToolType</b> (
+	int ws_id
+	);
+</pre>
+<pre class="C++">
+RoseBoolean <b>tool_type</b> (
+	int tl_or_ws_id, 
+	const char * &its_type
+	);
+</pre>
+</div>
 
 <P>The <b>GetToolType()</b> function returns the type of a tool as a
 string name.
