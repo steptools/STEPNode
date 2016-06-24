@@ -50,6 +50,8 @@ NAN_MODULE_INIT(Tolerance::Init)
     Nan::SetPrototypeMethod(tpl, "GetToleranceAll", GetToleranceAll);
     Nan::SetPrototypeMethod(tpl, "GetToleranceType", GetToleranceType);
     Nan::SetPrototypeMethod(tpl, "GetToleranceValue", GetToleranceValue);
+    Nan::SetPrototypeMethod(tpl, "GetWorkingstepToleranceAll", GetWorkingstepToleranceAll);
+
 
     constructor().Reset(Nan::GetFunction(tpl).ToLocalChecked());
     Nan::Set(target, Nan::New("Tolerance").ToLocalChecked(), Nan::GetFunction(tpl).ToLocalChecked());
@@ -152,4 +154,42 @@ NAN_METHOD(Tolerance::GetToleranceValue) {
     return;
   info.GetReturnValue().Set(value);
   return;
+}
+
+NAN_METHOD(Tolerance::GetWorkingstepToleranceAll) {
+    Tolerance * tol = Nan::ObjectWrap::Unwrap<Tolerance>(info.This());
+    if (tol == 0) //Throw Exception
+    return;
+    if (info.Length() != 1) //Throw Exception
+    return;
+    if (!info[0]->IsNumber())
+      return;
+
+    Nan::Maybe<int32_t> ws = Nan::To<int32_t>(info[0]);
+
+    int size = 0;
+    if (!tol->_tol->workingstep_tolerance_count(ws.FromJust(), size)) //Throw Exception
+    return;
+
+    v8::Isolate* isolate = v8::Isolate::GetCurrent();
+
+    // We will be creating temporary handles so we use a handle scope.
+    v8::EscapableHandleScope handle_scope(isolate);
+
+    // Create a new empty array.
+    v8::Local<v8::Array> array = v8::Array::New(isolate, size);
+    int tol_id = 0;
+    if(size >= 0){
+        for(int i = 0; i < size; i++){
+            int flag = tol->_tol->workingstep_tolerance_next(ws.FromJust(), i, tol_id);
+            if (!flag) //Throw Exception
+                return;
+            else{
+                array->Set(i,Nan::New(tol_id));
+            }
+        }
+    }
+
+    info.GetReturnValue().Set(array);
+    return;
 }
