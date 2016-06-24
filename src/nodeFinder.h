@@ -121,6 +121,15 @@ public:
     //string GetProjectName();
     static NAN_METHOD(GetProjectName);
 
+    //New Function for NodeJS using gettoolcount and gettoolall
+    static NAN_METHOD(GetToolAll);
+
+    //double GetToolDiameter (int ws_id, bool %ret_value_set)
+    static NAN_METHOD(GetToolDiameter);
+
+    //string GetToolDiameterUnit (int ws_id)
+    static NAN_METHOD(GetToolDiameterUnit);
+
 	//double GetToolCurrentLength (int tl_id, bool nominal_set, bool current_set, double nominal_value)
 	static NAN_METHOD(GetToolCurrentLength);
 
@@ -132,6 +141,9 @@ public:
 
 	//string GetToolMaterial(int tl_id)
 	static NAN_METHOD(GetToolMaterial);
+
+    //double GetToolOverallAssemblyLength(int tl_id)
+    static NAN_METHOD(GetToolOverallAssemblyLength);
 
 	//string GetToolType (int ws_id)
 	static NAN_METHOD(GetToolType);

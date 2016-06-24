@@ -8606,7 +8606,8 @@ workingstep.
 <a name=GetToolDiameterUpper></a>
 <a name=GetToolDiameterUpperReason></a>
 <a name=GetToolDiameter></a>GetToolDiameter(), Unit, Lower, Upper, and Reason</h2>
-<pre>
+<div class="tabview">
+<pre class = ".net">
 double <b>GetToolDiameter</b> (
 	System::Int64 ws_id,
 	[System::Runtime::InteropServices::Out] System::Boolean %value_set
@@ -8636,6 +8637,34 @@ System::String^ <b>GetToolDiameterUpperReason</b> (
 	[System::Runtime::InteropServices::Out] System::Boolean %value_set
 	);
 </pre>
+<pre class = "node.js">
+double <b>GetToolDiameter</b> (
+	int ws_id
+	);
+
+string <b>GetToolDiameterUnit</b> (
+	int ws_id
+	);
+</pre>
+<pre class = "C++">
+RoseBoolean <b>tool_current</b> (
+	int tl_or_ws_id, 
+	double &tool_diameter, 
+	double &tool_radius,
+	double &tool_length, 
+	double &tool_current_diameter, 
+	double &tool_current_radius, 
+	double &tool_current_length
+	);
+
+RoseBoolean <b>tool_current_unit</b> (
+	int tl_or_ws_id, 
+	const char * &tool_diameter, 
+	const char * &tool_radius,
+	const char * &tool_length
+	);
+</pre>
+</div>
 
 <P>The <b>GetToolDiameter()</b> function returns the diameter of a
 tool which is the parameter used for cutter diameter compensation.
@@ -9514,7 +9543,8 @@ workingstep.
 <a name=GetToolOverallLengthUpperReason></a>
 <a name=GetToolOverallAssemblyLengthUnit></a>
 <a name=GetToolOverallAssemblyLength></a>GetToolOverallAssemblyLength(), Unit, Lower, Upper, and Reason</h2>
-<pre>
+<div class="tabview">
+<pre class=".net">
 double <b>GetToolOverallAssemblyLength</b> (
 	System::Int64 tl_id,
 	[System::Runtime::InteropServices::Out] System::Boolean %value_set
@@ -9544,6 +9574,18 @@ System::String^ <b>GetToolOverallLengthUpperReason</b> (
 	[System::Runtime::InteropServices::Out] System::Boolean %value_set
 	);
 </pre>
+<pre class="node.js">
+double <b>GetToolOverallAssemblyLength</b> (
+	int tl_id
+	);
+</pre>
+<pre class="C++">
+RoseBoolean <b>tool_overall_assembly_length</b> (
+	int ws_id, 
+	double &length
+	);
+</pre>
+</div>
 
 <P>The <b>GetToolOverallAssemblyLength()</b> function returns the tool
 overall assembly length, which describes the complete length of the
