@@ -2,17 +2,17 @@
 <HTML>
 <HEAD>
    <TITLE>Tolerance Programming Class</TITLE>
-   <link rel="stylesheet" type="text/css" href="../pkgcss/style.css" media = 'screen'>
+   <link rel="stylesheet" type="text/css" href="pkgcss/style.css" media = 'screen'>
 </HEAD>
 
 <BODY onload='onrun();'>
-  <script type="text/javascript" src="../pkgcss/tabs.js"></script>
+  <script type="text/javascript" src="pkgcss/tabs.js"></script>
 <TABLE class=pagehead><TR>
 <TD class=logo>Tolerance</TD>
 <TD class=quicklinks>
   <A HREF="http://www.steptools.com">[www.steptools.com]</a>
-  <A HREF="../index.html">[STEP-NC Machine]</A>
-  <A HREF=index.html>[STEP-NC DLL]</a>
+  <A HREF="../index.html">[STEP-NC Home]</A>
+  <A HREF="index.html">[STEP-NC API Guide]</A>
 </TD></TR>
 </TABLE>
 
@@ -387,7 +387,7 @@ process defined by the workingstep.
 <p>A cutting tool is used by a workingstep to machine a feature on the
 part. If there are errors in the tolerances then those errors are most
 likely caused by wear on the cutting tools and geometric reasoning
-performed by an application or by the DLL can correct the tolerances
+performed by an application or by the API can correct the tolerances
 by compensating for the wear.
 
 <p>A probing workingstep is a speial type of workingstep that uses a
@@ -402,7 +402,7 @@ functionality that was put into the STEP-NC data model during its
 definition. The functions that begin with &ldquo;Navigate&rdquo; are
 value added provided by the Tolerance object. These functions were
 implicit in the STEP-NC model and they are defined explicitly in the
-DLL to enable the evaluation, measurement and compensation
+API to enable the evaluation, measurement and compensation
 functionality.
 
 
@@ -558,7 +558,7 @@ CAD vendors. Therefore, many applications will need to create their
 own tolerances. This can be done using the user interface of the
 STEP-NC Explorer or using
 the <a href="#AddTolerancePosition">AddToleranceXXX</a> functions of
-the DLL which are also used by the Explorer.<p> <p>Some of the
+the API which are also used by the Explorer.<p> <p>Some of the
 AddTolerance functions require datum&rsquo;s. The following code
 fragment uses the <a href="#GetFaceFront">GetFaceXXX</a> functions to
 define faces for three datums and then creates a position tolerance of
@@ -692,7 +692,7 @@ the tool and comparing them with the faces measured by a
 tolerance. <p> <p>If the &ldquo;raw&rdquo; STEP-NC data created by
 combining STEP geometery with APT-CL files does NOT include a
 description of the faces being machined by each tool then this must be
-added. There are three methods for doing this in the STEP-NC DLL.
+added. There are three methods for doing this in the STEP-NC API.
 
 <UL>
 <li>Define features and faces for each workingstep in a CAM system and
@@ -703,7 +703,7 @@ Feature and Process objects.
 the <a href="#AddFaceToCalloutAdd">AddFaceToCalloutAdd</a> function or
 its equivalent functionality in the STEP-NC Explorer.
 
-<li>Let the DLL find the faces closest to each machining operation
+<li>Let the API find the faces closest to each machining operation
 using the function AddFacesWithinThresholdToWorkingstep as shown in
 the code fragment below. This function uses the geometry of the
 toolpaths defined in each workingstep to compute the faces being
@@ -1002,7 +1002,7 @@ label and returns the id of the new object.
 
 <h3>Arguments</h3>
 <DL class=termdefs>
-<DT> label <DD> The name of the datum. Other functionality in the DLL
+<DT> label <DD> The name of the datum. Other functionality in the API
 will work best if this label is a single letter.
 <DT> face_id <DD> The identity of a face to be used in the datum.
 </DL>
@@ -1042,7 +1042,7 @@ with the given label and returns the identity of the new datum.
 
 <h3>Arguments</h3>
 <DL class=termdefs>
-<DT> label <DD> The name of the datum. Other functionality in the DLL
+<DT> label <DD> The name of the datum. Other functionality in the API
 will work best if this label is a single letter.
 <DT> target_id <DD> The identity of a target to be used in the datum.
 </DL>
@@ -7328,7 +7328,7 @@ list of the allowed types. Each type is returned as an upper case
 string. The strings are documented in the Add functions for each type
 of tolerance. See for
 example <a href="#AddTolerancePosition">AddTolerancePosition</a>. In
-the DLL tolerances are classified into geometric tolerances, size
+the API tolerances are classified into geometric tolerances, size
 dimension tolerances, location dimension tolerances and surface
 texture parameter tolerances. The type of a tolerance can be tested
 using the <a href="#IsGeometricTolerance">IsGeometricTolerance</a>,
@@ -7464,7 +7464,7 @@ double <b>GetToolCurrentDiameter</b> (
 </pre>
 
 <P>The <b>GetToolCurrentDiameter()</b> function returns the current
-value of the diameter as last measured.  The STEP-NC DLL stores two
+value of the diameter as last measured.  The STEP-NC API stores two
 values for the tool diameter. The nominal value is the value defined
 by the CAM system. The current value is the as measured value of the
 tool obtained from an ISO13399 tool database, by measuring the tool on
@@ -7514,7 +7514,7 @@ double <b>GetToolCurrentLength</b> (
 </pre>
 
 <P>The <b>GetToolCurrentLength()</b> function returns the current
-value of the length as last measured.  The STEP-NC DLL stores two
+value of the length as last measured.  The STEP-NC API stores two
 values for the tool length. The nominal value is the value defined by
 the CAM system.  The current value is the as measured value of the
 tool obtained from an ISO13399 tool database, by measuring the tool on
@@ -7567,7 +7567,7 @@ double <b>GetToolCurrentRadius</b> (
 </pre>
 
 <P>The <b>GetToolCurrentRadius()</b> function returns the current
-value of the radius as last measured. The STEP-NC DLL stores two
+value of the radius as last measured. The STEP-NC API stores two
 values for the tool radius. The nominal value is the value defined by
 the CAM system.  The current value is the as measured value of the
 tool obtained from an ISO13399 tool database, by measuring the tool on
