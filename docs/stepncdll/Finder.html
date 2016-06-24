@@ -2,11 +2,11 @@
 <HTML>
 <HEAD>
   <TITLE>Finder Programming Class</TITLE>
-  <link rel="stylesheet" type="text/css" href="../styles/style.css" media = 'screen'>
+  <link rel="stylesheet" type="text/css" href="../pkgcss/style.css" media = 'screen'>
 </HEAD>
 
 <BODY onload='onrun();'>
-  <script type="text/javascript" src="../scripts/tabs.js"></script>
+  <script type="text/javascript" src="../pkgcss/tabs.js"></script>
 <TABLE class=pagehead><TR>
 <TD class=logo>Finder</TD>
 <TD class=quicklinks>
@@ -285,15 +285,15 @@ Search STEP Tools Web Support<br>
 <div class = "tabview">
   <pre class = ".net">
  Currently showing .net documentation.
- 
+
 </pre>
 <pre class = "node.js">
  Currently showing node.js documentation.
- 
+
 </pre>
 <pre class = "C++">
  Currently showing C++ documentation.
- 
+
 </pre>
 
 </div>
@@ -1245,20 +1245,12 @@ the type of an executable as a string.
 	 System::Int64 exe_id
 	 );
 
- System::String^ <b>GetExecutableDistanceUnit</b> (
-	 System::Int64 exe_id
-	 );
-
 </pre>
 
 <pre class="node.js">
 double <b>GetExecutableDistance</b> (
 	int exe_id
 	);
-
- string <b>GetExecutableDistanceUnit</b> (
-	 int exe_id
-	 );
 
 </pre>
 
@@ -1272,6 +1264,24 @@ double <b>GetExecutableDistance</b> (
 	 const char * &time_unit
 	 );
 
+</pre>
+</div>
+<div class = "tabview">
+<pre class=".net">
+ System::String^ <b>GetExecutableDistanceUnit</b> (
+	 System::Int64 exe_id
+	 );
+
+</pre>
+
+<pre class="node.js">
+ string <b>GetExecutableDistanceUnit</b> (
+	 int exe_id
+	 );
+
+</pre>
+
+<pre class="C++">
  RoseBoolean <b>compute_best_feed_time</b> (
 	 int exe_id,
 	 double &distance,
