@@ -1038,7 +1038,7 @@ NAN_METHOD(Finder::GetToolOverallAssemblyLengthUnit)
     if (!find->_find->tool_overall_assembly_length_unit(ws_id.FromJust(), unit))
 	return;	// error in cpp
 
-    if (!(its_id && *its_id))
+    if (!(unit && *unit))
 	return;	// value not set, return undefined
 
     info.GetReturnValue().Set(CharTov8String((char *)unit));
