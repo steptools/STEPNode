@@ -85,6 +85,7 @@ NAN_MODULE_INIT(Finder::Init)
 	Nan::SetPrototypeMethod(tpl, "GetToolNumber", GetToolNumber);
 	Nan::SetPrototypeMethod(tpl, "GetToolNumberAsNumber", GetToolNumberAsNumber);
     Nan::SetPrototypeMethod(tpl, "GetToolOverallAssemblyLength", GetToolOverallAssemblyLength);
+    Nan::SetPrototypeMethod(tpl, "GetToolOverallAssemblyLengthUnit", GetToolOverallAssemblyLengthUnit);
 	Nan::SetPrototypeMethod(tpl, "GetToolPartName", GetToolPartName);
 	Nan::SetPrototypeMethod(tpl, "GetToolProductID", GetToolProductID);
 	Nan::SetPrototypeMethod(tpl, "GetToolReferenceDataName", GetToolReferenceDataName);
@@ -1015,6 +1016,32 @@ NAN_METHOD(Finder::GetToolOverallAssemblyLength)
     return;
 
     info.GetReturnValue().Set(length);
+    return;
+}
+
+NAN_METHOD(Finder::GetToolOverallAssemblyLengthUnit)
+{
+    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+
+    if (find == 0)
+	return; //throw exception
+
+    if (info.Length() != 1)
+	return; //throw exception
+
+    if (!info[0]->IsInt32())
+	return;	//  invalid argument
+
+    Nan::Maybe<int32_t> ws_id = Nan::To<int32_t>(info[0]);
+    const char * unit = 0;
+
+    if (!find->_find->tool_overall_assembly_length_unit(ws_id.FromJust(), unit))
+	return;	// error in cpp
+
+    if (!(its_id && *its_id))
+	return;	// value not set, return undefined
+
+    info.GetReturnValue().Set(CharTov8String((char *)unit));
     return;
 }
 
