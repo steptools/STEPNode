@@ -872,7 +872,9 @@ NAN_METHOD(Finder::GetToolAll)
     if (find == 0) //Throw Exception
     return;
     
-    Nan::Maybe<int32_t> wp_id = Nan::To<int32_t>(info[0]);
+    if (info.Length() != 0)
+    return;
+
     int size = 0;
     if(!find->_find->tool_count(size))
     return;
