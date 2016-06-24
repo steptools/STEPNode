@@ -49,4 +49,7 @@ public:
 
     //double GetToleranceValue(int TolId)
     static NAN_METHOD(GetToleranceValue);
+
+    //int[] GetWorkingstepToleranceAll(int ws)
+    static NAN_METHOD(GetWorkingstepToleranceAll);
 };
