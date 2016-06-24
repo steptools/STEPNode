@@ -143,7 +143,7 @@ TR.odd {  background: #DEE7EF; }
  */
 TABLE.pagehead { 
 	width: 100%;
-	background-image: url("pageheadbg.jpg");
+	background-image: url("../content/pageheadbg.jpg");
 	background-repeat: repeat-y;
 	border-bottom: solid 10px black; 
 }
@@ -156,7 +156,7 @@ TD.logo {
 	font-size: 	200%; 
 	width: 75%;
 	height: 70px;
-	background-image: url("stlogo_sm.gif");
+	background-image: url("../content/stlogo_sm.gif");
 	background-repeat: no-repeat;
 	vertical-align: top;
 	padding: 0 1em 0.2em 35px;
@@ -286,31 +286,31 @@ UL.downloads {
 }
 
 LI.txt { 
- 	background-image: url("demotxt.gif"); 
+ 	background-image: url("../content/demotxt.gif"); 
  	background-repeat: no-repeat;
  	background-position: 0 0.5ex;
  	padding: 2px 0 2px 30px;
 }
 LI.src { 	     
-	background-image: url("demosrc.gif"); 
+	background-image: url("../content/demosrc.gif"); 
  	background-repeat: no-repeat;
  	background-position: 0 0.5ex;
  	padding: 2px 0 2px 30px;
 }
 LI.java { 	     
-	background-image: url("demojava.gif"); 
+	background-image: url("../content/demojava.gif"); 
  	background-repeat: no-repeat;
  	background-position: 0 0.5ex;
  	padding: 2px 0 2px 30px;
 }
 LI.stp { 	
-	background-image: url("demostp.gif");
+	background-image: url("../content/demostp.gif");
  	background-repeat: no-repeat;
  	background-position: 0 0.5ex;
  	padding: 2px 0 2px 30px;
 }
 LI.project { 	
- 	background-image: url("demoproject.gif");
+ 	background-image: url("../content/demoproject.gif");
  	background-repeat: no-repeat;
  	background-position: 0 0.5ex;
  	padding: 2px 0 2px 30px;
@@ -349,7 +349,7 @@ textarea {
 	font-weight: normal;
  	color: #444444; 
 	background-color: #ffffff;
-	background-image: url(form_button.gif);
+	background-image: url("../content/form_button.gif");
 	border: 1px solid #444444;
 	}
 	
@@ -358,7 +358,7 @@ textarea {
 	font-weight: normal;
 	color: #444444;
 	background-color: #ffffff;
-	background-image: url(form_button_on.gif);
+	background-image: url("../content/form_button_on.gif");
 	border: 1px solid #444444;
 	}
 	
@@ -517,6 +517,10 @@ TABLE.cmdopts TD {
 TABLE.cmdopts TR.subhead TH { padding-top: 20px;}
 TABLE.cmdopts TR.subhead TD { padding-top: 20px;}
 TABLE.cmdopts  { margin: 1em 2em 2em 2em; padding: 0; }
+
+div.tabview {
+	display: block;
+}
 
 ul.tabs li {
   display: inline;
