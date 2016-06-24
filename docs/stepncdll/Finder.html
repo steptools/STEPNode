@@ -1245,12 +1245,20 @@ the type of an executable as a string.
 	 System::Int64 exe_id
 	 );
 
+ System::String^ <b>GetExecutableDistanceUnit</b> (
+	 System::Int64 exe_id
+	 );
+
 </pre>
 
 <pre class="node.js">
 double <b>GetExecutableDistance</b> (
 	int exe_id
 	);
+
+ string <b>GetExecutableDistanceUnit</b> (
+	 int exe_id
+	 );
 
 </pre>
 
@@ -1264,24 +1272,6 @@ double <b>GetExecutableDistance</b> (
 	 const char * &time_unit
 	 );
 
-</pre>
-</div>
-<div class = "tabview">
-<pre class=".net">
- System::String^ <b>GetExecutableDistanceUnit</b> (
-	 System::Int64 exe_id
-	 );
-
-</pre>
-
-<pre class="node.js">
- string <b>GetExecutableDistanceUnit</b> (
-	 int exe_id
-	 );
-
-</pre>
-
-<pre class="C++">
  RoseBoolean <b>compute_best_feed_time</b> (
 	 int exe_id,
 	 double &distance,
