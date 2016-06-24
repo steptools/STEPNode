@@ -100,18 +100,12 @@ NAN_METHOD(Tolerance::GetToleranceAll) {
     if (!tol->_tol->tolerance_count(size)) //Throw Exception
     return;
 
-    v8::Isolate* isolate = v8::Isolate::GetCurrent();
-
-    // We will be creating temporary handles so we use a handle scope.
-    v8::EscapableHandleScope handle_scope(isolate);
-
     // Create a new empty array.
-    v8::Local<v8::Array> array = v8::Array::New(isolate, size);
+   v8::Local<v8::Array> array = Nan::New<v8::Array>();
     int tol_id = 0;
     if(size >= 0){
         for(int i = 0; i < size; i++){
-            int flag = tol->_tol->tolerance_next(i, tol_id);
-            if (!flag) //Throw Exception
+            if (!tol->_tol->tolerance_next(i, tol_id)) //Throw Exception
                 return;
             else{
                 array->Set(i,Nan::New(tol_id));
@@ -171,18 +165,12 @@ NAN_METHOD(Tolerance::GetWorkingstepToleranceAll) {
     if (!tol->_tol->workingstep_tolerance_count(ws.FromJust(), size)) //Throw Exception
     return;
 
-    v8::Isolate* isolate = v8::Isolate::GetCurrent();
-
-    // We will be creating temporary handles so we use a handle scope.
-    v8::EscapableHandleScope handle_scope(isolate);
-
     // Create a new empty array.
-    v8::Local<v8::Array> array = v8::Array::New(isolate, size);
+    v8::Local<v8::Array> array = Nan::New<v8::Array>();
     int tol_id = 0;
     if(size >= 0){
         for(int i = 0; i < size; i++){
-            int flag = tol->_tol->workingstep_tolerance_next(ws.FromJust(), i, tol_id);
-            if (!flag) //Throw Exception
+            if (!tol->_tol->workingstep_tolerance_next(ws.FromJust(), i, tol_id)) //Throw Exception
                 return;
             else{
                 array->Set(i,Nan::New(tol_id));
