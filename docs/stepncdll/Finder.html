@@ -9576,13 +9576,20 @@ System::String^ <b>GetToolOverallLengthUpperReason</b> (
 </pre>
 <pre class="node.js">
 double <b>GetToolOverallAssemblyLength</b> (
-	int tl_id
+	int ws_id
+	);
+string <b>GetToolOverallAssemblyLengthUnit</b> (
+	int ws_id
 	);
 </pre>
 <pre class="C++">
 RoseBoolean <b>tool_overall_assembly_length</b> (
 	int ws_id, 
 	double &length
+	);
+RoseBoolean <b>tool_overall_assembly_length_unit</b> (
+	int ws_id, 
+	const char * &length
 	);
 </pre>
 </div>
