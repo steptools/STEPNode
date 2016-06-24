@@ -163,14 +163,20 @@ public:
     //New Function for NodeJS using gettoolcount and gettoolall
     static NAN_METHOD(GetToolAll);
 
+    //double GetToolCornerRadius (int ws_id, bool %ret_value_set)
+    static NAN_METHOD(GetToolCornerRadius);
+
+    //string GetToolCornerRadiusUnit (int ws_id)
+    static NAN_METHOD(GetToolCornerRadiusUnit);
+
+    //double GetToolCurrentLength (int tl_id, bool nominal_set, bool current_set, double nominal_value)
+    static NAN_METHOD(GetToolCurrentLength);
+
     //double GetToolDiameter (int ws_id, bool %ret_value_set)
     static NAN_METHOD(GetToolDiameter);
 
     //string GetToolDiameterUnit (int ws_id)
     static NAN_METHOD(GetToolDiameterUnit);
-
-	//double GetToolCurrentLength (int tl_id, bool nominal_set, bool current_set, double nominal_value)
-	static NAN_METHOD(GetToolCurrentLength);
 
     //string GetToolIdentifier(int ws_id)
     static NAN_METHOD(GetToolIdentifier);

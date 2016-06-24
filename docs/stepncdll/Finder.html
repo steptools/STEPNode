@@ -8367,7 +8367,8 @@ workingstep.
 <a name=GetToolRadiusUpperReason></a>
 <a name=GetToolCornerRadiusUnit></a>
 <a name=GetToolCornerRadius></a>GetToolCornerRadius(), Unit, Lower, Upper, and Reason</h2>
-<pre>
+<div class="tabview">
+<pre class=".net">
 double <b>GetToolCornerRadius</b> (
 	System::Int64 ws_id,
 	[System::Runtime::InteropServices::Out] System::Boolean %value_set
@@ -8397,6 +8398,34 @@ System::String^ <b>GetToolRadiusUpperReason</b> (
 	[System::Runtime::InteropServices::Out] System::Boolean %value_set
 	);
 </pre>
+<pre class="node.js">
+double <b>GetToolCornerRadius</b> (
+	int ws_id
+	);
+
+string <b>GetToolCornerRadiusUnit</b> (
+    int ws_id
+    );
+</pre>
+<pre class="C++">
+RoseBoolean <b>tool_current</b> (
+	int tl_or_ws_id, 
+	double &tool_diameter, 
+	double &tool_radius, 
+	double &tool_length, 
+	double &tool_current_diameter, 
+	double &tool_current_radius, 
+	double &tool_current_length
+	);
+
+RoseBoolean <b>tool_current_unit</b> (
+	int tl_or_ws_id, 
+	const char * &tool_diameter, 
+	const char * &tool_radius, 
+	const char * &tool_length
+	);
+</pre>
+</div>
 
 <P>The <b>GetToolCornerRadius()</b> function returns the corner radius
 of a tool which is the parameter used for cutter radius compensation.

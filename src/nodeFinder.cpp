@@ -79,6 +79,8 @@ NAN_MODULE_INIT(Finder::Init)
     Nan::SetPrototypeMethod(tpl, "GetSelectiveExecutableCount", GetSelectiveExecutableCount);
     Nan::SetPrototypeMethod(tpl, "GetSelectiveExecutableNext", GetSelectiveExecutableNext);
     Nan::SetPrototypeMethod(tpl, "GetToolAll", GetToolAll);
+    Nan::SetPrototypeMethod(tpl, "GetToolCornerRadius", GetToolCornerRadius);
+    Nan::SetPrototypeMethod(tpl, "GetToolCornerRadiusUnit", GetToolCornerRadiusUnit);
     Nan::SetPrototypeMethod(tpl, "GetToolCurrentLength", GetToolCurrentLength);
     Nan::SetPrototypeMethod(tpl, "GetToolDiameter", GetToolDiameter);
     Nan::SetPrototypeMethod(tpl, "GetToolDiameterUnit", GetToolDiameterUnit);
@@ -889,6 +891,55 @@ NAN_METHOD(Finder::GetToolAll)
     }
     
     info.GetReturnValue().Set(array);
+    return;
+}
+
+NAN_METHOD(Finder::GetToolCornerRadius)
+{
+    Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+
+    if (info.Length() != 1)
+    return;
+    if (info[0]->IsUndefined())
+    return;
+    if (!info[0]->IsInt32())
+    return;
+
+    Nan::Maybe<int32_t> t = Nan::To<int32_t>(info[0]);
+
+    double radius = 0.0;
+    double dummy;
+    if (!find->_find->tool_current(t.FromJust(), dummy, radius, dummy, dummy, dummy, dummy))
+    return;
+
+    info.GetReturnValue().Set(radius);
+    return;
+}
+
+NAN_METHOD(Finder::GetToolCornerRadiusUnit)
+{
+    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+
+    if (find == 0)
+    return; //throw exception
+
+    if (info.Length() != 1)
+    return; //throw exception
+
+    if (!info[0]->IsInt32())
+    return; //  invalid argument
+
+    Nan::Maybe<int32_t> ws_id = Nan::To<int32_t>(info[0]);
+    const char * unit = 0;
+    const char * dummy;
+
+    if (!find->_find->tool_current_unit(ws_id.FromJust(), dummy, unit, dummy))
+    return; // error in cpp
+
+    if (!(unit && *unit))
+    return; // value not set, return undefined
+
+    info.GetReturnValue().Set(CharTov8String((char *)unit));
     return;
 }
 
