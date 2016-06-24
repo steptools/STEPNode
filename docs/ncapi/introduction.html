@@ -1,17 +1,17 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
-   <TITLE>STEP-NC DLL Introduction</TITLE>
-   <link rel="stylesheet" type="text/css" href="../pkgcss/style.css">
+   <TITLE>STEP-NC API Introduction</TITLE>
+   <link rel="stylesheet" type="text/css" href="pkgcss/style.css">
 </HEAD>
 
 <BODY>
 <TABLE class=pagehead><TR>
-<TD class=logo>STEP-NC DLL Introduction</TD>
+<TD class=logo>STEP-NC API Introduction</TD>
 <TD class=quicklinks>
   <A HREF="http://www.steptools.com">[www.steptools.com]</a>
-  <A HREF="../index.html">[STEP-NC Machine]</A>
-  <A HREF=index.html>[STEP-NC DLL]</a>
+  <A HREF="../index.html">[STEP-NC Home]</A>
+  <A HREF="index.html">[STEP-NC API Guide]</A>
 </TD></TR>
 </TABLE>
 
@@ -33,8 +33,8 @@ Search STEP Tools Web Support<br>
 <!-- ================================ -->
 <h2><a name=oview></a>Overview</h2>
 
-<p>The STEP-NC DLL is a library of functions for intelligent
-machining.  The value of the STEP-NC DLL is that it integrates
+<p>The STEP-NC API is a library of functions for intelligent
+machining.  The value of the STEP-NC API is that it integrates
 Geometric Dimension and Tolerance (GD&amp;T) information as defined by
 CAD systems, with cutting tool path and machining process information
 as defined CAM systems. It does this using a new standard formally
@@ -46,7 +46,7 @@ accurately. Because the data is defined by an ISO standard the parts
 described by the data can be machined and measured on a wide variety
 of machiness under a wide variety of conditions.
 
-<p>The functions in the STEP-NC DLL can be called from many different
+<p>The functions in the STEP-NC API can be called from many different
 programming languages. Some typical example applications include:
 
 <ul>
@@ -65,18 +65,18 @@ optimizes the machining process (feeds and speeds), and adjusts
 toolpaths using feedback from sensors and measurement devices.  
 </ul>
 
-<p>The STEP-NC DLL is divided into objects that provide groupings of
+<p>The STEP-NC API is divided into objects that provide groupings of
 similar functionality. Each object consists of a series of related
 functions and is described in the following sections.  
 <!-- ================================ -->
 <h2 class=rule><a name=introsamples></a>Introductory Examples</h2>
 
-<p>The syntax of a STEP-NC DLL application depends on the programming
+<p>The syntax of a STEP-NC API application depends on the programming
 language. In all the languages a prelude is necessary to connect
-programming objects to one or more of the DLL objects. The examples
-below assume all the objects in the STEP-NC DLL have been connected to
+programming objects to one or more of the API objects. The examples
+below assume all the objects in the STEP-NC API have been connected to
 one programming object called &#147;Step". This is uncommon
-because most programming languages require each DLL object to be
+because most programming languages require each API object to be
 connected to a different programming object.
 
 <p>First we give two simple examples of how to make toolpaths. The
@@ -187,18 +187,18 @@ from any STEP file. It may be defined as a single part or as an
 assembly. The former is more common for the workpiece and rawpiece and
 the latter is more common for the fixture. The most common source for 
 the data is a STEP AP-203 or AP-214 (CAD geometry) file. However, 
-the DLL does not care provided the STEP file has geometry is harmonized
-with AP-203. In paraticular the STEP-NC DLL may be used with the new
+the API does not care provided the STEP file has geometry is harmonized
+with AP-203. In paraticular the STEP-NC API may be used with the new
 AP-242 STEP files that include geometric dimensions and tolerances.
 
 
 <p>The definition of Geometric Tolerances and Dimensions is critical
 for intelligent machining because with this information the control
 can determine the quality of the machining process and make
-adjustments as necessary. Consequently the STEP-NC DLL has functions
+adjustments as necessary. Consequently the STEP-NC API has functions
 that allow for the direct definition of tolerances when the required
 information is not otherwise available in a STEP file. Our last script
-illustrates this property of the DLL.
+illustrates this property of the API.
 
 <p>The script reads the same part geometry as the previous script. It
 then establishes the A, B and C datum&#146;s for the data by picking
