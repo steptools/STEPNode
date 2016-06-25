@@ -99,6 +99,7 @@ Search STEP Tools Web Support<br>
 <li><a href="#FirstPathStartAxis">FirstPathStartAxis()</a>
 <li><a href="#FirstPathStartPoint">FirstPathStartPoint()</a>
 <li><a href="#Fixture">Fixture()</a>
+<li><a href="#GenerateToolGeometry">GenerateToolGeometry()</a>
 <li><a href="#GeometryForTool">GeometryForTool()</a>
 <li><a href="#GeometryForToolNumber">GeometryForToolNumber()</a>
 <li><a href="#GetCNCexportActualFlutes">GetCNCexportActualFlutes()</a>
@@ -173,8 +174,8 @@ Search STEP Tools Web Support<br>
 <li><a href="#NewProjectWithCCandWP">NewProjectWithCCandWP()</a>
 <li><a href="#Open224">Open224()</a>
 <li><a href="#Open224andMakeWorkingSteps">Open224andMakeWorkingSteps()</a>
-<li><a href="#OpenCheckSTRL">OpenCheckSTRL()</a>
 <li><a href="#Open238">OpenProject()/OpenSTEPNC()/Open238()</a>
+<li><a href="#OpenCheckSTRL">OpenCheckSTRL()</a>
 <li><a href="#OpenSTEP">OpenSTEP()</a>
 <li><a href="#OpenUsingSTRL">OpenUsingSTRL()</a>
 <li><a href="#OptionalStop">OptionalStop()</a>
@@ -2819,6 +2820,28 @@ void <b>Fixture</b> (
 </pre>
 
 <P>The <b>Fixture()</b> function
+
+
+
+
+<!-- ================================ -->
+<h2 class=rule>
+<a name=GenerateToolGeometry></a>GenerateToolGeometry()</h2>
+<pre>
+void <b>GenerateToolGeometry</b> (
+	System::Int64 tl_or_ws_id
+	);
+</pre>
+
+<P>The <b>GenerateToolGeometry()</b> function generates a geometry
+model for a tool using the current values of its diameter, length and
+corner radius. See the process object for functions that can set and
+get these values.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>tl_or_ws_id: <DD>Internal object identifier for the tool or a workingstep that uses the tool.
+</DL>
 
 
 
