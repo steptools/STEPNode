@@ -5036,10 +5036,36 @@ function cannot pick the material.
 System::Int64 <b>GetNestedExecutableCount</b> (
 	System::Int64 exe_id
 	);
+
+System::Int64 <b>GetNestedExecutableNext</b> (
+	System::Int64 wp_id,
+	System::Int64 index
+	);
+
+System::Collections::Generic::List<System::Int64>^ <b>GetNestedExecutableAll</b> (
+	System::Int64 wp_id
+	);
+
+System::Collections::Generic::List<System::Int64>^ <b>GetNestedExecutableAllEnabled</b> (
+	System::Int64 wp_id
+	);
 </pre>
 <pre class="node.js">
 int <b>GetNestedExecutableCount</b> (
 	int exe_id
+	);
+
+int <b>GetNestedExecutableNext</b> (
+	int exe_id,
+	int index
+	);
+
+int[] <b>GetNestedExecutableAll</b> (
+	int wp_id
+	);
+
+int[] <b>GetNestedExecutableAllEnabled</b> (
+	int wp_id
 	);
 </pre>
 <pre class="C++">
@@ -5047,52 +5073,24 @@ RoseBoolean <b>nested_executable_count</b> (
 	int own_id,
 	int &size
 	);
-</pre>
-</div>
-<div class = "tabview">
-<pre class=".net">
-System::Int64 <b>GetNestedExecutableNext</b> (
-	System::Int64 wp_id,
-	System::Int64 index
-	);
-</pre>
-<pre class="node.js">
-int <b>GetNestedExecutableNext</b> (
-	int exe_id,
-	int index
-	);
-</pre>
-<pre class="C++">
+
 RoseBoolean <b>nested_executable_next</b> (
 	int own_id,
 	int index,
 	int &exe_id
 	);
-</pre>
-</div>
-<div class = "tabview">
-<pre class=".net">
-System::Collections::Generic::List<System::Int64>^ <b>GetNestedExecutableAll</b> (
-	System::Int64 wp_id
-	);
-</pre>
-<pre class="node.js">
-int[] <b>GetNestedExecutableAll</b> (
-	int wp_id
-	);
-</pre>
-<pre class="C++">
+
 RoseBoolean <b>nested_executable_all</b> (
 	int own_id,
 	rose_uint_vector &tmp
 	);
-</pre>
-</div>
-<pre class=".net">
-System::Collections::Generic::List<System::Int64>^ <b>GetNestedExecutableAllEnabled</b> (
-	System::Int64 wp_id
+
+RoseBoolean <b>nested_executable_all_enabled</b> (
+	int own_id, 
+	rose_uint_vector &tmp
 	);
 </pre>
+</div>
 
 <P>The <b>GetNestedExecutableCount()</b> function returns a count of
 the number of executables contained in a Workplan or Selective.  An
