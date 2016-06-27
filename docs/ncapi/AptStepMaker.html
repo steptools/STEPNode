@@ -2,17 +2,17 @@
 <HTML>
 <HEAD>
    <TITLE>AptStepMaker Programming Class</TITLE>
-   <link rel="stylesheet" type="text/css" href="../pkgcss/style.css" media = 'screen'>
+   <link rel="stylesheet" type="text/css" href="pkgcss/style.css" media = 'screen'>
 </HEAD>
 
 <BODY onload='onrun();'>
-  <script type="text/javascript" src="../pkgcss/tabs.js"></script>
+  <script type="text/javascript" src="pkgcss/tabs.js"></script>
 <TABLE class=pagehead><TR>
 <TD class=logo>AptStepMaker</TD>
 <TD class=quicklinks>
   <A HREF="http://www.steptools.com">[www.steptools.com]</a>
-  <A HREF="../index.html">[STEP-NC Machine]</A>
-  <A HREF=index.html>[STEP-NC DLL]</a>
+  <A HREF="../index.html">[STEP-NC Home]</A>
+  <A HREF="index.html">[STEP-NC API Guide]</A>
 </TD></TR>
 </TABLE>
 
@@ -99,6 +99,7 @@ Search STEP Tools Web Support<br>
 <li><a href="#FirstPathStartAxis">FirstPathStartAxis()</a>
 <li><a href="#FirstPathStartPoint">FirstPathStartPoint()</a>
 <li><a href="#Fixture">Fixture()</a>
+<li><a href="#GenerateToolGeometry">GenerateToolGeometry()</a>
 <li><a href="#GeometryForTool">GeometryForTool()</a>
 <li><a href="#GeometryForToolNumber">GeometryForToolNumber()</a>
 <li><a href="#GetCNCexportActualFlutes">GetCNCexportActualFlutes()</a>
@@ -173,8 +174,8 @@ Search STEP Tools Web Support<br>
 <li><a href="#NewProjectWithCCandWP">NewProjectWithCCandWP()</a>
 <li><a href="#Open224">Open224()</a>
 <li><a href="#Open224andMakeWorkingSteps">Open224andMakeWorkingSteps()</a>
-<li><a href="#OpenCheckSTRL">OpenCheckSTRL()</a>
 <li><a href="#Open238">OpenProject()/OpenSTEPNC()/Open238()</a>
+<li><a href="#OpenCheckSTRL">OpenCheckSTRL()</a>
 <li><a href="#OpenSTEP">OpenSTEP()</a>
 <li><a href="#OpenUsingSTRL">OpenUsingSTRL()</a>
 <li><a href="#OptionalStop">OptionalStop()</a>
@@ -292,8 +293,8 @@ systems but many CAM systems still write APT data so it is the most
 widely available common denominator for tool path information.
 
 <P>APT is the most important but not the only source of data for the
-DLL. There are functions to read several flavors of RS274D/ISO 6983
-files, for example, see
+STEP-NC API. There are functions to read several flavors of RS274D/ISO
+6983 files, for example, see
 the <a href="#ImportHaas">ImportHass</a>, <a href="#ImportHaas">ImportSiemens</a>
 and <a href="#ImportFanuc">ImportFanuc</a> functions, and there are
 functions to read STEP files to define the geometries and tolerances
@@ -312,7 +313,7 @@ functions).
 <P>STEP-NC is NOT state driven. The APT object takes the state driven
 commands of APT and converts them into a graph of STEP-NC objects
 where every quality of every object is explicitly attached to that
-object. Only the APT object has a state model in the STEP-NC DLL. The
+object. Only the APT object has a state model in the STEP-NC API. The
 other objects use navigation models in which a given argument is used
 as the starting point to find other objects. It can be argued that
 another version of the APT object should be written for more modern
@@ -327,7 +328,7 @@ some of the required functionality.
 <p>Every entity in a STEP file has an identifier. The Part 21 format
 requires this entity to be a number, and the XML (Part 28) format uses
 the same rule in order to maintain compatibilty. Many functions in the
-DLL return these numbers and many other functions require them to be
+API return these numbers and many other functions require them to be
 supplied as arguments. This is especially the case for the functions
 in
 the <A href="Feature.html">Feature</A>, <A href="Process.html">Process</A>
@@ -598,11 +599,11 @@ void <b>CamModeOff</b> ();
 </pre>
 
 <P>The <b>CamModeOn()</b> and <b>CamModeOff()</b> functions control
-how the DLL separates moves into workingsteps.  By default, CAM mode
-is Off and DLL create a new workingstep whenever the spindle speed
-changes.  This default should normally used by APT parsers because
-otherwise the workingsteps made by the parsers will be very long and
-difficult to manage.
+how the API separates moves into workingsteps.  By default, CAM mode
+is Off and the API creates a new workingstep whenever the spindle
+speed changes.  This default should normally used by APT parsers
+because otherwise the workingsteps made by the parsers will be very
+long and difficult to manage.
 
 <P>When CAM mode is On, your applicaton must create new workingsteps
 explicitly by changing the tool or calling
@@ -646,7 +647,7 @@ Cutter Contact mode &ndash; see
 the <a href="#ContactOn">ContactOn</a>,
 <a href="#Left">Left</a> and <a href="#Right">Right</a> functions.
 
-<P>If the DLL is in the middle of creating a tool path and if that
+<P>If the API is in the middle of creating a tool path and if that
 tool path is not in Cutter Center mode then the current tool path is
 ended and the next geometry item is added to a new cutter center tool
 path.
@@ -869,7 +870,7 @@ then it can use the clearance plane to move the tool between
 operations.
 
 <P>In the STEP-NC standard the clearance plane is called the "Security
-Plane" and it can be any arbitrary plane. In the DLL the Clearance
+Plane" and it can be any arbitrary plane. In the API the Clearance
 plane has to be an XY plane and the clearance is defined by a positive
 Z value.
 
@@ -904,7 +905,7 @@ plane.
 <UL>
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
-<li>The DLL does not contain functionality to check for rapid tool
+<li>The API does not contain functionality to check for rapid tool
 movements below the security plane.
 </UL>
 
@@ -977,7 +978,7 @@ being used then the point must be defined using versions of
 the <a href="#ArcABC">Arc</a> and <a href="#GoToXYZ_IJK_ABC">GoTo</a>
 functions that include a, b and c parameters.
 
-<P>If the DLL is in the middle of creating a tool path and if
+<P>If the API is in the middle of creating a tool path and if
 that tool path is not in Cutter Contact mode then the tool path is ended and
 the next geometry item will start a new cutter contact  tool path.
 
@@ -994,11 +995,11 @@ defines line segments with an axis vector and a contact normal.
 into cutter center mode.
 <li><a href="#Left">Left</a>: This function puts the system into
 cutter contact mode with the contact normal on the left hand side of
-the tool. The DLL will calculate ABC vectors for the left hand side.
+the tool. The API will calculate ABC vectors for the left hand side.
 
 <li><a href="#Right">Right</a>: This function puts the system into
 cutter contact mode with the contact normal on the right hand side of
-the tool. The DLL will calculate ABC vectors for the right hand side.
+the tool. The API will calculate ABC vectors for the right hand side.
 
 
 <h3>Common Errors</h3>
@@ -1029,7 +1030,7 @@ regardless of type.
 
 <P>If the coolant is not currently on, or not of type mist then a new
 tool path is started.  Through spindle coolant is not yet implemented
-by the DLL.
+by the API.
 
 
 <h3>Common Errors</h3>
@@ -1053,7 +1054,7 @@ void <b>CutterDiameterCompensationAssignment</b> (
 <P>The <b>CutterDiameterCompensationAssignment()</b> function sets a
 value in the cutter compensation register to compensate for tool
 wear. To operate effectively this function requires deep integration
-between the STEP-NC DLL and the underlying CNC control.
+between the STEP-NC API and the underlying CNC control.
 
 <h3>Arguments</h3>
 <DL class=termdefs>
@@ -1137,7 +1138,7 @@ cylinder.
 <P>In APT programs a tool is identified by a tool number that
 corresponds to the placement position of the tool in a tool
 holder. The <a href="#SELCTLTool">SELCTLTool</a>
-and <a href="#LoadTool">LoadTool</a> functions in the DLL allow tools
+and <a href="#LoadTool">LoadTool</a> functions in the API allow tools
 to be selected and loaded using these numbers.
 
 
@@ -1181,7 +1182,7 @@ the most recently defined tool.
 <li><a href="#LoadTool">LoadTool</a>: Starts a new workingstep using
 the tool with the given tool number
 <li><a href="#SetToolAutoNumberOn">SetAutoToolNumberOn</a>: Some APT
-programs do not define a tool number. This function allows DLL
+programs do not define a tool number. This function allows API
 application to control whether or not these tools should be given a
 number automatically.
 <li><a href="#ToolGeometry">ToolGeometry</a>: A function to define the
@@ -2138,7 +2139,7 @@ Defined the removal geometry of a workinstep.
 <UL>
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
-<li>Bad File: The DLL was unable to open a file with the given name or
+<li>Bad File: The API was unable to open a file with the given name or
 it was not a valid STEP file.
 <li>Bad name: The workpiece cannot have the same name as the project.
 <li>Bad identity: The exe_id does not identify an executable.
@@ -2683,9 +2684,9 @@ nothing if the new feed is the same as the current speed.
 milling applications.
 <li><a href="#SpindleSpeed">SpindleSpeed</a>: Used to define the
 spindle speed.
-<li><a href="#SetModeTurn">SetModeTurn</a>: Puts the DLL into turning
+<li><a href="#SetModeTurn">SetModeTurn</a>: Puts the API into turning
 mode.
-<li><a href="#SetModeMill">SetModeMill</a>: Puts the DLL back into the
+<li><a href="#SetModeMill">SetModeMill</a>: Puts the API back into the
 milling mode (the default).<p>
 </UL>
 
@@ -2695,7 +2696,7 @@ milling mode (the default).<p>
 the <a href="#NewProject">NewProject</a> function.
 <li>Not in turn mode: FeedrateCSS can only be used for turning
 applications.
-<li>The functionality of the DLL for turning applications is weak
+<li>The functionality of the API for turning applications is weak
 compared to its functionality for milling applications.
 </UL>
 
@@ -2747,7 +2748,7 @@ used.<p>
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
 <li>Invalid string: The string describing the units does not have one
-of the values recognized by the STEP-NC DLL.
+of the values recognized by the STEP-NC API.
 </UL>
 
 
@@ -2819,6 +2820,28 @@ void <b>Fixture</b> (
 </pre>
 
 <P>The <b>Fixture()</b> function
+
+
+
+
+<!-- ================================ -->
+<h2 class=rule>
+<a name=GenerateToolGeometry></a>GenerateToolGeometry()</h2>
+<pre>
+void <b>GenerateToolGeometry</b> (
+	System::Int64 tl_or_ws_id
+	);
+</pre>
+
+<P>The <b>GenerateToolGeometry()</b> function generates a geometry
+model for a tool using the current values of its diameter, length and
+corner radius. See the process object for functions that can set and
+get these values.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>tl_or_ws_id: <DD>Internal object identifier for the tool or a workingstep that uses the tool.
+</DL>
 
 
 
@@ -3647,7 +3670,7 @@ RoseBoolean <b>get_tool_id</b> (
 <P>The <b>GetToolId()</b> function returns the entity id of the tool object associated with a tool number.
 APT programs identify a tool using a tool number. STEP programs identify an object using the entity id of its
 root in a STEP file.
-Functions in the DLL that build STEP-NC data from APT use the tool number. Most other functions using the
+Functions in the API that build STEP-NC data from APT use the tool number. Most other functions using the
 entity id. Occassionally there may be situations where you need to use the entity id but only have the tool number.
 In these situations this function will give you the required entity id from the tool number.
 
@@ -4212,7 +4235,7 @@ the new point.
 
 <h3>Related Functions</h3>
 <UL>
-<li><a href="#MultaxOff">MultaxOff</a>: Stops the DLL from continuing
+<li><a href="#MultaxOff">MultaxOff</a>: Stops the API from continuing
 to include the last defined (i, j, k) coordinates in each tool path by
 starting a new three axis tool path.
 </UL>
@@ -4884,7 +4907,7 @@ functions.
 
 <P>The <b>MultaxOff()</b> function turns i, j, k tool axis generation
 off. After a point has been defined using
-the <a href="#GoToXYZ_IJK">GoToXYZ_IJK</a> function the STEP-NC DLL
+the <a href="#GoToXYZ_IJK">GoToXYZ_IJK</a> function the STEP-NC API
 assumes that all subsequent points should include tool axis data. The
 MultaxOff function stops this behavior.
 
@@ -5090,7 +5113,7 @@ used.
 project.
 </DL>
 
-<P>Currently the conformance class is not used anywhere in the DLL. In
+<P>Currently the conformance class is not used anywhere in the API. In
 the future it may be used to restrict the kinds of data that can be
 created by an application. The full details about what is allowed in
 the different conformance classes are described in the AP-238
@@ -5598,7 +5621,7 @@ define the rapid for the next move only.
 <li><a href="#Arc">Arc</a>: This function adds arc segments to the
 geometry and is not allowed for rapid moves.
 <li><a href="#GoToXYZ">GoToXYZ</a>: This function adds line segments
-to the geometry and they will be rapid moves if the STEP-NC DLL is
+to the geometry and they will be rapid moves if the STEP-NC API is
 currently in rapid mode.
 <li><a href="#Feedrate">Feedrate</a>: This function defines the
 current feedrate and cancels the rapid.
@@ -5630,7 +5653,7 @@ the file is to make up the rawpiece. Any STEP file can be used to
 define the geometry provided it is compatible with AP-203. If the file
 is an AP-203 Edition 2 file then the geometry may include dimensions
 and tolerances. See the <a href="Tolerance.html">Tolerance</a> object
-for more information on how tolerances are processed in the DLL.
+for more information on how tolerances are processed in the API.
 
 <h3>Arguments</h3>
 <DL class=termdefs>
@@ -5659,7 +5682,7 @@ id of the current rawpiece or null (0).
 <UL>
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
-<li>Bad File: The DLL was unable to open a file with the given name or
+<li>Bad File: The API was unable to open a file with the given name or
 it was not a valid STEP file.
 <li>Bad name: The rawpiece cannot have the same name as the project.
 </UL>
@@ -5739,7 +5762,7 @@ necessary when the reader is applied to the data of a new organization.
 make the objects required to represent the APT program as STEP-NC. The
 reader consists of a parser and you can make your
 own APT readers by calling the same functionality. There are several
-other APT readers in the DLL that read the APT made by other systems.
+other APT readers in the API that read the APT made by other systems.
 
 <P>A typical data assembly application will create a new project and
 then read tool path data from one or more APT files. Each read adds
@@ -5781,7 +5804,7 @@ tool record. This function will delete those unused tools.
 
 <h3>Common Errors</h3>
 <UL>
-<li>Bad File: The DLL was unable to open a file with the given name or
+<li>Bad File: The API was unable to open a file with the given name or
 it was not a valid APT CL file.
 </UL>
 
@@ -5938,7 +5961,7 @@ distance.
 <UL>
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
-<li>The DLL does not contain functionality to check for rapid tool
+<li>The API does not contain functionality to check for rapid tool
 movements below the retract plane.
 </UL>
 
@@ -5965,7 +5988,7 @@ void <b>RunConfiguration</b> (
 
 <P>The <b>RunConfiguration()</b> function uses an XML file to define
 how to assemble a STEP-NC data set. The function reads the file and
-uses the tokens in that file to call other functions in the DLL with
+uses the tokens in that file to call other functions in the API with
 appropriate arguments. The following tokens/XML functions are
 currently recognized.<p>
 
@@ -6761,7 +6784,7 @@ void <b>SetDebuggingNamesOff</b> ();
 <P>During testing name values can be set in many places in a STEP file
 to help trace issues and problems in the data. By setting the
 DebuggingName to Off this space can be saved and is the normal default
-operation mode for the DLL. Use SetDebuggingNamesOn to change this
+operation mode for the API. Use SetDebuggingNamesOn to change this
 behavior and put the names into the data.
 
 
@@ -6896,20 +6919,20 @@ the <a href="#Open238">OpenProject</a> function.
 void <b>SetModeMill</b> ();
 </pre>
 
-<P>The STEP-NC DLL can operate in Milling mode or Turning mode. In
+<P>The STEP-NC API can operate in Milling mode or Turning mode. In
 milling mode which is the default the explorer creates milling
 workingsteps, milling technology and milling machine functions. In
 turning mode it creates turning workingsteps, turning technology and
 turning machine functions.
 
-<P>If the DLL is in turning mode when this function is called, then
+<P>If the API is in turning mode when this function is called, then
 any currently open tool path or workingstep will be closed and a new
 step and path will be created when new geometry is added to the
 program.
 
 <h3>Related Functions</h3>
 <UL>
-<li><a href="#SetModeTurn">SetModeTurn</a>: Puts the DLL into turning
+<li><a href="#SetModeTurn">SetModeTurn</a>: Puts the API into turning
 mode.
 </UL>
 
@@ -6921,7 +6944,7 @@ mode.
 void <b>SetModeTurn</b> ();
 </pre>
 
-<P>See <a href="#SetModeMill">SetModeMill</a>.  If the DLL is in
+<P>See <a href="#SetModeMill">SetModeMill</a>.  If the API is in
 milling mode when this function is called, then any open tool path or
 workingstep will be closed and a new step and path will be created.
 The milling mode has been much more extensively tested than the
@@ -6938,7 +6961,7 @@ void <b>SetName</b> (
 	);
 </pre>
 
-<P>Many objects in the DLL have names or
+<P>Many objects in the API have names or
 identifiers. The <b>SetName()</b> function function sets the names of
 those objects to a given string.
 
@@ -7002,7 +7025,7 @@ System::String^ <b>SetNameGet</b> (
 	);
 </pre>
 
-<P>Many objects in the DLL have names or
+<P>Many objects in the API have names or
 identifiers. The <b>SetNameGet()</b> function returns the current
 names of these objects.
 
@@ -7086,7 +7109,7 @@ System::String^ <b>SetNameType</b> (
 </pre>
 
 <P>The <b>SetNameType()</b> function returns a string describing the
-type of the entity.  Many objects in the DLL have names or
+type of the entity.  Many objects in the API have names or
 identifiers. This function returns the type of one of these objects.
 
 <h3>Arguments</h3>
@@ -7116,7 +7139,7 @@ void <b>SetToolAutoNumberOff</b> ();
 
 <P>In APT programs a tool is identified by a tool number that
 corresponds to the placement position of the tool in a tool
-holder. The Selectl and LoadTool functions in the DLL allow tools to
+holder. The Selectl and LoadTool functions in the API allow tools to
 be selected and loaded using these numbers.
 
 <P>The <a href="#DefineTool">DefineTool</a> function is used to define
@@ -7124,12 +7147,12 @@ a tool using the parameters defined by APT. However, the DefineTool
 command does not define a tool number. Instead two options are
 possible. In the first option the tool number is given using the APT
 SELCTL command that corresponds to the
-DLL <a href="#SELCTLTool">SELCTLTool</a> function. In the second
+API <a href="#SELCTLTool">SELCTLTool</a> function. In the second
 option the next available tool number is used.
 
 <P>The <b>SetToolAutoNumberOff()</b> function is used to control this
 behavior. If SetAutoToolNumber is on then the next available number
-will be give to a tool as soon as it is defined. If it is off the DLL
+will be give to a tool as soon as it is defined. If it is off the API
 will wait for the SELECTL command to give it a number.
 
 <h3>Related Functions</h3>
@@ -7147,7 +7170,7 @@ the tool with the given tool number
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
 <li> Subtle differences between the semantics of how tools are defined
-are a frequent cause of errors when the DLL is applied to the APT
+are a frequent cause of errors when the API is applied to the APT
 files of a new organization for the first time.
 </UL>
 
@@ -7165,7 +7188,7 @@ void <b>SetToolIdentifier</b> (
 manufacturer&rsquo;s name for the tool.  For example, it might be
 &ldquo;Sandvik Endmill 0.4 mm&rdquo;. The tool identifier allows the
 tool to be found in external databases and catalogs. In the STEP-NC
-DLL a tool must have an identifier before it can be given
+API a tool must have an identifier before it can be given
 geometry. The identifier can be defined using this function,
 the <a href="#DefineTool2">DefineTool2</a> function or as a side
 effect of
@@ -7316,7 +7339,7 @@ used by all subsequent tool paths.
 
 <P>If a toolpath is currently being constructed then it is finished
 and a new one is started for the next geometry item with the new
-spindle speed. If the DLL is <u>not</u> in &ldquo;CAM Mode&rdquo; then
+spindle speed. If the API is <u>not</u> in &ldquo;CAM Mode&rdquo; then
 a new workingstep is also constructed because in APT files changes in
 Spindle speed usually only happen at the start or end of an operation.
 
@@ -7325,7 +7348,7 @@ starts to create its own workingsteps using
 the <a href="#Workingstep">Workingstep</a> function. There are also
 explicit <a href="#CamModeOn">CamModeOn</a>
 and <a href="#CamModeOff">CamModeOff</a> functions. In CAM mode the
-DLL assumes it is being controlled by a CAM translation application
+API assumes it is being controlled by a CAM translation application
 that can make its own decisions about the best boundaries between
 workingsteps so it only creates new workingsteps when forced to by a
 change in tool.
@@ -7345,7 +7368,7 @@ is a null operation if the new feed is the same as the current speed.
 the spindle speed unit.
 <li><a href="#Feedrate">Feedrate</a>: Defines the feedrate.
 <li><a href="#Workingstep">Workingstep</a>: Starts a new workingstep
-and put the DLL into &ldquo;CAM Mode&rdquo;
+and put the API into &ldquo;CAM Mode&rdquo;
 <li><a href="#CamModeOn">CamModeOn</a>:  Turns CAM mode on.
 <li><a href="#CamModeOff">CamModeOff</a>: Turns CAM mode off (the
 default) in this mode each call to Spindle creates a new workingstep.
@@ -7398,7 +7421,7 @@ feeds and speeds for new tool paths.
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
 <li>Invalid string: The string describing the units does not have one
-of the values recognized by the STEP-NC DLL.
+of the values recognized by the STEP-NC API.
 </UL>
 
 
@@ -7635,7 +7658,7 @@ void <b>Workingstep</b> (
 </pre>
 
 <P>The <b>Workingstep()</b> function starts a new workingstep in the
-current workplan. The function also sets the DLL to &ldquo;CAM
+current workplan. The function also sets the API to &ldquo;CAM
 mode&rdquo; which means future calls to
 the <a href="#SpindleSpeed">SpindleSpeed</a> function will no longer
 start a new workingstep.
@@ -8021,7 +8044,7 @@ used to define the geometry provided it is compatible with AP-203. If
 the STEP file is an AP-203 Edition 2 file then tolerances and
 dimensions can be defined for the workpiece. The
 <A href="Tolerance.html">Tolerance</A> object has more information on
-how tolerances are processed in the DLL.
+how tolerances are processed in the API.
 
 <P>The new workpiece is made the default workpiece of the
 project. More specific workpieces can be defined for each workplan
@@ -8060,7 +8083,7 @@ current workpiece.
 <UL>
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
-<li>Bad File: The DLL was unable to open a file with the given name or
+<li>Bad File: The API was unable to open a file with the given name or
 it was not a valid STEP file.
 <li>Bad name: The workpiece cannot have the same name as the project.
 </UL>
@@ -8252,7 +8275,7 @@ Defines the coordinate system to be used by a setup.
 <UL>
 <li>No project open: An AP-238 file must be open - see the NewProject
 function.
-<li>Bad File: The DLL was unable to open a file with the given name or
+<li>Bad File: The API was unable to open a file with the given name or
 it was not a valid STEP file.
 <li>Bad name: The fixture cannot have the same name as the project.
 <li>Bad id: The plan_id does not identify a workplan

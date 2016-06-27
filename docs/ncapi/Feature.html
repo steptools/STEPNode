@@ -2,7 +2,7 @@
 <HTML>
 <HEAD>
    <TITLE>Feature Programming Class</TITLE>
-   <link rel="stylesheet" type="text/css" href="../pkgcss/style.css">
+   <link rel="stylesheet" type="text/css" href="pkgcss/style.css">
 </HEAD>
 
 <BODY>
@@ -10,8 +10,8 @@
 <TD class=logo>Feature</TD>
 <TD class=quicklinks>
   <A HREF="http://www.steptools.com">[www.steptools.com]</a>
-  <A HREF="../index.html">[STEP-NC Machine]</A>
-  <A HREF=index.html>[STEP-NC DLL]</a>
+  <A HREF="../index.html">[STEP-NC Home]</A>
+  <A HREF="index.html">[STEP-NC API Guide]</A>
 </TD></TR>
 </TABLE>
 
@@ -352,7 +352,7 @@ next profile.
 
 <p>As shown in the figure a general outside profile is defined by
 moving the profile shape by the distanced defined by the depth in the
-direction of the path. In the current the DLL the path is defined
+direction of the path. In the current the API the path is defined
 implicitly and will be perpendicular to the plane of the profile.
 
 <p align=center><img src="images/feature001.png">
@@ -825,7 +825,7 @@ void <b>LineTo</b> (
 profile. Several features including GeneralPockets
 GeneralOutsideProfiles and GeneralBosses are defined using a profile
 and a depth. The profile defines a boundary for the feature. In the
-current DLL the profile can be made up of lines and arcs but in future
+current API the profile can be made up of lines and arcs but in future
 versions any type of bounded curve geometry will be allowed.
 
 <p>When the LineTo function is first called for an empty profile it
@@ -1438,7 +1438,7 @@ System::Int64 <b>RoundHole</b> (
 returns the id of the new feature.  A round hole has a diameter and a
 depth. By default the hole is define with a through bottom. Other
 types of bottom can be defined using the HoleBottom
-functions. Currently the DLL does not have a function that can be used
+functions. Currently the API does not have a function that can be used
 to define holes with tapers.
 
 <h3>Arguments</h3>
@@ -1611,7 +1611,7 @@ tolerances that can be evaluated using measurement systems.
 <DL class=termdefs>
 <DT>ws_id <DD>The identity of the workingstep that is to use the
 feature as a final feature.
-<DT>feature_id <DD>Feature previously made in the DLL or found using
+<DT>feature_id <DD>Feature previously made in the API or found using
 functionality in the Finder object..
 </DL>
 

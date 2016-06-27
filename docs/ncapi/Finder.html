@@ -2,17 +2,17 @@
 <HTML>
 <HEAD>
   <TITLE>Finder Programming Class</TITLE>
-  <link rel="stylesheet" type="text/css" href="../pkgcss/style.css" media = 'screen'>
+  <link rel="stylesheet" type="text/css" href="pkgcss/style.css" media = 'screen'>
 </HEAD>
 
 <BODY onload='onrun();'>
-  <script type="text/javascript" src="../pkgcss/tabs.js"></script>
+  <script type="text/javascript" src="pkgcss/tabs.js"></script>
 <TABLE class=pagehead><TR>
 <TD class=logo>Finder</TD>
 <TD class=quicklinks>
   <A HREF="http://www.steptools.com">[www.steptools.com]</a>
-  <A HREF="../index.html">[STEP-NC Machine]</A>
-  <A HREF=index.html>[STEP-NC DLL]</a>
+  <A HREF="../index.html">[STEP-NC Home]</A>
+  <A HREF="index.html">[STEP-NC API Guide]</A>
 </TD></TR>
 </TABLE>
 
@@ -320,7 +320,7 @@ and no tool is defined then the result returned will be zero.
 <p>A typical Finder object program starts with the main_workplan
 and traverses the nested workplans, and workingsteps in that program extracting
 information and when necessary modifying the information using the other
-objects in the STEP-NC DLL such as Feature and Process. 
+objects in the STEP-NC API such as Feature and Process. 
 
 <p>In a traversal &ldquo;dead ends&rdquo; are indicated by returning
 null values until the system determines that the application must be
@@ -377,10 +377,10 @@ similar in structure to a workplan. The difference is that at run time
 only one of the executable in a selective is to be executed. How the
 executatble is chosen is determined by the user at run time. For the
 Finder object navigating a Selective is similar to navigating a
-Workplan and there is functionality in the DLL that will treat both
+Workplan and there is functionality in the API that will treat both
 equally. Selective and Workplan are both examples of Program Structure
 executables. Other types of program structure are allowed in the
-AP-238 standard but not yet supported by the DLL.
+AP-238 standard but not yet supported by the API.
 
 <DT>NC Function <DD> An NC function is a CNC function that does not
 require axis movements. There are relatively few of these functions in
@@ -563,7 +563,7 @@ void decode_paths (int ws_id)
 aspect of the tool path. The two most important aspects are the tool
 geometry curve and the tool axis curve. Other curves describe the
 cutting depth, the linearization tolerance and other qualities. The
-DLL also includes functionality to access
+API also includes functionality to access
 a <a href="#GetPathAreaCurveCount">cross_section</a> area curve that
 describes the area of contact between the cutting tool and the
 workpiece and enable dynamic feed and speed computation for different
@@ -706,7 +706,7 @@ program then you can define these units using
 the <a href="#APIUnitsSpeed">APIUnitsFeed</a>
 and <a href="#APIUnitsSpeed">APIUnitsSpeed</a> functions. For example,
 if you require the feedrate to be in inches per minute then you can
-request this unit and the DLL will convert any values that are in
+request this unit and the API will convert any values that are in
 other units.
 
 
@@ -1592,7 +1592,7 @@ zero if no workpiece is found.
 
 <P>The workpiece may be defined locally or it may be
 &ldquo;inherited&rdquo;. If it is inherited then it is the model that
-in the opinion of the DLL is the best available estimate of the
+in the opinion of the API is the best available estimate of the
 initial state. In most cases this estimate will simply be the
 workpiece that defines the ToBe of the previous operation. When there
 is a choice we recommend ToBe models are defined explicitly and AsIs
@@ -1789,7 +1789,7 @@ Function to a computed or locally defined removal volume.
 identity of the workpiece that defines the result of an operation, or
 zero if one is not found. The workpiece may be defined locally or it
 may be &ldquo;inherited&rdquo;. If it is inherited then it is the
-model that in the opinion of the DLL is the best available estimate of
+model that in the opinion of the API is the best available estimate of
 the final state. In many cases this will be the To-Be model defined
 for the workplan containing the executable. When there is a choice we
 recommend that ToBe models are defined explicitly and AsIs models are
@@ -4066,7 +4066,7 @@ System::Int64 <b>GetFeatureProfile</b> (
 <P>The <b>GetFeatureProfile()</b> function returns the identity of the
 profile that defines a feature.  A profile defines the shape of a
 feature. There are many kinds of profiles but only three are directly
-processed by functions in the DLL. A general profile is described by a
+processed by functions in the API. A general profile is described by a
 bounded curve and is therefore similar to a tool path. A RoundedU
 profile and a SquareU profile are described parametrically.
 
@@ -4233,7 +4233,7 @@ the parameters of an arc segment
 the number of points in a polyline segment.
 <li><a href="#GetPathAxisPolylinePointNext">GetPathPolylinePointNext</a>
 Returns a point in the polyline.
-<li>Currently the DLL only supports polyline and arc segments.
+<li>Currently the API only supports polyline and arc segments.
 </UL>
 
 <h3>Common Errors</h3>
@@ -6763,7 +6763,7 @@ then <a href="#GetPathAxisCount">GetPathAxisCount</a> should return
 zero.
 
 <P>The <b>GetPathCurveNext()</b> function returns the next segment in
-a geometry curve.  In the current version of the DLL the segement must
+a geometry curve.  In the current version of the API the segement must
 be a polyline or an arc. In future versions any of the bounded curve
 types allowed by STEP will be allowed including b-spline curve
 segments. If the tool path is five axis then
@@ -12664,7 +12664,7 @@ An executable such as a workingstep may be used in one or more
 workplans. Most executables are only used in one workplan. 
 
 <p>The tolerance object contains navigate functions for many other
-types of data. In the DLL functions are named &ldquo;navigate&rdquo;
+types of data. In the API functions are named &ldquo;navigate&rdquo;
 when they traverse data in a direction opposite to the one defined by
 the STEP-NC data model.
 
