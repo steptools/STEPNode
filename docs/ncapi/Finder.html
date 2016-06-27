@@ -8583,7 +8583,8 @@ workingstep.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetToolCurrentLength></a>GetToolCurrentLength()</h2>
-<pre>
+<div class="tabview">
+<pre class=".net">
 double <b>GetToolCurrentLength</b> (
 	System::Int64 tl_id,
 	[System::Runtime::InteropServices::Out] System::Boolean %nominal_set,
@@ -8591,6 +8592,23 @@ double <b>GetToolCurrentLength</b> (
 	[System::Runtime::InteropServices::Out] double %nominal_value
 	);
 </pre>
+<pre class="node.js">
+double <b>GetToolCurrentLength</b> (
+	int tl_id
+	);
+</pre>
+<pre class="C++">
+RoseBoolean <b>tool_current</b> (
+	int tl_or_ws_id, 
+	double &tool_diameter, 
+	double &tool_radius,
+	double &tool_length, 
+	double &tool_current_diameter, 
+	double &tool_current_radius, 
+	double &tool_current_length
+	);
+</pre>
+</div>
 
 <P>The <b>GetToolCurrentLength()</b> function returns the current
 length of a tool. This length may differ from the length defined by
@@ -10428,11 +10446,24 @@ workingstep.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetToolType></a>GetToolType()</h2>
-<pre>
+<div class="tabview">
+<pre class=".net">
 System::String^ <b>GetToolType</b> (
 	System::Int64 ws_id
 	);
 </pre>
+<pre class="node.js">
+string <b>GetToolType</b> (
+	int ws_id
+	);
+</pre>
+<pre class="C++">
+RoseBoolean <b>tool_type</b> (
+	int tl_or_ws_id, 
+	const char * &its_type
+	);
+</pre>
+</div>
 
 <P>The <b>GetToolType()</b> function returns the type of a tool as a
 string name.

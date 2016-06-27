@@ -943,18 +943,18 @@ NAN_METHOD(Finder::GetToolCornerRadiusUnit)
     return;
 }
 
-NAN_METHOD(Finder::GetToolCurrentLength){ /*
+NAN_METHOD(Finder::GetToolCurrentLength){ 
     Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
     if (find == 0) //Throw Exception
     return;
-    if (info.Length() != 4) //Throw Exception
+    if (info.Length() != 1) //Throw Exception
     return;
     if (!info[0]->IsInt32()) //Throw Exception
         return;
 
     Nan::Maybe<int32_t> tl_id = Nan::To<int32_t>(info[0]);
 
-    double nominal_value = 0.0;
+    double nominal_value = 0.0; //If nominal value is needed it can be added to return
     double current_value = 0.0;
     double dummy;
 
@@ -963,14 +963,8 @@ NAN_METHOD(Finder::GetToolCurrentLength){ /*
     ))
         return;
 
-    ret_nominal_set = (nominal_value != ROSE_NULL_REAL);
-    ret_current_set = (current_value != ROSE_NULL_REAL);
-    ret_nominal_value = nominal_value;
-
-
-
-    info.GetReturnValue().Set((bool)current_value));
-    return;*/
+    info.GetReturnValue().Set(current_value);
+    return;
 }
 
 NAN_METHOD(Finder::GetToolDiameter) {
