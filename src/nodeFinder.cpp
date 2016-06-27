@@ -84,6 +84,8 @@ NAN_MODULE_INIT(Finder::Init)
     Nan::SetPrototypeMethod(tpl, "GetToolCurrentLength", GetToolCurrentLength);
     Nan::SetPrototypeMethod(tpl, "GetToolDiameter", GetToolDiameter);
     Nan::SetPrototypeMethod(tpl, "GetToolDiameterUnit", GetToolDiameterUnit);
+    Nan::SetPrototypeMethod(tpl, "GetToolFluteLength", GetToolFluteLength);
+    Nan::SetPrototypeMethod(tpl, "GetToolFluteLengthUnit", GetToolFluteLengthUnit);
 	Nan::SetPrototypeMethod(tpl, "GetToolIdentifier", GetToolIdentifier);
     Nan::SetPrototypeMethod(tpl, "GetToolLength", GetToolLength);
     Nan::SetPrototypeMethod(tpl, "GetToolLengthUnit", GetToolLengthUnit);
@@ -1005,6 +1007,50 @@ NAN_METHOD(Finder::GetToolDiameterUnit) {
     const char * dummy;
 
     if (!find->_find->tool_current_unit(ws_id.FromJust(), unit, dummy, dummy))
+    return; // error in cpp
+
+    info.GetReturnValue().Set(CharTov8String((char *) unit));
+    return;
+}
+
+NAN_METHOD(Finder::GetToolFluteLength) 
+{
+    Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+
+    if (info.Length() != 1)
+    return;
+    if (info[0]->IsUndefined())
+    return;
+    if (!info[0]->IsInt32())
+    return;
+
+    Nan::Maybe<int32_t> t = Nan::To<int32_t>(info[0]);
+
+    double flute_length = 0.0;
+    if (!find->_find->tool_flute_length(t.FromJust(), flute_length))
+    return;
+
+    info.GetReturnValue().Set(flute_length);
+    return;
+}
+
+NAN_METHOD(Finder::GetToolFluteLengthUnit) 
+{
+    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+
+    if (find == 0)
+    return; //throw exception
+
+    if (info.Length() != 1)
+    return; //throw exception
+
+    if (!info[0]->IsInt32())
+    return; //  invalid argument
+
+    Nan::Maybe<int32_t> ws_id = Nan::To<int32_t>(info[0]);
+    const char * unit = 0;
+
+    if (!find->_find->tool_flute_length_unit(ws_id.FromJust(), unit))
     return; // error in cpp
 
     info.GetReturnValue().Set(CharTov8String((char *) unit));

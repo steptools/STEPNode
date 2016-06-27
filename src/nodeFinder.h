@@ -178,6 +178,12 @@ public:
     //string GetToolDiameterUnit (int ws_id)
     static NAN_METHOD(GetToolDiameterUnit);
 
+    //double GetToolFluteLength (int ws_id)
+    static NAN_METHOD(GetToolFluteLength);
+
+    //string GetToolFluteLengthUnit (int ws_id)
+    static NAN_METHOD(GetToolFluteLengthUnit);
+
     //string GetToolIdentifier(int ws_id)
     static NAN_METHOD(GetToolIdentifier);
 
