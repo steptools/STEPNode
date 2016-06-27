@@ -9322,7 +9322,8 @@ RoseBoolean <b>tool_reference_data_name</b> (
 <a name=GetToolLengthUpper></a>
 <a name=GetToolLengthUpperReason></a>
 <a name=GetToolLength></a>GetToolLength(), Unit, Lower, Upper, and Reason</h2>
-<pre>
+<div class="tabview">
+<pre class=".net">
 double <b>GetToolLength</b> (
 	System::Int64 ws_id,
 	[System::Runtime::InteropServices::Out] System::Boolean %value_set
@@ -9352,6 +9353,18 @@ System::String^ <b>GetToolLengthUpperReason</b> (
 	[System::Runtime::InteropServices::Out] System::Boolean %value_set
 	);
 </pre>
+<pre class="node.js">
+double <b>GetToolLength</b> (
+	int ws_id
+	);
+
+string <b>GetToolLengthUnit</b> (
+	int ws_id
+	);
+</pre>
+<pre class="C++">
+</pre>
+</div>
 
 <P>The <b>GetToolLength()</b> function returns the length of the tool,
 which is also known as the height in
