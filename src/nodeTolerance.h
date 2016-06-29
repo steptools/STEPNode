@@ -47,6 +47,9 @@ public:
     //string GetToleranceType(int TolId)
     static NAN_METHOD(GetToleranceType);
 
+    //string GetToleranceUnit(int TolId)
+    static NAN_METHOD(GetToleranceUnit);
+
     //double GetToleranceValue(int TolId)
     static NAN_METHOD(GetToleranceValue);
 

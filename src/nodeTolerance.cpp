@@ -49,6 +49,7 @@ NAN_MODULE_INIT(Tolerance::Init)
     Nan::SetPrototypeMethod(tpl, "GetToleranceAllNext", GetToleranceAllNext);
     Nan::SetPrototypeMethod(tpl, "GetToleranceAll", GetToleranceAll);
     Nan::SetPrototypeMethod(tpl, "GetToleranceType", GetToleranceType);
+    Nan::SetPrototypeMethod(tpl, "GetToleranceUnit", GetToleranceUnit);
     Nan::SetPrototypeMethod(tpl, "GetToleranceValue", GetToleranceValue);
     Nan::SetPrototypeMethod(tpl, "GetWorkingstepToleranceAll", GetWorkingstepToleranceAll);
 
@@ -132,6 +133,22 @@ NAN_METHOD(Tolerance::GetToleranceType) {
   info.GetReturnValue().Set(CharTov8String((char *)type));
   return;
 
+}
+
+NAN_METHOD(Tolerance::GetToleranceUnit) {
+  Tolerance* tol = Nan::ObjectWrap::Unwrap<Tolerance>(info.This());
+  if(!tol)
+    return;
+  if(info.Length()!=1)
+    return;
+  if(!info[0]->IsNumber())
+    return;
+  const char * unit = 0;
+  Nan::Maybe<int32_t> tol_id = Nan::To<int32_t>(info[0]);
+  if (!tol->_tol->tolerance_unit (tol_id.FromJust(), unit))
+    return;
+  info.GetReturnValue().Set(CharTov8String((char*) unit));
+  return;
 }
 
 NAN_METHOD(Tolerance::GetToleranceValue) {
