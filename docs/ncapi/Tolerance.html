@@ -7382,11 +7382,23 @@ fills a parameter with the displacement value.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetToleranceUnit></a>GetToleranceUnit()</h2>
-<pre>
+<pre class=".net">
 System::String^ <b>GetToleranceUnit</b> (
 	System::Int64 tol_id
 	);
 </pre>
+<pre class="node.js">
+string <b>GetToleranceUnit</b> (
+	int tol_id
+	);
+</pre>
+<pre class="C++">
+RoseBoolean <b>tolerance_unit</b> (
+	int tol_id,
+	const char * &unit
+	);
+</pre>
+
 
 <P>The <b>GetToleranceUnit()</b> function return the value unit (e.g
 &ldquo;in&rdquo; or &ldquo;mm&rdquo;) for a tolerance.
