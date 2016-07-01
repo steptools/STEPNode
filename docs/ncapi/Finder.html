@@ -1165,11 +1165,28 @@ System::Int64 <b>GetDrillPointCount</b> (
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetExecutableBaseTime></a>GetExecutableBaseTime()</h2>
-<pre>
+<div class="tabview">
+<pre class=".net">
 double <b>GetExecutableBaseTime</b> (
 	System::Int64 exe_id
 	);
 </pre>
+<pre class="node.js">
+double <b>GetExecutableBaseTime</b> (
+	int exe_id
+	);
+</pre>
+<pre class="C++">
+ RoseBoolean <b>compute_best_feed_time</b> (
+	 int exe_id,
+	 double &distance,
+	 double &base_time,
+	 double &over_time,
+	 const char * &dist_unit,
+	 const char * &time_unit
+	 );
+</pre>
+</div>
 
 <P>The <b>GetExecutableBaseTime()</b> function computes the time to
 execute the tool paths defined in an executable which can be a
@@ -1446,11 +1463,28 @@ GetTechnologyCount &ndash; 1]
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetExecutableTimeUnit></a>GetExecutableTimeUnit()</h2>
-<pre>
+<div class="tabview">
+<pre class=".net">
 System::String^ <b>GetExecutableTimeUnit</b> (
 	System::Int64 exe_id
 	);
 </pre>
+<pre class="node.js">
+string <b>GetExecutableTimeUnit</b> (
+	int exe_id
+	);
+</pre>
+<pre class="C++">
+RoseBoolean <b>compute_best_feed_time</b> (
+	 int exe_id,
+	 double &distance,
+	 double &base_time,
+	 double &over_time,
+	 const char * &dist_unit,
+	 const char * &time_unit
+	 );
+</pre>
+</div>
 
 <P>The <b>GetExecutableTimeUnit()</b> function returns a string
 describing the unit used for the time
@@ -8404,6 +8438,22 @@ double <b>GetToolCornerRadius</b> (
 string <b>GetToolCornerRadiusUnit</b> (
     int ws_id
     );
+
+double <b>GetToolRadiusLower</b> (
+	int ws_id
+	);
+
+double <b>GetToolRadiusUpper</b> (
+	int ws_id
+	);
+
+string <b>GetToolRadiusLowerReason</b> (
+	int ws_id
+	);
+
+string <b>GetToolRadiusUpperReason</b> (
+	int ws_id
+	);
 </pre>
 <pre class="C++">
 RoseBoolean <b>tool_current</b> (
@@ -8421,6 +8471,15 @@ RoseBoolean <b>tool_current_unit</b> (
 	const char * &tool_diameter, 
 	const char * &tool_radius, 
 	const char * &tool_length
+	);
+
+RoseBoolean <b>tool_radius_lower_upper</b> (
+	int tl_or_ws_id, 
+	double &value, 
+	double &lower, 
+	const char * &lreason, 
+	double &upper, 
+	const char *&ureason
 	);
 </pre>
 </div>
