@@ -76,6 +76,9 @@ public:
     //long GetCompoundFeatureCount(long compound_id)
     static NAN_METHOD(GetCompoundFeatureCount);
 
+    // double GetExecutableBaseTime(int exe_id)
+    static NAN_METHOD(GetExecutableBaseTime);
+
     // double GetExecutableDistance(int exe_id)
     static NAN_METHOD(GetExecutableDistance);
 
@@ -84,6 +87,9 @@ public:
 
     // string GetExecutableName(int exe_id)
     static NAN_METHOD(GetExecutableName);
+
+    // string GetExecutableTimeUnit(int exe_id)
+    static NAN_METHOD(GetExecutableTimeUnit);
 
     // string GetExecutableType(int exe_id)
     static NAN_METHOD(GetExecutableType);
@@ -213,6 +219,18 @@ public:
 
     //int GetToolProductID(int tl_id)
     static NAN_METHOD(GetToolProductID);
+
+    //double GetToolRadiusLower(int ws_id)
+    static NAN_METHOD(GetToolRadiusLower);
+
+    //string GetToolRadiusLowerReason(int ws_id)
+    static NAN_METHOD(GetToolRadiusLowerReason);
+
+    //double GetToolRadiusUpper(int ws_id)
+    static NAN_METHOD(GetToolRadiusUpper);
+
+    //string GetToolRadiusUpperReason(int ws_id)
+    static NAN_METHOD(GetToolRadiusUpperReason);
 
     //string GetToolReferenceDataName(int ws_id)
     static NAN_METHOD(GetToolReferenceDataName);

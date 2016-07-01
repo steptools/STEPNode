@@ -50,9 +50,11 @@ NAN_MODULE_INIT(Finder::Init)
 	Nan::SetPrototypeMethod(tpl, "APIUnitsFeed", APIUnitsFeed);
 	Nan::SetPrototypeMethod(tpl, "APIUnitsSpeed", APIUnitsSpeed);
 	Nan::SetPrototypeMethod(tpl, "GetCompoundFeatureCount", GetCompoundFeatureCount);
+    Nan::SetPrototypeMethod(tpl, "GetExecutableBaseTime", GetExecutableBaseTime);
 	Nan::SetPrototypeMethod(tpl, "GetExecutableDistance", GetExecutableDistance);
 	Nan::SetPrototypeMethod(tpl, "GetExecutableDistanceUnit", GetExecutableDistanceUnit);
 	Nan::SetPrototypeMethod(tpl, "GetExecutableName", GetExecutableName);
+    Nan::SetPrototypeMethod(tpl, "GetExecutableTimeUnit", GetExecutableTimeUnit);
 	Nan::SetPrototypeMethod(tpl, "GetExecutableType", GetExecutableType);
 	Nan::SetPrototypeMethod(tpl, "GetExecutableWorkpieceAsIs", GetExecutableWorkpieceAsIs);
 	Nan::SetPrototypeMethod(tpl, "GetExecutableWorkpieceAsIsLocal", GetExecutableWorkpieceAsIsLocal);
@@ -64,7 +66,7 @@ NAN_MODULE_INIT(Finder::Init)
 	Nan::SetPrototypeMethod(tpl, "GetFaceEdgeNextPoint", GetFaceEdgeCount);
 	Nan::SetPrototypeMethod(tpl, "GetFeatureID", GetFeatureID);
 	Nan::SetPrototypeMethod(tpl, "GetFeatureName", GetFeatureName);
-	Nan::SetPrototypeMethod(tpl, "GetFeatureOutsideProfileClosedCircular", GetFeatureOutsideProfileClosedCircular);
+	Nan::SetPrototypeMethod(tpl, "GetFeatureOutsidenpm testProfileClosedCircular", GetFeatureOutsideProfileClosedCircular);
 	Nan::SetPrototypeMethod(tpl, "GetMainWorkplan", GetMainWorkplan);
 	Nan::SetPrototypeMethod(tpl, "GetMaterialName", GetMaterialName);
 	Nan::SetPrototypeMethod(tpl, "GetNestedExecutableAll", GetNestedExecutableAll);
@@ -96,6 +98,10 @@ NAN_MODULE_INIT(Finder::Init)
     Nan::SetPrototypeMethod(tpl, "GetToolOverallAssemblyLengthUnit", GetToolOverallAssemblyLengthUnit);
 	Nan::SetPrototypeMethod(tpl, "GetToolPartName", GetToolPartName);
 	Nan::SetPrototypeMethod(tpl, "GetToolProductID", GetToolProductID);
+    Nan::SetPrototypeMethod(tpl, "GetToolRadiusLower", GetToolRadiusLower);
+    Nan::SetPrototypeMethod(tpl, "GetToolRadiusLowerReason", GetToolRadiusLowerReason);
+    Nan::SetPrototypeMethod(tpl, "GetToolRadiusUpper", GetToolRadiusUpper);
+    Nan::SetPrototypeMethod(tpl, "GetToolRadiusUpperReason", GetToolRadiusUpperReason);
 	Nan::SetPrototypeMethod(tpl, "GetToolReferenceDataName", GetToolReferenceDataName);
     Nan::SetPrototypeMethod(tpl, "GetToolType", GetToolType);
 	Nan::SetPrototypeMethod(tpl, "GetToolUsingNumber", GetToolUsingNumber);
@@ -235,6 +241,35 @@ NAN_METHOD(Finder::GetCompoundFeatureCount) {
     return;
 }
 
+NAN_METHOD(Finder::GetExecutableBaseTime)
+{
+    Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (find == 0) // Throw exception
+    return;
+
+    if (info.Length() != 1) // incorrect number of arguments
+    return;
+
+    if (!info[0]->IsInt32()) // invalid argument
+    return;
+
+    // get this executable's id
+    Nan::Maybe<int32_t> exe_id = Nan::To<int32_t>(info[0]);
+
+    double time = 0.0;
+    double over_time, distance;
+
+    const char *str1, *str2;
+
+    if (!find->_find->compute_best_feed_time(
+    exe_id.FromJust(), distance, time, over_time, str1, str2
+    ))  // cpp error
+    return;
+
+    info.GetReturnValue().Set(time);
+    return;
+}
+
 NAN_METHOD(Finder::GetExecutableDistance)
 {
     Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
@@ -310,6 +345,35 @@ NAN_METHOD(Finder::GetExecutableName) {
 	return;
 
     info.GetReturnValue().Set(CharTov8String((char *)name));
+    return;
+}
+
+NAN_METHOD(Finder::GetExecutableTimeUnit)
+{
+    Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (find == 0) // Throw exception
+    return;
+
+    if (info.Length() != 1) // incorrect number of arguments
+    return;
+
+    if (!info[0]->IsInt32()) // invalid argument
+    return;
+
+    // get this executable's id
+    Nan::Maybe<int32_t> exe_id = Nan::To<int32_t>(info[0]);
+
+    const char *time_unit = 0;
+    double over_time, base_time, distance;
+    const char *str1;
+
+    if (!find->_find->compute_best_feed_time(
+    exe_id.FromJust(), distance, base_time, over_time, str1, time_unit
+    ))
+    return;
+
+    info.GetReturnValue().Set(CharTov8String((char*) time_unit));
+
     return;
 }
 
@@ -1281,6 +1345,96 @@ NAN_METHOD(Finder::GetToolProductID)
 
     info.GetReturnValue().Set(pd_id);
 
+    return;
+}
+
+NAN_METHOD(Finder::GetToolRadiusLower)
+{
+    Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+
+    if (info.Length() != 1)
+    return;
+    if (info[0]->IsUndefined())
+    return;
+    if (!info[0]->IsInt32())
+    return;
+
+    Nan::Maybe<int32_t> t = Nan::To<int32_t>(info[0]);
+
+    double value = 0.0;
+    double dummy;
+    const char *s1, *s2;
+    if (!find->_find->tool_radius_lower_upper(t.FromJust(), dummy, value, s1, dummy, s2))
+    return;
+
+    info.GetReturnValue().Set(value);
+    return;
+}
+
+NAN_METHOD(Finder::GetToolRadiusLowerReason)
+{
+    Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+
+    if (info.Length() != 1)
+    return;
+    if (info[0]->IsUndefined())
+    return;
+    if (!info[0]->IsInt32())
+    return;
+
+    Nan::Maybe<int32_t> t = Nan::To<int32_t>(info[0]);
+
+    double dummy;
+    const char *s1, *s2;
+    if (!find->_find->tool_radius_lower_upper(t.FromJust(), dummy, dummy, s1, dummy, s2))
+    return;
+
+    info.GetReturnValue().Set(CharTov8String((char*)s1));
+    return;
+}
+
+NAN_METHOD(Finder::GetToolRadiusUpper)
+{
+    Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+
+    if (info.Length() != 1)
+    return;
+    if (info[0]->IsUndefined())
+    return;
+    if (!info[0]->IsInt32())
+    return;
+
+    Nan::Maybe<int32_t> t = Nan::To<int32_t>(info[0]);
+
+    double value = 0.0;
+    double dummy;
+    const char *s1, *s2;
+    if (!find->_find->tool_radius_lower_upper(t.FromJust(), dummy, dummy, s1, value, s2))
+    return;
+
+    info.GetReturnValue().Set(value);
+    return;
+}
+
+NAN_METHOD(Finder::GetToolRadiusUpperReason)
+{
+    Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+
+    if (info.Length() != 1)
+    return;
+    if (info[0]->IsUndefined())
+    return;
+    if (!info[0]->IsInt32())
+    return;
+
+    Nan::Maybe<int32_t> t = Nan::To<int32_t>(info[0]);
+
+    double dummy;
+    const char *s1, *s2;
+    if (!find->_find->tool_radius_lower_upper(t.FromJust(), dummy, dummy, s1, dummy, s2))
+    return;
+
+    info.GetReturnValue().Set(CharTov8String((char*)s2));
     return;
 }
 
