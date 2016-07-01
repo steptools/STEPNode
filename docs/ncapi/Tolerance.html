@@ -203,6 +203,7 @@ Search STEP Tools Web Support<br>
 <li><a href="#GetToleranceModifierCount">GetToleranceModifierCount/Next()</a>
 <li><a href="#GetToleranceOriginFaceCount">GetToleranceOriginFace[Local]Count/Next()</a>
 <li><a href="#GetTolerancePlusMinus">GetTolerancePlusMinus()</a>
+<li><a href="#GetTolerancePrecision">GetTolerancePrecision()</a>
 <li><a href="#GetToleranceProbeCount">GetToleranceProbeCount/Next()</a>
 <li><a href="#GetToleranceRelatedToleranceCount">GetToleranceRelatedToleranceCount/Next()</a>
 <li><a href="#GetToleranceTargetFaceCount">GetToleranceTargetFace[Local]Count/Next()</a>
@@ -210,6 +211,7 @@ Search STEP Tools Web Support<br>
 <li><a href="#GetToleranceUnequal">GetToleranceUnequal()</a>
 <li><a href="#GetToleranceUnit">GetToleranceUnit()</a>
 <li><a href="#GetToleranceValue">GetToleranceValue()</a>
+<li><a href="#GetToleranceValueFormatType">GetToleranceValueFormatType()</a>
 <li><a href="#GetToolCurrentDiameter">GetToolCurrentDiameter()</a>
 <li><a href="#GetToolCurrentLength">GetToolCurrentLength()</a>
 <li><a href="#GetToolCurrentRadius">GetToolCurrentRadius()</a>
@@ -284,7 +286,9 @@ Search STEP Tools Web Support<br>
 <li><a href="#PutToleranceDefinedUnit">PutToleranceDefinedUnit()</a>
 <li><a href="#PutToleranceMax">PutToleranceMax()</a>
 <li><a href="#PutToleranceMeasuredValue">PutToleranceMeasuredValue()</a>
+<li><a href="#PutTolerancePrecision">PutTolerancePrecision()</a>
 <li><a href="#PutToleranceUnequal">PutToleranceUnequal()</a>
+<li><a href="#PutToleranceValueFormatType">PutToleranceValueFormatType()</a>
 <li><a href="#PutToolCurrentDiameter">PutToolCurrentDiameter()</a>
 <li><a href="#PutToolCurrentLength">PutToolCurrentLength()</a>
 <li><a href="#PutToolCurrentRadius">PutToolCurrentRadius()</a>
@@ -7199,6 +7203,40 @@ value with lower and upper deltas.
 <li>Invalid identity for the tolerance.
 </UL>
 
+<!-- ================================ -->
+<h2 class=rule>
+<a name=GetTolerancePrecision></a>GetTolerancePrecision()</h2>
+<pre>
+int <b>GetTolerancePrecision</b> (
+	System::Int64 tol_id
+	);
+</pre>
+
+<P>The <b>GetTolerancePrecision()</b> function returns the number of digits
+allowed after the decimal point. The value may be represented as a
+precision quaifier (legacy) or as a value format type (prefered). In the latter case
+the value is decoded if the format is specified as described in
+Part 45 clause 6.4.14 for NR2 and NR5 control strings.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT> tol_id <DD> Identity of the tolerance or dimension
+</DL>
+
+<h3>Related Functions</h3>
+<UL>
+<li><a href="#GetToleranceValue">GetToleranceValue</a> Gets the value
+of a tolerance or dimension.
+<li><a href="#GetToleranceValueFormatType">GetToleranceValueFormetType</a> 
+Get the value format type as a string.
+<li><a href="#PutTolerancePrecision">PutTolerancePrecision</a> Sets
+the format type of the tolerance.
+</UL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>Invalid identity for the tolerance or dimension.
+</UL>
 
 <!-- ================================ -->
 <h2 class=rule>
@@ -7437,7 +7475,7 @@ double <b>GetToleranceValue</b> (
 </pre>
 
 <P>The <b>GetToleranceValue()</b> function returns the defined or
-nominal value of the tolerance.
+nominal value of the tolerance or dimension.
 
 <h3>Arguments</h3>
 <DL class=termdefs>
@@ -7455,14 +7493,47 @@ upper and lower limits of the allowed range for a size or location
 tolerance.
 <li><a href="#GetToleranceMeasuredValue">GetToleranceMeasuredValue</a>
 The measured value of a tolerance.
+<li><a href="#GetToleranceValueFormatType">GetToleranceValueFormatType</a> The defined
+format to be used for the tolerance value.
 </UL>
 
 <h3>Common Errors</h3>
 <UL>
-<li>Invalid identity for the tolerance.
+<li>Invalid identity for the tolerance or dimension.
 </UL>
 
+<!-- ================================ -->
+<h2 class=rule>
+<a name=GetToleranceValueFormatType></a>GetToleranceValueFormatType()</h2>
+<pre>
+string <b>GetToleranceValueFormatType</b> (
+	System::Int64 tol_id
+	);
+</pre>
 
+<P>The <b>GetToleranceValueFormatType()</b> function returns the format type of
+a string. As per  Part 45. 6.4.14, this format should conform to the
+requirements of an NR2 or NR5 control string.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT> tol_id <DD> Identity of the tolerance or dimension
+</DL>
+
+<h3>Related Functions</h3>
+<UL>
+<li><a href="#GetToleranceValue">GetToleranceValue</a> Gets the value
+of a tolerance or dimension.
+<li><a href="#GetTolerancePrecision">GetTolerancePrecision</a> Decodes
+the format type into the number of digits that follow the decimal point.
+<li><a href="#PutToleranceValueFormatType">GetToleranceValueFormatType</a> Sets
+the format type of the tolerance.
+</UL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>Invalid identity for the tolerance or dimension.
+</UL>
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetToolCurrentDiameter></a>GetToolCurrentDiameter()</h2>
@@ -10505,8 +10576,75 @@ tolerance.
 
 
 
+<!-- ================================ -->
+<h2 class=rule>
+<a name=PutTolerancePrecision></a>PutTolerancePrecision()</h2>
+<pre>
+void <b>PutTolerancePrecision</b> (
+	System::Int64 tol_id,
+	System::Int64 num_digits
+	);
+</pre>
+
+<P>The <b>PutTolerancePrecision()</b> sets the precision of 
+a tolerance value to the number of digits given by setting the
+tolerance value format type to "NR5 d" where d is the number of
+digits.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT> tol_id <DD> The identity of the tolerance
+<DT> num_digits <DD> The precision as a number of digits after the decimal point
+</DL>
+
+<h3>Related Functions</h3>
+<UL>
+<li><a href="#GetTolerancePrecision">GetTolerancePrecision</a> Get the 
+tolerance precision as a number
+<li><a href="#PutToleranceValueFormatType">PutToleranceValueFormatType</a> 
+Set the tolerance precision by giving the format as a standard string
+</UL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>Invalid identity.
+</UL>
 
 
+<!-- ================================ -->
+<h2 class=rule>
+<a name=PutToleranceValueFormatType></a>PutToleranceValueFormatType()</h2>
+<pre>
+void <b>PutToleranceValueFormatType</b> (
+	System::Int64 tol_id,
+	System::String^
+	);
+</pre>
+
+<P>The <b>PutToleranceValueFormatType()</b> sets the precision of 
+a tolerance value to the given string. The string should be
+formatted as described in Part 45 clause 6.4.14 if possible using
+the NR5 or NR2 encoding so that the precision can be determined
+using the <b>GetTolerancePrecision()</b> function.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT> tol_id <DD> The identity of the tolerance
+<DT> num_digits <DD> The required format as a string
+</DL>
+
+<h3>Related Functions</h3>
+<UL>
+<li><a href="#GetToleranceValueFormatType">GetToleranceValueFormatType</a> 
+Get the tolerance value format as a string.
+<li><a href="#PutTolerancePrecision">PutTolerancePrecision</a> 
+Set the tolerance precision as a number of digits to follow the decimal point.
+</UL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>Invalid identity.
+</UL>
 
 
 
