@@ -1,15 +1,15 @@
 // $RCSfile: $
 // $Revision: $ $Date: $
 // Auth: Samson Bonfante (bonfante@steptools.com)
-// 
-// Copyright (c) 1991-2016 by STEP Tools Inc. 
-// 
+//
+// Copyright (c) 1991-2016 by STEP Tools Inc.
+//
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-// 
+//
 //     http://www.apache.org/licenses/LICENSE-2.0
-// 
+//
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -135,7 +135,7 @@ NAN_METHOD(machineState::GoToWS)
     if (info.Length() != 1) //Function takes one argument
     return;
     RoseObject * obj = ms->_ms->design()->findByEntityId(Nan::To<int32_t>(info[0]).FromJust());
-    if (!obj) 
+    if (!obj)
     return;
     stp_machining_workingstep * ws = ROSE_CAST(stp_machining_workingstep, obj);
     if(!ws)
@@ -168,6 +168,15 @@ NAN_METHOD(machineState::NextWS)
     return;
 }
 
+NAN_METHOD(machineState::PrevWS)
+{
+    machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
+    if (!ms || !(ms->_ms)) return;
+    if (!info[0]->IsUndefined()) return; //This function takes no arguments.
+    ms->_ms->GoToPrevWS();
+    return;
+}
+
 NAN_MODULE_INIT(machineState::Init)
 {
     v8::Local<v8::FunctionTemplate> tpl = Nan::New<v8::FunctionTemplate>(New);
@@ -181,7 +190,7 @@ NAN_MODULE_INIT(machineState::Init)
     Nan::SetPrototypeMethod(tpl, "GoToWS", GoToWS);
     Nan::SetPrototypeMethod(tpl, "LoadMachine", LoadMachine);
     Nan::SetPrototypeMethod(tpl, "NextWS", NextWS);
-
+    Nan::SetPrototypeMethod(tpl, "PrevWS", PrevWS);
     constructor().Reset(Nan::GetFunction(tpl).ToLocalChecked());
     Nan::Set(target, Nan::New("machineState").ToLocalChecked(), Nan::GetFunction(tpl).ToLocalChecked());
 
