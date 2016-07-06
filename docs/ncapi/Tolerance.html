@@ -288,6 +288,7 @@ Search STEP Tools Web Support<br>
 <li><a href="#PutToleranceMeasuredValue">PutToleranceMeasuredValue()</a>
 <li><a href="#PutTolerancePrecision">PutTolerancePrecision()</a>
 <li><a href="#PutToleranceUnequal">PutToleranceUnequal()</a>
+<li><a href="#PutToleranceValue">PutToleranceValue()</a>
 <li><a href="#PutToleranceValueFormatType">PutToleranceValueFormatType()</a>
 <li><a href="#PutToolCurrentDiameter">PutToolCurrentDiameter()</a>
 <li><a href="#PutToolCurrentLength">PutToolCurrentLength()</a>
@@ -10556,6 +10557,8 @@ have been applied to the faces in the tolerance.
 
 <h3>Related Functions</h3>
 <UL>
+<li><a href="#PutToleranceValue">PutToleranceValue</a>
+Set the nominal value of a tolerance.
 <li><a href="#NavigateFaceToProbingCount">GetToleranceFaceCount</a>
 The faces constrained by a tolerance.
 <li><a href="#NavigateFaceToProbingCount">NavigateFaceToProbingCount</a>
@@ -10603,6 +10606,38 @@ digits.
 tolerance precision as a number
 <li><a href="#PutToleranceValueFormatType">PutToleranceValueFormatType</a> 
 Set the tolerance precision by giving the format as a standard string
+</UL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>Invalid identity.
+</UL>
+
+<!-- ================================ -->
+<h2 class=rule>
+<a name=PutToleranceValue></a>PutToleranceValue()</h2>
+<pre>
+void <b>PutToleranceValue</b> (
+	System::Int64 tol_id,
+	double value
+	);
+</pre>
+
+<P>The <b>PutToleranceValue()</b> sets or corrects the nominal value
+of a tolerance.  
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT> tol_id <DD> The identity of the tolerance
+<DT> value <DD> The new nominal value for the tolerance, dimension or surface texture.
+</DL>
+
+<h3>Related Functions</h3>
+<UL>
+<li><a href="#GetToleranceValueFormatType">GetToleranceValueFormatType</a> 
+Get the tolerance value format as a string.
+<li><a href="#PutToleranceMeasuredValue">PutToleranceMeasuredValue</a> 
+Set the as-measured value of a tolerance.
 </UL>
 
 <h3>Common Errors</h3>
