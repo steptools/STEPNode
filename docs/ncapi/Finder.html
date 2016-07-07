@@ -11653,11 +11653,24 @@ makes multiple final products then they will be listed here.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetWorkpieceType></a>GetWorkpieceType()</h2>
-<pre>
+<div class="tabview">
+<pre class=".net">
 System::String^ <b>GetWorkpieceType</b> (
 	System::Int64 wp_id
 	);
 </pre>
+<pre class="node.js">
+string <b>GetWorkpieceType</b> (
+	int wp_id
+	);
+</pre>
+<pre class="C++">
+RoseBoolean <b>workpiece_any_classification</b> (
+	int wp_id, 
+	const char * &name
+	);
+</pre>
+</div>
 
 <P>The <b>GetWorkpieceType()</b> function returns the role of the
 workpiece as a string (&ldquo;workpiece&rdquo;, &ldquo;fixture&rdquo;
@@ -11687,11 +11700,24 @@ defined:  There is no AP-238 file open.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetWorkpieceUnits></a>GetWorkpieceUnits()</h2>
-<pre>
+<div class="tabview">
+<pre class=".net">
 System::String^ <b>GetWorkpieceUnits</b> (
 	System::Int64 wp_id
 	);
 </pre>
+<pre class="node.js">
+string <b>GetWorkpieceUnits</b> (
+	int wp_id
+	);
+</pre>
+<pre class="C++">
+RoseBoolean <b>workpiece_any_units</b> (
+	int wp_id, 
+	const char * &name
+	);
+</pre>
+</div>
 
 <P>The <b>GetWorkpieceUnits()</b> function returns a unit used for
 length measurements in the geometry of a workpiece. The string will be
