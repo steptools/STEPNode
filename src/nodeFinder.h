@@ -256,11 +256,20 @@ public:
     //int GetWorkpieceAsIsOfMain()
     static NAN_METHOD(GetWorkpieceAsIsOfMain);
 
+    //int GetWorkpieceToBeOfMain()
+    static NAN_METHOD(GetWorkpieceToBeOfMain);
+
     //int GetWorkpieceDeltaOfMain()
     static NAN_METHOD(GetWorkpieceDeltaOfMain);
 
     //int GetWorkpieceFixtureOfMain()
     static NAN_METHOD(GetWorkpieceFixtureOfMain);
+
+    //int GetWorkpieceFixtureOfMain()
+    static NAN_METHOD(GetWorkpieceType);
+
+    //int GetWorkpieceFixtureOfMain()
+    static NAN_METHOD(GetWorkpieceUnits);
 
     //int[] GetWorkplanExecutableAll(int wp_id);
     static NAN_METHOD(GetWorkplanExecutableAll);

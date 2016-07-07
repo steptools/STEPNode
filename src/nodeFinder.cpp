@@ -110,8 +110,11 @@ NAN_MODULE_INIT(Finder::Init)
 	Nan::SetPrototypeMethod(tpl, "GetWorkingstepTool", GetWorkingstepTool);
     Nan::SetPrototypeMethod(tpl, "GetWorkpieceAll", GetWorkpieceAll);
     Nan::SetPrototypeMethod(tpl, "GetWorkpieceAsIsOfMain", GetWorkpieceAsIsOfMain);
+    Nan::SetPrototypeMethod(tpl, "GetWorkpieceToBeOfMain", GetWorkpieceToBeOfMain);
     Nan::SetPrototypeMethod(tpl, "GetWorkpieceDeltaOfMain", GetWorkpieceDeltaOfMain);
     Nan::SetPrototypeMethod(tpl, "GetWorkpieceFixtureOfMain", GetWorkpieceFixtureOfMain);
+    Nan::SetPrototypeMethod(tpl, "GetWorkpieceType", GetWorkpieceType);
+    Nan::SetPrototypeMethod(tpl, "GetWorkpieceUnits", GetWorkpieceUnits);
 	Nan::SetPrototypeMethod(tpl, "GetWorkplanExecutableAll", GetWorkplanExecutableAll);
 	Nan::SetPrototypeMethod(tpl, "GetWorkplanExecutableAllEnabled", GetWorkplanExecutableAllEnabled);
 	Nan::SetPrototypeMethod(tpl, "GetWorkplanName", GetWorkplanName);
@@ -1620,6 +1623,25 @@ NAN_METHOD(Finder::GetWorkpieceAsIsOfMain)
     return;
 }
 
+NAN_METHOD(Finder::GetWorkpieceToBeOfMain)
+{
+    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+
+    if (find == 0)  // throw exception
+    return;
+
+    if (info.Length() != 0) // throw exception
+    return;
+
+    int wp_id = 0;
+
+    if (!find->_find->tobe_of_main(wp_id))
+    return; // error in cpp
+
+    info.GetReturnValue().Set(wp_id);
+    return;
+}
+
 NAN_METHOD(Finder::GetWorkpieceDeltaOfMain)
 {
     Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
@@ -1655,6 +1677,44 @@ NAN_METHOD(Finder::GetWorkpieceFixtureOfMain)
     return; // error in cpp
 
     info.GetReturnValue().Set(wp_id);
+    return;
+}
+
+NAN_METHOD(Finder::GetWorkpieceType) {
+    Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+
+    if (info.Length() != 1)
+    return;
+    if (info[0]->IsUndefined())
+    return;
+    if (!info[0]->IsInt32())
+    return;
+
+    const char * type = 0;
+    Nan::Maybe<int32_t> t = Nan::To<int32_t>(info[0]);
+    if (!find->_find->workpiece_any_classification(t.FromJust(), type))
+    return;
+
+    info.GetReturnValue().Set(CharTov8String((char *)type));
+    return;
+}
+
+NAN_METHOD(Finder::GetWorkpieceUnits) {
+    Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+
+    if (info.Length() != 1)
+    return;
+    if (info[0]->IsUndefined())
+    return;
+    if (!info[0]->IsInt32())
+    return;
+
+    const char * unit = 0;
+    Nan::Maybe<int32_t> t = Nan::To<int32_t>(info[0]);
+    if (!find->_find->workpiece_any_units(t.FromJust(), unit))
+    return;
+
+    info.GetReturnValue().Set(CharTov8String((char *)unit));
     return;
 }
 
