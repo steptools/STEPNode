@@ -250,6 +250,18 @@ public:
     //int GetWorkingstepTool(int ws_id)
     static NAN_METHOD(GetWorkingstepTool);
 
+    //int[] GetWorkpieceAll()
+    static NAN_METHOD(GetWorkpieceAll);
+
+    //int GetWorkpieceAsIsOfMain()
+    static NAN_METHOD(GetWorkpieceAsIsOfMain);
+
+    //int GetWorkpieceDeltaOfMain()
+    static NAN_METHOD(GetWorkpieceDeltaOfMain);
+
+    //int GetWorkpieceFixtureOfMain()
+    static NAN_METHOD(GetWorkpieceFixtureOfMain);
+
     //int[] GetWorkplanExecutableAll(int wp_id);
     static NAN_METHOD(GetWorkplanExecutableAll);
 

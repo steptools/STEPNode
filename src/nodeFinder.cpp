@@ -108,6 +108,10 @@ NAN_MODULE_INIT(Finder::Init)
 	Nan::SetPrototypeMethod(tpl, "GetWorkingstep", GetWorkingstep);
 	Nan::SetPrototypeMethod(tpl, "GetWorkingstepName", GetWorkingstepName);
 	Nan::SetPrototypeMethod(tpl, "GetWorkingstepTool", GetWorkingstepTool);
+    Nan::SetPrototypeMethod(tpl, "GetWorkpieceAll", GetWorkpieceAll);
+    Nan::SetPrototypeMethod(tpl, "GetWorkpieceAsIsOfMain", GetWorkpieceAsIsOfMain);
+    Nan::SetPrototypeMethod(tpl, "GetWorkpieceDeltaOfMain", GetWorkpieceDeltaOfMain);
+    Nan::SetPrototypeMethod(tpl, "GetWorkpieceFixtureOfMain", GetWorkpieceFixtureOfMain);
 	Nan::SetPrototypeMethod(tpl, "GetWorkplanExecutableAll", GetWorkplanExecutableAll);
 	Nan::SetPrototypeMethod(tpl, "GetWorkplanExecutableAllEnabled", GetWorkplanExecutableAllEnabled);
 	Nan::SetPrototypeMethod(tpl, "GetWorkplanName", GetWorkplanName);
@@ -1570,6 +1574,87 @@ NAN_METHOD(Finder::GetWorkingstepTool)
 	return; // error in cpp
 
     info.GetReturnValue().Set(tl_id);
+    return;
+}
+
+NAN_METHOD(Finder::GetWorkpieceAll)
+{
+    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (find == 0) //Throw Exception
+    return;
+    if (info.Length() != 0) //Throw Exception
+    return;
+    int count = 0;
+    if (!find->_find->workpiece_count(count)) //Throw Exception
+    return;
+    
+    v8::Local<v8::Array> array = Nan::New<v8::Array>();
+    for (int i = 0; i < count; i++) {
+        int wp_id = 0;
+        if (!find->_find->workpiece_next(i, wp_id)) //Throw Exception
+            return;
+        else
+            array->Set(i, Nan::New(wp_id));
+    }
+    
+    info.GetReturnValue().Set(array);
+    return;
+}
+
+NAN_METHOD(Finder::GetWorkpieceAsIsOfMain)
+{
+    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+
+    if (find == 0)  // throw exception
+    return;
+
+    if (info.Length() != 0) // throw exception
+    return;
+
+    int wp_id = 0;
+
+    if (!find->_find->asis_of_main(wp_id))
+    return; // error in cpp
+
+    info.GetReturnValue().Set(wp_id);
+    return;
+}
+
+NAN_METHOD(Finder::GetWorkpieceDeltaOfMain)
+{
+    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+
+    if (find == 0)  // throw exception
+    return;
+
+    if (info.Length() != 0) // throw exception
+    return;
+
+    int wp_id = 0;
+
+    if (!find->_find->delta_of_main(wp_id))
+    return; // error in cpp
+
+    info.GetReturnValue().Set(wp_id);
+    return;
+}
+
+NAN_METHOD(Finder::GetWorkpieceFixtureOfMain)
+{
+    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+
+    if (find == 0)  // throw exception
+    return;
+
+    if (info.Length() != 0) // throw exception
+    return;
+
+    int wp_id = 0;
+
+    if (!find->_find->fixture_of_main(wp_id))
+    return; // error in cpp
+
+    info.GetReturnValue().Set(wp_id);
     return;
 }
 
