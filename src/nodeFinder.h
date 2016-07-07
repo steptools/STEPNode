@@ -265,6 +265,12 @@ public:
     //int GetWorkpieceFixtureOfMain()
     static NAN_METHOD(GetWorkpieceFixtureOfMain);
 
+    //int GetWorkpieceFixtureOfMain()
+    static NAN_METHOD(GetWorkpieceType);
+
+    //int GetWorkpieceFixtureOfMain()
+    static NAN_METHOD(GetWorkpieceUnits);
+
     //int[] GetWorkplanExecutableAll(int wp_id);
     static NAN_METHOD(GetWorkplanExecutableAll);
 
