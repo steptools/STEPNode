@@ -11451,11 +11451,24 @@ or &ldquo;tool&rdquo;).
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetWorkpieceName></a>GetWorkpieceName()</h2>
-<pre>
+<div class="tabview">
+<pre class=".net">
 System::String^ <b>GetWorkpieceName</b> (
 	System::Int64 wp_id
 	);
 </pre>
+<pre class="node.js">
+string <b>GetWorkpieceName</b> (
+	int wp_id
+	);
+</pre>
+<pre class="C++">
+RoseBoolean <b>workpiece_any_name</b> (
+	int wp_id, 
+	const char * &name
+	);
+</pre>
+</div>
 
 <P>The <b>GetWorkpieceName()</b> function returns the name of the
 workpiece or &ldquo;unknown&rdquo; if the workpiece is undefined. The
