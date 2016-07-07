@@ -11346,9 +11346,19 @@ System::Int64 <b>GetWorkpieceCylinderAsBlock</b> (
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetWorkpieceDeltaOfMain></a>GetWorkpieceDeltaOfMain()</h2>
-<pre>
+<div class="tabview">
+<pre class=".net">
 System::Int64 <b>GetWorkpieceDeltaOfMain</b> ();
 </pre>
+<pre class="node.js">
+int <b>GetWorkpieceDeltaOfMain</b> ();
+</pre>
+<pre class="C++">
+RoseBoolean <b>delta_of_main</b> (
+	int &wp_id
+	);
+</pre>
+</div>
 
 <P>The <b>GetWorkpieceDeltaOfMain()</b> function returns the identity
 of the workpeice that defines the volume to be removed by a project.
@@ -11369,9 +11379,20 @@ workpiece in the project.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetWorkpieceFixtureOfMain></a>GetWorkpieceFixtureOfMain()</h2>
-<pre>
+<div class="tabview">
+<pre class=".net">
 System::Int64 <b>GetWorkpieceFixtureOfMain</b> ();
 </pre>
+<pre class="node.js">
+int <b>GetWorkpieceFixtureOfMain</b> ();
+</pre>
+<pre class="C++">
+RoseBoolean <b>fixture_of_main</b> (
+	int &wp_id
+	);
+</pre>
+</div>
+
 
 <P>The <b>GetWorkpieceFixtureOfMain()</b> function 
 
