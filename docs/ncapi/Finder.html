@@ -11615,9 +11615,19 @@ assembly.  Will be 0 if the workpiece is a component.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetWorkpieceToBeOfMain></a>GetWorkpieceToBeOfMain()</h2>
-<pre>
+<div class="tabview">
+<pre class=".net">
 System::Int64 <b>GetWorkpieceToBeOfMain</b> ();
 </pre>
+<pre class="node.js">
+int <b>GetWorkpieceToBeOfMain</b> ();
+</pre>
+<pre class="C++">
+RoseBoolean <b>tobe_of_main</b> (
+	int &wp_id
+	);
+</pre>
+</div>
 
 <P>The <b>GetWorkpieceToBeOfMain()</b> function returns the identity
 of the workpeice that defines the TO-BE model of the main
