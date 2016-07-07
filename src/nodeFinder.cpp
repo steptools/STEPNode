@@ -108,6 +108,7 @@ NAN_MODULE_INIT(Finder::Init)
 	Nan::SetPrototypeMethod(tpl, "GetWorkingstep", GetWorkingstep);
 	Nan::SetPrototypeMethod(tpl, "GetWorkingstepName", GetWorkingstepName);
 	Nan::SetPrototypeMethod(tpl, "GetWorkingstepTool", GetWorkingstepTool);
+    Nan::SetPrototypeMethod(tpl, "GetWorkpieceAsIsOfMain", GetWorkpieceAsIsOfMain);
 	Nan::SetPrototypeMethod(tpl, "GetWorkplanExecutableAll", GetWorkplanExecutableAll);
 	Nan::SetPrototypeMethod(tpl, "GetWorkplanExecutableAllEnabled", GetWorkplanExecutableAllEnabled);
 	Nan::SetPrototypeMethod(tpl, "GetWorkplanName", GetWorkplanName);
@@ -1570,6 +1571,25 @@ NAN_METHOD(Finder::GetWorkingstepTool)
 	return; // error in cpp
 
     info.GetReturnValue().Set(tl_id);
+    return;
+}
+
+NAN_METHOD(Finder::GetWorkpieceAsIsOfMain)
+{
+    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+
+    if (find == 0)  // throw exception
+    return;
+
+    if (info.Length() != 0) // throw exception
+    return;
+
+    int wp_id = 0;
+
+    if (!find->_find->asis_of_main(wp_id))
+    return; // error in cpp
+
+    info.GetReturnValue().Set(wp_id);
     return;
 }
 
