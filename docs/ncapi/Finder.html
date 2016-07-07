@@ -11250,13 +11250,29 @@ System::Int64 <b>GetWorkpieceBlock</b> (
 <h2 class=rule>
 <a name=GetWorkpieceNext></a>
 <a name=GetWorkpieceCount></a>GetWorkpieceCount/Next()</h2>
-<pre>
+<div class="tabview">
+<pre class=".net">
 System::Int64 <b>GetWorkpieceCount</b> ();
 
 System::Int64 <b>GetWorkpieceNext</b> (
 	System::Int64 index
 	);
 </pre>
+<pre class="node.js">
+int[] <b>GetWorkpieceAll</b> (
+	);
+</pre>
+<pre class="C++">
+RoseBoolean <b>workpiece_count</b> (
+	int &count
+	);
+
+RoseBoolean <b>workpiece_next</b> (
+	int index, 
+	int &wp_id
+	);
+</pre>
+</div>
 
 <P>The <b>GetWorkpieceCount()</b> function returns the number of
 workpieces in a project.  These workpieces may define tools, fixtures
