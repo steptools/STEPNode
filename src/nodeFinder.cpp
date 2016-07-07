@@ -75,7 +75,7 @@ NAN_MODULE_INIT(Finder::Init)
 	Nan::SetPrototypeMethod(tpl, "GetNestedExecutableNext", GetNestedExecutableNext);
 	Nan::SetPrototypeMethod(tpl, "GetProcessFeed", GetProcessFeed);
 	Nan::SetPrototypeMethod(tpl, "GetProcessFeedUnit", GetProcessFeedUnit);
-	Nan::SetPrototypeMethod(tpl, "GetProjectName", GetProjectName);    
+	Nan::SetPrototypeMethod(tpl, "GetProjectName", GetProjectName);
     Nan::SetPrototypeMethod(tpl, "GetSelectiveExecutableAll", GetSelectiveExecutableAll);
     Nan::SetPrototypeMethod(tpl, "GetSelectiveExecutableAllEnabled", GetSelectiveExecutableAllEnabled);
     Nan::SetPrototypeMethod(tpl, "GetSelectiveExecutableCount", GetSelectiveExecutableCount);
@@ -330,8 +330,12 @@ NAN_METHOD(Finder::GetExecutableDistanceUnit)
 	exe_id.FromJust(), distance, base_time, over_time, dist_unit, str2
 	))
 	return;
-
+    if(dist_unit){
     info.GetReturnValue().Set(CharTov8String((char*) dist_unit));
+}
+    else{
+        info.GetReturnValue().Set(0);
+    }
 
     return;
 }
@@ -380,7 +384,13 @@ NAN_METHOD(Finder::GetExecutableTimeUnit)
     ))
     return;
 
-    info.GetReturnValue().Set(CharTov8String((char*) time_unit));
+
+    if(time_unit){
+        info.GetReturnValue().Set(CharTov8String((char*) time_unit));
+    }
+    else{
+        info.GetReturnValue().Set(0);
+    }
 
     return;
 }
@@ -947,14 +957,14 @@ NAN_METHOD(Finder::GetToolAll)
     Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
     if (find == 0) //Throw Exception
     return;
-    
+
     if (info.Length() != 0)
     return;
 
     int size = 0;
     if(!find->_find->tool_count(size))
     return;
-    
+
     v8::Local<v8::Array> array = Nan::New<v8::Array>();
     for (int i = 0; i < size; i++) {
         int tl_id = 0;
@@ -963,7 +973,7 @@ NAN_METHOD(Finder::GetToolAll)
         else
             array->Set(i, Nan::New(tl_id));
     }
-    
+
     info.GetReturnValue().Set(array);
     return;
 }
@@ -1017,7 +1027,7 @@ NAN_METHOD(Finder::GetToolCornerRadiusUnit)
     return;
 }
 
-NAN_METHOD(Finder::GetToolCurrentLength){ 
+NAN_METHOD(Finder::GetToolCurrentLength){
     Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
     if (find == 0) //Throw Exception
     return;
@@ -1085,7 +1095,7 @@ NAN_METHOD(Finder::GetToolDiameterUnit) {
     return;
 }
 
-NAN_METHOD(Finder::GetToolFluteLength) 
+NAN_METHOD(Finder::GetToolFluteLength)
 {
     Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
 
@@ -1106,7 +1116,7 @@ NAN_METHOD(Finder::GetToolFluteLength)
     return;
 }
 
-NAN_METHOD(Finder::GetToolFluteLengthUnit) 
+NAN_METHOD(Finder::GetToolFluteLengthUnit)
 {
     Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
 
@@ -1887,7 +1897,7 @@ NAN_METHOD(Finder::GetWorkplanToolAll) {
 	int size = 0;
     if (!find->_find->wp_tool_count(wp_id.FromJust(), size)) //Throw Exception
     return;
-	
+
 	v8::Local<v8::Array> array = Nan::New<v8::Array>();
 	for (int i = 0; i < size; i++) {
 		int tl_id = 0;
@@ -1896,7 +1906,7 @@ NAN_METHOD(Finder::GetWorkplanToolAll) {
 		else
 			array->Set(i, Nan::New(tl_id));
 	}
-	
+
 	info.GetReturnValue().Set(array);
 	return;
 }
