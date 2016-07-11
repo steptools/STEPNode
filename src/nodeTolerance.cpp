@@ -53,6 +53,7 @@ NAN_MODULE_INIT(Tolerance::Init)
     Nan::SetPrototypeMethod(tpl, "GetToleranceValue", GetToleranceValue);
     Nan::SetPrototypeMethod(tpl, "GetWorkingstepToleranceAll", GetWorkingstepToleranceAll);
     Nan::SetPrototypeMethod(tpl, "GetWorkpieceOfTolerance", GetWorkpieceOfTolerance);
+    Nan::SetPrototypeMethod(tpl, "GetWorkpieceToleranceAll", GetWorkpieceToleranceAll);
 
 
     constructor().Reset(Nan::GetFunction(tpl).ToLocalChecked());
@@ -217,4 +218,36 @@ NAN_METHOD(Tolerance::GetWorkpieceOfTolerance) {
 	return; // throw exception
 
     info.GetReturnValue().Set(wp_id);
+}
+
+NAN_METHOD(Tolerance::GetWorkpieceToleranceAll) {
+    Tolerance * tol = Nan::ObjectWrap::Unwrap<Tolerance>(info.This());
+    if (tol == 0) //Throw Exception
+    return;
+    if (info.Length() != 1) //Throw Exception
+    return;
+    if (!info[0]->IsNumber())
+      return;
+
+    Nan::Maybe<int32_t> wp = Nan::To<int32_t>(info[0]);
+
+    int size = 0;
+    if (!tol->_tol->wp_tolerance_count(wp.FromJust(), size)) //Throw Exception
+    return;
+
+    // Create a new empty array.
+    v8::Local<v8::Array> array = Nan::New<v8::Array>();
+    int tol_id = 0;
+    if(size >= 0){
+        for(int i = 0; i < size; i++){
+            if (!tol->_tol->wp_tolerance_next(wp.FromJust(), i, tol_id)) //Throw Exception
+                return;
+            else{
+                array->Set(i,Nan::New(tol_id));
+            }
+        }
+    }
+
+    info.GetReturnValue().Set(array);
+    return;
 }

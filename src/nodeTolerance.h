@@ -58,4 +58,7 @@ public:
 
     //int GetWorkpieceOfTolerance(int wp_id)
     static NAN_METHOD(GetWorkpieceOfTolerance);
+
+    //int[] GetWorkpieceToleranceAll(int wp_id)
+    static NAN_METHOD(GetWorkpieceToleranceAll);
 };
