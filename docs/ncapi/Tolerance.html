@@ -8388,11 +8388,25 @@ Get the datums of a tolerance.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetWorkpieceOfTolerance></a>GetWorkpieceOfTolerance()</h2>
-<pre>
+<div class="tabview">
+<pre class=".net">
 System::Int64 <b>GetWorkpieceOfTolerance</b> (
 	System::Int64 tol_id
 	);
 </pre>
+
+<pre class="node.js">
+int <b>GetWorkpieceOfTolerance</b> (
+	int tol_id
+	);
+</pre>
+<pre class="c++">
+RoseBoolean <b>tolerance_workpiece</b> (
+	int tol_id,
+	int &wp_id
+	);
+</pre>
+</div>
 
 <P>The <b>GetWorkpieceOfTolerance()</b> function returns the workpiece
 of a tolerance.
