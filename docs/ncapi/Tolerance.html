@@ -8437,7 +8437,8 @@ value.
 <h2 class=rule>
 <a name=GetWorkpieceToleranceNext></a>
 <a name=GetWorkpieceToleranceCount></a>GetWorkpieceToleranceCount/Next()</h2>
-<pre>
+<div class="tabview">
+<pre class=".net">
 System::Int64 <b>GetWorkpieceToleranceCount</b> (
 	System::Int64 wp_id
 	);
@@ -8447,6 +8448,24 @@ System::Int64 <b>GetWorkpieceToleranceNext</b> (
 	System::Int64 index
 	);
 </pre>
+<pre class="node.js">
+int[] <b>GetWorkpieceToleranceAll</b> (
+	int wp_id
+	);
+</pre>
+<pre class="C++">
+RoseBoolean <b>wp_tolerance_count</b> (
+	int wp_id,
+	int &count
+	);
+
+RoseBoolean <b>wp_tolerance_next</b> (
+	int wp_id,
+	int index,
+	int &tol_id
+	);
+</pre>
+</div>
 
 <P>The <b>GetWorkpieceToleranceCount()</b> function returns a count of
 the number of tolerances defined on a specific workpiece. The
