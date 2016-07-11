@@ -55,4 +55,10 @@ public:
 
     //int[] GetWorkingstepToleranceAll(int ws)
     static NAN_METHOD(GetWorkingstepToleranceAll);
+
+    //int GetWorkpieceOfTolerance(int wp_id)
+    static NAN_METHOD(GetWorkpieceOfTolerance);
+
+    //int[] GetWorkpieceToleranceAll(int wp_id)
+    static NAN_METHOD(GetWorkpieceToleranceAll);
 };
