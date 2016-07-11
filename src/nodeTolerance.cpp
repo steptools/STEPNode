@@ -52,6 +52,7 @@ NAN_MODULE_INIT(Tolerance::Init)
     Nan::SetPrototypeMethod(tpl, "GetToleranceUnit", GetToleranceUnit);
     Nan::SetPrototypeMethod(tpl, "GetToleranceValue", GetToleranceValue);
     Nan::SetPrototypeMethod(tpl, "GetWorkingstepToleranceAll", GetWorkingstepToleranceAll);
+    Nan::SetPrototypeMethod(tpl, "GetWorkpieceOfTolerance", GetWorkpieceOfTolerance);
 
 
     constructor().Reset(Nan::GetFunction(tpl).ToLocalChecked());
@@ -197,4 +198,23 @@ NAN_METHOD(Tolerance::GetWorkingstepToleranceAll) {
 
     info.GetReturnValue().Set(array);
     return;
+}
+
+NAN_METHOD(Tolerance::GetWorkpieceOfTolerance) {
+    Tolerance * tol = Nan::ObjectWrap::Unwrap<Tolerance>(info.This());
+    if (tol == 0) //Throw Exception
+        return;
+    if (info.Length() != 1) //Throw Exception
+        return;
+    if (!info[0]->IsNumber())
+        return;
+
+    Nan::Maybe<int32_t> tol_id = Nan::To<int32_t>(info[0]);
+
+    int wp_id = 0;
+
+    if (!tol->_tol->tolerance_workpiece (tol_id.FromJust(), wp_id))
+	return; // throw exception
+
+    info.GetReturnValue().Set(wp_id);
 }
