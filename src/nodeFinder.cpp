@@ -111,6 +111,8 @@ NAN_MODULE_INIT(Finder::Init)
 	Nan::SetPrototypeMethod(tpl, "GetWorkingstepTool", GetWorkingstepTool);
     Nan::SetPrototypeMethod(tpl, "GetWorkpieceAll", GetWorkpieceAll);
     Nan::SetPrototypeMethod(tpl, "GetWorkpieceAsIsOfMain", GetWorkpieceAsIsOfMain);
+    Nan::SetPrototypeMethod(tpl, "GetWorkpieceImmediateSubAssemblyAll", GetWorkpieceImmediateSubAssemblyAll);
+    Nan::SetPrototypeMethod(tpl, "GetWorkpieceSubAssemblyAll", GetWorkpieceSubAssemblyAll);
     Nan::SetPrototypeMethod(tpl, "GetWorkpieceToBeOfMain", GetWorkpieceToBeOfMain);
     Nan::SetPrototypeMethod(tpl, "GetWorkpieceDeltaOfMain", GetWorkpieceDeltaOfMain);
     Nan::SetPrototypeMethod(tpl, "GetWorkpieceFixtureOfMain", GetWorkpieceFixtureOfMain);
@@ -1654,6 +1656,64 @@ NAN_METHOD(Finder::GetWorkpieceAsIsOfMain)
     return; // error in cpp
 
     info.GetReturnValue().Set(wp_id);
+    return;
+}
+
+NAN_METHOD(Finder::GetWorkpieceImmediateSubAssemblyAll)
+{
+    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+
+    if (find == 0) // throw exception
+	return;
+    if (info.Length() != 1) // wrong # of args
+	return;
+    if (!info[0]->IsNumber()) // bad arg
+	return;
+
+    Nan::Maybe<int32_t> wp_id = Nan::To<int32_t>(info[0]);
+    
+    int count = 0;
+    if (!find->_find->workpiece_immediate_sub_assembly_count(wp_id.FromJust(), count))
+	return; // error in cpp
+
+    v8::Local<v8::Array> array = Nan::New<v8::Array>();
+    int sub_id = 0;
+    for (int i=0; i<count; i++) {
+	if (!find->_find->workpiece_immediate_sub_assembly_next(wp_id.FromJust(), i, sub_id))
+	    return; // error in cpp
+	array->Set(i, Nan::New(sub_id));
+    }
+
+    info.GetReturnValue().Set(array);
+    return;
+}
+
+NAN_METHOD(Finder::GetWorkpieceSubAssemblyAll)
+{
+    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+
+    if (find == 0) // throw exception
+	return;
+    if (info.Length() != 1) // wrong # of args
+	return;
+    if (!info[0]->IsNumber()) // bad arg
+	return;
+
+    Nan::Maybe<int32_t> wp_id = Nan::To<int32_t>(info[0]);
+    
+    int count = 0;
+    if (!find->_find->workpiece_assembly_count(wp_id.FromJust(), count))
+	return; // error in cpp
+
+    v8::Local<v8::Array> array = Nan::New<v8::Array>();
+    int sub_id = 0;
+    for (int i=0; i<count; i++) {
+	if (!find->_find->workpiece_assembly_next(wp_id.FromJust(), i, sub_id))
+	    return; // error in cpp
+	array->Set(i, Nan::New(sub_id));
+    }
+
+    info.GetReturnValue().Set(array);
     return;
 }
 
