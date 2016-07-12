@@ -51,7 +51,7 @@ NAN_MODULE_INIT(Finder::Init)
 	Nan::SetPrototypeMethod(tpl, "APIUnitsSpeed", APIUnitsSpeed);
 	Nan::SetPrototypeMethod(tpl, "GetCompoundFeatureCount", GetCompoundFeatureCount);
     Nan::SetPrototypeMethod(tpl, "GetExecutableBaseTime", GetExecutableBaseTime);
-    Nan::SetPrototypeMethod(tpl, "GetExecutableContainer" GetExecutableContainer);
+    Nan::SetPrototypeMethod(tpl, "GetExecutableContainer", GetExecutableContainer);
 	Nan::SetPrototypeMethod(tpl, "GetExecutableDistance", GetExecutableDistance);
 	Nan::SetPrototypeMethod(tpl, "GetExecutableDistanceUnit", GetExecutableDistanceUnit);
 	Nan::SetPrototypeMethod(tpl, "GetExecutableName", GetExecutableName);
@@ -295,7 +295,7 @@ NAN_METHOD(Finder::GetExecutableContainer)
 
     int wp_id = 0;
 
-    if (!find->_find->executable_container((int)exe_id, wp_id)) return;
+    if (!find->_find->executable_container(exe_id.FromJust(), wp_id)) return;
 
     info.GetReturnValue().Set(wp_id);
     return;
