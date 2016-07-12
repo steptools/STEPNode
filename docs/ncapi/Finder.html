@@ -11401,7 +11401,8 @@ RoseBoolean <b>fixture_of_main</b> (
 <h2 class=rule>
 <a name=GetWorkpieceImmediateSubAssemblyNext></a>
 <a name=GetWorkpieceImmediateSubAssemblyCount></a>GetWorkpieceImmediateSubAssemblyCount/Next()</h2>
-<pre>
+<div class="tabview">
+<pre class=".net">
 System::Int64 <b>GetWorkpieceImmediateSubAssemblyCount</b> (
 	System::Int64 wp_id
 	);
@@ -11409,6 +11410,23 @@ System::Int64 <b>GetWorkpieceImmediateSubAssemblyCount</b> (
 System::Int64 <b>GetWorkpieceImmediateSubAssemblyNext</b> (
 	System::Int64 wp_id,
 	System::Int64 index
+	);
+</pre>
+<pre class="node.js">
+int[] <b>GetWorkpieceImmediateSubAssemblyAll</b> (
+	int wp_id
+	);
+</pre>
+<pre class="C++">
+RoseBoolean <b>workpiece_assembly_count</b> (
+	int wp_id,
+	int &count
+	);
+
+RoseBoolean <b>workpiece_assembly_count</b> (
+	int wp_id,
+	int index,
+	int &sub_id
 	);
 </pre>
 
@@ -11581,7 +11599,8 @@ APT function to return the workpiece placement.
 <h2 class=rule>
 <a name=GetWorkpieceSubAssemblyNext></a>
 <a name=GetWorkpieceSubAssemblyCount></a>GetWorkpieceSubAssemblyCount/Next()</h2>
-<pre>
+<div class="tabview">
+<pre class=".net">
 System::Int64 <b>GetWorkpieceSubAssemblyCount</b> (
 	System::Int64 wp_id
 	);
@@ -11591,6 +11610,26 @@ System::Int64 <b>GetWorkpieceSubAssemblyNext</b> (
 	System::Int64 index
 	);
 </pre>
+
+<pre class="node.js">
+int[] <b>GetWorkpieceSubAssemblyAll</b> (
+	int wp_id
+	);
+</pre>
+
+<pre class="C++">
+RoseBoolean <b>workpiece_assembly_count</b> (
+	int wp_id,
+	int &count
+	);
+
+RoseBoolean <b>workpiece_assembly_count</b> (
+	int wp_id,
+	int index,
+	int &sub_id
+	);
+</pre>
+</div>
 
 <P>The <b>GetWorkpieceSubAssemblyCount()</b> function returns a count
 of the number of subassemblies in a workpiece.  The count includes all
