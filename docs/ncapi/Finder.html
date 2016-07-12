@@ -11401,7 +11401,8 @@ RoseBoolean <b>fixture_of_main</b> (
 <h2 class=rule>
 <a name=GetWorkpieceImmediateSubAssemblyNext></a>
 <a name=GetWorkpieceImmediateSubAssemblyCount></a>GetWorkpieceImmediateSubAssemblyCount/Next()</h2>
-<pre>
+<div class="tabview">
+<pre class=".net">
 System::Int64 <b>GetWorkpieceImmediateSubAssemblyCount</b> (
 	System::Int64 wp_id
 	);
@@ -11409,6 +11410,23 @@ System::Int64 <b>GetWorkpieceImmediateSubAssemblyCount</b> (
 System::Int64 <b>GetWorkpieceImmediateSubAssemblyNext</b> (
 	System::Int64 wp_id,
 	System::Int64 index
+	);
+</pre>
+<pre class="node.js">
+int[] <b>GetWorkpieceImmediateSubAssemblyAll</b> (
+	int wp_id
+	);
+</pre>
+<pre class="C++">
+RoseBoolean <b>workpiece_assembly_count</b> (
+	int wp_id,
+	int &count
+	);
+
+RoseBoolean <b>workpiece_assembly_count</b> (
+	int wp_id,
+	int index,
+	int &sub_id
 	);
 </pre>
 
