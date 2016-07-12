@@ -256,6 +256,9 @@ public:
     //int GetWorkpieceAsIsOfMain()
     static NAN_METHOD(GetWorkpieceAsIsOfMain);
 
+    //int[] GetWorkpieceImmediateSubAssemblyAll
+    static NAN_METHOD(GetWorkpieceImmediateSubAssemblyAll);
+
     //int[] GetWorkpieceSubAssemblyAll
     static NAN_METHOD(GetWorkpieceSubAssemblyAll);
 
