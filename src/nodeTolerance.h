@@ -44,6 +44,9 @@ public:
     //New Function for NodeJS using GetToleranceAllCount and GetToleranceAllNext
     static NAN_METHOD(GetToleranceAll);
 
+    // int[] GetToleranceFaceAll()
+    static NAN_METHOD(GetToleranceFaceAll);
+
     //string GetToleranceType(int TolId)
     static NAN_METHOD(GetToleranceType);
 

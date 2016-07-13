@@ -6809,7 +6809,8 @@ with a semantic tolerance.
 <h2 class=rule>
 <a name=GetToleranceFaceNext></a>
 <a name=GetToleranceFaceCount></a>GetToleranceFace[Local]Count/Next()</h2>
-<pre>
+<div class="tabview">
+<pre class=".net">
 System::Int64 <b>GetToleranceFaceCount</b> (
 	System::Int64 tol_id
 	);
@@ -6828,6 +6829,26 @@ System::Int64 <b>GetToleranceFaceLocalNext</b> (
 	System::Int64 index
 	);
 </pre>
+
+<pre class="node.js">
+int[] <b>GetToleranceFaceAll</b> (
+	int tol_id
+	);
+</pre>
+
+<pre class="C++">
+RoseBoolean <b>tolerance_face_count</b> (
+	int tol_id,
+	int &count
+	);
+
+RoseBoolean <b>tolerance_face_next</b> (
+	int tol_id,
+	int index,
+	int &face_id
+	);
+</pre>
+</div>
 
 <P>The <b>GetToleranceFaceCount()</b> function returns the number of
 faces constrained by a tolerance. For a location tolerance these will

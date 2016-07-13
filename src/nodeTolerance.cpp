@@ -48,6 +48,7 @@ NAN_MODULE_INIT(Tolerance::Init)
     Nan::SetPrototypeMethod(tpl, "GetToleranceAllCount", GetToleranceAllCount);
     Nan::SetPrototypeMethod(tpl, "GetToleranceAllNext", GetToleranceAllNext);
     Nan::SetPrototypeMethod(tpl, "GetToleranceAll", GetToleranceAll);
+    Nan::SetPrototypeMethod(tpl, "GetToleranceFaceAll", GetToleranceTargetFaceAll);
     Nan::SetPrototypeMethod(tpl, "GetToleranceType", GetToleranceType);
     Nan::SetPrototypeMethod(tpl, "GetToleranceUnit", GetToleranceUnit);
     Nan::SetPrototypeMethod(tpl, "GetToleranceValue", GetToleranceValue);
@@ -112,6 +113,38 @@ NAN_METHOD(Tolerance::GetToleranceAll) {
                 return;
             else{
                 array->Set(i,Nan::New(tol_id));
+            }
+        }
+    }
+
+    info.GetReturnValue().Set(array);
+    return;
+}
+
+NAN_METHOD(Tolerance::GetToleranceFaceAll) {
+    Tolerance * tol = Nan::ObjectWrap::Unwrap<Tolerance>(info.This());
+    if (tol == 0) //Throw Exception
+    return;
+    if (info.Length() != 1) //Throw Exception
+    return;
+    if (!info[0]->IsNumber())	// throw exception
+	return;
+
+    Nan::Maybe<int32_t> tol_id = Nan::To<int32_t>(info[0]);
+
+    int size = 0;
+    if (!tol->_tol->tolerance_face_count(tol_id.FromJust(), size)) //Throw Exception
+    return;
+
+    // Create a new empty array.
+   v8::Local<v8::Array> array = Nan::New<v8::Array>();
+    int face_id = 0;
+    if(size >= 0){
+        for(int i = 0; i < size; i++){
+            if (!tol->_tol->tolerance_face_next(tol_id.FromJust(), i, face_id)) //Throw Exception
+                return;
+            else{
+                array->Set(i,Nan::New(face_id));
             }
         }
     }
