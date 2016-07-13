@@ -51,6 +51,7 @@ NAN_MODULE_INIT(Finder::Init)
 	Nan::SetPrototypeMethod(tpl, "APIUnitsSpeed", APIUnitsSpeed);
 	Nan::SetPrototypeMethod(tpl, "GetCompoundFeatureCount", GetCompoundFeatureCount);
     Nan::SetPrototypeMethod(tpl, "GetExecutableBaseTime", GetExecutableBaseTime);
+    Nan::SetPrototypeMethod(tpl, "GetExecutableContainer", GetExecutableContainer);
 	Nan::SetPrototypeMethod(tpl, "GetExecutableDistance", GetExecutableDistance);
 	Nan::SetPrototypeMethod(tpl, "GetExecutableDistanceUnit", GetExecutableDistanceUnit);
 	Nan::SetPrototypeMethod(tpl, "GetExecutableName", GetExecutableName);
@@ -277,6 +278,28 @@ NAN_METHOD(Finder::GetExecutableBaseTime)
     return;
 
     info.GetReturnValue().Set(time);
+    return;
+}
+
+NAN_METHOD(Finder::GetExecutableContainer)
+{
+    Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (find == 0) // Throw exception
+    return;
+
+    if (info.Length() != 1) // incorrect number of arguments
+    return;
+
+    if (!info[0]->IsInt32()) // invalid argument
+    return;
+
+    Nan::Maybe<int32_t> exe_id = Nan::To<int32_t>(info[0]);
+
+    int wp_id = 0;
+
+    if (!find->_find->executable_container(exe_id.FromJust(), wp_id)) return;
+
+    info.GetReturnValue().Set(wp_id);
     return;
 }
 
@@ -1603,7 +1626,7 @@ NAN_METHOD(Finder::GetWorkpieceAll)
     int count = 0;
     if (!find->_find->workpiece_count(count)) //Throw Exception
     return;
-    
+
     v8::Local<v8::Array> array = Nan::New<v8::Array>();
     for (int i = 0; i < count; i++) {
         int wp_id = 0;
@@ -1612,7 +1635,7 @@ NAN_METHOD(Finder::GetWorkpieceAll)
         else
             array->Set(i, Nan::New(wp_id));
     }
-    
+
     info.GetReturnValue().Set(array);
     return;
 }
