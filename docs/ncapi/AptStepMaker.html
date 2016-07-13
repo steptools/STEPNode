@@ -5269,11 +5269,23 @@ System::Int64 <b>OpenCheckSTRL</b> (
 <!-- ================================ -->
 <h2 class=rule>
 <a name=OpenSTEP></a>OpenSTEP()</h2>
-<pre>
+<div class="tabview">
+<pre class=".net">
 void <b>OpenSTEP</b> (
 	System::String^ file_name
 	);
 </pre>
+<pre class="node.js">
+void <b>OpenSTEP</b> (
+	string file_name
+	);
+</pre>
+<pre class="C++">
+RoseBoolean <b>read_203_file</b> (
+	char * file_name
+	);
+</pre>
+</div>
 
 <P>The <b>OpenSTEP()</b> function opens a STEP file for viewing and editing.
 Tolerances and other GD&T information may be defined for the file using the
