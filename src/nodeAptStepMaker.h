@@ -49,6 +49,9 @@ public:
 
     static NAN_METHOD(OpenProject);
 
+    // void OpenSTEP (string file_name)
+    static NAN_METHOD(OpenSTEP);
+
     //void SaveAsModules(v8::String file_name);
     static NAN_METHOD(SaveAsModules);
 
