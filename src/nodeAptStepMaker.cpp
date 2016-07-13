@@ -56,6 +56,7 @@ NAN_MODULE_INIT(AptStepMaker::Init)
     Nan::SetPrototypeMethod(tpl, "GetToolNumber", GetToolNumber);
     Nan::SetPrototypeMethod(tpl, "GetUUID", GetUUID);
     Nan::SetPrototypeMethod(tpl, "OpenProject", OpenProject);
+    Nan::SetPrototypeMethod(tpl, "OpenSTEP", OpenSTEP);
     Nan::SetPrototypeMethod(tpl, "SaveAsModules", SaveAsModules);
     Nan::SetPrototypeMethod(tpl, "SaveAsP21", SaveAsP21);
 
@@ -145,6 +146,21 @@ NAN_METHOD(AptStepMaker::OpenProject) {
     char * fname = 0;
     v8StringToChar(info[0], fname);
     if (!apt->_apt->read_238_file(fname)) //TODO: Handle Error.
+	return;
+    return; //Success finding, return.
+}
+
+NAN_METHOD(AptStepMaker::OpenSTEP) {
+    AptStepMaker* apt = Nan::ObjectWrap::Unwrap<AptStepMaker>(info.This());
+    if (apt == 0) //Throw Exception
+	return;
+    if (info.Length() != 1) //Function should get one argument.
+	return;
+    if (!info[0]->IsString())
+	return;
+    char * fname = 0;
+    v8StringToChar(info[0], fname);
+    if (!apt->_apt->read_203_file(fname)) //TODO: Handle Error.
 	return;
     return; //Success finding, return.
 }
