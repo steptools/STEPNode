@@ -47,6 +47,9 @@ public:
     //string GetUUID(int EID)
     static NAN_METHOD(GetUUID);
 
+    //int[] GetWorkpieceExecutableAll(int wp_id)
+    static NAN_METHOD(GetWorkpieceExecutableAll);
+
     static NAN_METHOD(OpenProject);
 
     // void OpenSTEP (string file_name)
