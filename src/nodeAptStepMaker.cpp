@@ -55,6 +55,7 @@ NAN_MODULE_INIT(AptStepMaker::Init)
     Nan::SetPrototypeMethod(tpl, "GetToolIdentifier", GetToolIdentifier);
     Nan::SetPrototypeMethod(tpl, "GetToolNumber", GetToolNumber);
     Nan::SetPrototypeMethod(tpl, "GetUUID", GetUUID);
+    Nan::SetPrototypeMethod(tpl, "GetWorkpieceExecutableAll", GetWorkpieceExecutableAll);
     Nan::SetPrototypeMethod(tpl, "OpenProject", OpenProject);
     Nan::SetPrototypeMethod(tpl, "OpenSTEP", OpenSTEP);
     Nan::SetPrototypeMethod(tpl, "SaveAsModules", SaveAsModules);
@@ -132,6 +133,34 @@ NAN_METHOD(AptStepMaker::GetUUID)
     if (!apt->_apt->get_uuid(eid.FromJust(), uuid)) //TODO: Handle error
 	return;
     info.GetReturnValue().Set(CharTov8String((char *)uuid));
+    return;
+}
+
+NAN_METHOD(AptStepMaker::GetWorkpieceExecutableAll)
+{
+    AptStepMaker * apt = Nan::ObjectWrap::Unwrap<AptStepMaker>(info.This());
+    if (apt == 0) //Throw Exception
+    return;
+    if (info.Length() != 1) //Function should get one argument.
+    return;
+    if (!info[0]->IsInt32())
+    return;
+
+    Nan::Maybe<int32_t> wpid = Nan::To<int32_t>(info[0]);
+    int count = 0;
+    if (!apt->_apt->workpiece_executable_count(wpid.FromJust(), count)) //Throw Exception
+    return;
+    
+    v8::Local<v8::Array> array = Nan::New<v8::Array>();
+    for (int i = 0; i < count; i++) {
+        int exe_id = 0;
+        if (!apt->_apt->workpiece_executable_next(wpid.FromJust(), i, exe_id)) //Throw Exception
+            return;
+        else
+            array->Set(i, Nan::New(exe_id));
+    }
+
+    info.GetReturnValue().Set(array);
     return;
 }
 

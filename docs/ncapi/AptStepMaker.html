@@ -3872,7 +3872,8 @@ the <a href="#NewProject">NewProject</a> function.
 
 <a name=GetWorkpieceExecutableNext></a>
 <a name=GetWorkpieceExecutableCount></a>GetWorkpieceExecutableCount/Next()</h2>
-<pre>
+<div class="tabview">
+<pre class=".net">
 System::Int64 <b>GetWorkpieceExecutableCount</b> (
 	System::Int64 wp_id
 	);
@@ -3882,6 +3883,23 @@ System::Int64 <b>GetWorkpieceExecutableNext</b> (
 	System::Int64 index
 	);
 </pre>
+<pre class="node.js">
+int[] <b>GetWorkpieceExecutableAll</b> (
+	int wp_id
+	);
+</pre>
+<pre class="C++">
+RoseBoolean <b>workpiece_executable_count</b> (
+	int wp_id, int &count
+	);
+
+RoseBoolean <b>workpiece_executable_next</b> (
+	int wp_id, 
+	int index, 
+	int &exe_id
+	);
+</pre>
+</div>
 
 <P>The <b>GetWorkpieceExecutableCount()</b> function returns the
 number of workingsteps and workplans that refer to the workpiece.  The
