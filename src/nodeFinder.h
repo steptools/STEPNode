@@ -154,6 +154,12 @@ public:
     //string GetProcessFeedUnit (int ws_id);
     static NAN_METHOD(GetProcessFeedUnit);
 
+    //double GetProcessSpeed (int ws_id);
+    static NAN_METHOD(GetProcessSpeed);
+
+    //string GetProcessSpeedUnit (int ws_id);
+    static NAN_METHOD(GetProcessSpeedUnit);
+
     //string GetProjectName();
     static NAN_METHOD(GetProjectName);
 
