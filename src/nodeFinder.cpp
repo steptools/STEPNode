@@ -77,6 +77,7 @@ NAN_MODULE_INIT(Finder::Init)
 	Nan::SetPrototypeMethod(tpl, "GetProcessFeed", GetProcessFeed);
 	Nan::SetPrototypeMethod(tpl, "GetProcessFeedUnit", GetProcessFeedUnit);
 	Nan::SetPrototypeMethod(tpl, "GetProcessSpeed", GetProcessSpeed);
+	Nan::SetPrototypeMethod(tpl, "GetProcessSpeedUnit", GetProcessSpeedUnit);
 	Nan::SetPrototypeMethod(tpl, "GetProjectName", GetProjectName);
     Nan::SetPrototypeMethod(tpl, "GetSelectiveExecutableAll", GetSelectiveExecutableAll);
     Nan::SetPrototypeMethod(tpl, "GetSelectiveExecutableAllEnabled", GetSelectiveExecutableAllEnabled);
@@ -881,6 +882,28 @@ NAN_METHOD(Finder::GetProcessSpeed) {
     info.GetReturnValue().Set(speed);
     return;
 }
+
+NAN_METHOD(Finder::GetProcessSpeedUnit) {
+    Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (info.Length() != 1) //Throw Exception
+	return;
+    if (info[0]->IsUndefined()) //Throw Exception
+	return;
+    if (!info[0]->IsInt32()) //Throw Exception
+	return;
+
+    const char * unit = 0;
+    const char * dummy;
+
+    Nan::Maybe<int32_t> ws_id = Nan::To<int32_t>(info[0]);
+
+    if (!find->_find->feed_speed_unit(ws_id.FromJust(), dummy, unit)) //Throw Exception
+	return;
+
+    info.GetReturnValue().Set(CharTov8String((char *)unit));
+    return;
+}
+
 NAN_METHOD(Finder::GetProjectName) {
     Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
     if (find == 0) {
