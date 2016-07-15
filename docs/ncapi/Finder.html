@@ -7763,7 +7763,8 @@ executables that may be workingsteps.
 <h2 class=rule>
 <a name=GetProcessSpeedUnit></a>
 <a name=GetProcessSpeed></a>GetProcessSpeed() and Unit</h2>
-<pre>
+<div class="tabview">
+<pre class=".net">
 double <b>GetProcessSpeed</b> (
 	System::Int64 ws_id
 	);
@@ -7772,6 +7773,29 @@ System::String^ <b>GetProcessSpeedUnit</b> (
 	System::Int64 ws_id
 	);
 </pre>
+<pre class="node.js">
+double <b>GetProcessSpeed</b> (
+	int ws_id
+	);
+
+string <b>GetProcessSpeedUnit</b> (
+	int ws_id
+	);
+</pre>
+<pre class="C++">
+RoseBoolean <b>feed_speed</b> (
+	int ws_id,
+	double &feed, 
+	double &speed
+	);
+
+RoseBoolean <b>feed_speed_unit</b> (
+	int ws_id, 
+	const char * &feed_unit, 
+	const char * &speed_unit
+	);
+</pre>
+</div>
 
 <P>The <b>GetProcessSpeed()</b> function returns the spindle speed
 value of a workingstep, toolpath or technology entity.  The value of
