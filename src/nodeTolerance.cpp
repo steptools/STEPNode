@@ -265,7 +265,7 @@ NAN_METHOD(Tolerance::GetWorkpieceToleranceAll) {
     Nan::Maybe<int32_t> wp = Nan::To<int32_t>(info[0]);
 
     int size = 0;
-    if (!tol->_tol->wp_tolerance_count(wp.FromJust(), size)) //Throw Exception
+    if (!tol->_tol->wp_extended_tolerance_count(wp.FromJust(), size)) //Throw Exception
     return;
 
     // Create a new empty array.
@@ -273,7 +273,7 @@ NAN_METHOD(Tolerance::GetWorkpieceToleranceAll) {
     int tol_id = 0;
     if(size >= 0){
         for(int i = 0; i < size; i++){
-            if (!tol->_tol->wp_tolerance_next(wp.FromJust(), i, tol_id)) //Throw Exception
+            if (!tol->_tol->wp_extended_tolerance_next(wp.FromJust(), i, tol_id)) //Throw Exception
                 return;
             else{
                 array->Set(i,Nan::New(tol_id));
