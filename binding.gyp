@@ -3,7 +3,7 @@
 		"conditions": [
             ["OS == 'linux' ", {
                'Rose_lib': '$(ROSE)/lib/linux_x86_64_gcc_3.4_pic/lib',
-               'lib_ext': '.a' 
+               'lib_ext': '.a'
             }],
 			["OS == 'mac' ", {
 				'Rose_lib':'$(ROSE)/lib/macosx_all_clang/lib',
@@ -17,7 +17,7 @@
 	},
 	"targets": [
         {
-		"target_name": "StepNC",
+		"target_name": "StepNode",
 		"sources": [
 			"./src/nodeStepNC.cpp",
 			"./src/nodeUtils.h",
