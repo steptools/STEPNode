@@ -136,6 +136,9 @@ public:
     //long GetFeatureID(long ws_id);
     static NAN_METHOD(GetFeatureID);
 
+    //No .Net Dll implementation
+    static NAN_METHOD(GetGeometryJSON);
+
     //int[] GetNestedExecutableAll (int wp_id);
     static NAN_METHOD(GetNestedExecutableAll);
 
