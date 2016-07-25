@@ -720,12 +720,13 @@ NAN_METHOD(Finder::GetGeometryJSON) {
     if (!info[0]->IsInt32())
     return;
 
-    char * json = new char[500];
+    char * json = 0;
     Nan::Maybe<int32_t> t = Nan::To<int32_t>(info[0]);
     if (!find->_find->product_geometry_as_json(t.FromJust(), json))
     return;
 
     info.GetReturnValue().Set(CharTov8String((char *)json));
+    delete [] json;
     return;
 }
 
