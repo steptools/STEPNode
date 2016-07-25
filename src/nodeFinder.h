@@ -19,7 +19,7 @@
 
 #include <nan.h>
 #include <stncapt/Find.h>
-
+#include <stncapt/message.h>
 class Finder : public Nan::ObjectWrap {
 private:
     finder * _find;
@@ -29,7 +29,10 @@ private:
 	static Nan::Persistent<v8::Function> my_constructor;
 	return my_constructor;
     }
-    Finder() { _find = new finder(); };
+    Finder() {
+      report_via_printf();
+      _find = new finder(); 
+    };
     ~Finder() { delete _find; };
 public:
     static NAN_MODULE_INIT(Init);

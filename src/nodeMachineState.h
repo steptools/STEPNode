@@ -19,13 +19,14 @@
 #pragma once
 #include <nan.h>
 #include <stncapt/MachineState.h>
-
+#include <stncapt/message.h>
 class machineState : public Nan::ObjectWrap {
 private:
     MachineState * _ms;
     //var ms = new StepNC.machineState(string file);
     static NAN_METHOD(New);
     static inline Nan::Persistent<v8::Function> & constructor() {
+        report_via_printf();
 	    static Nan::Persistent<v8::Function> my_constructor;
 	    return my_constructor;
     }

@@ -22,7 +22,6 @@
 Tolerance * Tolerance::_singleton = nullptr;
 NAN_METHOD(Tolerance::New)
 {
-    ReportPrintf();
     if (info.IsConstructCall())
     {
 	if (!info[0]->IsUndefined())
