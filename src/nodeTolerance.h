@@ -20,7 +20,7 @@
 #include <nan.h>
 #include <stncapt/Tolerance.h>
 #include "nodeAptStepMaker.h"
-
+#include <stncapt/message.h>
 class Tolerance : public Nan::ObjectWrap {
 private:
     static Tolerance* _singleton;
@@ -31,7 +31,11 @@ private:
 	return my_constructor;
     }
     ~Tolerance() { delete _tol; };
-    Tolerance() { _tol = new tolerance(AptStepMaker::getApt()); };
+    Tolerance() { 
+        report_via_printf();
+        _tol = new tolerance(AptStepMaker::getApt());
+
+    };
 public:
     static NAN_MODULE_INIT(Init);
 

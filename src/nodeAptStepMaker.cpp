@@ -28,6 +28,7 @@ apt2step* AptStepMaker::getApt() {
 
 NAN_METHOD(AptStepMaker::New)
 {
+
     if (info.IsConstructCall())
     {
 	if (!info[0]->IsUndefined())
