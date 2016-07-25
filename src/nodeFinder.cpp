@@ -22,6 +22,7 @@ Finder *Finder::_singleton = nullptr;
 
 NAN_METHOD(Finder::New)
 {
+    void StepncSystem::ReportPrintf();
 	if (info.IsConstructCall())
 	{
 		if (!info[0]->IsUndefined())
@@ -41,6 +42,7 @@ NAN_METHOD(Finder::New)
 
 NAN_MODULE_INIT(Finder::Init)
 {
+    void StepncSystem::ReportPrintf();
 	v8::Local<v8::FunctionTemplate> tpl = Nan::New<v8::FunctionTemplate>(New);
 	tpl->SetClassName(Nan::New("Finder").ToLocalChecked());
 	tpl->InstanceTemplate()->SetInternalFieldCount(1);
