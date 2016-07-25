@@ -39,7 +39,7 @@ StixSimGeomType GeomTypeFromString(char* typ)
 
 NAN_METHOD(machineState::New)
 {
-    void StepncSystem::ReportPrintf();
+    ReportPrintf();
     if (info.IsConstructCall())
     {
 	if (info[0]->IsUndefined())

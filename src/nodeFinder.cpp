@@ -22,7 +22,7 @@ Finder *Finder::_singleton = nullptr;
 
 NAN_METHOD(Finder::New)
 {
-    void StepncSystem::ReportPrintf();
+    ReportPrintf();
 	if (info.IsConstructCall())
 	{
 		if (!info[0]->IsUndefined())
