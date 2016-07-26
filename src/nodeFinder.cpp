@@ -69,6 +69,7 @@ NAN_MODULE_INIT(Finder::Init)
 	Nan::SetPrototypeMethod(tpl, "GetFeatureID", GetFeatureID);
 	Nan::SetPrototypeMethod(tpl, "GetFeatureName", GetFeatureName);
 	Nan::SetPrototypeMethod(tpl, "GetFeatureOutsideProfileClosedCircular", GetFeatureOutsideProfileClosedCircular);
+    Nan::SetPrototypeMethod(tpl, "GetGeometryJSON", GetGeometryJSON);
 	Nan::SetPrototypeMethod(tpl, "GetMainWorkplan", GetMainWorkplan);
 	Nan::SetPrototypeMethod(tpl, "GetMaterialName", GetMaterialName);
 	Nan::SetPrototypeMethod(tpl, "GetNestedExecutableAll", GetNestedExecutableAll);
@@ -708,6 +709,26 @@ NAN_METHOD(Finder::GetFeatureOutsideProfileClosedCircular) {
     Nan::Set(obj, CharTov8String("z"), Nan::New(z));
 
     info.GetReturnValue().Set(obj);
+}
+
+NAN_METHOD(Finder::GetGeometryJSON) {
+    Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+
+    if (info.Length() != 1)
+    return;
+    if (info[0]->IsUndefined())
+    return;
+    if (!info[0]->IsInt32())
+    return;
+
+    char * json = 0;
+    Nan::Maybe<int32_t> t = Nan::To<int32_t>(info[0]);
+    if (!find->_find->product_geometry_as_json(t.FromJust(), json))
+    return;
+
+    info.GetReturnValue().Set(CharTov8String((char *)json));
+    delete [] json;
+    return;
 }
 
 NAN_METHOD(Finder::GetMainWorkplan) {
