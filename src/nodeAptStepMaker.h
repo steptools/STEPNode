@@ -19,7 +19,7 @@
 #pragma once
 #include <nan.h>
 #include <stncapt/APT.h>
-
+#include <stncapt/message.h>
 class AptStepMaker : public Nan::ObjectWrap {
 private:
     apt2step * _apt;
@@ -29,7 +29,10 @@ private:
 	static Nan::Persistent<v8::Function> my_constructor;
 	return my_constructor;
     }
-    AptStepMaker() { _apt = new apt2step(); };
+    AptStepMaker() { 
+        report_via_printf();
+        _apt = new apt2step(); 
+    };
     ~AptStepMaker() { delete _apt; };
 public:
     static apt2step* getApt();
