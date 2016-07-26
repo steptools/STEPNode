@@ -1,3 +1,3 @@
-var StepNC = require('../build/Release/StepNC');
-module.exports.find = new StepNC.Finder();
-module.exports.apt = new StepNC.AptStepMaker();
+var StepNode = require('../build/Release/StepNode');
+module.exports.find = new StepNode.Finder();
+module.exports.apt = new StepNode.AptStepMaker();
