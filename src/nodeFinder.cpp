@@ -109,6 +109,7 @@ NAN_MODULE_INIT(Finder::Init)
 	Nan::SetPrototypeMethod(tpl, "GetToolReferenceDataName", GetToolReferenceDataName);
     Nan::SetPrototypeMethod(tpl, "GetToolType", GetToolType);
 	Nan::SetPrototypeMethod(tpl, "GetToolUsingNumber", GetToolUsingNumber);
+    Nan::SetPrototypeMethod(tpl, "GetToolWorkpiece", GetToolWorkpiece);
 	Nan::SetPrototypeMethod(tpl, "GetWorkingstep", GetWorkingstep);
 	Nan::SetPrototypeMethod(tpl, "GetWorkingstepName", GetWorkingstepName);
 	Nan::SetPrototypeMethod(tpl, "GetWorkingstepTool", GetWorkingstepTool);
@@ -1611,6 +1612,30 @@ NAN_METHOD(Finder::GetToolUsingNumber)
     info.GetReturnValue().Set(tool_id);
 
     delete[] id;
+
+    return;
+}
+
+NAN_METHOD(Finder::GetToolWorkpiece)
+{
+    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+
+    if (find == 0)
+    return; //throw exception
+
+    if (info.Length() != 1)
+    return; //throw exception
+
+    if (!info[0]->IsInt32())
+    return; //  invalid argument
+
+    int pdef_id = 0;
+    Nan::Maybe<int32_t> tl_id = Nan::To<int32_t>(info[0]);
+
+    if (!find->_find->tool_workpiece(tl_id.FromJust(), pdef_id))
+    return; // error in cpp
+
+    info.GetReturnValue().Set(pdef_id);
 
     return;
 }

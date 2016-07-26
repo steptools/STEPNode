@@ -115,6 +115,7 @@ Search STEP Tools Web Support<br>
 <li><a href="#GetFunctionDisplayMessage">GetFunctionDisplayMessage()</a>
 <li><a href="#GetFunctionExtendedNcDescription">GetFunctionExtendedNcDescription()</a>
 <li><a href="#GetFunctionIndexTable">GetFunctionIndexTable()</a>
+<li><a href="#GetJSONGeometry">GetJSONGeometry()</a>
 <li><a href="#GetMachineParametersFeedrate">GetMachineParametersFeedrate() and Unit</a>
 <li><a href="#GetMachineParametersMachineName">GetMachineParametersMachineName()</a>
 <li><a href="#GetMachineParametersSpindlePower">GetMachineParametersSpindlePower() and Unit</a>
@@ -4772,6 +4773,45 @@ executable is an NC function.
 <li>Project not defined: There is no AP-238 file open.
 <li>Not a index table function: The argument does not identify an
 index table function.
+</UL>
+
+<!-- ================================ -->
+<h2 class=rule>
+<a name=GetJSONGeometry></a>GetJSONGeometry()</h2>
+<div class="tabview">
+<pre class=".net">
+System::String^ <b>GetJSONGeometry</b> (
+	System::Int64 e_id
+	);
+</pre>
+<pre class="node.js">
+string <b>GetGeometryJSON</b> (
+	int e_id
+	);
+</pre>
+<pre class="C++">
+RoseBoolean <b>product_geometry_as_json</b> (
+	unsigned int eid, 
+	char* &json
+	);
+</pre>
+</div>
+
+<P>The <b>GetJSONGeometry()</b> function returns a JSON object representing
+the geometry that is associated with the given e_id.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>e_id <DD>The id of the entity that the geometry is needed for.
+</DL>
+
+<h3>Related Functions</h3>
+<UL>
+</UL>
+
+
+<h3>Common Errors</h3>
+<UL>
 </UL>
 
 
