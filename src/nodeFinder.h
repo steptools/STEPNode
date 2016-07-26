@@ -256,6 +256,9 @@ public:
 	//string GetToolType (int ws_id)
 	static NAN_METHOD(GetToolType);
 
+    //int GetToolWorkpiece (int e_id)
+    static NAN_METHOD(GetToolWorkpiece);
+
     //int GetWorkingstep(int wp_id, int index)
     static NAN_METHOD(GetWorkingstep);
 
