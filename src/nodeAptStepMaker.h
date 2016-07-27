@@ -63,4 +63,7 @@ public:
 
     //void SaveAsP21(v8::String file_name);
     static NAN_METHOD(SaveAsP21);
+
+    //void SetNameGet();
+    static NAN_METHOD(SetNameGet);
 };
