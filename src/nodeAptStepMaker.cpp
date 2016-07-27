@@ -61,6 +61,7 @@ NAN_MODULE_INIT(AptStepMaker::Init)
     Nan::SetPrototypeMethod(tpl, "OpenSTEP", OpenSTEP);
     Nan::SetPrototypeMethod(tpl, "SaveAsModules", SaveAsModules);
     Nan::SetPrototypeMethod(tpl, "SaveAsP21", SaveAsP21);
+    Nan::SetPrototypeMethod(tpl, "SetNameGet", SetNameGet);
 
     constructor().Reset(Nan::GetFunction(tpl).ToLocalChecked());
     Nan::Set(target, Nan::New("AptStepMaker").ToLocalChecked(), Nan::GetFunction(tpl).ToLocalChecked());
@@ -233,4 +234,21 @@ NAN_METHOD(AptStepMaker::SaveAsP21)
 
     if (!apt->_apt->save_file(file_name_utf8, false)) //Throw Exception
 	return;
+}
+
+NAN_METHOD(AptStepMaker::SetNameGet)
+{
+    AptStepMaker * apt = Nan::ObjectWrap::Unwrap<AptStepMaker>(info.This());
+    if (apt == 0) //Throw Exception
+    return;
+    if (info.Length() != 1) //Function should get one argument.
+    return;
+    if (!info[0]->IsInt32())
+    return;
+    Nan::Maybe<int32_t> eid = Nan::To<int32_t>(info[0]);
+    const char * szName;
+    if (!apt->_apt->get_name(eid.FromJust(), szName)) //TODO: Handle error
+    return;
+    info.GetReturnValue().Set(CharTov8String((char *)szName));
+    return;
 }

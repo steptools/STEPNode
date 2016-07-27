@@ -7049,11 +7049,24 @@ System::String^ <b>SetNameCreateSTRL</b> (
 <!-- ================================ -->
 <h2 class=rule>
 <a name=SetNameGet></a>SetNameGet()</h2>
-<pre>
+<div class="tabview">
+<pre class=".net">
 System::String^ <b>SetNameGet</b> (
 	System::Int64 ent_id
 	);
 </pre>
+<pre class="node.js">
+string <b>SetNameGet</b> (
+	int ent_id
+	);
+</pre>
+<pre class="C++">
+RoseBoolean <b>get_name</b> (
+	int ent_id, 
+	const char * &name
+	);
+</pre>
+</div>
 
 <P>Many objects in the API have names or
 identifiers. The <b>SetNameGet()</b> function returns the current
