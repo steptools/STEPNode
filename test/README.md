@@ -14,7 +14,7 @@
 #### Example for GetMainWorkplan:
 
 ``` 
-var StepNC = require('../build/Release/StepNC');
+ 
 var globals = require('./testglobals');
 var find = globals.find;
 var expect = require("chai").expect;
@@ -30,7 +30,7 @@ describe("Test A GetMainWorkplan", function(){
 });
 ```
 
-**testglobals module** is required in the first line due to the inability to open multiple finder objects from the StepNC Library so all: Finder, AptStepMaker, Tolerance, and any other objects that will be used across multiple tests should go here.
+**testglobals module** is required in the first line due to the inability to open multiple finder objects from the StepNode Library so all: Finder, AptStepMaker, Tolerance, and any other objects that will be used across multiple tests should go here.
 
 > var expect = require("chai").expect;
 
