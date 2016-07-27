@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Step-NC Node.js library",
   "main": "index.js",
-  "license" : "Apache-2.0",
+  "license": "Apache-2.0",
   "directories": {
     "doc": "docs",
     "test": "tests"
@@ -19,7 +19,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://ian-h-chamberlain@github.com/steptools/StepNCNode.git"
+    "url": "git://www.github.com/steptools/STEPNode.git"
   },
   "keywords": [
     "step",
