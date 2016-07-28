@@ -33,7 +33,7 @@
   "author": "",
   "gypfile": true,
   "bugs": {
-    "url": "https://github.com/steptools/StepNCNode/issues"
+    "url": "https://github.com/steptools/STEPNode/issues"
   },
-  "homepage": "https://github.com/steptools/StepNCNode"
+  "homepage": "https://github.com/steptools/STEPNode"
 }
