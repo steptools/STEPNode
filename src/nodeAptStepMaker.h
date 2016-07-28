@@ -43,6 +43,14 @@ public:
 
     //string GetToolIdentifier(string tool_number)
     static NAN_METHOD(GetToolIdentifier);
+		
+		static NAN_METHOD(GetExecutableWorkpieceToBe);
+		
+		static NAN_METHOD(GetCurrentWorkpiece);
+		
+		static NAN_METHOD(GetCurrentWorkplan);
+		
+		static NAN_METHOD(GetWorkplanSetup);
 
     //string GetToolNumber(int id)
     static NAN_METHOD(GetToolNumber);
@@ -52,6 +60,8 @@ public:
 
     //int[] GetWorkpieceExecutableAll(int wp_id)
     static NAN_METHOD(GetWorkpieceExecutableAll);
+		
+		static NAN_METHOD(GetWorkpiecePlacement);
 
     static NAN_METHOD(OpenProject);
 

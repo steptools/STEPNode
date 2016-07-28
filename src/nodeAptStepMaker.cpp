@@ -57,7 +57,12 @@ NAN_MODULE_INIT(AptStepMaker::Init)
     Nan::SetPrototypeMethod(tpl, "GetToolNumber", GetToolNumber);
     Nan::SetPrototypeMethod(tpl, "GetUUID", GetUUID);
     Nan::SetPrototypeMethod(tpl, "GetWorkpieceExecutableAll", GetWorkpieceExecutableAll);
-    Nan::SetPrototypeMethod(tpl, "OpenProject", OpenProject);
+    Nan::SetPrototypeMethod(tpl, "GetWorkpiecePlacement", GetWorkpiecePlacement);
+		Nan::SetPrototypeMethod(tpl, "GetExecutableWorkpieceToBe", GetExecutableWorkpieceToBe);
+		Nan::SetPrototypeMethod(tpl, "GetCurrentWorkpiece", GetCurrentWorkpiece);
+		Nan::SetPrototypeMethod(tpl, "GetCurrentWorkplan", GetCurrentWorkplan);
+		Nan::SetPrototypeMethod(tpl, "GetWorkplanSetup", GetWorkplanSetup);
+		Nan::SetPrototypeMethod(tpl, "OpenProject", OpenProject);
     Nan::SetPrototypeMethod(tpl, "OpenSTEP", OpenSTEP);
     Nan::SetPrototypeMethod(tpl, "SaveAsModules", SaveAsModules);
     Nan::SetPrototypeMethod(tpl, "SaveAsP21", SaveAsP21);
@@ -166,6 +171,127 @@ NAN_METHOD(AptStepMaker::GetWorkpieceExecutableAll)
     return;
 }
 
+NAN_METHOD(AptStepMaker::GetWorkpiecePlacement) {
+  AptStepMaker * apt = Nan::ObjectWrap::Unwrap<AptStepMaker>(info.This());
+  if (apt == 0) //Throw Exception
+  return;
+  if (info.Length() != 1) //Function should get one argument.
+  return;
+  if (!info[0]->IsInt32())
+  return;
+	
+	Nan::Maybe<int32_t> wpid = Nan::To<int32_t>(info[0]);
+	double x;
+	double y;
+	double z;
+	double i;
+	double j;
+	double k;
+	double a;
+	double b;
+	double c;
+	
+  if (!apt->_apt->get_workpiece_placement(wpid.FromJust(), x, y, z, i, j, k, a, b, c)) //TODO: Handle error
+		return;
+		
+  v8::Local<v8::Array> array = Nan::New<v8::Array>();
+  array->Set(0, Nan::New(x));
+	array->Set(1, Nan::New(y));
+	array->Set(2, Nan::New(z));
+	array->Set(3, Nan::New(i));
+	array->Set(4, Nan::New(j));
+	array->Set(5, Nan::New(k));
+	array->Set(6, Nan::New(a));
+	array->Set(7, Nan::New(b));
+	array->Set(8, Nan::New(c));
+	
+  info.GetReturnValue().Set(array);
+  return;
+}
+
+NAN_METHOD(AptStepMaker::GetExecutableWorkpieceToBe) {
+  AptStepMaker * apt = Nan::ObjectWrap::Unwrap<AptStepMaker>(info.This());
+  if (apt == 0) //Throw Exception
+  return;
+  if (info.Length() != 1) //Function should get one argument.
+  return;
+  if (!info[0]->IsInt32())
+  return;
+	
+	Nan::Maybe<int32_t> wsid = Nan::To<int32_t>(info[0]);
+	int wpid;
+	
+  if (!apt->_apt->executable_removal_workpiece(wsid.FromJust(), wpid)) //TODO: Handle error
+		return;
+	
+  info.GetReturnValue().Set(wpid);
+  return;
+}
+
+NAN_METHOD(AptStepMaker::GetCurrentWorkpiece) {
+	
+	AptStepMaker* apt = Nan::ObjectWrap::Unwrap<AptStepMaker>(info.This());
+	
+	int wsid;
+	int dummy;
+  if (!apt->_apt->more_current_ids(wsid, dummy, dummy, dummy, dummy)) //TODO: Handle error
+		return;
+	
+  info.GetReturnValue().Set(wsid);
+  return;
+}
+
+NAN_METHOD(AptStepMaker::GetCurrentWorkplan) {
+	
+	AptStepMaker* apt = Nan::ObjectWrap::Unwrap<AptStepMaker>(info.This());
+	
+	int wpid;
+	int dummy;
+  if (!apt->_apt->more_current_ids(dummy, wpid, dummy, dummy, dummy)) //TODO: Handle error
+		return;
+	
+  info.GetReturnValue().Set(wpid);
+  return;
+}
+
+NAN_METHOD(AptStepMaker::GetWorkplanSetup) {
+  AptStepMaker * apt = Nan::ObjectWrap::Unwrap<AptStepMaker>(info.This());
+  if (apt == 0) //Throw Exception
+  return;
+  if (info.Length() != 1) //Function should get one argument.
+  return;
+  if (!info[0]->IsInt32())
+  return;
+	
+	Nan::Maybe<int32_t> wpid = Nan::To<int32_t>(info[0]);
+	double x;
+	double y;
+	double z;
+	double i;
+	double j;
+	double k;
+	double a;
+	double b;
+	double c;
+	
+  if (!apt->_apt->workplan_setup_get(wpid.FromJust(), x, y, z, i, j, k, a, b, c)) //TODO: Handle error
+		return;
+		
+  v8::Local<v8::Array> array = Nan::New<v8::Array>();
+  array->Set(0, Nan::New(x));
+	array->Set(1, Nan::New(y));
+	array->Set(2, Nan::New(z));
+	array->Set(3, Nan::New(i));
+	array->Set(4, Nan::New(j));
+	array->Set(5, Nan::New(k));
+	array->Set(6, Nan::New(a));
+	array->Set(7, Nan::New(b));
+	array->Set(8, Nan::New(c));
+	
+  info.GetReturnValue().Set(array);
+  return;
+}
+
 NAN_METHOD(AptStepMaker::OpenProject) {
     AptStepMaker* apt = Nan::ObjectWrap::Unwrap<AptStepMaker>(info.This());
     if (apt == 0) //Throw Exception
@@ -215,6 +341,9 @@ NAN_METHOD(AptStepMaker::SaveAsModules)
     if (!apt->_apt->save_file(file_name_utf8, true)) //Throw Exception
 	return;
 }
+
+
+
 
 NAN_METHOD(AptStepMaker::SaveAsP21)
 {
