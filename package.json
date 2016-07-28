@@ -28,7 +28,7 @@
     "main.js",
     "Win",
     "Mac",
-    "Linux",
+    "Linux"
   ],
   "author": "",
   "gypfile": true,
