@@ -8,11 +8,10 @@
     "doc": "docs",
     "test": "tests"
   },
-  "dependencies": {
+  "devDependencies": {
     "chai": "^3.5.0",
     "nan": "^2.3.5"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "./node_modules/.bin/mocha --reporter spec"
   },
@@ -24,6 +23,12 @@
     "step",
     "nc",
     "node"
+  ],
+  "files": [
+    "main.js",
+    "Win",
+    "Mac",
+    "Linux",
   ],
   "author": "",
   "gypfile": true,
