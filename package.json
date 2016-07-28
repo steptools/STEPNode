@@ -2,7 +2,7 @@
   "name": "STEPNode",
   "version": "1.0.1",
   "description": "Step-NC Node.js library",
-  "main": "index.js",
+  "main": "main.js",
   "license": "Apache-2.0",
   "directories": {
     "doc": "docs",
@@ -27,8 +27,8 @@
   "files": [
     "main.js",
     "Win",
-    "Mac",
-    "Linux"
+    "Linux",
+    "Mac"
   ],
   "author": "",
   "gypfile": true,
