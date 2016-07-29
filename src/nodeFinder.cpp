@@ -1266,7 +1266,7 @@ NAN_METHOD(Finder::GetToolLength) {
 
 
     if (!find->_find->tool_current(
-        tl_id.FromJust(), length, dummy, dummy, dummy, dummy, dummy
+        tl_id.FromJust(), dummy, dummy, length, dummy, dummy, dummy
         )
     )
         return;
@@ -1284,7 +1284,7 @@ NAN_METHOD(Finder::GetToolLengthUnit) {
     const char * unit = 0;
     const char * dummy = 0;
 
-    if (!find->_find->tool_current_unit((int)tl_id.FromJust(), unit, dummy, dummy))
+    if (!find->_find->tool_current_unit((int)tl_id.FromJust(), dummy, dummy, unit))
         return;
 
     info.GetReturnValue().Set(CharTov8String((char *)unit));
