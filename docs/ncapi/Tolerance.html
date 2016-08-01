@@ -7189,13 +7189,28 @@ face in the origin of a location dimension.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetTolerancePlusMinus></a>GetTolerancePlusMinus()</h2>
-<pre>
+<pre class=".net">
 System::Int64 <b>GetTolerancePlusMinus</b> (
 	System::Int64 tol_id,
-	[System::Runtime::InteropServices::Out] double %lower,
-	[System::Runtime::InteropServices::Out] double %upper
+	[System::Runtime::InteropServices::Out] double %upper,
+	[System::Runtime::InteropServices::Out] double %lower
 	);
 </pre>
+
+<pre class="node.js">
+Object <b>GetTolerancePlusMinus</b> (
+  int tol_id
+  );
+</pre>
+
+<Pre class="c++">
+RoseBoolean <b>tolerance_lower_and_upper</b> (
+  int tol_id,
+  int flag,
+  double lower,
+  double upper
+  );
+</Pre>
 
 <P>The <b>GetTolerancePlusMinus()</b> function returns the upper and
 lower delta&rsquo;s for a location or dimension tolerance.  The
@@ -8415,7 +8430,6 @@ System::Int64 <b>GetWorkpieceOfTolerance</b> (
 	System::Int64 tol_id
 	);
 </pre>
-
 <pre class="node.js">
 int <b>GetWorkpieceOfTolerance</b> (
 	int tol_id
