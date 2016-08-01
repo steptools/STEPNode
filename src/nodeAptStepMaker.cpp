@@ -247,7 +247,7 @@ NAN_METHOD(AptStepMaker::GetCurrentWorkplan) {
 	
 	int wpid;
 	int dummy;
-  if (!apt->_apt->more_current_ids(dummy, wpid, dummy, dummy, dummy)) //TODO: Handle error
+  if (!apt->_apt->current_ids(dummy, wpid, dummy, dummy, dummy)) //TODO: Handle error
 		return;
 	
   info.GetReturnValue().Set(wpid);
