@@ -50,6 +50,9 @@ public:
 
     // int[] GetToleranceFaceAll()
     static NAN_METHOD(GetToleranceFaceAll);
+    
+    // bool GetTolerancePlusMinus(int TolId)
+    static NAN_METHOD(GetTolerancePlusMinus);
 
     //string GetToleranceType(int TolId)
     static NAN_METHOD(GetToleranceType);
