@@ -57,6 +57,15 @@ public:
     static NAN_METHOD(GetDeltaJSON);
     //String GetKeystateJSON(); //Get All keyframe geometry.
     static NAN_METHOD(GetKeystateJSON);
+
+    //int GetPrevWSID()
+    static NAN_METHOD(GetPrevWSID);
+
+    //int GetWSID()
+    static NAN_METHOD(GetWSID);
+
+    //int GetNextWSID
+    static NAN_METHOD(GetNextWSID);
 };
 
 

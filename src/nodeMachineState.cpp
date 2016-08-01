@@ -178,6 +178,36 @@ NAN_METHOD(machineState::PrevWS)
     return;
 }
 
+NAN_METHOD(machineState::GetPrevWSID)
+{
+    machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
+    if (!ms || !(ms->_ms)) return;
+    if (!info[0]->IsUndefined()) return; //This function takes no arguments.
+    int id = ms->_ms->GetPrevWSID();
+    info.GetReturnValue().Set(id);
+    return;
+}
+
+NAN_METHOD(machineState::GetWSID)
+{
+    machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
+    if (!ms || !(ms->_ms)) return;
+    if (!info[0]->IsUndefined()) return; //This function takes no arguments.
+    int id = ms->_ms->GetWSID();
+    info.GetReturnValue().Set(id);
+    return;
+}
+
+NAN_METHOD(machineState::GetNextWSID)
+{
+    machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
+    if (!ms || !(ms->_ms)) return;
+    if (!info[0]->IsUndefined()) return; //This function takes no arguments.
+    int id = ms->_ms->GetNextWSID();
+    info.GetReturnValue().Set(id);
+    return;
+}
+
 NAN_MODULE_INIT(machineState::Init)
 {
     v8::Local<v8::FunctionTemplate> tpl = Nan::New<v8::FunctionTemplate>(New);
@@ -192,6 +222,9 @@ NAN_MODULE_INIT(machineState::Init)
     Nan::SetPrototypeMethod(tpl, "LoadMachine", LoadMachine);
     Nan::SetPrototypeMethod(tpl, "NextWS", NextWS);
     Nan::SetPrototypeMethod(tpl, "PrevWS", PrevWS);
+    Nan::SetPrototypeMethod(tpl, "GetPrevWSID", GetPrevWSID);
+    Nan::SetPrototypeMethod(tpl, "GetWSID", GetWSID);
+    Nan::SetPrototypeMethod(tpl, "GetNextWSID", GetNextWSID);
     constructor().Reset(Nan::GetFunction(tpl).ToLocalChecked());
     Nan::Set(target, Nan::New("machineState").ToLocalChecked(), Nan::GetFunction(tpl).ToLocalChecked());
 
