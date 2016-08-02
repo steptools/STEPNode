@@ -66,6 +66,12 @@ public:
 
     //int GetNextWSID
     static NAN_METHOD(GetNextWSID);
+
+    //double GetCurrentFeedrate
+    static NAN_METHOD(GetCurrentFeedrate);
+
+    //double GetCurrentFeedrate
+    static NAN_METHOD(GetCurrentSpindleSpeed);
 };
 
 
