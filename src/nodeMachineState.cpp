@@ -208,6 +208,26 @@ NAN_METHOD(machineState::GetNextWSID)
     return;
 }
 
+NAN_METHOD(machineState::GetCurrentFeedrate)
+{
+    machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
+    if (!ms || !(ms->_ms)) return;
+    if (!info[0]->IsUndefined()) return; //This function takes no arguments.
+    double feed = ms->_ms->GetCurrentFeedrate();
+    info.GetReturnValue().Set(feed);
+    return;
+}
+
+NAN_METHOD(machineState::GetCurrentSpindleSpeed)
+{
+    machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
+    if (!ms || !(ms->_ms)) return;
+    if (!info[0]->IsUndefined()) return; //This function takes no arguments.
+    double speed = ms->_ms->GetCurrentSpindleSpeed();
+    info.GetReturnValue().Set(speed);
+    return;
+}
+
 NAN_MODULE_INIT(machineState::Init)
 {
     v8::Local<v8::FunctionTemplate> tpl = Nan::New<v8::FunctionTemplate>(New);
@@ -225,6 +245,8 @@ NAN_MODULE_INIT(machineState::Init)
     Nan::SetPrototypeMethod(tpl, "GetPrevWSID", GetPrevWSID);
     Nan::SetPrototypeMethod(tpl, "GetWSID", GetWSID);
     Nan::SetPrototypeMethod(tpl, "GetNextWSID", GetNextWSID);
+    Nan::SetPrototypeMethod(tpl, "GetCurrentFeedrate", GetCurrentFeedrate);
+    Nan::SetPrototypeMethod(tpl, "GetCurrentSpindleSpeed", GetCurrentSpindleSpeed);
     constructor().Reset(Nan::GetFunction(tpl).ToLocalChecked());
     Nan::Set(target, Nan::New("machineState").ToLocalChecked(), Nan::GetFunction(tpl).ToLocalChecked());
 
