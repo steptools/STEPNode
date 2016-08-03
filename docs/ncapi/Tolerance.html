@@ -7076,7 +7076,8 @@ Function to compute the measured value using a set of probe results
 <h2 class=rule>
 <a name=GetToleranceModifierNext></a>
 <a name=GetToleranceModifierCount></a>GetToleranceModifierCount/Next()</h2>
-<pre>
+<div class='tabview'>
+<pre class='.net'>
 System::Int64 <b>GetToleranceModifierCount</b> (
 	System::Int64 tol_id,
 	);
@@ -7086,6 +7087,24 @@ System::String^ <b>GetToleranceModifierNext</b> (
 	System::Int64 index
 	);
 </pre>
+<pre class="node.js">
+char *[] <b>GetToleranceModifierAll</b> (
+	int tol_id
+)
+</pre>
+<pre class="C++">
+ RoseBoolean <b>num_tolerance_modifier</b> (
+ 	int tol_id, 
+ 	int &count
+ 	);
+ 
+ RoseBoolean <b>next_tolerance_modifier</b> (
+ 	int tol_id, 
+ 	int index, 
+ 	const char* &modifier
+ 	);
+</pre>
+</div>
 
 <P>The <b>GetToleranceDatumModifierCount()</b> function returns the number of
 modifiers defined for a tolerance.
