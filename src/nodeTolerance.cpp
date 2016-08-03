@@ -34,6 +34,7 @@ NAN_METHOD(Tolerance::New)
 	info.GetReturnValue().Set(info.This());
     }
     else
+
     {
 	return;
     }
@@ -49,6 +50,7 @@ NAN_MODULE_INIT(Tolerance::Init)
     Nan::SetPrototypeMethod(tpl, "GetToleranceAllNext", GetToleranceAllNext);
     Nan::SetPrototypeMethod(tpl, "GetToleranceAll", GetToleranceAll);
     Nan::SetPrototypeMethod(tpl, "GetToleranceFaceAll", GetToleranceFaceAll);
+    Nan::SetPrototypeMethod(tpl, "GetToleranceModifierAll", GetToleranceModifierAll);
     Nan::SetPrototypeMethod(tpl, "GetTolerancePlusMinus", GetTolerancePlusMinus);
     Nan::SetPrototypeMethod(tpl, "GetToleranceType", GetToleranceType);
     Nan::SetPrototypeMethod(tpl, "GetToleranceUnit", GetToleranceUnit);
@@ -146,6 +148,38 @@ NAN_METHOD(Tolerance::GetToleranceFaceAll) {
                 return;
             else{
                 array->Set(i,Nan::New(face_id));
+            }
+        }
+    }
+
+    info.GetReturnValue().Set(array);
+    return;
+}
+
+NAN_METHOD(Tolerance::GetToleranceModifierAll) {
+    Tolerance * tol = Nan::ObjectWrap::Unwrap<Tolerance>(info.This());
+    if (tol == 0) //Throw Exception
+    return;
+    if (info.Length() != 1) //Throw Exception
+    return;
+    if (!info[0]->IsNumber()) // throw exception
+    return;
+
+    Nan::Maybe<int32_t> tol_id = Nan::To<int32_t>(info[0]);
+
+    int count = 0;
+    if (!tol->_tol->num_tolerance_modifier(tol_id.FromJust(), count)) //Throw Exception
+    return;
+
+    // Create a new empty array.
+    v8::Local<v8::Array> array = Nan::New<v8::Array>();
+    char * mod = 0;
+    if(count >= 0){
+        for(int i = 0; i < count; i++){
+            if (!tol->_tol->next_tolerance_modifier(tol_id.FromJust(), i, (const char *&)mod)) //Throw Exception
+                return;
+            else{
+                array->Set(i,CharTov8String(mod));
             }
         }
     }
