@@ -221,6 +221,7 @@ Search STEP Tools Web Support<br>
 <li><a href="#GetToolUsingIdentifier">GetToolUsingIdentifier()</a>
 <li><a href="#GetToolUsingNumber">GetToolUsingNumber()</a>
 <li><a href="#GetToolVerticalDistance">GetToolVerticalDistance() and Unit</a>
+<li><a href="#GetToolWorkpiece">GetToolWorkpiece()</a>
 <li><a href="#GetWorkingstep">GetWorkingstep()</a>
 <li><a href="#GetWorkingstepFinalFeatureCount">GetWorkingstepFinalFeatureCount/Next()</a>
 <li><a href="#GetWorkingstepName">GetWorkingstepName()</a>
@@ -9432,7 +9433,9 @@ RoseBoolean <b>tool_reference_data_name</b> (
 	);    
 </pre>
 </div>
-<P>The <b>GetToolIdentifier()</b> function 
+<P>The <b>GetToolIdentifier()</b> function returns the manufacturers name for a tool which may be different for the part name
+because the latter describes an instance and the former describes a category/type/sales item. The part name is more likely to be
+controlled by the user. The Identifier is more likley to be controlled by the maker or vendor of the tool.
 
 
 <!-- ================================ -->
@@ -10663,7 +10666,10 @@ System::Int64 <b>GetToolUsingIdentifier</b> (
 	);
 </pre>
 
-<P>The <b>GetToolUsingIdentifier()</b> function 
+<P>The <b>GetToolUsingIdentifier()</b> function  returns the identity of
+the first tool found with the given identifier. In this case the identifier
+is the manufacturer's name for the category of the tool which may be different
+from the part name which descirbes a single instance of the tool.
 
 
 <!-- ================================ -->
@@ -10692,8 +10698,7 @@ RoseBoolean <b>find_tool_using_its_id</b> (
 <P>The <b>GetToolUsingNumber()</b> function returns the identity of
 the first tool found with the given number. The number of a tool
 usually corresponds to the position of that tool in the tool changer
-and in APT it is a unique identifier for the tool with the context of
-the program.
+and should be unique but this is not rquired.
 
 <h3>Arguments</h3>
 <DL class=termdefs>
@@ -10783,6 +10788,47 @@ of the geometry model for the tool
 workingstep.
 </UL>
 
+<!-- ================================ -->
+<h2 class=rule>
+<a name=GetToolWorkpiece></a>
+GetToolWorkpiec()</h2>
+<pre>
+Int64 <b>GetToolWorkpiece</b> (
+	System::Int64 ws_or_tl_id
+	);
+
+</pre>
+
+<P>The <b>GetToolWorkpiece()</b> function returns the identity of the
+workpiece that defines the geometry of the tool. The workpiece maybe a
+single part or an assembly. The workpeice may have tolerances defined.
+
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>ws_or_tl_id <DD> The identity of a workingstep or tool. If the
+identifier defines a workingstep then the function will be applied to
+the tool defined for that workingstep.
+</DL>
+
+<h3>Related Functions</h3>
+<UL>
+<li><a href="#GetWorkpieceShapeCount">GetWorkpieceShapeCount?next</a>: Function
+to get the shapes that define a tool.
+<li><a href="#GetToolIdentifier">GetToolIdentifier</a>: Manufacturers name for the tool.
+<li><a href="#GetToolNumber">GetToolNumber</a>: Function to return the
+tool number.
+<li><a href="#GetToolPartName">GetToolPartName</a>: User name
+of the workpiece for the tool
+</UL>
+
+
+<h3>Common Errors</h3>
+<UL>
+<li>Project not defined: There is no AP-238 file open.
+<li>Invalid identity: The input does not identify a tool or
+workingstep.
+</UL>
 
 <!-- ================================ -->
 <h2 class=rule>
@@ -10809,7 +10855,7 @@ RoseBoolean <b>is_workingstep</b> (
 	);
 </pre>
 </div>
-<P>The <b>GetWorkingstep()</b> function 
+<P>The <b>GetWorkingstep()</b> function returns the workingstep at a given index in a workplan.
 
 
 <!-- ================================ -->

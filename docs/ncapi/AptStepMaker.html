@@ -61,6 +61,7 @@ Search STEP Tools Web Support<br>
 <li><a href="#DeleteAllUnusedTools">DeleteAllUnusedTools()</a>
 <li><a href="#DeleteAllUnusedWorkpieces">DeleteAllUnusedWorkpieces()</a>
 <li><a href="#DeleteExecutable">DeleteExecutable()</a>
+<li><a href="#DeleteFixture">DeleteFixture()</a>
 <li><a href="#DeleteToolParameters">DeleteToolParameters()</a>
 <li><a href="#DeleteWorkpiece">DeleteWorkpiece()</a>
 <li><a href="#EmptyOperation">EmptyOperation()</a>
@@ -196,6 +197,7 @@ Search STEP Tools Web Support<br>
 <li><a href="#ReplaceMax5APTclfile">ReplaceMax5APTclfile()</a>
 <li><a href="#Reset">Reset()</a>
 <li><a href="#RetractPlane">RetractPlane()</a>
+<li><a href="#ReuseFixtureReference">ReuseFixtureReference()</a>
 <li><a href="#Right">Right()</a>
 <li><a href="#RunConfiguration">RunConfiguration()</a>
 <li><a href="#SaveAsModules">SaveAsModules()</a>
@@ -242,7 +244,7 @@ Search STEP Tools Web Support<br>
 <li><a href="#SetToolAutoNumberOff">SetToolAutoNumberOn/Off()</a>
 <li><a href="#SetToolIdentifier">SetToolIdentifier()</a>
 <li><a href="#SetToolNumber">SetToolNumber()</a>
-<li><a href="#SetUUID">SetUUID_force()/_if_not_set()</a>
+<li><a href="#SetUUID">SetUUID_force()/_if_not_set()/to_string()</a>
 <li><a href="#Shutdown">Shutdown()</a>
 <li><a href="#SpindleSpeed">SpindleSpeed()</a>
 <li><a href="#SpindleSpeedUnit">SpindleSpeedUnit()</a>
@@ -342,6 +344,12 @@ read into memory again. If an application needs this functionality
 then you should check to see if the object has another relevanat
 attribute. For example, many of the STEP-NC objects have an its_id
 attribute that can be used as an identifier.
+
+<P>Universally Unique IDentifiers (UUID's) are a new solution for
+persistent identity that has been added to the latest edition of
+the Part 21 format. New functions have been added to the APT
+object to set these identifiers. See the <A href="#SetUUID">SetUUID...()</A>
+functions for more details. 
 
 
 
@@ -984,7 +992,7 @@ the next geometry item will start a new cutter contact  tool path.
 
 
 <h3>Related Functions</h3>
-<DL class=termdefs>
+<UL>
 <li><a href="#ArcABC">ArcABC</a>: This function defines arc segments
 with a contact normal.
 <li><a href="#GoToXYZ_ABC">GoToXYZ_ABC</a>: This function defines line
@@ -996,10 +1004,10 @@ into cutter center mode.
 <li><a href="#Left">Left</a>: This function puts the system into
 cutter contact mode with the contact normal on the left hand side of
 the tool. The API will calculate ABC vectors for the left hand side.
-
 <li><a href="#Right">Right</a>: This function puts the system into
 cutter contact mode with the contact normal on the right hand side of
 the tool. The API will calculate ABC vectors for the right hand side.
+</UL>
 
 
 <h3>Common Errors</h3>
@@ -1778,6 +1786,40 @@ or selective to be deleted.
 <li>No project open: An AP-238 file must be open - see
 the <a href="#NewProject">NewProject</a> function.
 <li>Bad identity: The ex_id does not identify an executable.
+</UL>
+
+<!-- ================================ -->
+<h2 class=rule>
+<a name=DeleteFixture></a>DeleteFixture()</h2>
+<pre>
+void <b>DeleteFixture</b> (
+	System::Int64 plan_id
+	);
+</pre>
+
+<P>The <b>DeleteFixture()</b> function removes the fixture data from a
+workplan. After the deletion the workplan will have no fixture data
+or it will inherit its fixture data from its parent workplan.
+After the deletion the fixture may be deleted if it is not used by
+any other workplan.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>plan_id: <DD> The identity of the workplan whose fixture reference is to be deleted.
+</DL>
+
+
+<h3>Related Functions</h3>
+<UL>
+<li><a href="Finder.html#IsWorkplanWithSetupAndFixture">IsWorkplanWithSetupAndFixture</a>: Finder function that
+returns true (1) if the workplan has a fixture defined.
+<li><a href="#DeleteWorkpiece">DeleteWorkpiece</a>: Deletes a workpiece by removing
+all its data from the project.
+<li><a href="#Fixture">Fixture</a>: Define a fixture using a CAD file.
+<li><a href="#ReuseFixtureReference">ReuseFixtureReference</a>: Explicitly define
+a fixture for a workplan by reusing the data of another workplan. Useful if the
+fixture cannot be inherited from a parent workplan.
+
 </UL>
 
 
@@ -2818,8 +2860,34 @@ void <b>Fixture</b> (
 	System::String^ filename
 	);
 </pre>
+<pre>
+void <b>Fixture</b> (
+	System::Int64 	plan_id;
+	System::String^ filename
+	);
+</pre>
 
-<P>The <b>Fixture()</b> function
+<P>The <b>Fixture()</b> function defines a fixture for the current workplan
+or the explicitly given workplan usign a CAD file. If a workplan has no
+fixture defined then it may be inherited from it parent workplan.
+A fixture is an assembly and may be defined as STEP AP203, AP214 or AP242.
+
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>plan_id: <DD> The identity of the workplan that is to be given the fixture.
+</DL>
+
+
+<h3>Related Functions</h3>
+<UL>
+<li><a href="Finder.html#IsWorkplanWithSetupAndFixture">IsWorkplanWithSetupAndFixture</a>: Finder function that
+returns true (1) if the workplan has a fixture defined.
+<li><a href="#DeleteFixture">DeleteFixture</a>: Delete the fixture reference of a
+workplan. 
+
+
+</UL>
 
 
 
@@ -3856,6 +3924,8 @@ This should happen whenever the value of the concept rooted by the
 entity changes.
 <li><a href="#SetUUID">SetUUID_if_not_set()</a>: Set the UUID of an
 entity if it is not currently set.
+<li><a href="#SetUUID">SetUUID_to_string()</a>: Set the UUID of an
+entity to a given string which must be unique.
 <li><a href="#SetName">SetName()</a>: Set the name of an entity to a given string.</UL>
 
 
@@ -5995,6 +6065,41 @@ the <a href="#NewProject">NewProject</a> function.
 movements below the retract plane.
 </UL>
 
+<!-- ================================ -->
+<h2 class=rule>
+<a name=ReuseFixtureReference></a>ReuseFixtureReference()</h2>
+<pre>
+void <b>ReuseFixtureReference</b> (
+	System::Int64 plan_id,
+	System::Int64 resue_plan_id
+	);
+</pre>
+
+<P>The <b>ReuseFixtureReference()</b> function explitly resuses the fixture
+of another workplan in this workplan. This is useful when the fixture has
+already been defined and it cannot be inherited from a workplan that is
+a common parent. After the reuse the existing fixture of the workplan will
+be orphaned and may be deleted if it is not being used by any other workplan.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>plan_id: <DD> The identity of the workplan that is to be given another workplans fixture.
+<DT>ruse_plan_id: <DD> The identity of a workplan that has a fixture explicitly defined.
+</DL>
+
+
+<h3>Related Functions</h3>
+<UL>
+<li><a href="Finder.html#IsWorkplanWithSetupAndFixture">IsWorkplanWithSetupAndFixture</a>: Finder function that
+returns true (1) if the workplan has a fixture defined.
+<li><a href="#DeleteWorkpiece">DeleteWorkpiece</a>: Deletes a workpiece by removing
+all its data from the project.
+<li><a href="#Fixture">Fixture</a>: Define a fixture using a CAD file.
+<li><a href="#DeleteFixture">DeleteFixture</a>: Delete the fixture reference of a
+workplan. 
+
+
+</UL>
 
 
 <!-- ================================ -->
@@ -7312,7 +7417,7 @@ number/id.
 
 <!-- ================================ -->
 <h2 class=rule>
-<a name=SetUUID></a>SetUUID_force()/_if_not_set()</h2>
+<a name=SetUUID></a>SetUUID_force()/_if_not_set()/to_string()</h2>
 <pre>
 System::String^ <b>SetUUID_force()</b> (
 	System::Int64 entity_id
@@ -7322,6 +7427,11 @@ System::String^ <b>SetUUID_force()</b> (
 System::String^ <b>SetUUID_if_not_set()</b> (
 	System::Int64 entity_id
 	);
+</pre><pre>
+System::String^ <b>SetUUID_to_string()</b> (
+	System::Int64 entity_id
+	System::String^ uuid_str
+	);
 </pre>
 
 <P>A UUID is a number that in practice
@@ -7330,10 +7440,14 @@ to an entity if one has not yet been set.
 The <b>SetUUID_force()</b> function assigns a new Universally Unique IDentifier
 to an entity and should be used whenever the underlying value of the concept represented by that entity
 has changed.
+The <b>SetUUID_to_string()</b> function sets the UUID to a given string which must be unique. The intended use of this function
+is for when an old copy of an object has been deleted and a new copy has been created as a replacement with the same 
+identity.
 
 <h3>Arguments</h3>
 <DL class=termdefs>
 <DT>entity_id: <DD> The internal (STEP Part 21) identity of an entity.
+<DT>uuid_str: <DD> The UUID to be given to the object which must be unique.
 </DL>
 
 <h3>Related Functions</h3>
@@ -7349,6 +7463,8 @@ the <a href="#NewProject">NewProject</a> function.
 <li>Diallowed: The entity does not represent a concept
 currently deemed worthy of a UUID. Call STEP Tools if
 this is an issue.
+<li>Duplicate: The UUIID is already used for another entity
+make sure it is deleted before you reassign the value.
 </UL>
 
 

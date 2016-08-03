@@ -227,6 +227,7 @@ Search STEP Tools Web Support<br>
 <li><a href="#GetWorkpieceDatumAllCount">GetWorkpieceDatumAllCount/Next()</a>
 <li><a href="#GetWorkpieceDatumCount">GetWorkpieceDatumCount/Next()</a>
 <li><a href="#GetWorkpieceDraughtingCount">GetWorkpieceDraughtingCount/Next()</a>
+<li><a href="#GetWorkpieceExtendedToleranceCount">GetWorkpieceExtendedToleranceCount/Next()</a>
 <li><a href="#GetWorkpieceFaceCount">GetWorkpieceFaceCount/Next()</a>
 <li><a href="#GetWorkpieceGeometricSetCount">GetWorkpieceGeometricSetCount/Next()</a>
 <li><a href="#GetWorkpieceGeometricSetPointCount">GetWorkpieceGeometricSetPointCount/Next()</a>
@@ -8530,6 +8531,9 @@ the <a href="AptStepMaker.html">APT object</a>.
 value of the tolerance
 <li><a href="#GetToleranceType">GetToleranceType</a> The type of the
 tolerance.
+<li><a href="#GetWorkpieceExtendedToleranceNext">GetWorkpieceExtendedToleranceCount/Next</a> 
+Other workpieces can be included in a tolerance by adding their faces to the definition.
+These functions get these tolerances for a workpiece.
 <li><a href="#GetToleranceMeasuredValue">GetToleranceMeasuredValue</a>
 The measured value of a tolerance.
 <li><a href="#GetToleranceFaceCount">GetToleranceFaceCount</a> The
@@ -8538,7 +8542,62 @@ number of faces constrained by the tolerance.
 add tolerances to a workpiece.
 </UL>
 
+<!-- ================================ -->
+<h2 class=rule>
+<a name=GetWorkpieceExtendedToleranceNext></a>
+<a name=GetWorkpieceExtendedToleranceCount></a>GetWorkpieceExtendedToleranceCount/Next()</h2>
+<pre>
+System::Int64 <b>GetWorkpieceExtendedToleranceCount</b> (
+	System::Int64 wp_id
+	);
 
+System::Int64 <b>GetWorkpieceExtednedToleranceNext</b> (
+	System::Int64 wp_id,
+	System::Int64 index
+	);
+</pre>
+
+<P>The <b>GetWorkpieceExtendedToleranceCount()</b> function returns a count of
+the number of extended tolerances defined on a workpiece. The
+tolerances include surface texture parameters, size dimensions,
+location dimensions and geometric tolerances. To be defined on a
+workpiece the tolerance must be applied to faces that belong to the
+workpiece.
+
+<P>A tolerance is extended by adding faces belonging to other workpieces
+to its definition.
+
+<P>The <b>GetWorkpieceExtendedToleranceNext()</b> function returns the next
+tolerance defined on a specific workpiece.
+
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT> wp_id <DD> The identity of the workpiece.  See the
+GetWorkpieceID, GetFixtureID, GetRawpiceID and GetToolProductID
+functions of the Finder object, or the GetCurrentWorkpiece,
+GetCurrentRawpiece, GetCurrentFixture and GetCurrentTool functions of
+the <a href="AptStepMaker.html">APT object</a>.
+<DT> index <DD> The position of the next tolerance.
+</DL>
+
+
+<h3>Related Functions</h3>
+<UL>
+<li><a href="#GetToleranceValue">GetToleranceValue</a> The defined
+value of the tolerance
+<li><a href="#GetToleranceType">GetToleranceType</a> The type of the
+tolerance.
+<li><a href="#GetWorkpieceExtendedToleranceNext">GetWorkpieceExtendedToleranceCount/Next</a> 
+Other workpieces can be included in a tolerance by adding their faces to the definition.
+These functions get these tolerances for a workpiece.
+<li><a href="#GetToleranceMeasuredValue">GetToleranceMeasuredValue</a>
+The measured value of a tolerance.
+<li><a href="#GetToleranceFaceCount">GetToleranceFaceCount</a> The
+number of faces constrained by the tolerance.
+<li><a href="#AddTolerancePosition">AddToleranceXXX</a> Functions to
+add tolerances to a workpiece.
+</UL>
 
 <!-- ================================ -->
 <h2 class=rule>
