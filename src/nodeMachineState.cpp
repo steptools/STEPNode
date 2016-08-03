@@ -40,23 +40,35 @@ StixSimGeomType GeomTypeFromString(char* typ)
 NAN_METHOD(machineState::New)
 {
 
-    if (info.IsConstructCall())
-    {
-	if (info[0]->IsUndefined())
-	{
-	    return;
-	}
-	char * b;
-	v8StringToChar(info[0], b);
-	machineState * ms = new machineState();
-	ms->_ms = MachineState::InitializeState(b);
-	delete[] b;
-	ms->Wrap(info.This());
-	info.GetReturnValue().Set(info.This());
+    if (info.IsConstructCall()){
+    	if (info.Length() == 0){
+    	    return;
+    	}
+        else if(info.Length() == 1 || (info.Length() == 2 && info[1]->BooleanValue() == false)){
+        	char * b;
+        	v8StringToChar(info[0], b);
+        	machineState * ms = new machineState();
+        	ms->_ms = MachineState::InitializeState(b);
+        	delete[] b;
+        	ms->Wrap(info.This());
+        	info.GetReturnValue().Set(info.This());
+        }
+        else if(info.Length() == 2){
+            char * b;
+            v8StringToChar(info[0], b);
+            bool c = info[1]->BooleanValue();
+            machineState * ms = new machineState();
+            ms->_ms = MachineState::InitializeState(b, c);
+            delete[] b;
+            ms->Wrap(info.This());
+            info.GetReturnValue().Set(info.This());
+        }
+        else{
+            return;
+        }
     }
-    else
-    {
-	return;
+    else{
+	   return;
     }
 }
 

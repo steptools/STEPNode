@@ -34,7 +34,7 @@ Search STEP Tools Web Support<br>
 <!-- ================================ -->
 <h2><a name=oview></a>Overview</h2>
 <p>
-<b>MachineState</b> objects are slightly different from the other StepNC API objects- you need a unique MachineState object for every file you wish to simulate. Call the constructor with the path to the file you wish to simulate to instantiate an instance of it- ms = new MachineState("File.stpnc");
+<b>MachineState</b> objects are slightly different from the other StepNC API objects- you need a unique MachineState object for every file you wish to simulate. Call the constructor with the path to the file you wish to simulate to instantiate an instance of it- ms = new machineState("File.stpnc"); A second option for creating a machine state object is accessed by calling ms = new machineState("File.stpnc", true); This will also create a simulation alongside the Machine State. new machineState("File.stpnc", false) will have the same behavior as new machineState("File.stpnc")
 </p>
 
 
