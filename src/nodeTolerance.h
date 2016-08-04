@@ -39,6 +39,9 @@ private:
 public:
     static NAN_MODULE_INIT(Init);
 
+    //char * GetDatumLabel()
+    static NAN_METHOD(GetDatumLabel);
+
     //int GetToleranceAllCount()
     static NAN_METHOD(GetToleranceAllCount);
 
@@ -47,6 +50,9 @@ public:
 
     //New Function for NodeJS using GetToleranceAllCount and GetToleranceAllNext
     static NAN_METHOD(GetToleranceAll);
+
+    //char *[] GetToleranceDatumAll(int id)
+    static NAN_METHOD(GetToleranceDatumAll);
 
     // int[] GetToleranceFaceAll()
     static NAN_METHOD(GetToleranceFaceAll);

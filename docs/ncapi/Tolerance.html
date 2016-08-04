@@ -4644,11 +4644,24 @@ to a datum.
 <!-- ================================ -->
 <h2 class=rule>
 <a name=GetDatumLabel></a>GetDatumLabel()</h2>
-<pre>
+<div class='tabview'>
+<pre class='.net'>
 System::String^ <b>GetDatumLabel</b> (
 	System::Int64 dat_id
 	);
 </pre>
+<pre class="node.js">
+string <b>GetDatumLabel</b> (
+	int dat_id
+	);
+</pre>
+<pre class="C++">
+RoseBoolean <b>get_datum_label</b> (
+	int dat_id, 
+	const char *&label
+	);
+</pre>
+</div>
 
 <P>The <b>GetDatumLabel()</b> function returns the label on a datum
 (e.g. &ldquo;A&rdquo;).
@@ -6578,7 +6591,8 @@ tolerance.
 <h2 class=rule>
 <a name=GetToleranceDatumNext></a>
 <a name=GetToleranceDatumCount></a>GetToleranceDatumCount/Next()</h2>
-<pre>
+<div class='tabview'>
+<pre class='.net'>
 System::Int64 <b>GetToleranceDatumCount</b> (
 	System::Int64 tol_id
 	);
@@ -6588,6 +6602,25 @@ System::Int64 <b>GetToleranceDatumNext</b> (
 	System::Int64 index
 	);
 </pre>
+<pre class="node.js">
+string[] <b>GetToleranceDatumAll</b> (
+	int tol_id
+)
+</pre>
+<pre class="C++">
+RoseBoolean <b>num_tolerance_datum</b> (
+	int tol_id, 
+	int &count
+	);
+
+RoseBoolean <b>next_tolerance_datum</b> (
+	int tol_id, 
+	int index, 
+	int &dat_id,  
+	const char * &label
+	);
+</pre>
+</div>
 
 <P>The <b>GetToleranceDatumCount()</b> function returns the number of
 datums defined for a tolerance.

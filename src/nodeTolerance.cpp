@@ -46,9 +46,11 @@ NAN_MODULE_INIT(Tolerance::Init)
     tpl->SetClassName(Nan::New("Tolerance").ToLocalChecked());
     tpl->InstanceTemplate()->SetInternalFieldCount(1);
 
+    Nan::SetPrototypeMethod(tpl, "GetDatumLabel", GetDatumLabel);
     Nan::SetPrototypeMethod(tpl, "GetToleranceAllCount", GetToleranceAllCount);
     Nan::SetPrototypeMethod(tpl, "GetToleranceAllNext", GetToleranceAllNext);
     Nan::SetPrototypeMethod(tpl, "GetToleranceAll", GetToleranceAll);
+    Nan::SetPrototypeMethod(tpl, "GetToleranceDatumAll", GetToleranceDatumAll);
     Nan::SetPrototypeMethod(tpl, "GetToleranceFaceAll", GetToleranceFaceAll);
     Nan::SetPrototypeMethod(tpl, "GetToleranceModifierAll", GetToleranceModifierAll);
     Nan::SetPrototypeMethod(tpl, "GetTolerancePlusMinus", GetTolerancePlusMinus);
@@ -63,6 +65,23 @@ NAN_MODULE_INIT(Tolerance::Init)
     constructor().Reset(Nan::GetFunction(tpl).ToLocalChecked());
     Nan::Set(target, Nan::New("Tolerance").ToLocalChecked(), Nan::GetFunction(tpl).ToLocalChecked());
 
+}
+
+NAN_METHOD(Tolerance::GetDatumLabel)
+{
+  Tolerance* tol = Nan::ObjectWrap::Unwrap<Tolerance>(info.This());
+  if(!tol)
+    return;
+  if(info.Length()!=1)
+    return;
+  if(!info[0]->IsNumber())
+    return;
+  Nan::Maybe<int32_t> dat_id = Nan::To<int32_t>(info[0]);
+  const char * label = 0;
+  if(!tol->_tol->get_datum_label(dat_id.FromJust(), label))
+    return;
+  info.GetReturnValue().Set(CharTov8String(label));
+  return;
 }
 
 NAN_METHOD(Tolerance::GetToleranceAllCount)
@@ -116,6 +135,39 @@ NAN_METHOD(Tolerance::GetToleranceAll) {
                 return;
             else{
                 array->Set(i,Nan::New(tol_id));
+            }
+        }
+    }
+
+    info.GetReturnValue().Set(array);
+    return;
+}
+
+NAN_METHOD(Tolerance::GetToleranceDatumAll) {
+    Tolerance * tol = Nan::ObjectWrap::Unwrap<Tolerance>(info.This());
+    if (tol == 0) //Throw Exception
+    return;
+    if (info.Length() != 1) //Throw Exception
+    return;
+    if (!info[0]->IsNumber()) // throw exception
+    return;
+
+    Nan::Maybe<int32_t> tol_id = Nan::To<int32_t>(info[0]);
+
+    int count = 0;
+    if (!tol->_tol->num_tolerance_datum(tol_id.FromJust(), count)) //Throw Exception
+    return;
+
+    // Create a new empty array.
+    v8::Local<v8::Array> array = Nan::New<v8::Array>();
+    int dat = 0;
+    const char * szName;
+    if(count >= 0){
+        for(int i = 0; i < count; i++){
+            if (!tol->_tol->next_tolerance_datum(tol_id.FromJust(), i, dat, szName)) //Throw Exception
+                return;
+            else{
+                array->Set(i,Nan::New(dat));
             }
         }
     }
