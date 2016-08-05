@@ -748,10 +748,11 @@ NAN_METHOD(Finder::GetJSONGeometry) {
     if(!info[1]->IsInt32())
     return;
 
-    const char * uuid = v8StringToChar(info[0]);
+    char * uuid = 0;
+    v8StringToChar(info[0], uuid);
     char * json = 0;
     Nan::Maybe<int32_t> t = Nan::To<int32_t>(info[1]);
-    if (!find->_find->geometry_as_json(uuid, t.FromJust(), (char* &)json))
+    if (!find->_find->geometry_as_json((const char *)uuid, t.FromJust(), (char* &)json))
     return;
 
     info.GetReturnValue().Set(CharTov8String((char *)json));
