@@ -77,8 +77,8 @@ NAN_METHOD(Tolerance::GetDatumLabel)
   if(!info[0]->IsNumber())
     return;
   Nan::Maybe<int32_t> dat_id = Nan::To<int32_t>(info[0]);
-  const char * label = 0;
-  if(!tol->_tol->get_datum_label(dat_id.FromJust(), label))
+  char * label = 0;
+  if(!tol->_tol->get_datum_label(dat_id.FromJust(), (const char *&)label))
     return;
   info.GetReturnValue().Set(CharTov8String(label));
   return;
