@@ -69,7 +69,9 @@ NAN_MODULE_INIT(Finder::Init)
 	Nan::SetPrototypeMethod(tpl, "GetFeatureID", GetFeatureID);
 	Nan::SetPrototypeMethod(tpl, "GetFeatureName", GetFeatureName);
 	Nan::SetPrototypeMethod(tpl, "GetFeatureOutsideProfileClosedCircular", GetFeatureOutsideProfileClosedCircular);
-    Nan::SetPrototypeMethod(tpl, "GetGeometryJSON", GetGeometryJSON);
+    //Nan::SetPrototypeMethod(tpl, "GetGeometryJSON", GetGeometryJSON);
+    Nan::SetPrototypeMethod(tpl, "GetJSONGeometry", GetJSONGeometry);
+    Nan::SetPrototypeMethod(tpl, "GetJSONProduct", GetJSONProduct);
 	Nan::SetPrototypeMethod(tpl, "GetMainWorkplan", GetMainWorkplan);
 	Nan::SetPrototypeMethod(tpl, "GetMaterialName", GetMaterialName);
 	Nan::SetPrototypeMethod(tpl, "GetNestedExecutableAll", GetNestedExecutableAll);
@@ -712,7 +714,7 @@ NAN_METHOD(Finder::GetFeatureOutsideProfileClosedCircular) {
     info.GetReturnValue().Set(obj);
 }
 
-NAN_METHOD(Finder::GetGeometryJSON) {
+/*NAN_METHOD(Finder::GetGeometryJSON) {
     Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
 
     if (info.Length() != 1)
@@ -725,6 +727,64 @@ NAN_METHOD(Finder::GetGeometryJSON) {
     char * json = 0;
     Nan::Maybe<int32_t> t = Nan::To<int32_t>(info[0]);
     if (!find->_find->product_geometry_as_json(t.FromJust(), json))
+    return;
+
+    info.GetReturnValue().Set(CharTov8String((char *)json));
+    delete [] json;
+    return;
+}*/
+
+NAN_METHOD(Finder::GetJSONGeometry) {
+    Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+
+    if (!info.Length() != 2)
+    return;
+    if (info[0]->IsUndefined())
+    return;
+    if (!info[0]->IsString())
+    return;
+
+    char * type = 0;
+    if(info[1]->IsUndefined() || !info[1]->IsString())
+        type = "";
+    else
+        v8StringToChar(info[1], type);
+
+    int typ = -1;
+    if(strcmp(type, "MESH"))
+        typ = 1;
+    else if(strcmp(type, "POLYLINE"))
+        typ = 2;
+    else if(strcmp(type, "INPROCESS"))
+        typ = 3;
+    else
+        typ = 0;
+
+    char * uuid = 0;
+    v8StringToChar(info[0], uuid);
+    char * json = 0;
+    Nan::Maybe<int32_t> t = Nan::To<int32_t>(info[1]);
+    if (!find->_find->geometry_as_json((const char *)uuid, typ, (char* &)json))
+    return;
+
+    info.GetReturnValue().Set(CharTov8String((char *)json));
+    delete [] json;
+    return;
+}
+
+NAN_METHOD(Finder::GetJSONProduct) {
+    Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+
+    if (info.Length() != 1)
+    return;
+    if (info[0]->IsUndefined())
+    return;
+    if (!info[0]->IsString())
+    return;
+
+    char * json = 0;
+    Nan::Maybe<int32_t> t = Nan::To<int32_t>(info[0]);
+    if (!find->_find->product_as_json((unsigned int) t.FromJust(), (char* &)json))
     return;
 
     info.GetReturnValue().Set(CharTov8String((char *)json));

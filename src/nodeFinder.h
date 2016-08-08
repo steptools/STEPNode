@@ -140,7 +140,13 @@ public:
     static NAN_METHOD(GetFeatureID);
 
     //No .Net Dll implementation
-    static NAN_METHOD(GetGeometryJSON);
+    //static NAN_METHOD(GetGeometryJSON);
+
+    //string GetJSONGeometry(string uuid, int usage)
+    static NAN_METHOD(GetJSONGeometry);
+
+    //string GetJSONProduct(int eid)
+    static NAN_METHOD(GetJSONProduct);
 
     //int[] GetNestedExecutableAll (int wp_id);
     static NAN_METHOD(GetNestedExecutableAll);

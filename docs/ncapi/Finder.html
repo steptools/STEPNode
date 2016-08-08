@@ -116,6 +116,7 @@ Search STEP Tools Web Support<br>
 <li><a href="#GetFunctionExtendedNcDescription">GetFunctionExtendedNcDescription()</a>
 <li><a href="#GetFunctionIndexTable">GetFunctionIndexTable()</a>
 <li><a href="#GetJSONGeometry">GetJSONGeometry()</a>
+<li><a href="#GetJSONProduct">GetJSONProduct()</a>
 <li><a href="#GetMachineParametersFeedrate">GetMachineParametersFeedrate() and Unit</a>
 <li><a href="#GetMachineParametersMachineName">GetMachineParametersMachineName()</a>
 <li><a href="#GetMachineParametersSpindlePower">GetMachineParametersSpindlePower() and Unit</a>
@@ -4782,24 +4783,65 @@ index table function.
 <div class="tabview">
 <pre class=".net">
 System::String^ <b>GetJSONGeometry</b> (
-	System::Int64 e_id
+	System::String^ uuid, 
+	System::Int64 usage
 	);
 </pre>
 <pre class="node.js">
-string <b>GetGeometryJSON</b> (
-	int e_id
+string <b>GetJSONGeometry</b> (
+	string uuid,
+	int usage
 	);
 </pre>
 <pre class="C++">
-RoseBoolean <b>product_geometry_as_json</b> (
-	unsigned int eid, 
+RoseBoolean <b>geometry_as_json</b> (
+	const char * uuid,
+	int typ, 
 	char* &json
 	);
 </pre>
 </div>
 
-<P>The <b>GetJSONGeometry()</b> function returns a JSON object representing
-the geometry that is associated with the given e_id.
+<P>The <b>GetJSONGeometry()</b> function returns a JSON object representing the geometry that is associated with the given uuid and type.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>uuid <DD>The uuid of the entity that the geometry is needed for.
+<DT>usage <DD>The geometry type in integer form.
+</DL>
+
+<h3>Related Functions</h3>
+<UL>
+</UL>
+
+
+<h3>Common Errors</h3>
+<UL>
+</UL>
+
+<!-- ================================ -->
+<h2 class=rule>
+<a name=GetJSONProduct></a>GetJSONProduct()</h2>
+<div class="tabview">
+<pre class=".net">
+System::String^ <b>GetJSONProduct</b> ( 
+	System::Int64 eid
+	);
+</pre>
+<pre class="node.js">
+string <b>GetJSONProduct</b> (
+	int eid
+	);
+</pre>
+<pre class="C++">
+RoseBoolean <b>product_as_json</b> (
+	unsigned int eid uuid,
+	char* &json
+	);
+</pre>
+</div>
+
+<P>The <b>GetJSONProduct()</b> function returns a JSON object representing the product that is associated with the given eid.
 
 <h3>Arguments</h3>
 <DL class=termdefs>
@@ -4814,7 +4856,6 @@ the geometry that is associated with the given e_id.
 <h3>Common Errors</h3>
 <UL>
 </UL>
-
 
 <!-- ================================ -->
 <h2 class=rule>
