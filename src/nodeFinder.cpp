@@ -737,7 +737,7 @@ NAN_METHOD(Finder::GetFeatureOutsideProfileClosedCircular) {
 NAN_METHOD(Finder::GetJSONGeometry) {
     Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
 
-    if (!info.Length() != 2)
+    if (info.Length() != 2)
     return;
     if (info[0]->IsUndefined())
     return;
