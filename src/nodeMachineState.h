@@ -50,6 +50,9 @@ public:
     //int switchWS(int wsid)
     static NAN_METHOD(GoToWS);
 
+    //int GetEIDfromUUID(int uuid);
+    static NAN_METHOD(GetEIDfromUUID);
+
     //String GetGeometryJSON() //Get all Geometry
     //String GetGeometryJSON(string id,string typ) //Get a specific piece of geometry data. types are "NONE" "MESH" and "POLYLINE"
     static NAN_METHOD(GetGeometryJSON);
