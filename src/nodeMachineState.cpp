@@ -158,6 +158,24 @@ NAN_METHOD(machineState::GoToWS)
     return;
 }
 
+NAN_METHOD(machineState::GetEIDfromUUID)
+{
+    machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
+    if (!ms || !(ms->_ms)) return;
+    if (info.Length() != 1) //Function takes one argument
+    return;
+    if(!info[0]->IsString())
+    return;
+    char * uuid = 0;
+    v8StringToChar(info[0], uuid);
+    RoseObject * obj = ms->_ms->FindObjectByID(uuid);
+    if (!obj)
+    return;
+    int rtnval = obj->entity_id();
+    info.GetReturnValue().Set(Nan::New(rtnval));
+    return;
+}
+
 NAN_METHOD(machineState::LoadMachine)
 {
     machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
@@ -251,6 +269,7 @@ NAN_MODULE_INIT(machineState::Init)
     Nan::SetPrototypeMethod(tpl, "GetDeltaJSON", GetDeltaJSON);
     Nan::SetPrototypeMethod(tpl, "GetKeystateJSON", GetKeystateJSON);
     Nan::SetPrototypeMethod(tpl, "GoToWS", GoToWS);
+    Nan::SetPrototypeMethod(tpl, "GetEIDfromUUID", GetEIDfromUUID);
     Nan::SetPrototypeMethod(tpl, "LoadMachine", LoadMachine);
     Nan::SetPrototypeMethod(tpl, "NextWS", NextWS);
     Nan::SetPrototypeMethod(tpl, "PrevWS", PrevWS);
