@@ -4583,7 +4583,8 @@ faces connected to the datum.
 <h2 class=rule>
 <a name=GetDatumFaceNext></a>
 <a name=GetDatumFaceCount></a>GetDatumFaceCount/Next()</h2>
-<pre>
+<div class='tabview'>
+<pre class='.net'>
 System::Int64 <b>GetDatumFaceCount</b> (
 	System::Int64 dat_id
 	);
@@ -4602,6 +4603,24 @@ System::Int64 <b>GetDatumFaceLocalNext</b> (
 	System::Int64 index
 	);
 </pre>
+<pre class="node.js">
+int [] <b>GetDatumFaceAll</b> (
+	int dat_id
+)
+</pre>
+<pre class="C++">
+RoseBoolean <b>get_datum_face_count</b> (
+	int dat_id, 
+	int &count
+	);
+
+RoseBoolean <b>get_datum_face_next</b> (
+	int dat_id, 
+	int index, 
+	int &face_id
+	);
+</pre>
+</div>
 
 <P>The <b>GetDatumFaceCount()</b> function returns a count of the
 number of faces defined in a datum and <b>GetDatumFaceNext()</b>
@@ -8198,7 +8217,8 @@ System::Int64 GetWorkpieceCalloutNext (
 <h2 class=rule>
 <a name=GetWorkpieceDatumAllNext></a>
 <a name=GetWorkpieceDatumAllCount></a>GetWorkpieceDatumAllCount/Next()</h2>
-<pre>
+<div class='tabview'>
+<pre class='.net'>
 System::Int64 <b>GetWorkpieceDatumAllCount</b> (
 	System::Int64 wp_id
 	);
@@ -8208,6 +8228,26 @@ System::Int64 <b>GetWorkpieceDatumAllNext</b> (
 	System::Int64 index
 	);
 </pre>
+<pre class="node.js">
+int[] <b>GetWorkpieceDatumAllAll</b> (
+	int wp_id
+)
+</pre>
+<pre class="C++">
+RoseBoolean <b>wp_all_datum_count</b> (
+	int wp_id, 
+	int &count
+	);
+
+RoseBoolean <b>wp_all_datum_next</b> (
+	int wp_id, 
+	int index, 
+	const char *&label, 
+	const char *&modifier, 
+	int &dat_id
+	);
+</pre>
+</div>
 
 <P>The <b>GetWorkpieceDatumAllCount()</b> function 
 
