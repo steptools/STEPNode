@@ -39,6 +39,9 @@ private:
 public:
     static NAN_MODULE_INIT(Init);
 
+    //int[] GetDatumFaceAll()
+    static NAN_METHOD(GetDatumFaceAll);
+
     //char * GetDatumLabel()
     static NAN_METHOD(GetDatumLabel);
 
@@ -80,4 +83,7 @@ public:
 
     //int[] GetWorkpieceToleranceAll(int wp_id)
     static NAN_METHOD(GetWorkpieceToleranceAll);
+
+    //int[] GetWorkpieceDatumAllAll(int dat_id)
+    static NAN_METHOD(GetWorkpieceDatumAllAll);
 };
