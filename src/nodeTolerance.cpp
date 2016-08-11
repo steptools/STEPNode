@@ -46,6 +46,7 @@ NAN_MODULE_INIT(Tolerance::Init)
     tpl->SetClassName(Nan::New("Tolerance").ToLocalChecked());
     tpl->InstanceTemplate()->SetInternalFieldCount(1);
 
+    Nan::SetPrototypeMethod(tpl, "GetDatumFaceAll", GetDatumFaceAll);
     Nan::SetPrototypeMethod(tpl, "GetDatumLabel", GetDatumLabel);
     Nan::SetPrototypeMethod(tpl, "GetToleranceAllCount", GetToleranceAllCount);
     Nan::SetPrototypeMethod(tpl, "GetToleranceAllNext", GetToleranceAllNext);
@@ -57,6 +58,7 @@ NAN_MODULE_INIT(Tolerance::Init)
     Nan::SetPrototypeMethod(tpl, "GetToleranceType", GetToleranceType);
     Nan::SetPrototypeMethod(tpl, "GetToleranceUnit", GetToleranceUnit);
     Nan::SetPrototypeMethod(tpl, "GetToleranceValue", GetToleranceValue);
+    Nan::SetPrototypeMethod(tpl, "GetWorkpieceDatumAllAll", GetWorkpieceDatumAllAll);
     Nan::SetPrototypeMethod(tpl, "GetWorkingstepToleranceAll", GetWorkingstepToleranceAll);
     Nan::SetPrototypeMethod(tpl, "GetWorkpieceOfTolerance", GetWorkpieceOfTolerance);
     Nan::SetPrototypeMethod(tpl, "GetWorkpieceToleranceAll", GetWorkpieceToleranceAll);
@@ -65,6 +67,39 @@ NAN_MODULE_INIT(Tolerance::Init)
     constructor().Reset(Nan::GetFunction(tpl).ToLocalChecked());
     Nan::Set(target, Nan::New("Tolerance").ToLocalChecked(), Nan::GetFunction(tpl).ToLocalChecked());
 
+}
+
+NAN_METHOD(Tolerance::GetDatumFaceAll)
+{
+  Tolerance * tol = Nan::ObjectWrap::Unwrap<Tolerance>(info.This());
+  if (tol == 0) //Throw Exception
+  return;
+  if (info.Length() != 1) //Throw Exception
+  return;
+  if(!info[0]->IsInt32())
+  return;
+
+  Nan::Maybe<int32_t> dat_id = Nan::To<int32_t>(info[0]);
+
+  int size = 0;
+  if (!tol->_tol->get_datum_face_count(dat_id.FromJust(), size)) //Throw Exception
+  return;
+
+  // Create a new empty array.
+  v8::Local<v8::Array> array = Nan::New<v8::Array>();
+  int face_id = 0;
+  if(size >= 0){
+      for(int i = 0; i < size; i++){
+          if (!tol->_tol->get_datum_face_next(dat_id.FromJust(), i, face_id)) //Throw Exception
+              return;
+          else{
+              array->Set(i,Nan::New(face_id));
+          }
+      }
+  }
+
+  info.GetReturnValue().Set(array);
+  return;
 }
 
 NAN_METHOD(Tolerance::GetDatumLabel)
@@ -312,6 +347,40 @@ NAN_METHOD(Tolerance::GetToleranceValue) {
     return;
   info.GetReturnValue().Set(value);
   return;
+}
+
+NAN_METHOD(Tolerance::GetWorkpieceDatumAllAll){
+    Tolerance * tol = Nan::ObjectWrap::Unwrap<Tolerance>(info.This());
+    if (tol == 0) //Throw Exception
+    return;
+    if (info.Length() != 1) //Throw Exception
+    return;
+    if (!info[0]->IsNumber())
+      return;
+
+    Nan::Maybe<int32_t> wp_id = Nan::To<int32_t>(info[0]);
+
+    int count = 0;
+    if (!tol->_tol->wp_all_datum_count(wp_id.FromJust(), count)) //Throw Exception
+    return;
+
+    // Create a new empty array.
+    v8::Local<v8::Array> array = Nan::New<v8::Array>();
+    int dat_id = 0;
+    const char *strNme1;
+    const char *strNme2;
+    if(count >= 0){
+        for(int i = 0; i < count; i++){
+            if (!tol->_tol->wp_all_datum_next(wp_id.FromJust(), i, strNme1, strNme2, dat_id)) //Throw Exception
+                return;
+            else{
+                array->Set(i,Nan::New(dat_id));
+            }
+        }
+    }
+
+    info.GetReturnValue().Set(array);
+    return;
 }
 
 NAN_METHOD(Tolerance::GetWorkingstepToleranceAll) {
