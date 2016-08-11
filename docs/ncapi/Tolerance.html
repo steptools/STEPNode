@@ -8209,9 +8209,33 @@ System::Int64 <b>GetWorkpieceDatumAllNext</b> (
 	);
 </pre>
 
-<P>The <b>GetWorkpieceDatumAllCount()</b> function 
+<P>The <b>GetWorkpieceDatumAllCount/Next()</b> functions gets all the datums on a workpiece including any datums
+on its subassemblies
 
-<P>The <b>GetWorkpieceDatumAllNext()</b> function 
+<P>For most STEP-NC applications this is the more useful function. The exception is if you are writing code
+to traverse the details of the components in an assembly tree and in this case the <b>GetWorkpieceDatumCount/Next()</b> functions
+will be more useful.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT> wp_id <DD> The identity of the workpiece.  See the
+GetWorkpieceID, GetFixtureID, GetRawpiceID and GetToolProductID
+functions of the Finder object, or the GetCurrentWorkpiece,
+GetCurrentRawpiece, GetCurrentFixture and GetCurrentTool functions of
+the <a href="AptStepMaker.html">APT object</a>.
+<DT> index <DD> The position of the next datum.
+</DL>
+
+<h3>Related Functions</h3>
+<UL>
+<li><a href="#GetWorkpieceDatumNext">GetWorkpieceDatumCount/Next</a>
+Get the datums on a workpiece but not on its subassemblies.
+</UL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>Invalid identity.
+</UL>
 
 
 <!-- ================================ -->
@@ -8230,10 +8254,10 @@ System::Int64 <b>GetWorkpieceDatumNext</b> (
 </pre>
 
 <P>The <b>GetWorkpieceDatumCount()</b> function returns the number of
-datums on the workpiece.
+datums on the workpiece but not on its sub-assemblies.
 
 <P>The <b>GetWorkpieceDatumNext()</b> function returns the next datum
-on the workpiece.
+on the workpiece, but not on its sub-assemblies.
 
 <h3>Arguments</h3>
 <DL class=termdefs>
@@ -8252,6 +8276,9 @@ the <a href="AptStepMaker.html">APT object</a>.
 e.g. &ldquo;A&rdquo;
 <li><a href="#GetToleranceDatumNext">GetToleranceDatumCount/Next</a>
 Get the datums of a tolerance.
+<li><a href="#GetWorkpieceDatumAllNext">GetWorkpieceDatumAllCount/Next</a>
+Get all the datums of a workipiece including those belonging to the
+subassemblies.
 </UL>
 
 <h3>Common Errors</h3>

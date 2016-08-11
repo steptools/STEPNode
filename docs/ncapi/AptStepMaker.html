@@ -64,6 +64,8 @@ Search STEP Tools Web Support<br>
 <li><a href="#DeleteFixture">DeleteFixture()</a>
 <li><a href="#DeleteToolParameters">DeleteToolParameters()</a>
 <li><a href="#DeleteWorkpiece">DeleteWorkpiece()</a>
+<li><a href="#EditAddPoint">EditAddPoint()</a>
+<li><a href="#EditChangePoint">EditChangePoint()</a>
 <li><a href="#EmptyOperation">EmptyOperation()</a>
 <li><a href="#EndWorkplan">EndWorkplan()</a>
 <li><a href="#EstimateDepths">EstimateDepths()</a>
@@ -1888,14 +1890,106 @@ STEP CAD file.
 the <a href="#NewProject">NewProject</a> function.
 </UL>
 
+
+<!-- ================================ -->
+<h2 class=rule>
+<a name=EditAddPoint></a>EditAddPoint()</h2>
+<pre>
+void <b>EditAddPoint</b> (	
+	System::Int64 point_id,
+	double x,
+	double y,
+	double z
+);
+</pre>
+
+<P>The <b>EditAddPoint()</b> function adds a cartesian point to a polyline curve. If the curve is part of a toolpath
+then the new point will be in that toolpath.
+
+<p>The new toolpath must be valid after all the points have been added.
+There are two issues to consider. The first is that if the
+path is made up of many curves, for example a curve for the coordinates, a curve for the axis direction and a curve
+for the contact normals, then points must be added to all those curves as well. The second is that when a path is
+made up of a sequence of curves the end of the previous curve must be the start of the next. 
+
+<P>Unfortunately these issues will not be detected until a system tries to render toolpaths again.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>point_id: <DD>The identity of a polyline curve.
+<DT>x, y, z: <DD>Coordinate values for the added point.
+</DL>
+
+<h3>Related Functions</h3>
+<UL>
+<li><a href="finder.html#GetPathCurveCount">GetPathCurvetNext</a>: This function
+gets the identity of the next curve in a path.
+<li><a href="#GoToXYZ">GoToXYZ</a>: This
+function is much easier to use because it adds a point to the current path during the construction of a 
+program.
+</UL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No project open: An AP-238 file must be open - see the NewProject
+function.
+<li>Bad identity: The curve_id does not identify a cartesian point.
+</UL>
+
+<!-- ================================ -->
+<h2 class=rule>
+<a name=EditChangePoint></a>EditChangePoint()</h2>
+<pre>
+void <b>EditChangePoint</b> (	
+	System::Int64 point_id,
+	double x,
+	double y,
+	double z
+);
+</pre>
+
+<P>The <b>EditChangePoint()</b> function replaces the coordinates in a cartesian point with a new set of values. The point may represent
+many kinds of data within the STEP-NC program. The most common case is for the point to represent a location on a tool path.
+However, it could also be an axis direction (in which case the values should be normalized) or a model boundary. In the latter
+case no checking will be made to make sure that the modified model is still valid.
+
+<h3>Arguments</h3>
+<DL class=termdefs>
+<DT>point_id: <DD>The identity of a cartesian point.
+<DT>x, y, z: <DD>New coordinate values for the point.
+</DL>
+
+<h3>Related Functions</h3>
+<UL>
+<li><a href="finder.html#GetPathPolylinePointNextID">GetPathPolylinePointNextID</a>: This function
+gets the identity of a point in a path.
+<li><a href="#GoToXYZ">GoToXYZ</a>: This
+function adds a point to the currently open toolpath.
+</UL>
+
+<h3>Common Errors</h3>
+<UL>
+<li>No project open: An AP-238 file must be open - see the NewProject
+function.
+<li>Bad identity: The point_id does not identify a cartesian point.
+</UL>
+
+
 <!-- ================================ -->
 <h2 class=rule>
 <a name=EmptyOperation></a>EmptyOperation()</h2>
 <pre>
-void <b>EmptyOperation</b> ();
+void <b>EmptyOperation</b> (
+	);
 </pre>
+<P>The <b>EmptyOperaion()</b> function creates an empty operation for the current workingstep.
+Normally APT tries to avoid creating a new operation until new data has been presented to the
+interface. The EmptyOperation function forces any object that was previously being created to
+be finished / closed. 
 
-<P>The <b>EmptyOperation()</b> function
+<P>After the operation has been created it can be filled with data using many functions in the APT
+interface. This will be easier while the new operation continues to be the current operation.
+
 
 
 <!-- ================================ -->
@@ -4243,6 +4337,8 @@ current spindle speed.
 cutting tool.
 <li><a href="#GoToXYZ_IJK">GoToXYZ_IJK</a>: Goto with a change of axes
 as well as location.
+<li><a href="#EditChangePoint">EditChangePoint</a>: Change the coordinates of a previoulsy
+defined point.
 </UL>
 
 <h3>Common Errors</h3>
