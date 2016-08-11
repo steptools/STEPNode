@@ -1,8 +1,8 @@
 {
   "name": "STEPNode",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Step-NC Node.js library",
-  "main": "index.js",
+  "main": "main.js",
   "license": "Apache-2.0",
   "directories": {
     "doc": "docs",
