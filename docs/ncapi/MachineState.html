@@ -128,7 +128,7 @@ RoseObject * <b>FindObjectByID</b> (
 
 <P>The <b>GetEIDfromUUID()</b> function returns the entity id that is associated with the uuid given.
 
-<h2 class=rule> 
+<h2 class=rule>
 	Undocumented (working on it): </h2>
 void LoadMachine(string file);
 <br>
@@ -141,6 +141,10 @@ string GetDeltaJSON();
 string GetKeystateJSON();
 <br>
 int GoToWS(int ws_id);
+<br>
+void GetToolPosition(double xyz[3], double ijk[3]);
+<br>
+void SetToolPosition(const double xyz[3], const double ijk[3]);
 <!-- ================================ -->
 </div>
 
