@@ -258,6 +258,37 @@ NAN_METHOD(machineState::GetCurrentSpindleSpeed)
     return;
 }
 
+NAN_METHOD(machineState::SetToolPosition)
+{
+    machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
+    if (!ms || !(ms->_ms)) return;
+    if (info.Length() != 6) return;    // bad input
+
+    double xyz[3];
+    double ijk[3];
+
+    for (int i=0; i<3; i++) {
+	if (info[i]->IsUndefined()) return; // throw ex
+	if (!info[i]->IsNumber()) return; // needs to be a number
+
+	Nan::Maybe<double> num = Nan::To<double>(info[i]);
+
+	xyz[i] = num.FromJust();
+    }
+
+    for (int i=3; i<6; i++) {
+	if (info[i]->IsUndefined()) return; // bad input
+	if (!info[i]->IsNumber()) return; // check for number
+
+	Nan::Maybe<double> num = Nan::To<double>(info[i]);
+
+	ijk[i - 3] = num.FromJust();
+    }
+
+    ms->_ms->SetToolPosition(xyz, ijk);
+    return;
+}
+
 NAN_MODULE_INIT(machineState::Init)
 {
     v8::Local<v8::FunctionTemplate> tpl = Nan::New<v8::FunctionTemplate>(New);
@@ -278,6 +309,7 @@ NAN_MODULE_INIT(machineState::Init)
     Nan::SetPrototypeMethod(tpl, "GetNextWSID", GetNextWSID);
     Nan::SetPrototypeMethod(tpl, "GetCurrentFeedrate", GetCurrentFeedrate);
     Nan::SetPrototypeMethod(tpl, "GetCurrentSpindleSpeed", GetCurrentSpindleSpeed);
+    Nan::SetPrototypeMethod(tpl, "SetToolPosition", SetToolPosition);
     constructor().Reset(Nan::GetFunction(tpl).ToLocalChecked());
     Nan::Set(target, Nan::New("machineState").ToLocalChecked(), Nan::GetFunction(tpl).ToLocalChecked());
 
