@@ -75,6 +75,9 @@ public:
 
     //double GetCurrentFeedrate
     static NAN_METHOD(GetCurrentSpindleSpeed);
+
+    // void SetToolPosition
+    static NAN_METHOD(SetToolPosition);
 };
 
 
