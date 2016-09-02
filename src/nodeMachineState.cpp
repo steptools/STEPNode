@@ -119,6 +119,21 @@ NAN_METHOD(machineState::GetGeometryJSON)
     }
 }
 
+NAN_METHOD(machineState::GetDeltaGeometryJSON)
+{
+    machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
+    if (!ms || !(ms->_ms)) return;
+    if (info.Length() != 1) //Function takes one argument
+	return;
+    if (!info[0]->IsNumber()) { // argument of wrong type
+	return;
+    }
+    ms->_ms->GetDeltaGeometryJSON(Nan::To<int32_t>(info[0]).FromJust());
+    char* rtn = ms->_ms->strbuff()->ro_str();
+    info.GetReturnValue().Set(CharTov8String(rtn));
+    return;
+}
+
 NAN_METHOD(machineState::GetDeltaStateJSON)
 {
     machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
@@ -297,6 +312,7 @@ NAN_MODULE_INIT(machineState::Init)
 
     Nan::SetPrototypeMethod(tpl, "AdvanceState", AdvanceState);
     Nan::SetPrototypeMethod(tpl, "GetGeometryJSON", GetGeometryJSON);
+    Nan::SetPrototypeMethod(tpl, "GetDeltaGeometryJSON", GetDeltaGeometryJSON);
     Nan::SetPrototypeMethod(tpl, "GetDeltaStateJSON", GetDeltaStateJSON);
     Nan::SetPrototypeMethod(tpl, "GetKeyStateJSON", GetKeyStateJSON);
     Nan::SetPrototypeMethod(tpl, "GoToWS", GoToWS);
