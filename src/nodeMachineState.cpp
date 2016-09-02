@@ -119,23 +119,23 @@ NAN_METHOD(machineState::GetGeometryJSON)
     }
 }
 
-NAN_METHOD(machineState::GetDeltaJSON)
+NAN_METHOD(machineState::GetDeltaStateJSON)
 {
     machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
     if (!ms || !(ms->_ms)) return;
     if (!info[0]->IsUndefined()) return; //This function takes no arguments.
-    ms->_ms->GetDeltaJSON(false);
+    ms->_ms->GetStateJSON(false);
     char* rtn = ms->_ms->strbuff()->ro_str();
     info.GetReturnValue().Set(CharTov8String(rtn));
     return;
 }
 
-NAN_METHOD(machineState::GetKeystateJSON)
+NAN_METHOD(machineState::GetKeyStateJSON)
 {
     machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
     if (!ms || !(ms->_ms)) return;
     if (!info[0]->IsUndefined()) return; //This function takes no arguments.
-    ms->_ms->GetDeltaJSON(true);
+    ms->_ms->GetStateJSON(true);
     char* rtn = ms->_ms->strbuff()->ro_str();
     info.GetReturnValue().Set(CharTov8String(rtn));
     return;
@@ -297,8 +297,8 @@ NAN_MODULE_INIT(machineState::Init)
 
     Nan::SetPrototypeMethod(tpl, "AdvanceState", AdvanceState);
     Nan::SetPrototypeMethod(tpl, "GetGeometryJSON", GetGeometryJSON);
-    Nan::SetPrototypeMethod(tpl, "GetDeltaJSON", GetDeltaJSON);
-    Nan::SetPrototypeMethod(tpl, "GetKeystateJSON", GetKeystateJSON);
+    Nan::SetPrototypeMethod(tpl, "GetDeltaStateJSON", GetDeltaStateJSON);
+    Nan::SetPrototypeMethod(tpl, "GetKeyStateJSON", GetKeyStateJSON);
     Nan::SetPrototypeMethod(tpl, "GoToWS", GoToWS);
     Nan::SetPrototypeMethod(tpl, "GetEIDfromUUID", GetEIDfromUUID);
     Nan::SetPrototypeMethod(tpl, "LoadMachine", LoadMachine);
