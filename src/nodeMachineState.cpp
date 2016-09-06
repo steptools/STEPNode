@@ -88,34 +88,34 @@ NAN_METHOD(machineState::GetGeometryJSON)
     //This function has a 2 argument and a no argument version.
     if (info.Length() == 0)
     {
-    ms->_ms->GetGeometryJSON();
-    char* rtn = ms->_ms->strbuff()->ro_str();
-    info.GetReturnValue().Set(CharTov8String(rtn));
-    return;
+	RoseStringObject rtn;
+	ms->_ms->GetGeometryJSON(rtn);
+	info.GetReturnValue().Set(CharTov8String(rtn.as_const()));
+	return;
     }
     else
     {
-    if (info.Length() != 2) return; // invalid number of arguments
-    if (info[0]->IsUndefined()) return; //No Given ID
-    if (info[1]->IsUndefined()) return; //No Given Typ
-    if (!info[0]->IsString()) return; //ID is not valid
-    if (!info[1]->IsString()) return; //Typ is not valid
-    char * id;
-    v8StringToChar(info[0], id);
-    RoseObject * obj = ms->_ms->FindObjectByID(id);
-    if (!obj)
-    {
-        delete[] id;
-        return; //No Object Associated with given ID
-    }
-    char * typ;
-    v8StringToChar(info[1], typ);
-    ms->_ms->GetGeometryJSON(id, obj, GeomTypeFromString(typ));
-    char* rtn = ms->_ms->strbuff()->ro_str();
-    info.GetReturnValue().Set(CharTov8String(rtn));
-    delete[] id;
-    delete[] typ;
-    return;
+	if (info.Length() != 2) return; // invalid number of arguments
+	if (info[0]->IsUndefined()) return; //No Given ID
+	if (info[1]->IsUndefined()) return; //No Given Typ
+	if (!info[0]->IsString()) return; //ID is not valid
+	if (!info[1]->IsString()) return; //Typ is not valid
+	char * id;
+	v8StringToChar(info[0], id);
+	RoseObject * obj = ms->_ms->FindObjectByID(id);
+	if (!obj)
+	{
+	    delete[] id;
+	    return; //No Object Associated with given ID
+	}
+	char * typ;
+	v8StringToChar(info[1], typ);
+	RoseStringObject rtn;
+	ms->_ms->GetGeometryJSON(rtn, id, obj, GeomTypeFromString(typ));
+	info.GetReturnValue().Set(CharTov8String(rtn.as_const()));
+	delete[] id;
+	delete[] typ;
+	return;
     }
 }
 
@@ -128,9 +128,9 @@ NAN_METHOD(machineState::GetDeltaGeometryJSON)
     if (!info[0]->IsNumber()) { // argument of wrong type
 	return;
     }
-    ms->_ms->GetDeltaGeometryJSON(Nan::To<int32_t>(info[0]).FromJust());
-    char* rtn = ms->_ms->strbuff()->ro_str();
-    info.GetReturnValue().Set(CharTov8String(rtn));
+    RoseStringObject rtn;
+    ms->_ms->GetDeltaGeometryJSON(rtn,Nan::To<int32_t>(info[0]).FromJust());
+    info.GetReturnValue().Set(CharTov8String(rtn.as_const()));
     return;
 }
 
@@ -139,9 +139,9 @@ NAN_METHOD(machineState::GetDeltaStateJSON)
     machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
     if (!ms || !(ms->_ms)) return;
     if (!info[0]->IsUndefined()) return; //This function takes no arguments.
-    ms->_ms->GetStateJSON(false);
-    char* rtn = ms->_ms->strbuff()->ro_str();
-    info.GetReturnValue().Set(CharTov8String(rtn));
+    RoseStringObject rtn;
+    ms->_ms->GetStateJSON(rtn,false);
+    info.GetReturnValue().Set(CharTov8String(rtn.as_const()));
     return;
 }
 
@@ -150,9 +150,9 @@ NAN_METHOD(machineState::GetKeyStateJSON)
     machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
     if (!ms || !(ms->_ms)) return;
     if (!info[0]->IsUndefined()) return; //This function takes no arguments.
-    ms->_ms->GetStateJSON(true);
-    char* rtn = ms->_ms->strbuff()->ro_str();
-    info.GetReturnValue().Set(CharTov8String(rtn));
+    RoseStringObject rtn;
+    ms->_ms->GetStateJSON(rtn,true);
+    info.GetReturnValue().Set(CharTov8String(rtn.as_const()));
     return;
 }
 
