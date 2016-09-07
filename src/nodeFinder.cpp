@@ -1315,7 +1315,6 @@ NAN_METHOD(Finder::GetToolLength) {
         return;
 
     Nan::Maybe<int32_t> tl_id = Nan::To<int32_t>(info[0]);
-    printf("%d\n", (int)tl_id.FromJust());
     double length = 0.0;
     double dummy;
 
