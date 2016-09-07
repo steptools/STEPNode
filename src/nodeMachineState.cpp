@@ -129,7 +129,7 @@ NAN_METHOD(machineState::GetDeltaGeometryJSON)
 	return;
     }
     RoseStringObject rtn;
-    ms->_ms->GetDeltaGeometryJSON(rtn,Nan::To<int32_t>(info[0]).FromJust());
+    ms->_ms->GetDynamicGeometryJSON(rtn,Nan::To<int32_t>(info[0]).FromJust());
     info.GetReturnValue().Set(CharTov8String(rtn.as_const()));
     return;
 }
