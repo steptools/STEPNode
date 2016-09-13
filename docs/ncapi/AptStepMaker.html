@@ -42,7 +42,7 @@ Search STEP Tools Web Support<br>
 <li><a href="#CompressTechnology">CompressTechnology()</a>
 <li><a href="#Connector">Connector()</a>
 <li><a href="#ContactOn">ContactOn()</a>
-<li><a href="#CoolantOn">CoolantOn/Off/Mist()</a>
+<li><a href="#CoolantOn">CoolantOn/Off/Mist/Thru()</a>
 <li><a href="#CutterDiameterCompensationAssignment">CutterDiameterCompensationAssignment()</a>
 <li><a href="#DefaultToInches">DefaultToInches() / DefaultToMillimeters()</a>
 <li><a href="#DefineTool">DefineTool()</a>
@@ -1024,8 +1024,9 @@ the <a href="#NewProject">NewProject</a> function.
 <!-- ================================ -->
 <a name=CoolantOff></a>
 <a name=CoolantMist></a>
+<a name=CoolantThru></a>
 <h2 class=rule>
-<a name=CoolantOn></a>CoolantOn/Off/Mist()</h2>
+<a name=CoolantOn></a>CoolantOn/Off/Mist/Thru()</h2>
 <pre>
 void <b>CoolantOn</b> ();
 void <b>CoolantOff</b> ();
@@ -1035,8 +1036,9 @@ void <b>CoolantMist</b> ();
 <P>The coolant functions control the coolant state for subsequent tool
 paths.  <b>CoolantOn()</b> turns the coolant on and makes it of type
 flood.  <b>CoolantMist()</b> function turns coolant on and makes it
-mist coolant instead of flood.  <b>CoolantOff()</b> stops coolant,
-regardless of type.
+mist coolant instead of flood. <b>CoolantThru()</b> function turns
+coolant on and makes it through-spindle coolant instead of
+flood.  <b>CoolantOff()</b> stops coolant, regardless of type.
 
 <P>If the coolant is not currently on, or not of type mist then a new
 tool path is started.  Through spindle coolant is not yet implemented
