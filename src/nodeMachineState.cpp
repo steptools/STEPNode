@@ -78,7 +78,10 @@ NAN_METHOD(machineState::AdvanceState)
     if (!ms || !(ms->_ms)) return;
     if (!info[0]->IsUndefined()) return; //This function takes no arguments.
     int rtnval = ms->_ms->AdvanceState();
-    info.GetReturnValue().Set(rtnval);
+    v8::Local<v8::Int32> rtn = Nan::New(rtnval);
+    v8::Local<v8::Promise::Resolver> pmise = v8::Promise::Resolver::New(info.GetIsolate());
+    std::async(std::launch::async, [pmise, rtn, ms]() {ms->_ms->WaitForStateUpdate(); pmise->Resolve(rtn); });
+    info.GetReturnValue().Set(pmise);
 }
 
 NAN_METHOD(machineState::GetGeometryJSON)
