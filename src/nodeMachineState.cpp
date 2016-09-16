@@ -304,6 +304,9 @@ NAN_METHOD(machineState::SetToolPosition)
     }
 
     ms->_ms->SetToolPosition(xyz, ijk);
+    v8::Local<v8::Promise::Resolver> pmise = v8::Promise::Resolver::New(info.GetIsolate());
+    std::async(std::launch::async, [pmise, ms]() {ms->_ms->WaitForStateUpdate(); pmise->Resolve(Nan::Null()); });
+    info.GetReturnValue().Set(pmise);
     return;
 }
 
