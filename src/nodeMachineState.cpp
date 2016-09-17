@@ -70,6 +70,7 @@ NAN_METHOD(machineState::New)
 		    wait = ms->_ms->WaitForStateUpdate(vpmise, rtn);
 		    printf("got Joe ptr %p\n", vpmise);
 		    auto ppmise = (Nan::Global<v8::Promise::Resolver>*)vpmise;
+		    v8::Locker lock(iso);//lock the casbah
 		    v8::Local<v8::Promise::Resolver> pmise = v8::Local<v8::Promise::Resolver>::New(iso,*ppmise);
 		    if (!wait) return;
 		    pmise->Resolve(v8::Number::New(iso,rtn));
