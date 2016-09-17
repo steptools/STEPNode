@@ -61,7 +61,8 @@ NAN_METHOD(machineState::New)
             machineState * ms = new machineState();
             ms->_ms = MachineState::InitializeState(b, c);
             delete[] b;
-	    std::thread([ms]() {
+	    v8::Isolate* iso = Nan::GetCurrentContext()->GetIsolate();
+	    std::thread([ms,iso]() {
 		bool wait = true;
 		double rtn = 0;
 		while (wait) {
@@ -69,9 +70,9 @@ NAN_METHOD(machineState::New)
 		    wait = ms->_ms->WaitForStateUpdate(vpmise, rtn);
 		    printf("got Joe ptr %p\n", vpmise);
 		    auto ppmise = (Nan::Global<v8::Promise::Resolver>*)vpmise;
-		    v8::Local<v8::Promise::Resolver> pmise = Nan::New(*ppmise);
+		    v8::Local<v8::Promise::Resolver> pmise = v8::Local<v8::Promise::Resolver>::New(iso,*ppmise);
 		    if (!wait) return;
-		    pmise->Resolve(Nan::New(rtn));
+		    pmise->Resolve(v8::Number::New(iso,rtn));
 		    delete ppmise;
 		}
 	    }).detach();
