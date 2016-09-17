@@ -61,18 +61,20 @@ NAN_METHOD(machineState::New)
             machineState * ms = new machineState();
             ms->_ms = MachineState::InitializeState(b, c);
             delete[] b;
-	    v8::Isolate* iso = Nan::GetCurrentContext()->GetIsolate();
-	    std::thread([ms,iso]() {
+	    std::thread([ms]() {
 		bool wait = true;
 		double rtn = 0;
+		auto myiso = v8::Isolate::New();
+		v8::Locker lock(myiso);
+		v8::Isolate::Scope isoscope(myiso);
+		v8::HandleScope handlescope(myiso);
 		while (wait) {
 		    void * vpmise;
 		    wait = ms->_ms->WaitForStateUpdate(vpmise, rtn);
 		    auto ppmise = (Nan::Global<v8::Promise::Resolver>*)vpmise;
-		    v8::Locker lock(iso);//lock the casbah
-		    v8::Local<v8::Promise::Resolver> pmise = v8::Local<v8::Promise::Resolver>::New(iso,*ppmise);
+		    v8::Local<v8::Promise::Resolver> pmise = v8::Local<v8::Promise::Resolver>::New(myiso,*ppmise);
 		    if (!wait) return;
-		    pmise->Resolve(v8::Number::New(iso,rtn));
+		    pmise->Resolve(v8::Number::New(myiso,rtn));
 		    delete ppmise;
 		}
 	    }).detach();
