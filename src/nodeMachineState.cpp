@@ -60,6 +60,17 @@ NAN_METHOD(machineState::New)
             machineState * ms = new machineState();
             ms->_ms = MachineState::InitializeState(b, c);
             delete[] b;
+	    std::async(std::launch::async, [ms]() {
+		bool wait = true;
+		double rtn = 0;
+		while (wait) {
+		    void * ppmise;
+		    wait = ms->_ms->WaitForStateUpdate(ppmise, rtn);
+		    v8::Local<v8::Promise::Resolver>* pmise = (v8::Local<v8::Promise::Resolver>*)ppmise;
+		    if (!wait) return;
+		    (*pmise)->Resolve(Nan::New(rtn));
+		}
+	    });
             ms->Wrap(info.This());
             info.GetReturnValue().Set(info.This());
         }
@@ -77,10 +88,8 @@ NAN_METHOD(machineState::AdvanceState)
     machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
     if (!ms || !(ms->_ms)) return;
     if (!info[0]->IsUndefined()) return; //This function takes no arguments.
-    int rtnval = ms->_ms->AdvanceState();
-    v8::Local<v8::Int32> rtn = Nan::New(rtnval);
     v8::Local<v8::Promise::Resolver> pmise = v8::Promise::Resolver::New(info.GetIsolate());
-    std::async(std::launch::async, [pmise, rtn, ms]() {ms->_ms->WaitForStateUpdate(); pmise->Resolve(rtn); });
+    ms->_ms->AdvanceState(&pmise);
     info.GetReturnValue().Set(pmise);
 }
 
@@ -303,10 +312,8 @@ NAN_METHOD(machineState::SetToolPosition)
 	ijk[i - 3] = num.FromJust();
     }
 
-    ms->_ms->SetToolPosition(xyz, ijk);
     v8::Local<v8::Promise::Resolver> pmise = v8::Promise::Resolver::New(info.GetIsolate());
-    v8::Local<v8::Int32> rtn = Nan::New(1);
-    std::async(std::launch::async, [pmise,rtn, ms]() {ms->_ms->WaitForStateUpdate(); pmise->Resolve(rtn); });
+    ms->_ms->SetToolPosition(xyz, ijk,&pmise);
     info.GetReturnValue().Set(pmise);
     return;
 }
