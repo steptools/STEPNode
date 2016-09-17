@@ -65,13 +65,16 @@ NAN_METHOD(machineState::New)
 		bool wait = true;
 		double rtn = 0;
 		while (wait) {
-		    void * ppmise;
-		    wait = ms->_ms->WaitForStateUpdate(ppmise, rtn);
-		    v8::Local<v8::Promise::Resolver>* pmise = (v8::Local<v8::Promise::Resolver>*)ppmise;
+		    void * vpmise;
+		    wait = ms->_ms->WaitForStateUpdate(vpmise, rtn);
+		    printf("got Joe ptr %p\n", vpmise);
+		    auto ppmise = (Nan::Global<v8::Promise::Resolver>*)vpmise;
+		    v8::Local<v8::Promise::Resolver> pmise = Nan::New(*ppmise);
 		    if (!wait) return;
-		    (*pmise)->Resolve(Nan::New(rtn));
+		    pmise->Resolve(Nan::New(rtn));
+		    delete ppmise;
 		}
-	    });
+	    }).detach();
             ms->Wrap(info.This());
             info.GetReturnValue().Set(info.This());
         }
@@ -314,7 +317,10 @@ NAN_METHOD(machineState::SetToolPosition)
     }
 
     v8::Local<v8::Promise::Resolver> pmise = v8::Promise::Resolver::New(info.GetIsolate());
-    ms->_ms->SetToolPosition(xyz, ijk,&pmise);
+    auto pased = new Nan::Global<v8::Promise::Resolver>(pmise);
+    pased->Reset(pmise);
+    printf("giving Joe ptr %p\n", pased);
+    ms->_ms->SetToolPosition(xyz, ijk,(pased));
     info.GetReturnValue().Set(pmise);
     return;
 }
