@@ -20,6 +20,7 @@
 #include <nan.h>
 #include <stncapt/MachineState.h>
 #include <stncapt/message.h>
+#include <uv.h>
 class machineState : public Nan::ObjectWrap {
 private:
     MachineState * _ms;
@@ -31,7 +32,10 @@ private:
 	    return my_constructor;
     }
     ~machineState() {};
+    uv_async_t async;
+    uv_thread_t waitqueue;
 public:
+    void Wait();
     static NAN_MODULE_INIT(Init);
 
     //Load a machine model from a file.

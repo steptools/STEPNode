@@ -38,6 +38,49 @@ StixSimGeomType GeomTypeFromString(char* typ)
     }
 }
 
+typedef struct { 
+    /*SECRETLY A Nan::Global<v8::Promise::Resolver>* */
+    void* pmise; 
+    double rtn; 
+} waitstruct;
+std::vector<waitstruct> promisepool;
+std::mutex pp_mutex;
+void messager(uv_async_t *hanlde) {
+
+    pp_mutex.lock();
+    v8::HandleScope handle(v8::Isolate::GetCurrent());
+    for each (auto v in promisepool){
+	auto ppmise = (Nan::Global<v8::Promise::Resolver>*)v.pmise;
+	v8::Local<v8::Number> rtn = Nan::New(v.rtn);
+	v8::Local<v8::Promise::Resolver> pmise = Nan::New(*(ppmise));
+	pmise->Resolve(rtn);
+	delete v.pmise;
+    }
+    promisepool.clear();
+    pp_mutex.unlock();
+}
+void __waiterFunction(void* arg) {
+    machineState * ms = static_cast<machineState*>(arg);
+    ms->Wait();
+}
+void machineState::Wait() {
+    bool wait = true;
+    double rtn = 0;
+    while (wait) {
+	void * vpmise;
+	wait = _ms->WaitForStateUpdate(vpmise, rtn);
+	waitstruct waiter;
+	waiter.pmise = vpmise;
+	waiter.rtn = rtn;
+	pp_mutex.lock();
+	promisepool.push_back(waiter);
+	pp_mutex.unlock();
+	uv_async_send(&async);
+	if (!wait) return;
+    }
+}
+
+
 NAN_METHOD(machineState::New)
 {
 
@@ -61,26 +104,10 @@ NAN_METHOD(machineState::New)
             machineState * ms = new machineState();
             ms->_ms = MachineState::InitializeState(b, c);
             delete[] b;
-	    std::thread([ms]() {
-		bool wait = true;
-		double rtn = 0;
-		auto myiso = v8::Isolate::New();
-		v8::Locker lock(myiso);
-		v8::Isolate::Scope isoscope(myiso);
-		v8::HandleScope hs(myiso);
-		v8::EscapableHandleScope handlescope(myiso);
-		myiso->Enter();
-		while (wait) {
-		    void * vpmise;
-		    wait = ms->_ms->WaitForStateUpdate(vpmise, rtn);
-		    auto ppmise = (Nan::Global<v8::Promise::Resolver>*)vpmise;
-		    v8::Local<v8::Promise::Resolver> pmise = v8::Local<v8::Promise::Resolver>::New(myiso,*ppmise);
-		    if (!wait) return;
-		    pmise->Resolve(v8::Number::New(myiso,rtn));
-		    delete ppmise;
-		}
-	    }).detach();
-            ms->Wrap(info.This());
+	    uv_async_init(uv_default_loop(), &ms->async, messager);
+	    uv_thread_create(&ms->waitqueue, __waiterFunction, (void*)ms);
+            
+	    ms->Wrap(info.This());
             info.GetReturnValue().Set(info.This());
         }
         else{
