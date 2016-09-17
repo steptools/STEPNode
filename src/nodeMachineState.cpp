@@ -68,7 +68,6 @@ NAN_METHOD(machineState::New)
 		while (wait) {
 		    void * vpmise;
 		    wait = ms->_ms->WaitForStateUpdate(vpmise, rtn);
-		    printf("got Joe ptr %p\n", vpmise);
 		    auto ppmise = (Nan::Global<v8::Promise::Resolver>*)vpmise;
 		    v8::Locker lock(iso);//lock the casbah
 		    v8::Local<v8::Promise::Resolver> pmise = v8::Local<v8::Promise::Resolver>::New(iso,*ppmise);
@@ -321,7 +320,6 @@ NAN_METHOD(machineState::SetToolPosition)
     v8::Local<v8::Promise::Resolver> pmise = v8::Promise::Resolver::New(info.GetIsolate());
     auto pased = new Nan::Global<v8::Promise::Resolver>(pmise);
     pased->Reset(pmise);
-    printf("giving Joe ptr %p\n", pased);
     ms->_ms->SetToolPosition(xyz, ijk,(pased));
     info.GetReturnValue().Set(pmise);
     return;
