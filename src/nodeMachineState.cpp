@@ -20,6 +20,7 @@
 #include "nodeUtils.h"
 #include <stp_schema.h>
 #include <future>
+#include <thread>
 
 StixSimGeomType GeomTypeFromString(char* typ)
 {
@@ -60,7 +61,7 @@ NAN_METHOD(machineState::New)
             machineState * ms = new machineState();
             ms->_ms = MachineState::InitializeState(b, c);
             delete[] b;
-	    std::async(std::launch::async, [ms]() {
+	    std::thread([ms]() {
 		bool wait = true;
 		double rtn = 0;
 		while (wait) {
