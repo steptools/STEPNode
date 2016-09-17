@@ -67,6 +67,7 @@ NAN_METHOD(machineState::New)
 		auto myiso = v8::Isolate::New();
 		v8::Locker lock(myiso);
 		v8::Isolate::Scope isoscope(myiso);
+		v8::HandleScope hs(myiso);
 		v8::EscapableHandleScope handlescope(myiso);
 		myiso->Enter();
 		while (wait) {
