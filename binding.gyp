@@ -67,7 +67,8 @@
 				]
 			}],
 			['OS!="win"', {
-				"libraries": ['<(Rose_lib)'+"f2c"+'<(lib_ext)']
+				"libraries": ['<(Rose_lib)'+"f2c"+'<(lib_ext)'],
+				"cflags":["-std=c++11"]
 			}],
 			['OS=="linux"', {
 				"libraries": [
