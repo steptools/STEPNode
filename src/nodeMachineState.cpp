@@ -19,7 +19,6 @@
 #include "nodeMachineState.h"
 #include "nodeUtils.h"
 #include <stp_schema.h>
-#include <future>
 #include <thread>
 
 StixSimGeomType GeomTypeFromString(char* typ)
@@ -44,10 +43,10 @@ typedef struct {
     double rtn; 
 } waitstruct;
 std::vector<waitstruct> promisepool;
-std::mutex pp_mutex;
+uv_mutex_t pp_mutex;
 void messager(uv_async_t *hanlde) {
 
-    pp_mutex.lock();
+    uv_mutex_lock(&pp_mutex);
     v8::HandleScope handle(v8::Isolate::GetCurrent());
     for(auto v:promisepool){
 	auto ppmise = (Nan::Global<v8::Promise::Resolver>*)v.pmise;
@@ -57,7 +56,7 @@ void messager(uv_async_t *hanlde) {
 	delete v.pmise;
     }
     promisepool.clear();
-    pp_mutex.unlock();
+    uv_mutex_unlock(&pp_mutex);
 }
 void __waiterFunction(void* arg) {
     machineState * ms = static_cast<machineState*>(arg);
@@ -72,9 +71,9 @@ void machineState::Wait() {
 	waitstruct waiter;
 	waiter.pmise = vpmise;
 	waiter.rtn = rtn;
-	pp_mutex.lock();
+	uv_mutex_lock(&pp_mutex);
 	promisepool.push_back(waiter);
-	pp_mutex.unlock();
+	uv_mutex_unlock(&pp_mutex);
 	uv_async_send(&async);
 	if (!wait) return;
     }
@@ -106,7 +105,7 @@ NAN_METHOD(machineState::New)
             delete[] b;
 	    uv_async_init(uv_default_loop(), &ms->async, messager);
 	    uv_thread_create(&ms->waitqueue, __waiterFunction, (void*)ms);
-            
+	    uv_mutex_init(&pp_mutex);
 	    ms->Wrap(info.This());
             info.GetReturnValue().Set(info.This());
         }
