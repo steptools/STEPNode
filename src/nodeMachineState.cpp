@@ -182,6 +182,15 @@ NAN_METHOD(machineState::GetDeltaGeometryJSON)
     return;
 }
 
+NAN_METHOD(machineState::ResetDeltaGeometry)
+{
+    machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
+    if (!ms || !(ms->_ms)) return;
+    if (!info[0]->IsUndefined()) return; //This function takes no arguments.
+    ms->_ms->ResetDynamicGeometry();
+    return;
+}
+
 NAN_METHOD(machineState::GetDeltaStateJSON)
 {
     machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
@@ -378,6 +387,7 @@ NAN_MODULE_INIT(machineState::Init)
     Nan::SetPrototypeMethod(tpl, "GetCurrentFeedrate", GetCurrentFeedrate);
     Nan::SetPrototypeMethod(tpl, "GetCurrentSpindleSpeed", GetCurrentSpindleSpeed);
     Nan::SetPrototypeMethod(tpl, "SetToolPosition", SetToolPosition);
+    Nan::SetPrototypeMethod(tpl, "ResetDeltaGeometry", ResetDeltaGeometry);
     constructor().Reset(Nan::GetFunction(tpl).ToLocalChecked());
     Nan::Set(target, Nan::New("machineState").ToLocalChecked(), Nan::GetFunction(tpl).ToLocalChecked());
 

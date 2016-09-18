@@ -62,6 +62,8 @@ public:
     static NAN_METHOD(GetGeometryJSON);
     //String GetDeltaGeometryJSON(unsigned prev); //Get the geometry associated with the inprocess geometry.
     static NAN_METHOD(GetDeltaGeometryJSON);
+    //void ResetDeltaGeometry(); //Reset the inprocess geometry.
+    static NAN_METHOD(ResetDeltaGeometry);
     //String GetDeltaStateJSON(); //Get changed geometry
     static NAN_METHOD(GetDeltaStateJSON);
     //String GetKeyStateJSON(); //Get All keyframe geometry.
