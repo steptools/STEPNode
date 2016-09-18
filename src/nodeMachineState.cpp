@@ -49,7 +49,7 @@ void messager(uv_async_t *hanlde) {
 
     pp_mutex.lock();
     v8::HandleScope handle(v8::Isolate::GetCurrent());
-    for each (auto v in promisepool){
+    for(auto v:promisepool){
 	auto ppmise = (Nan::Global<v8::Promise::Resolver>*)v.pmise;
 	v8::Local<v8::Number> rtn = Nan::New(v.rtn);
 	v8::Local<v8::Promise::Resolver> pmise = Nan::New(*(ppmise));
