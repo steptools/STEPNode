@@ -70,8 +70,7 @@
 			{
 					"xcode_settings": {  
 					    "OTHER_CPLUSPLUSFLAGS": [  
-					      "-std=c++11",
-				      "-stdlib=libc++"
+					      "-std=c++11"
 					]}}],
 			['OS!="win"', {
 				"libraries": ['<(Rose_lib)'+"f2c"+'<(lib_ext)'],
