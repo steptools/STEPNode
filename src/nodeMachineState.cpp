@@ -19,7 +19,6 @@
 #include "nodeMachineState.h"
 #include "nodeUtils.h"
 #include <stp_schema.h>
-#include <thread>
 
 StixSimGeomType GeomTypeFromString(char* typ)
 {
