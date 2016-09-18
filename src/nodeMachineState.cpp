@@ -176,8 +176,9 @@ NAN_METHOD(machineState::GetDeltaGeometryJSON)
     if (!info[0]->IsNumber()) { // argument of wrong type
 	return;
     }
+    int in = Nan::To<int32_t>(info[0]).FromJust();
     RoseStringObject rtn;
-    ms->_ms->GetDynamicGeometryJSON(rtn,Nan::To<int32_t>(info[0]).FromJust());
+    ms->_ms->GetDynamicGeometryJSON(rtn, in);
     info.GetReturnValue().Set(CharTov8String(rtn.as_const()));
     return;
 }
