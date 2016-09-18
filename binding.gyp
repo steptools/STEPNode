@@ -66,6 +66,13 @@
 					"msvcrt.lib"
 				]
 			}],
+		["OS==\"mac\"",
+			{
+					"xcode_settings": {  
+					    "OTHER_CPLUSPLUSFLAGS": [  
+					      "-std=c++11",
+				      "-stdlib=libc++"
+					]}}],
 			['OS!="win"', {
 				"libraries": ['<(Rose_lib)'+"f2c"+'<(lib_ext)'],
 				"cflags":["-std=c++11"]
