@@ -19,7 +19,8 @@
 #include "nodeMachineState.h"
 #include "nodeUtils.h"
 #include <stp_schema.h>
-
+#include <future>
+#include <thread>
 
 StixSimGeomType GeomTypeFromString(char* typ)
 {
@@ -36,6 +37,49 @@ StixSimGeomType GeomTypeFromString(char* typ)
 	return STIXSIM_GT_NULL;
     }
 }
+
+typedef struct { 
+    /*SECRETLY A Nan::Global<v8::Promise::Resolver>* */
+    void* pmise; 
+    double rtn; 
+} waitstruct;
+std::vector<waitstruct> promisepool;
+std::mutex pp_mutex;
+void messager(uv_async_t *hanlde) {
+
+    pp_mutex.lock();
+    v8::HandleScope handle(v8::Isolate::GetCurrent());
+    for each (auto v in promisepool){
+	auto ppmise = (Nan::Global<v8::Promise::Resolver>*)v.pmise;
+	v8::Local<v8::Number> rtn = Nan::New(v.rtn);
+	v8::Local<v8::Promise::Resolver> pmise = Nan::New(*(ppmise));
+	pmise->Resolve(rtn);
+	delete v.pmise;
+    }
+    promisepool.clear();
+    pp_mutex.unlock();
+}
+void __waiterFunction(void* arg) {
+    machineState * ms = static_cast<machineState*>(arg);
+    ms->Wait();
+}
+void machineState::Wait() {
+    bool wait = true;
+    double rtn = 0;
+    while (wait) {
+	void * vpmise;
+	wait = _ms->WaitForStateUpdate(vpmise, rtn);
+	waitstruct waiter;
+	waiter.pmise = vpmise;
+	waiter.rtn = rtn;
+	pp_mutex.lock();
+	promisepool.push_back(waiter);
+	pp_mutex.unlock();
+	uv_async_send(&async);
+	if (!wait) return;
+    }
+}
+
 
 NAN_METHOD(machineState::New)
 {
@@ -60,7 +104,10 @@ NAN_METHOD(machineState::New)
             machineState * ms = new machineState();
             ms->_ms = MachineState::InitializeState(b, c);
             delete[] b;
-            ms->Wrap(info.This());
+	    uv_async_init(uv_default_loop(), &ms->async, messager);
+	    uv_thread_create(&ms->waitqueue, __waiterFunction, (void*)ms);
+            
+	    ms->Wrap(info.This());
             info.GetReturnValue().Set(info.This());
         }
         else{
@@ -77,8 +124,9 @@ NAN_METHOD(machineState::AdvanceState)
     machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
     if (!ms || !(ms->_ms)) return;
     if (!info[0]->IsUndefined()) return; //This function takes no arguments.
-    int rtnval = ms->_ms->AdvanceState();
-    info.GetReturnValue().Set(rtnval);
+    v8::Local<v8::Promise::Resolver> pmise = v8::Promise::Resolver::New(info.GetIsolate());
+    ms->_ms->AdvanceState(&pmise);
+    info.GetReturnValue().Set(pmise);
 }
 
 NAN_METHOD(machineState::GetGeometryJSON)
@@ -88,56 +136,81 @@ NAN_METHOD(machineState::GetGeometryJSON)
     //This function has a 2 argument and a no argument version.
     if (info.Length() == 0)
     {
-    ms->_ms->GetGeometryJSON();
-    char* rtn = ms->_ms->strbuff()->ro_str();
-    info.GetReturnValue().Set(CharTov8String(rtn));
-    return;
+	RoseStringObject rtn;
+	ms->_ms->GetGeometryJSON(rtn);
+	info.GetReturnValue().Set(CharTov8String(rtn.as_const()));
+	return;
     }
     else
     {
-    if (info.Length() != 2) return; // invalid number of arguments
-    if (info[0]->IsUndefined()) return; //No Given ID
-    if (info[1]->IsUndefined()) return; //No Given Typ
-    if (!info[0]->IsString()) return; //ID is not valid
-    if (!info[1]->IsString()) return; //Typ is not valid
-    char * id;
-    v8StringToChar(info[0], id);
-    RoseObject * obj = ms->_ms->FindObjectByID(id);
-    if (!obj)
-    {
-        delete[] id;
-        return; //No Object Associated with given ID
-    }
-    char * typ;
-    v8StringToChar(info[1], typ);
-    ms->_ms->GetGeometryJSON(id, obj, GeomTypeFromString(typ));
-    char* rtn = ms->_ms->strbuff()->ro_str();
-    info.GetReturnValue().Set(CharTov8String(rtn));
-    delete[] id;
-    delete[] typ;
-    return;
+	if (info.Length() != 2) return; // invalid number of arguments
+	if (info[0]->IsUndefined()) return; //No Given ID
+	if (info[1]->IsUndefined()) return; //No Given Typ
+	if (!info[0]->IsString()) return; //ID is not valid
+	if (!info[1]->IsString()) return; //Typ is not valid
+	char * id;
+	v8StringToChar(info[0], id);
+	RoseObject * obj = ms->_ms->FindObjectByID(id);
+	if (!obj)
+	{
+	    delete[] id;
+	    return; //No Object Associated with given ID
+	}
+	char * typ;
+	v8StringToChar(info[1], typ);
+	RoseStringObject rtn;
+	ms->_ms->GetGeometryJSON(rtn, id, obj, GeomTypeFromString(typ));
+	info.GetReturnValue().Set(CharTov8String(rtn.as_const()));
+	delete[] id;
+	delete[] typ;
+	return;
     }
 }
 
-NAN_METHOD(machineState::GetDeltaJSON)
+NAN_METHOD(machineState::GetDeltaGeometryJSON)
+{
+    machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
+    if (!ms || !(ms->_ms)) return;
+    if (info.Length() != 1) //Function takes one argument
+	return;
+    if (!info[0]->IsNumber()) { // argument of wrong type
+	return;
+    }
+    int in = Nan::To<int32_t>(info[0]).FromJust();
+    RoseStringObject rtn;
+    ms->_ms->GetDynamicGeometryJSON(rtn, in);
+    info.GetReturnValue().Set(CharTov8String(rtn.as_const()));
+    return;
+}
+
+NAN_METHOD(machineState::ResetDeltaGeometry)
 {
     machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
     if (!ms || !(ms->_ms)) return;
     if (!info[0]->IsUndefined()) return; //This function takes no arguments.
-    ms->_ms->GetDeltaJSON(false);
-    char* rtn = ms->_ms->strbuff()->ro_str();
-    info.GetReturnValue().Set(CharTov8String(rtn));
+    ms->_ms->ResetDynamicGeometry();
     return;
 }
 
-NAN_METHOD(machineState::GetKeystateJSON)
+NAN_METHOD(machineState::GetDeltaStateJSON)
 {
     machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
     if (!ms || !(ms->_ms)) return;
     if (!info[0]->IsUndefined()) return; //This function takes no arguments.
-    ms->_ms->GetDeltaJSON(true);
-    char* rtn = ms->_ms->strbuff()->ro_str();
-    info.GetReturnValue().Set(CharTov8String(rtn));
+    RoseStringObject rtn;
+    ms->_ms->GetStateJSON(rtn,false);
+    info.GetReturnValue().Set(CharTov8String(rtn.as_const()));
+    return;
+}
+
+NAN_METHOD(machineState::GetKeyStateJSON)
+{
+    machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
+    if (!ms || !(ms->_ms)) return;
+    if (!info[0]->IsUndefined()) return; //This function takes no arguments.
+    RoseStringObject rtn;
+    ms->_ms->GetStateJSON(rtn,true);
+    info.GetReturnValue().Set(CharTov8String(rtn.as_const()));
     return;
 }
 
@@ -285,7 +358,11 @@ NAN_METHOD(machineState::SetToolPosition)
 	ijk[i - 3] = num.FromJust();
     }
 
-    ms->_ms->SetToolPosition(xyz, ijk);
+    v8::Local<v8::Promise::Resolver> pmise = v8::Promise::Resolver::New(info.GetIsolate());
+    auto pased = new Nan::Global<v8::Promise::Resolver>(pmise);
+    pased->Reset(pmise);
+    ms->_ms->SetToolPosition(xyz, ijk,(pased));
+    info.GetReturnValue().Set(pmise);
     return;
 }
 
@@ -297,8 +374,9 @@ NAN_MODULE_INIT(machineState::Init)
 
     Nan::SetPrototypeMethod(tpl, "AdvanceState", AdvanceState);
     Nan::SetPrototypeMethod(tpl, "GetGeometryJSON", GetGeometryJSON);
-    Nan::SetPrototypeMethod(tpl, "GetDeltaJSON", GetDeltaJSON);
-    Nan::SetPrototypeMethod(tpl, "GetKeystateJSON", GetKeystateJSON);
+    Nan::SetPrototypeMethod(tpl, "GetDeltaGeometryJSON", GetDeltaGeometryJSON);
+    Nan::SetPrototypeMethod(tpl, "GetDeltaStateJSON", GetDeltaStateJSON);
+    Nan::SetPrototypeMethod(tpl, "GetKeyStateJSON", GetKeyStateJSON);
     Nan::SetPrototypeMethod(tpl, "GoToWS", GoToWS);
     Nan::SetPrototypeMethod(tpl, "GetEIDfromUUID", GetEIDfromUUID);
     Nan::SetPrototypeMethod(tpl, "LoadMachine", LoadMachine);
@@ -310,6 +388,7 @@ NAN_MODULE_INIT(machineState::Init)
     Nan::SetPrototypeMethod(tpl, "GetCurrentFeedrate", GetCurrentFeedrate);
     Nan::SetPrototypeMethod(tpl, "GetCurrentSpindleSpeed", GetCurrentSpindleSpeed);
     Nan::SetPrototypeMethod(tpl, "SetToolPosition", SetToolPosition);
+    Nan::SetPrototypeMethod(tpl, "ResetDeltaGeometry", ResetDeltaGeometry);
     constructor().Reset(Nan::GetFunction(tpl).ToLocalChecked());
     Nan::Set(target, Nan::New("machineState").ToLocalChecked(), Nan::GetFunction(tpl).ToLocalChecked());
 
