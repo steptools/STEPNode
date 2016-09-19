@@ -392,6 +392,7 @@ workingsteps in the sequence.
 
 <!-- ============================== -->
 <h2 class=rule>
+<<<<<<< HEAD
 <a name=GetPrevWSID></a>GetPrevWSID</h2>
 <div class='tabview'>
 <pre class='.net'>
@@ -515,16 +516,44 @@ to the start of the previous sequential workingstep.
 
 
 
-
-<h2 class=rule>Not Yet Documented: </h2>
-<pre>
-string GetGeometryJSON();
-string GetGeometryJSON(string id, string typ);
-string GetDeltaJSON();
-string GetKeystateJSON();
-void GetToolPosition(double xyz[3], double ijk[3]);
-void SetToolPosition(const double xyz[3], const double ijk[3]);
+<!-- ============================== -->
+<a name="GetDeltaStateJSON"></a><a name="GetKeyStateJSON"></a>GetKeyStateJSON() GetDeltaStateJSON()</h2>
+<div class='tabview'>
+<pre class='.net'>
+String^ <b>GetKeyStateJSON</b>();
 </pre>
+<pre class='node.js'>
+string <b>GetKeyStateJSON</b>();
+</pre>
+<pre class='C++'>
+RoseStringObject <b>GetStateJSON</b>(
+    bool keyframe
+);
+</pre>
+</div>
+<div class='tabview'>
+<pre class='.net'>
+String^ <b>GetDeltaStateJSON</b>();
+</pre>
+<pre class='node.js'>
+string <b>GetDeltaStateJSON</b>();
+</pre>
+<pre class='C++'>
+RoseStringObject <b>GetStateJSON</b>(
+    bool keyframe
+);
+</pre>
+</div>
+
+<P>The <b>GetKeyStateJSON()</b> function return a JSON object which
+describes the current placement of geometry objects in the scene.
+
+<p>The <b>GetDeltaStateJSON()</b> function returns a JSON object with
+only the items that have moved since the last call to either of these
+two functions.  The C++ version takes a bool, when true it returns a
+Key State, when false it returns a Delta State.
+
+
 
 </div>
 

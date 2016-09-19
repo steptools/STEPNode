@@ -20,6 +20,7 @@
 #include <nan.h>
 #include <stncapt/MachineState.h>
 #include <stncapt/message.h>
+#include <uv.h>
 class machineState : public Nan::ObjectWrap {
 private:
     MachineState * _ms;
@@ -31,7 +32,10 @@ private:
 	    return my_constructor;
     }
     ~machineState() {};
+    uv_async_t async;
+    uv_thread_t waitqueue;
 public:
+    void Wait();
     static NAN_MODULE_INIT(Init);
 
     //Load a machine model from a file.
@@ -56,10 +60,14 @@ public:
     //String GetGeometryJSON() //Get all Geometry
     //String GetGeometryJSON(string id,string typ) //Get a specific piece of geometry data. types are "NONE" "MESH" and "POLYLINE"
     static NAN_METHOD(GetGeometryJSON);
-    //String GetDeltaJSON(); //Get changed geometry
-    static NAN_METHOD(GetDeltaJSON);
-    //String GetKeystateJSON(); //Get All keyframe geometry.
-    static NAN_METHOD(GetKeystateJSON);
+    //String GetDeltaGeometryJSON(unsigned prev); //Get the geometry associated with the inprocess geometry.
+    static NAN_METHOD(GetDeltaGeometryJSON);
+    //void ResetDeltaGeometry(); //Reset the inprocess geometry.
+    static NAN_METHOD(ResetDeltaGeometry);
+    //String GetDeltaStateJSON(); //Get changed geometry
+    static NAN_METHOD(GetDeltaStateJSON);
+    //String GetKeyStateJSON(); //Get All keyframe geometry.
+    static NAN_METHOD(GetKeyStateJSON);
 
     //int GetPrevWSID()
     static NAN_METHOD(GetPrevWSID);
