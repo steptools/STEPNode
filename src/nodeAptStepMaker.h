@@ -1,6 +1,3 @@
-// $RCSfile: $
-// $Revision: $ $Date: $
-// Auth: Samson Bonfante (bonfante@steptools.com)
 // 
 // Copyright (c) 1991-2016 by STEP Tools Inc. 
 // 
@@ -15,6 +12,9 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+//
+// Author: Samson Bonfante (bonfante@steptools.com)
+//
 
 #pragma once
 #include <nan.h>
@@ -44,13 +44,13 @@ public:
     //string GetToolIdentifier(string tool_number)
     static NAN_METHOD(GetToolIdentifier);
 		
-		static NAN_METHOD(GetExecutableWorkpieceToBe);
+    static NAN_METHOD(GetExecutableWorkpieceToBe);
 		
-		static NAN_METHOD(GetCurrentWorkpiece);
+    static NAN_METHOD(GetCurrentWorkpiece);
 		
-		static NAN_METHOD(GetCurrentWorkplan);
+    static NAN_METHOD(GetCurrentWorkplan);
 		
-		static NAN_METHOD(GetWorkplanSetup);
+    static NAN_METHOD(GetWorkplanSetup);
 
     //string GetToolNumber(int id)
     static NAN_METHOD(GetToolNumber);
@@ -61,7 +61,7 @@ public:
     //int[] GetWorkpieceExecutableAll(int wp_id)
     static NAN_METHOD(GetWorkpieceExecutableAll);
 		
-		static NAN_METHOD(GetWorkpiecePlacement);
+    static NAN_METHOD(GetWorkpiecePlacement);
 
     static NAN_METHOD(OpenProject);
 

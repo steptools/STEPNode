@@ -118,7 +118,10 @@ continue to return one until you call <a href="#NextWS">NextWS</a>()
 to advance to the next workingstep.  The function returns -1 if an
 error occured.
 
-
+<p>When simulating material removal, the function returns immediately,
+but the computation is done in a separate thread.   Call
+<a href="#WaitForStateUpdate">WaitForStateUpdate</a>() to block until
+the removal is complete.
 
 
 <!-- ============================== -->
@@ -553,6 +556,25 @@ only the items that have moved since the last call to either of these
 two functions.  The C++ version takes a bool, when true it returns a
 Key State, when false it returns a Delta State.
 
+
+
+
+
+<!-- ============================== -->
+<H2 class=rule>
+<A NAME=WaitForStateUpdate></A>WaitForStateUpdate()</H2>
+<PRE>
+int <B>WaitForStateUpdate</B>();
+</PRE>
+
+<P>The <b>WaitForStateUpdate</b>() function blocks
+until <a href="#AdvanceState">AdvanceState</a>() finishes calculations
+in a separate thread, and it will return the same return code as the
+original call to AdvanceState().
+
+<p>If material removal is not being calculated, the function returns
+immediately.  The return value should not be used for anything if not
+doing material removal.
 
 
 </div>

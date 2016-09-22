@@ -1,6 +1,3 @@
-// $RCSfile: $
-// $Revision: $ $Date: $
-// Auth: Samson Bonfante (bonfante@steptools.com)
 //
 // Copyright (c) 1991-2016 by STEP Tools Inc.
 //
@@ -15,6 +12,9 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+//
+// Author: Samson Bonfante (bonfante@steptools.com)
+//
 
 #include "nodeMachineState.h"
 #include "nodeUtils.h"
@@ -87,13 +87,13 @@ NAN_METHOD(machineState::New)
     	    return;
     	}
         else if(info.Length() == 1 || (info.Length() == 2 && info[1]->BooleanValue() == false)){
-        	char * b;
-        	v8StringToChar(info[0], b);
-        	machineState * ms = new machineState();
-        	ms->_ms = MachineState::InitializeState(b);
-        	delete[] b;
-        	ms->Wrap(info.This());
-        	info.GetReturnValue().Set(info.This());
+	    char * b;
+	    v8StringToChar(info[0], b);
+	    machineState * ms = new machineState();
+	    ms->_ms = MachineState::InitializeState(b);
+	    delete[] b;
+	    ms->Wrap(info.This());
+	    info.GetReturnValue().Set(info.This());
         }
         else if(info.Length() == 2){
             char * b;
@@ -113,7 +113,7 @@ NAN_METHOD(machineState::New)
         }
     }
     else{
-	   return;
+	return;
     }
 }
 
@@ -217,13 +217,13 @@ NAN_METHOD(machineState::GoToWS)
     machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
     if (!ms || !(ms->_ms)) return;
     if (info.Length() != 1) //Function takes one argument
-    return;
+	return;
     RoseObject * obj = ms->_ms->design()->findByEntityId(Nan::To<int32_t>(info[0]).FromJust());
     if (!obj)
-    return;
+	return;
     stp_machining_workingstep * ws = ROSE_CAST(stp_machining_workingstep, obj);
     if(!ws)
-    return;
+	return;
     int rtnval = ms->_ms->GoToWS(ws);
     info.GetReturnValue().Set(rtnval);
     return;
@@ -234,14 +234,14 @@ NAN_METHOD(machineState::GetEIDfromUUID)
     machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
     if (!ms || !(ms->_ms)) return;
     if (info.Length() != 1) //Function takes one argument
-    return;
+	return;
     if(!info[0]->IsString())
-    return;
+	return;
     char * uuid = 0;
     v8StringToChar(info[0], uuid);
     RoseObject * obj = ms->_ms->FindObjectByID(uuid);
     if (!obj)
-    return;
+	return;
     int rtnval = obj->entity_id();
     info.GetReturnValue().Set(Nan::New(rtnval));
     return;

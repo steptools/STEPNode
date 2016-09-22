@@ -1,6 +1,3 @@
-// $RCSfile: $
-// $Revision: $ $Date: $
-// Auth: Samson Bonfante (bonfante@steptools.com)
 //
 // Copyright (c) 1991-2016 by STEP Tools Inc.
 //
@@ -15,6 +12,9 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+//
+// Author: Samson Bonfante (bonfante@steptools.com)
+//
 
 #pragma once
 #include <nan.h>
@@ -28,8 +28,8 @@ private:
     static NAN_METHOD(New);
     static inline Nan::Persistent<v8::Function> & constructor() {
         report_via_printf();
-	    static Nan::Persistent<v8::Function> my_constructor;
-	    return my_constructor;
+	static Nan::Persistent<v8::Function> my_constructor;
+	return my_constructor;
     }
     ~machineState() {};
     uv_async_t async;
