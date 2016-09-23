@@ -1,6 +1,3 @@
-// $RCSfile: $
-// $Revision: $ $Date: $
-// Auth: Samson Bonfante (bonfante@steptools.com)
 //
 // Copyright (c) 1991-2016 by STEP Tools Inc.
 //
@@ -15,12 +12,13 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+//
+// Author: Samson Bonfante (bonfante@steptools.com)
+//
 
 #include "nodeMachineState.h"
 #include "nodeUtils.h"
 #include <stp_schema.h>
-#include <future>
-#include <thread>
 
 StixSimGeomType GeomTypeFromString(char* typ)
 {
@@ -44,12 +42,12 @@ typedef struct {
     double rtn; 
 } waitstruct;
 std::vector<waitstruct> promisepool;
-std::mutex pp_mutex;
+uv_mutex_t pp_mutex;
 void messager(uv_async_t *hanlde) {
 
-    pp_mutex.lock();
+    uv_mutex_lock(&pp_mutex);
     v8::HandleScope handle(v8::Isolate::GetCurrent());
-    for each (auto v in promisepool){
+    for(auto v:promisepool){
 	auto ppmise = (Nan::Global<v8::Promise::Resolver>*)v.pmise;
 	v8::Local<v8::Number> rtn = Nan::New(v.rtn);
 	v8::Local<v8::Promise::Resolver> pmise = Nan::New(*(ppmise));
@@ -57,7 +55,7 @@ void messager(uv_async_t *hanlde) {
 	delete v.pmise;
     }
     promisepool.clear();
-    pp_mutex.unlock();
+    uv_mutex_unlock(&pp_mutex);
 }
 void __waiterFunction(void* arg) {
     machineState * ms = static_cast<machineState*>(arg);
@@ -72,9 +70,9 @@ void machineState::Wait() {
 	waitstruct waiter;
 	waiter.pmise = vpmise;
 	waiter.rtn = rtn;
-	pp_mutex.lock();
+	uv_mutex_lock(&pp_mutex);
 	promisepool.push_back(waiter);
-	pp_mutex.unlock();
+	uv_mutex_unlock(&pp_mutex);
 	uv_async_send(&async);
 	if (!wait) return;
     }
@@ -89,13 +87,13 @@ NAN_METHOD(machineState::New)
     	    return;
     	}
         else if(info.Length() == 1 || (info.Length() == 2 && info[1]->BooleanValue() == false)){
-        	char * b;
-        	v8StringToChar(info[0], b);
-        	machineState * ms = new machineState();
-        	ms->_ms = MachineState::InitializeState(b);
-        	delete[] b;
-        	ms->Wrap(info.This());
-        	info.GetReturnValue().Set(info.This());
+	    char * b;
+	    v8StringToChar(info[0], b);
+	    machineState * ms = new machineState();
+	    ms->_ms = MachineState::InitializeState(b);
+	    delete[] b;
+	    ms->Wrap(info.This());
+	    info.GetReturnValue().Set(info.This());
         }
         else if(info.Length() == 2){
             char * b;
@@ -106,7 +104,7 @@ NAN_METHOD(machineState::New)
             delete[] b;
 	    uv_async_init(uv_default_loop(), &ms->async, messager);
 	    uv_thread_create(&ms->waitqueue, __waiterFunction, (void*)ms);
-            
+	    uv_mutex_init(&pp_mutex);
 	    ms->Wrap(info.This());
             info.GetReturnValue().Set(info.This());
         }
@@ -115,7 +113,7 @@ NAN_METHOD(machineState::New)
         }
     }
     else{
-	   return;
+	return;
     }
 }
 
@@ -219,13 +217,13 @@ NAN_METHOD(machineState::GoToWS)
     machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
     if (!ms || !(ms->_ms)) return;
     if (info.Length() != 1) //Function takes one argument
-    return;
+	return;
     RoseObject * obj = ms->_ms->design()->findByEntityId(Nan::To<int32_t>(info[0]).FromJust());
     if (!obj)
-    return;
+	return;
     stp_machining_workingstep * ws = ROSE_CAST(stp_machining_workingstep, obj);
     if(!ws)
-    return;
+	return;
     int rtnval = ms->_ms->GoToWS(ws);
     info.GetReturnValue().Set(rtnval);
     return;
@@ -236,14 +234,14 @@ NAN_METHOD(machineState::GetEIDfromUUID)
     machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
     if (!ms || !(ms->_ms)) return;
     if (info.Length() != 1) //Function takes one argument
-    return;
+	return;
     if(!info[0]->IsString())
-    return;
+	return;
     char * uuid = 0;
     v8StringToChar(info[0], uuid);
     RoseObject * obj = ms->_ms->FindObjectByID(uuid);
     if (!obj)
-    return;
+	return;
     int rtnval = obj->entity_id();
     info.GetReturnValue().Set(Nan::New(rtnval));
     return;

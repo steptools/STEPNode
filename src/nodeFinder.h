@@ -1,6 +1,3 @@
-// $RCSfile: $
-// $Revision: $ $Date: $
-// Auth: Samson Bonfante (bonfante@steptools.com)
 //
 // Copyright (c) 1991-2016 by STEP Tools Inc.
 //
@@ -15,6 +12,11 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+//
+// Author: Samson Bonfante (bonfante@steptools.com)
+//
+
+
 #pragma once
 
 #include <nan.h>
@@ -30,8 +32,8 @@ private:
 	return my_constructor;
     }
     Finder() {
-      report_via_printf();
-      _find = new finder(); 
+	report_via_printf();
+	_find = new finder(); 
     };
     ~Finder() { delete _find; };
 public:
@@ -127,7 +129,7 @@ public:
     //string GetFeatureName(long id)
     static NAN_METHOD(GetFeatureName);
 
-        //bool GetFeatureOutsideProfileClosedCircular(feature_id, prof_id, depth, diameter, x,y,z)
+    //bool GetFeatureOutsideProfileClosedCircular(feature_id, prof_id, depth, diameter, x,y,z)
     static NAN_METHOD(GetFeatureOutsideProfileClosedCircular);
 
     //int GetMainWorkplan();
@@ -259,8 +261,8 @@ public:
     //int GetToolUsingNumber(string id)
     static NAN_METHOD(GetToolUsingNumber);
 
-	//string GetToolType (int ws_id)
-	static NAN_METHOD(GetToolType);
+    //string GetToolType (int ws_id)
+    static NAN_METHOD(GetToolType);
 
     //int GetToolWorkpiece (int e_id)
     static NAN_METHOD(GetToolWorkpiece);
