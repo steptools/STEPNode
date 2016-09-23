@@ -42,6 +42,9 @@ public:
     //bool LoadMachine(string file);
     static NAN_METHOD(LoadMachine);
 
+	//void WorkingstepTransitionDisableToolMove();
+    static NAN_METHOD(WorkingstepTransitionDisableToolMove);
+
     //void nextWS();
     static NAN_METHOD(NextWS);
 

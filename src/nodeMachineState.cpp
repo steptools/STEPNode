@@ -366,6 +366,15 @@ NAN_METHOD(machineState::SetToolPosition)
     return;
 }
 
+NAN_METHOD(machineState::WorkingstepTransitionDisableToolMove)
+{
+    machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
+    if (!ms || !(ms->_ms)) return;
+    if (!info[0]->IsUndefined()) return; //This function takes no arguments.
+    ms->_ms->WorkingstepTransitionDisableToolMove();
+    return;
+}
+
 NAN_MODULE_INIT(machineState::Init)
 {
     v8::Local<v8::FunctionTemplate> tpl = Nan::New<v8::FunctionTemplate>(New);
@@ -389,6 +398,7 @@ NAN_MODULE_INIT(machineState::Init)
     Nan::SetPrototypeMethod(tpl, "GetCurrentSpindleSpeed", GetCurrentSpindleSpeed);
     Nan::SetPrototypeMethod(tpl, "SetToolPosition", SetToolPosition);
     Nan::SetPrototypeMethod(tpl, "ResetDeltaGeometry", ResetDeltaGeometry);
+    Nan::SetPrototypeMethod(tpl, "WorkingstepTransitionDisableToolMove",WorkingstepTransitionDisableToolMove);
     constructor().Reset(Nan::GetFunction(tpl).ToLocalChecked());
     Nan::Set(target, Nan::New("machineState").ToLocalChecked(), Nan::GetFunction(tpl).ToLocalChecked());
 
