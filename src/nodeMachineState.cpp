@@ -181,6 +181,16 @@ NAN_METHOD(machineState::GetDeltaGeometryJSON)
     return;
 }
 
+NAN_METHOD(machineState::GetDeltaGeometryVersion)
+{
+    machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
+    if (!ms || !(ms->_ms)) return;
+    if (!info[0]->IsUndefined()) return; //This function takes no arguments.
+    int rtnval = ms->_ms->GetDynamicGeometryVersion();
+    info.GetReturnValue().Set(Nan::New(rtnval));
+    return;
+}
+
 NAN_METHOD(machineState::ResetDeltaGeometry)
 {
     machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
@@ -382,6 +392,7 @@ NAN_MODULE_INIT(machineState::Init)
     Nan::SetPrototypeMethod(tpl, "AdvanceState", AdvanceState);
     Nan::SetPrototypeMethod(tpl, "GetGeometryJSON", GetGeometryJSON);
     Nan::SetPrototypeMethod(tpl, "GetDeltaGeometryJSON", GetDeltaGeometryJSON);
+    Nan::SetPrototypeMethod(tpl, "GetDeltaGeometryVersion", GetDeltaGeometryVersion);
     Nan::SetPrototypeMethod(tpl, "GetDeltaStateJSON", GetDeltaStateJSON);
     Nan::SetPrototypeMethod(tpl, "GetKeyStateJSON", GetKeyStateJSON);
     Nan::SetPrototypeMethod(tpl, "GoToWS", GoToWS);
