@@ -123,8 +123,11 @@ NAN_METHOD(machineState::AdvanceState)
     if (!ms || !(ms->_ms)) return;
     if (!info[0]->IsUndefined()) return; //This function takes no arguments.
     v8::Local<v8::Promise::Resolver> pmise = v8::Promise::Resolver::New(info.GetIsolate());
-    ms->_ms->AdvanceState(&pmise);
+    auto pased = new Nan::Global<v8::Promise::Resolver>(pmise);
+    pased->Reset(pmise);
+    ms->_ms->AdvanceState((pased));
     info.GetReturnValue().Set(pmise);
+    return;
 }
 
 NAN_METHOD(machineState::GetGeometryJSON)
