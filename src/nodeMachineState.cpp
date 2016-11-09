@@ -51,7 +51,10 @@ void messager(uv_async_t *hanlde) {
 	auto ppmise = (Nan::Global<v8::Promise::Resolver>*)v.pmise;
 	v8::Local<v8::Number> rtn = Nan::New(v.rtn);
 	v8::Local<v8::Promise::Resolver> pmise = Nan::New(*(ppmise));
+	//TODO:FIXME: The Resolve does NOT cause the event loop to fire a tick.
+	//If node is just waiting for this promise, it will continue waiting until something else happens.
 	pmise->Resolve(rtn);
+	ppmise->Reset();
 	delete v.pmise;
     }
     promisepool.clear();
