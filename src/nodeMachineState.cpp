@@ -241,8 +241,12 @@ NAN_METHOD(machineState::GoToWS)
     stp_machining_workingstep * ws = ROSE_CAST(stp_machining_workingstep, obj);
     if(!ws)
 	return;
-    int rtnval = ms->_ms->GoToWS(ws);
-    info.GetReturnValue().Set(rtnval);
+
+    v8::Local<v8::Promise::Resolver> localpmise = v8::Promise::Resolver::New(info.GetIsolate());
+    auto globalpmise = new Nan::Global<v8::Promise::Resolver>(localpmise);
+    globalpmise->Reset(localpmise);
+    ms->_ms->GoToWS(ws,(globalpmise));
+    info.GetReturnValue().Set(localpmise);
     return;
 }
 
@@ -283,7 +287,11 @@ NAN_METHOD(machineState::NextWS)
     machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
     if (!ms || !(ms->_ms)) return;
     if (!info[0]->IsUndefined()) return; //This function takes no arguments.
-    ms->_ms->GoToNextWS();
+    v8::Local<v8::Promise::Resolver> localpmise = v8::Promise::Resolver::New(info.GetIsolate());
+    auto globalpmise = new Nan::Global<v8::Promise::Resolver>(localpmise);
+    globalpmise->Reset(localpmise);
+    ms->_ms->GoToNextWS((globalpmise));
+    info.GetReturnValue().Set(localpmise);
     return;
 }
 
@@ -292,7 +300,11 @@ NAN_METHOD(machineState::PrevWS)
     machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
     if (!ms || !(ms->_ms)) return;
     if (!info[0]->IsUndefined()) return; //This function takes no arguments.
-    ms->_ms->GoToPrevWS();
+    v8::Local<v8::Promise::Resolver> localpmise = v8::Promise::Resolver::New(info.GetIsolate());
+    auto globalpmise = new Nan::Global<v8::Promise::Resolver>(localpmise);
+    globalpmise->Reset(localpmise);
+    ms->_ms->GoToPrevWS((globalpmise));
+    info.GetReturnValue().Set(localpmise);
     return;
 }
 
