@@ -70,6 +70,7 @@ void machineState::Wait() {
     while (wait) {
 	void * vpmise;
 	wait = _ms->WaitForStateUpdate(vpmise, rtn);
+	if (vpmise == nullptr) continue; //Oops.
 	waitstruct waiter;
 	waiter.pmise = vpmise;
 	waiter.rtn = rtn;
