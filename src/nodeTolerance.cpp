@@ -395,7 +395,7 @@ NAN_METHOD(Tolerance::GetWorkingstepToleranceAll) {
     Nan::Maybe<int32_t> ws = Nan::To<int32_t>(info[0]);
 
     int size = 0;
-    if (!tol->_tol->workingstep_tolerance_count(ws.FromJust(), size)) //Throw Exception
+    if (!tol->_tol->ws_tolerance_count(ws.FromJust(), size)) //Throw Exception
 	return;
 
     // Create a new empty array.
@@ -403,7 +403,7 @@ NAN_METHOD(Tolerance::GetWorkingstepToleranceAll) {
     int tol_id = 0;
     if(size >= 0){
         for(int i = 0; i < size; i++){
-            if (!tol->_tol->workingstep_tolerance_next(ws.FromJust(), i, tol_id)) //Throw Exception
+            if (!tol->_tol->ws_tolerance_next(ws.FromJust(), i, tol_id)) //Throw Exception
                 return;
             else{
                 array->Set(i,Nan::New(tol_id));
