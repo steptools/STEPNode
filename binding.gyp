@@ -64,7 +64,16 @@
 					"opengl32.lib",
 					"glu32.lib",
 					"msvcrt.lib"
-				]
+				],
+				'configurations':{
+					'Release': {
+						'msvs_settings': {
+							'VCCLCompilerTool':{
+								'RuntimeLibrary': '2' # /MD
+							}
+						}
+					}
+				}
 			}],
 		["OS==\"mac\"",
 			{
