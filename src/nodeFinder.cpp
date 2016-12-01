@@ -136,6 +136,7 @@ NAN_MODULE_INIT(Finder::Init)
     Nan::SetPrototypeMethod(tpl, "GetWorkplanToolCount", GetWorkplanToolCount);
     Nan::SetPrototypeMethod(tpl, "GetWorkplanToolNext", GetWorkplanToolNext);
     Nan::SetPrototypeMethod(tpl, "IsEnabled", IsEnabled);
+    Nan::SetPrototypeMethod(tpl, "IsNcFunction", IsNcFunction);
     Nan::SetPrototypeMethod(tpl, "IsSelective", IsSelective);
     Nan::SetPrototypeMethod(tpl, "IsWorkingstep", IsWorkingstep);
     Nan::SetPrototypeMethod(tpl, "IsWorkplan", IsWorkplan);
@@ -2189,6 +2190,25 @@ NAN_METHOD(Finder::IsEnabled) {
     Nan::Maybe<int32_t> exe_id = Nan::To<int32_t>(info[0]);
 
     if (!find->_find->is_enabled(exe_id.FromJust(), flag)) //Throw Exception
+	return;
+    info.GetReturnValue().Set((flag != 0));
+}
+
+NAN_METHOD(Finder::IsNcFunction) {
+
+    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (!find) //Throw Exception
+	return;
+    if (info.Length() != 1) //Throw Exception
+	return;
+    if (!info[0]->IsInt32()) //Throw Exception
+	return;
+
+    int flag = 0;
+
+    Nan::Maybe<int32_t> exe_id = Nan::To<int32_t>(info[0]);
+
+    if (!find->_find->is_nc_function(exe_id.FromJust(), flag)) //Throw Exception
 	return;
     info.GetReturnValue().Set((flag != 0));
 }

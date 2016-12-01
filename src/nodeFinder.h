@@ -57,6 +57,9 @@ public:
     //bool IsEnabled(int exe_id);
     static NAN_METHOD(IsEnabled);
 
+    //bool IsNcFunction(long exe_id);
+    static NAN_METHOD(IsNcFunction);
+
     //bool IsSelective(long exe_id);
     static NAN_METHOD(IsSelective);
 
