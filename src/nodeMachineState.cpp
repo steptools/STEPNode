@@ -172,7 +172,7 @@ NAN_METHOD(machineState::GetGeometryJSON)
     }
 }
 
-NAN_METHOD(machineState::GetDeltaGeometryJSON)
+NAN_METHOD(machineState::GetDynamicGeometryJSON)
 {
     machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
     if (!ms || !(ms->_ms)) return;
@@ -188,7 +188,7 @@ NAN_METHOD(machineState::GetDeltaGeometryJSON)
     return;
 }
 
-NAN_METHOD(machineState::GetDeltaGeometryVersion)
+NAN_METHOD(machineState::GetDynamicGeometryVersion)
 {
     machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
     if (!ms || !(ms->_ms)) return;
@@ -198,7 +198,7 @@ NAN_METHOD(machineState::GetDeltaGeometryVersion)
     return;
 }
 
-NAN_METHOD(machineState::ResetDeltaGeometry)
+NAN_METHOD(machineState::ResetDynamicGeometry)
 {
     machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
     if (!ms || !(ms->_ms)) return;
@@ -410,8 +410,8 @@ NAN_MODULE_INIT(machineState::Init)
 
     Nan::SetPrototypeMethod(tpl, "AdvanceState", AdvanceState);
     Nan::SetPrototypeMethod(tpl, "GetGeometryJSON", GetGeometryJSON);
-    Nan::SetPrototypeMethod(tpl, "GetDeltaGeometryJSON", GetDeltaGeometryJSON);
-    Nan::SetPrototypeMethod(tpl, "GetDeltaGeometryVersion", GetDeltaGeometryVersion);
+    Nan::SetPrototypeMethod(tpl, "GetDynamicGeometryJSON", GetDynamicGeometryJSON);
+    Nan::SetPrototypeMethod(tpl, "GetDynamicGeometryVersion", GetDynamicGeometryVersion);
     Nan::SetPrototypeMethod(tpl, "GetDeltaStateJSON", GetDeltaStateJSON);
     Nan::SetPrototypeMethod(tpl, "GetKeyStateJSON", GetKeyStateJSON);
     Nan::SetPrototypeMethod(tpl, "GoToWS", GoToWS);
@@ -425,7 +425,7 @@ NAN_MODULE_INIT(machineState::Init)
     Nan::SetPrototypeMethod(tpl, "GetCurrentFeedrate", GetCurrentFeedrate);
     Nan::SetPrototypeMethod(tpl, "GetCurrentSpindleSpeed", GetCurrentSpindleSpeed);
     Nan::SetPrototypeMethod(tpl, "SetToolPosition", SetToolPosition);
-    Nan::SetPrototypeMethod(tpl, "ResetDeltaGeometry", ResetDeltaGeometry);
+    Nan::SetPrototypeMethod(tpl, "ResetDynamicGeometry", ResetDynamicGeometry);
     Nan::SetPrototypeMethod(tpl, "WorkingstepTransitionDisableToolMove",WorkingstepTransitionDisableToolMove);
     constructor().Reset(Nan::GetFunction(tpl).ToLocalChecked());
     Nan::Set(target, Nan::New("machineState").ToLocalChecked(), Nan::GetFunction(tpl).ToLocalChecked());

@@ -63,12 +63,12 @@ public:
     //String GetGeometryJSON() //Get all Geometry
     //String GetGeometryJSON(string id,string typ) //Get a specific piece of geometry data. types are "NONE" "MESH" and "POLYLINE"
     static NAN_METHOD(GetGeometryJSON);
-    //String GetDeltaGeometryJSON(unsigned prev); //Get the geometry associated with the inprocess geometry.
-    static NAN_METHOD(GetDeltaGeometryJSON);
-    //int GetDeltaGeometryVersion();
-    static NAN_METHOD(GetDeltaGeometryVersion);
-    //void ResetDeltaGeometry(); //Reset the inprocess geometry.
-    static NAN_METHOD(ResetDeltaGeometry);
+    //String GetDynamicGeometryJSON(unsigned prev); //Get the geometry associated with the inprocess geometry.
+    static NAN_METHOD(GetDynamicGeometryJSON);
+    //int GetDynamicGeometryVersion();
+    static NAN_METHOD(GetDynamicGeometryVersion);
+    //void ResetDynamicGeometry(); //Reset the inprocess geometry.
+    static NAN_METHOD(ResetDynamicGeometry);
     //String GetDeltaStateJSON(); //Get changed geometry
     static NAN_METHOD(GetDeltaStateJSON);
     //String GetKeyStateJSON(); //Get All keyframe geometry.
