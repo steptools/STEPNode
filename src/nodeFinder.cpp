@@ -1142,7 +1142,9 @@ NAN_METHOD(Finder::GetToolCornerRadius)
     if (!find->_find->tool_current(t.FromJust(), dummy, radius, dummy, dummy, dummy, dummy))
 	return;
 
+    if(radius!=ROSE_NULL_REAL) 
     info.GetReturnValue().Set(radius);
+    else info.GetReturnValue().Set(Nan::Undefined());
     return;
 }
 
