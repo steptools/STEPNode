@@ -40,6 +40,7 @@ typedef struct {
     /*SECRETLY A Nan::Global<v8::Promise::Resolver>* */
     void* pmise; 
     double rtn; 
+    bool more;
 } waitstruct;
 std::vector<waitstruct> promisepool;
 uv_mutex_t pp_mutex;
@@ -49,7 +50,11 @@ void messager(uv_async_t *hanlde) {
     v8::HandleScope handle(v8::Isolate::GetCurrent());
     for(auto v:promisepool){
 	auto ppmise = (Nan::Global<v8::Promise::Resolver>*)v.pmise;
-	v8::Local<v8::Number> rtn = Nan::New(v.rtn);
+	v8::Local<v8::Number> valrtn = Nan::New(v.rtn);
+	v8::Local<v8::Boolean> morertn = Nan::New(v.more);
+	v8::Local<v8::Object> rtn = Nan::New<v8::Object>();
+	Nan::Set(rtn,CharTov8String("value"), valrtn);
+	Nan::Set(rtn, CharTov8String("more"), morertn);
 	v8::Local<v8::Promise::Resolver> pmise = Nan::New(*(ppmise));
 	//TODO:FIXME: The Resolve does NOT cause the event loop to fire a tick.
 	//If node is just waiting for this promise, it will continue waiting until something else happens.
@@ -66,14 +71,16 @@ void __waiterFunction(void* arg) {
 }
 void machineState::Wait() {
     bool wait = true;
+    bool more = false;
     double rtn = 0;
     while (wait) {
 	void * vpmise;
-	wait = _ms->WaitForStateUpdate(vpmise, rtn);
+	wait = _ms->WaitForStateUpdate(vpmise, rtn,more);
 	if (vpmise == nullptr) continue; //Oops.
 	waitstruct waiter;
 	waiter.pmise = vpmise;
 	waiter.rtn = rtn;
+	waiter.more = more;
 	uv_mutex_lock(&pp_mutex);
 	promisepool.push_back(waiter);
 	uv_mutex_unlock(&pp_mutex);
