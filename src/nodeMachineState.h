@@ -38,11 +38,7 @@ public:
     void Wait();
     static NAN_MODULE_INIT(Init);
 
-    //Load a machine model from a file.
-    //bool LoadMachine(string file);
-    static NAN_METHOD(LoadMachine);
-
-	//void WorkingstepTransitionDisableToolMove();
+    //void WorkingstepTransitionDisableToolMove();
     static NAN_METHOD(WorkingstepTransitionDisableToolMove);
 
     //void nextWS();

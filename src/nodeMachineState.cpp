@@ -119,6 +119,22 @@ NAN_METHOD(machineState::New)
 	    ms->Wrap(info.This());
             info.GetReturnValue().Set(info.This());
         }
+	else if (info.Length() == 3) {
+            char * fname;
+            v8StringToChar(info[0], fname);
+	    char * toolfname;
+	    v8StringToChar(info[2], toolfname);
+            bool c = info[1]->BooleanValue();
+            machineState * ms = new machineState();
+            ms->_ms = MachineState::InitializeState(fname, c,toolfname);
+            delete[] fname;
+	    delete[] toolfname;
+	    uv_async_init(uv_default_loop(), &ms->async, messager);
+	    uv_thread_create(&ms->waitqueue, __waiterFunction, (void*)ms);
+	    uv_mutex_init(&pp_mutex);
+	    ms->Wrap(info.This());
+            info.GetReturnValue().Set(info.This());
+	}
         else{
             return;
         }
@@ -275,20 +291,6 @@ NAN_METHOD(machineState::GetEIDfromUUID)
     return;
 }
 
-NAN_METHOD(machineState::LoadMachine)
-{
-    machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
-    if (!ms || !(ms->_ms)) return;
-    if (info[0]->IsUndefined()) return;
-    char * b;
-    v8StringToChar(info[0], b);
-    bool success = ms->_ms->SetMachine(b);
-    info.GetReturnValue().Set(success);
-    delete[] b;
-
-    return;
-}
-
 NAN_METHOD(machineState::NextWS)
 {
     machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
@@ -423,7 +425,6 @@ NAN_MODULE_INIT(machineState::Init)
     Nan::SetPrototypeMethod(tpl, "GetKeyStateJSON", GetKeyStateJSON);
     Nan::SetPrototypeMethod(tpl, "GoToWS", GoToWS);
     Nan::SetPrototypeMethod(tpl, "GetEIDfromUUID", GetEIDfromUUID);
-    Nan::SetPrototypeMethod(tpl, "LoadMachine", LoadMachine);
     Nan::SetPrototypeMethod(tpl, "NextWS", NextWS);
     Nan::SetPrototypeMethod(tpl, "PrevWS", PrevWS);
     Nan::SetPrototypeMethod(tpl, "GetPrevWSID", GetPrevWSID);
