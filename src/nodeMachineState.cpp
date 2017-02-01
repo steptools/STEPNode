@@ -35,12 +35,29 @@ StixSimGeomType GeomTypeFromString(char* typ)
 	return STIXSIM_GT_NULL;
     }
 }
+v8::Local<v8::Object> makeProbeResult(double probe_contact_pt[3], double probe_loc[3]) {
+	    v8::Local<v8::Object> proberesult = Nan::New<v8::Object>();
+	    v8::Local<v8::Array> contact = Nan::New<v8::Array>();
+	    contact->Set(0, Nan::New(probe_contact_pt[0]));
+	    contact->Set(1, Nan::New(probe_contact_pt[1]));
+	    contact->Set(2, Nan::New(probe_contact_pt[2]));
+	    v8::Local<v8::Array> location = Nan::New<v8::Array>();
+	    location->Set(0, Nan::New(probe_loc[0]));
+	    location->Set(1, Nan::New(probe_loc[1]));
+	    location->Set(2, Nan::New(probe_loc[2]));
+	    Nan::Set(proberesult, CharTov8String("location"), location);
+	    Nan::Set(proberesult, CharTov8String("contact"), contact);
+	    return proberesult;
+}
 
 typedef struct { 
     /*SECRETLY A Nan::Global<v8::Promise::Resolver>* */
     void* pmise; 
     double rtn; 
     bool more;
+    bool probe_hit;
+    double probe_contact_pt[3];
+    double probe_loc[3];
 } waitstruct;
 std::vector<waitstruct> promisepool;
 uv_mutex_t pp_mutex;
@@ -55,6 +72,10 @@ void messager(uv_async_t *hanlde) {
 	v8::Local<v8::Object> rtn = Nan::New<v8::Object>();
 	Nan::Set(rtn,CharTov8String("value"), valrtn);
 	Nan::Set(rtn, CharTov8String("more"), morertn);
+	if (v.probe_hit) { //Probe result!
+	    v8::Local <v8::Object> proberesult = makeProbeResult(v.probe_contact_pt,v.probe_loc);
+	    Nan::Set(rtn, CharTov8String("probe"), proberesult);
+	}
 	v8::Local<v8::Promise::Resolver> pmise = Nan::New(*(ppmise));
 	//TODO:FIXME: The Resolve does NOT cause the event loop to fire a tick.
 	//If node is just waiting for this promise, it will continue waiting until something else happens.
@@ -71,16 +92,10 @@ void __waiterFunction(void* arg) {
 }
 void machineState::Wait() {
     bool wait = true;
-    bool more = false;
-    double rtn = 0;
     while (wait) {
-	void * vpmise;
-	wait = _ms->WaitForStateUpdate(vpmise, rtn,more);
-	if (vpmise == nullptr) continue; //Oops.
 	waitstruct waiter;
-	waiter.pmise = vpmise;
-	waiter.rtn = rtn;
-	waiter.more = more;
+	wait = _ms->WaitForStateUpdate(waiter.pmise, waiter.rtn,waiter.more,waiter.probe_hit,waiter.probe_contact_pt,waiter.probe_loc);
+	if (waiter.pmise == nullptr) continue; //Oops.
 	uv_mutex_lock(&pp_mutex);
 	promisepool.push_back(waiter);
 	uv_mutex_unlock(&pp_mutex);
