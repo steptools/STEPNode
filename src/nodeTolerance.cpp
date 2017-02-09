@@ -63,6 +63,8 @@ NAN_MODULE_INIT(Tolerance::Init)
     Nan::SetPrototypeMethod(tpl, "GetWorkpieceOfTolerance", GetWorkpieceOfTolerance);
     Nan::SetPrototypeMethod(tpl, "GetWorkpieceToleranceAll", GetWorkpieceToleranceAll);
 
+	Nan::SetPrototypeMethod(tpl, "GetProbeResults", GetProbeResults);
+
 
     constructor().Reset(Nan::GetFunction(tpl).ToLocalChecked());
     Nan::Set(target, Nan::New("Tolerance").ToLocalChecked(), Nan::GetFunction(tpl).ToLocalChecked());
@@ -464,4 +466,20 @@ NAN_METHOD(Tolerance::GetWorkpieceToleranceAll) {
 
     info.GetReturnValue().Set(array);
     return;
+}
+//String[] GetProbeResults(wsid,x,y,z);
+NAN_METHOD(Tolerance::GetProbeResults) {
+	Tolerance * tol = Nan::ObjectWrap::Unwrap<Tolerance>(info.This());
+	if (tol == 0)
+		return;
+	if (info.Length() != 4)
+		return;
+	char outstring[12000];
+	Nan::Maybe<int32_t> wsid = Nan::To<int32_t>(info[0]);
+	Nan::Maybe<double_t> x = Nan::To<double_t>(info[1]);
+	Nan::Maybe<double_t> y = Nan::To<double_t>(info[2]);
+	Nan::Maybe<double_t> z = Nan::To<double_t>(info[3]);
+	tol->mtconnect_get_mtconnect_face_probe_result_data(wsid, x, y, z,outstring);
+	info.GetReturnValue().Set(CharTov8String(outstring));
+	return;
 }
