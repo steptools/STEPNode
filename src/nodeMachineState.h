@@ -61,6 +61,8 @@ public:
     static NAN_METHOD(GetGeometryJSON);
     //String GetDynamicGeometryJSON(unsigned prev); //Get the geometry associated with the inprocess geometry.
     static NAN_METHOD(GetDynamicGeometryJSON);
+    //void WriteDynamicGeometrySTEP(string fname); //Save a STEP file containing the geometry associated with the inprocess geometry.
+    static NAN_METHOD(WriteDynamicGeometrySTEP);
     //int GetDynamicGeometryVersion();
     static NAN_METHOD(GetDynamicGeometryVersion);
     //void ResetDynamicGeometry(); //Reset the inprocess geometry.

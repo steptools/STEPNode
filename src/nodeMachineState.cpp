@@ -226,6 +226,21 @@ NAN_METHOD(machineState::GetDynamicGeometryJSON)
     return;
 }
 
+NAN_METHOD(machineState::WriteDynamicGeometrySTEP)
+{
+    machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
+    if (!ms || !(ms->_ms)) return;
+    if (info.Length() != 1) //Function takes one argument
+	return;
+    if (!info[0]->IsString()) { // argument of wrong type
+	return;
+    }
+    char * fname;
+    v8StringToChar(info[0], fname);
+    ms->_ms->ExportDynamicGeometrySTEP(fname);
+    return;
+}
+
 NAN_METHOD(machineState::GetDynamicGeometryVersion)
 {
     machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
@@ -435,6 +450,7 @@ NAN_MODULE_INIT(machineState::Init)
     Nan::SetPrototypeMethod(tpl, "AdvanceState", AdvanceState);
     Nan::SetPrototypeMethod(tpl, "GetGeometryJSON", GetGeometryJSON);
     Nan::SetPrototypeMethod(tpl, "GetDynamicGeometryJSON", GetDynamicGeometryJSON);
+    Nan::SetPrototypeMethod(tpl, "WriteDynamicGeometrySTEP", WriteDynamicGeometrySTEP);
     Nan::SetPrototypeMethod(tpl, "GetDynamicGeometryVersion", GetDynamicGeometryVersion);
     Nan::SetPrototypeMethod(tpl, "GetDeltaStateJSON", GetDeltaStateJSON);
     Nan::SetPrototypeMethod(tpl, "GetKeyStateJSON", GetKeyStateJSON);
