@@ -285,6 +285,9 @@ public:
     //int GetWorkpieceAsIsOfMain()
     static NAN_METHOD(GetWorkpieceAsIsOfMain);
 
+    //{x:double,y:double,z:double,length:double,width:double,height:double} GetWorkpieceBlock(int wp_id)
+    static NAN_METHOD(GetWorkpieceBlock); //TODO: Implement me!
+
     //int[] GetWorkpieceImmediateSubAssemblyAll
     static NAN_METHOD(GetWorkpieceImmediateSubAssemblyAll);
 
