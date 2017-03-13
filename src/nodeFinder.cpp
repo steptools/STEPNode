@@ -120,6 +120,7 @@ NAN_MODULE_INIT(Finder::Init)
     Nan::SetPrototypeMethod(tpl, "GetWorkpieceAsIsOfMain", GetWorkpieceAsIsOfMain);
     Nan::SetPrototypeMethod(tpl, "GetWorkpieceBlock", GetWorkpieceBlock);
     Nan::SetPrototypeMethod(tpl, "GetWorkpieceImmediateSubAssemblyAll", GetWorkpieceImmediateSubAssemblyAll);
+    Nan::SetPrototypeMethod(tpl, "GetWorkpieceShape", GetWorkpieceShape);
     Nan::SetPrototypeMethod(tpl, "GetWorkpieceSubAssemblyAll", GetWorkpieceSubAssemblyAll);
     Nan::SetPrototypeMethod(tpl, "GetWorkpieceToBeOfMain", GetWorkpieceToBeOfMain);
     Nan::SetPrototypeMethod(tpl, "GetWorkpieceDeltaOfMain", GetWorkpieceDeltaOfMain);
@@ -1864,6 +1865,38 @@ NAN_METHOD(Finder::GetWorkpieceImmediateSubAssemblyAll)
     }
 
     info.GetReturnValue().Set(array);
+    return;
+}
+
+NAN_METHOD(Finder::GetWorkpieceShape)
+{
+    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+
+    if (find == 0)  // throw exception
+	return;
+
+    if (info.Length() != 1) // throw exception
+	return;
+
+    if (!info[0]->IsInt32())	// invalid argument
+	return;
+    Nan::Maybe<int32_t> wp_id = Nan::To<int32_t>(info[0]);
+    double x = 0;
+    double y = 0;
+    double z = 0;
+    double length = 0;
+    double width = 0;
+    double height = 0;
+    int flag = 0;
+    if (!find->_find->is_shape_workpiece(wp_id.FromJust(), flag, x, y, z, length, width, height)) return;
+    v8::Local<v8::Object> rtn = Nan::New<v8::Object>();
+    Nan::Set(rtn, CharTov8String("x"), Nan::New(x));
+    Nan::Set(rtn, CharTov8String("y"), Nan::New(y));
+    Nan::Set(rtn, CharTov8String("z"), Nan::New(z));
+    Nan::Set(rtn, CharTov8String("length"), Nan::New(length));
+    Nan::Set(rtn, CharTov8String("width"), Nan::New(width));
+    Nan::Set(rtn, CharTov8String("height"), Nan::New(height));
+    info.GetReturnValue().Set(rtn);
     return;
 }
 
