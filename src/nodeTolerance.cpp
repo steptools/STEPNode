@@ -396,21 +396,14 @@ NAN_METHOD(Tolerance::GetWorkingstepToleranceAll) {
 
     Nan::Maybe<int32_t> ws = Nan::To<int32_t>(info[0]);
 
-    int size = 0;
-    if (!tol->_tol->ws_tolerance_count(ws.FromJust(), size)) //Throw Exception
+    rose_uint_vector tols;
+    if (!tol->_tol->ws_tolerance_all(ws.FromJust(), tols)) //Throw Exception
 	return;
 
     // Create a new empty array.
     v8::Local<v8::Array> array = Nan::New<v8::Array>();
-    int tol_id = 0;
-    if(size >= 0){
-        for(int i = 0; i < size; i++){
-            if (!tol->_tol->ws_tolerance_next(ws.FromJust(), i, tol_id)) //Throw Exception
-                return;
-            else{
-                array->Set(i,Nan::New(tol_id));
-            }
-        }
+    for (uint i = 0,sz=tols.size(); i < sz; i++) {
+	array->Set(i, Nan::New(tols[i]));
     }
 
     info.GetReturnValue().Set(array);
