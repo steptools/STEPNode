@@ -994,9 +994,8 @@ NAN_METHOD(Finder::GetProjectName) {
 	return; //throw exception
     }
     const char * prj_name = 0;
-    const char * szWP;
 
-    if (!(find->_find->project(prj_name, szWP))) {
+    if (!(find->_find->project(prj_name))) {
 	return; //Throw Error
     }
 
