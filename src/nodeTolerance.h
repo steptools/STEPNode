@@ -45,8 +45,8 @@ public:
     //char * GetDatumLabel()
     static NAN_METHOD(GetDatumLabel);
 
-	//string[] GetProbeResults()
-	static NAN_METHOD(GetProbeResults);
+    //string[] GetProbeResults()
+    static NAN_METHOD(GetProbeResults);
 
     //int GetToleranceAllCount()
     static NAN_METHOD(GetToleranceAllCount);

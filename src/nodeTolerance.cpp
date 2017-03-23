@@ -48,6 +48,7 @@ NAN_MODULE_INIT(Tolerance::Init)
 
     Nan::SetPrototypeMethod(tpl, "GetDatumFaceAll", GetDatumFaceAll);
     Nan::SetPrototypeMethod(tpl, "GetDatumLabel", GetDatumLabel);
+    Nan::SetPrototypeMethod(tpl, "GetProbeResults", GetProbeResults);
     Nan::SetPrototypeMethod(tpl, "GetToleranceAllCount", GetToleranceAllCount);
     Nan::SetPrototypeMethod(tpl, "GetToleranceAllNext", GetToleranceAllNext);
     Nan::SetPrototypeMethod(tpl, "GetToleranceAll", GetToleranceAll);
@@ -62,8 +63,6 @@ NAN_MODULE_INIT(Tolerance::Init)
     Nan::SetPrototypeMethod(tpl, "GetWorkingstepToleranceAll", GetWorkingstepToleranceAll);
     Nan::SetPrototypeMethod(tpl, "GetWorkpieceOfTolerance", GetWorkpieceOfTolerance);
     Nan::SetPrototypeMethod(tpl, "GetWorkpieceToleranceAll", GetWorkpieceToleranceAll);
-
-	Nan::SetPrototypeMethod(tpl, "GetProbeResults", GetProbeResults);
 
 
     constructor().Reset(Nan::GetFunction(tpl).ToLocalChecked());
@@ -119,6 +118,22 @@ NAN_METHOD(Tolerance::GetDatumLabel)
 	return;
     info.GetReturnValue().Set(CharTov8String(label));
     return;
+}
+
+NAN_METHOD(Tolerance::GetProbeResults) {
+	Tolerance * tol = Nan::ObjectWrap::Unwrap<Tolerance>(info.This());
+	if (tol == 0)
+		return;
+	if (info.Length() != 4)
+		return;
+	char outstring[12000];
+	Nan::Maybe<int32_t> wsid = Nan::To<int32_t>(info[0]);
+	Nan::Maybe<double_t> x = Nan::To<double_t>(info[1]);
+	Nan::Maybe<double_t> y = Nan::To<double_t>(info[2]);
+	Nan::Maybe<double_t> z = Nan::To<double_t>(info[3]);
+	tol->_tol->mtconnect_face_probe_result_data(wsid.FromJust(), x.FromJust(), y.FromJust(), z.FromJust(),outstring);
+	info.GetReturnValue().Set(CharTov8String(outstring));
+	return;
 }
 
 NAN_METHOD(Tolerance::GetToleranceAllCount)
@@ -459,20 +474,4 @@ NAN_METHOD(Tolerance::GetWorkpieceToleranceAll) {
 
     info.GetReturnValue().Set(array);
     return;
-}
-//String[] GetProbeResults(wsid,x,y,z);
-NAN_METHOD(Tolerance::GetProbeResults) {
-	Tolerance * tol = Nan::ObjectWrap::Unwrap<Tolerance>(info.This());
-	if (tol == 0)
-		return;
-	if (info.Length() != 4)
-		return;
-	char outstring[12000];
-	Nan::Maybe<int32_t> wsid = Nan::To<int32_t>(info[0]);
-	Nan::Maybe<double_t> x = Nan::To<double_t>(info[1]);
-	Nan::Maybe<double_t> y = Nan::To<double_t>(info[2]);
-	Nan::Maybe<double_t> z = Nan::To<double_t>(info[3]);
-	tol->_tol->mtconnect_face_probe_result_data(wsid.FromJust(), x.FromJust(), y.FromJust(), z.FromJust(),outstring);
-	info.GetReturnValue().Set(CharTov8String(outstring));
-	return;
 }
