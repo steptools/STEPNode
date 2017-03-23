@@ -56,6 +56,7 @@ NAN_MODULE_INIT(Tolerance::Init)
     Nan::SetPrototypeMethod(tpl, "GetToleranceFaceAll", GetToleranceFaceAll);
     Nan::SetPrototypeMethod(tpl, "GetToleranceModifierAll", GetToleranceModifierAll);
     Nan::SetPrototypeMethod(tpl, "GetTolerancePlusMinus", GetTolerancePlusMinus);
+    Nan::SetPrototypeMethod(tpl, "GetToleranceStatus", GetToleranceStatus);
     Nan::SetPrototypeMethod(tpl, "GetToleranceType", GetToleranceType);
     Nan::SetPrototypeMethod(tpl, "GetToleranceUnit", GetToleranceUnit);
     Nan::SetPrototypeMethod(tpl, "GetToleranceValue", GetToleranceValue);
@@ -315,6 +316,23 @@ NAN_METHOD(Tolerance::GetTolerancePlusMinus) {
     Nan::Set(jsonReturn, CharTov8String("upper"), Nan::New(upper));
     
     info.GetReturnValue().Set(jsonReturn);
+    return;
+}
+
+NAN_METHOD(Tolerance::GetToleranceStatus) {
+    Tolerance * tol = Nan::ObjectWrap::Unwrap<Tolerance>(info.This());
+    if (tol == 0) //Throw Exception
+	return;
+    if (info.Length() != 1)
+	return;
+    if (!info[0]->IsNumber())
+	return;
+
+    Nan::Maybe<int32_t> tol_id = Nan::To<int32_t>(info[0]);
+    const char * rtn;
+    if (!tol->_tol->tolerance_status(tol_id.FromJust(), rtn))
+	return;
+    info.GetReturnValue().Set(CharTov8String(rtn));
     return;
 }
 

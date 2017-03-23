@@ -69,6 +69,9 @@ public:
     // bool GetTolerancePlusMinus(int TolId)
     static NAN_METHOD(GetTolerancePlusMinus);
 
+    // string GetToleranceStatus(int TolId)
+    static NAN_METHOD(GetToleranceStatus); //TODO: IMPLEMENT ME tolerance_status (int tol_id, const char * &grade);
+
     //string GetToleranceType(int TolId)
     static NAN_METHOD(GetToleranceType);
 
