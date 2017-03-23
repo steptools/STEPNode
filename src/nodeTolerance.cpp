@@ -63,6 +63,7 @@ NAN_MODULE_INIT(Tolerance::Init)
     Nan::SetPrototypeMethod(tpl, "GetWorkingstepToleranceAll", GetWorkingstepToleranceAll);
     Nan::SetPrototypeMethod(tpl, "GetWorkpieceOfTolerance", GetWorkpieceOfTolerance);
     Nan::SetPrototypeMethod(tpl, "GetWorkpieceToleranceAll", GetWorkpieceToleranceAll);
+    Nan::SetPrototypeMethod(tpl, "SetToleranceMeasuredValue", SetToleranceMeasuredValue);
 
 
     constructor().Reset(Nan::GetFunction(tpl).ToLocalChecked());
@@ -473,5 +474,24 @@ NAN_METHOD(Tolerance::GetWorkpieceToleranceAll) {
     }
 
     info.GetReturnValue().Set(array);
+    return;
+}
+
+NAN_METHOD(Tolerance::SetToleranceMeasuredValue){
+    Tolerance * tol = Nan::ObjectWrap::Unwrap<Tolerance>(info.This());
+    if (tol == 0) //Throw Exception
+	return;
+    if (info.Length() != 2) //Throw Exception
+	return;
+    if (info[0]->IsUndefined())
+	return;
+    if (!info[0]->IsString())
+	return;
+    if (!info[1]->IsNumber())
+	return;
+    char * uuid;
+    v8StringToChar(info[0], uuid);
+    Nan::Maybe<double> value = Nan::To<double>(info[1]);
+    tol->_tol->set_tolerance_current_value(uuid,value.FromJust());
     return;
 }
