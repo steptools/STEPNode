@@ -93,6 +93,9 @@ public:
     //int[] GetWorkpieceDatumAllAll(int dat_id)
     static NAN_METHOD(GetWorkpieceDatumAllAll);
 
+    //void ResetAllToleranceMeasuredValue()
+    static NAN_METHOD(ResetAllToleranceMeasuredValue);
+
     //void SetToleranceMeasuredValue(string tolUUID, double val)
     static NAN_METHOD(SetToleranceMeasuredValue);
 };

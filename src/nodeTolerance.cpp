@@ -64,6 +64,7 @@ NAN_MODULE_INIT(Tolerance::Init)
     Nan::SetPrototypeMethod(tpl, "GetWorkingstepToleranceAll", GetWorkingstepToleranceAll);
     Nan::SetPrototypeMethod(tpl, "GetWorkpieceOfTolerance", GetWorkpieceOfTolerance);
     Nan::SetPrototypeMethod(tpl, "GetWorkpieceToleranceAll", GetWorkpieceToleranceAll);
+    Nan::SetPrototypeMethod(tpl, "ResetAllToleranceMeasuredValue", ResetAllToleranceMeasuredValue);
     Nan::SetPrototypeMethod(tpl, "SetToleranceMeasuredValue", SetToleranceMeasuredValue);
 
 
@@ -493,6 +494,14 @@ NAN_METHOD(Tolerance::GetWorkpieceToleranceAll) {
 
     info.GetReturnValue().Set(array);
     return;
+}
+NAN_METHOD(Tolerance::ResetAllToleranceMeasuredValue) {
+    Tolerance * tol = Nan::ObjectWrap::Unwrap<Tolerance>(info.This());
+    if (tol == 0) //Throw Exception
+	return;
+    if (info.Length() != 0) //Throw Exception
+	return;
+    tol->_tol->reset_all_tolerance_current_value();
 }
 
 NAN_METHOD(Tolerance::SetToleranceMeasuredValue){
