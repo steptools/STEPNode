@@ -293,6 +293,7 @@ public:
 
     //{x:double,y:double,z:double,length:double,width:double,height:double} GetWorkpieceShape(int wp_id)
     static NAN_METHOD(GetWorkpieceShape);
+
     //int[] GetWorkpieceSubAssemblyAll
     static NAN_METHOD(GetWorkpieceSubAssemblyAll);
 
