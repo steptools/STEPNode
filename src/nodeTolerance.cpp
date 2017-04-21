@@ -64,6 +64,7 @@ NAN_MODULE_INIT(Tolerance::Init)
     Nan::SetPrototypeMethod(tpl, "GetWorkingstepToleranceAll", GetWorkingstepToleranceAll);
     Nan::SetPrototypeMethod(tpl, "GetWorkpieceOfTolerance", GetWorkpieceOfTolerance);
     Nan::SetPrototypeMethod(tpl, "GetWorkpieceToleranceAll", GetWorkpieceToleranceAll);
+    Nan::SetPrototypeMethod(tpl, "NavigateToleranceToWorkingstepAll", NavigateToleranceToWorkingstepAll);
     Nan::SetPrototypeMethod(tpl, "ResetAllToleranceMeasuredValue", ResetAllToleranceMeasuredValue);
     Nan::SetPrototypeMethod(tpl, "SetToleranceMeasuredValue", SetToleranceMeasuredValue);
 
@@ -494,6 +495,26 @@ NAN_METHOD(Tolerance::GetWorkpieceToleranceAll) {
 
     info.GetReturnValue().Set(array);
     return;
+}
+NAN_METHOD(Tolerance::NavigateToleranceToWorkingstepAll) {
+    Tolerance * tol = Nan::ObjectWrap::Unwrap<Tolerance>(info.This());
+    if (tol == 0) //Throw Exception
+		return;
+    if (info.Length() != 1) //Throw Exception
+		return;
+    if (!info[0]->IsNumber())
+		return;
+    Nan::Maybe<int32_t> tolid = Nan::To<int32_t>(info[0]);
+	rose_uint_vector results;
+	if (!tol->_tol->tolerance_to_workingstep_all(tolid.FromJust(), results))
+		return;
+
+    v8::Local<v8::Array> rtnarray = Nan::New<v8::Array>();
+	for (unsigned i = 0, sz = results.size(); i < sz; i++) {
+		rtnarray->Set(i, Nan::New(results[i]));
+	}
+	info.GetReturnValue().Set(rtnarray);
+	return;
 }
 NAN_METHOD(Tolerance::ResetAllToleranceMeasuredValue) {
     Tolerance * tol = Nan::ObjectWrap::Unwrap<Tolerance>(info.This());
