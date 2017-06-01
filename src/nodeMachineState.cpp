@@ -172,6 +172,22 @@ NAN_METHOD(machineState::AdvanceState)
     return;
 }
 
+NAN_METHOD(machineState::AdvanceStateByT)
+{
+    machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
+    if (!ms || !(ms->_ms)) return;
+    if (info.Length()!=1) return; //This function takes one argument.
+	if (!info[0]->IsNumber()) return;
+
+    double t = Nan::To<double>(info[0]).FromJust();
+    v8::Local<v8::Promise::Resolver> pmise = v8::Promise::Resolver::New(info.GetIsolate());
+    auto pased = new Nan::Global<v8::Promise::Resolver>(pmise);
+    pased->Reset(pmise);
+    ms->_ms->AdvanceStateByT(t,(pased));
+    info.GetReturnValue().Set(pmise);
+    return;
+}
+
 NAN_METHOD(machineState::GetGeometryJSON)
 {
     machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
@@ -448,6 +464,7 @@ NAN_MODULE_INIT(machineState::Init)
     tpl->InstanceTemplate()->SetInternalFieldCount(1);
 
     Nan::SetPrototypeMethod(tpl, "AdvanceState", AdvanceState);
+    Nan::SetPrototypeMethod(tpl, "AdvanceStateByT", AdvanceStateByT);
     Nan::SetPrototypeMethod(tpl, "GetGeometryJSON", GetGeometryJSON);
     Nan::SetPrototypeMethod(tpl, "GetDynamicGeometryJSON", GetDynamicGeometryJSON);
     Nan::SetPrototypeMethod(tpl, "WriteDynamicGeometrySTEP", WriteDynamicGeometrySTEP);

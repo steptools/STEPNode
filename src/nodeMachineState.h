@@ -50,6 +50,9 @@ public:
     //int AdvanceState();
     static NAN_METHOD(AdvanceState);
 
+    //int AdvanceStateByT(double t);
+    static NAN_METHOD(AdvanceStateByT);
+
     //int switchWS(int wsid)
     static NAN_METHOD(GoToWS);
 
