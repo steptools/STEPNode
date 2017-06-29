@@ -417,11 +417,11 @@ NAN_METHOD(machineState::SetToolPosition)
 {
     machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
     if (!ms || !(ms->_ms)) return;
-    if (info.Length() != 6) return;    // bad input
+    if (info.Length() < 5 || info.Length() > 6) return;    // bad input
 
     double xyz[3];
-    double ijk[3];
-
+	double ijk[3]; //ijk or ac if there's only 2 values.
+	bool isAC = false; //true if 5 args false if 6.
     for (int i=0; i<3; i++) {
 	if (info[i]->IsUndefined()) return; // throw ex
 	if (!info[i]->IsNumber()) return; // needs to be a number
@@ -432,7 +432,11 @@ NAN_METHOD(machineState::SetToolPosition)
     }
 
     for (int i=3; i<6; i++) {
-	if (info[i]->IsUndefined()) return; // bad input
+		if (info[i]->IsUndefined()) {
+			if(i<5) return; // bad input, need at least 2!
+			isAC = true;
+			break;
+		}
 	if (!info[i]->IsNumber()) return; // check for number
 
 	Nan::Maybe<double> num = Nan::To<double>(info[i]);
@@ -443,8 +447,9 @@ NAN_METHOD(machineState::SetToolPosition)
     v8::Local<v8::Promise::Resolver> pmise = v8::Promise::Resolver::New(info.GetIsolate());
     auto pased = new Nan::Global<v8::Promise::Resolver>(pmise);
     pased->Reset(pmise);
-    ms->_ms->SetToolPosition(xyz, ijk,(pased));
-    info.GetReturnValue().Set(pmise);
+    if(isAC==false) ms->_ms->SetToolPositionIJK(xyz, ijk,(pased));
+	else ms->_ms->SetToolPositionAC(xyz, ijk, (pased));
+	info.GetReturnValue().Set(pmise);
     return;
 }
 
