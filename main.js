@@ -4,13 +4,13 @@ let StepNode;
 
 switch(Platform) {
 	case 'win32':
-		StepNode = require('./Win/StepNode');
+		StepNode = require('./Win/STEPNode');
 		break;
 	case 'linux':
-		StepNode = require('./Linux/StepNode');
+		StepNode = require('./Linux/STEPNode');
 		break;
 	case 'darwin':
-		StepNode = require('./Mac/StepNode');
+		StepNode = require('./Mac/STEPNode');
 		break;
 }
 module.exports = StepNode;
