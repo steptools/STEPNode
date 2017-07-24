@@ -219,7 +219,9 @@ NAN_METHOD(machineState::GetGeometryJSON)
 	v8StringToChar(info[1], typ);
 	RoseStringObject rtn;
 	ms->_ms->GetGeometryJSON(rtn, id, obj, GeomTypeFromString(typ));
-	info.GetReturnValue().Set(CharTov8String(rtn.as_const()));
+	auto rtnpmise = v8::Promise::Resolver::New(info.GetIsolate());
+	rtnpmise->Resolve(CharTov8String(rtn.as_const()));
+	info.GetReturnValue().Set(rtnpmise);
 	delete[] id;
 	delete[] typ;
 	return;
@@ -238,7 +240,9 @@ NAN_METHOD(machineState::GetDynamicGeometryJSON)
     int in = Nan::To<int32_t>(info[0]).FromJust();
     RoseStringObject rtn;
     ms->_ms->GetDynamicGeometryJSON(rtn, in);
-    info.GetReturnValue().Set(CharTov8String(rtn.as_const()));
+	auto rtnpmise = v8::Promise::Resolver::New(info.GetIsolate());
+	rtnpmise->Resolve(CharTov8String(rtn.as_const()));
+	info.GetReturnValue().Set(rtnpmise);
     return;
 }
 
@@ -254,6 +258,9 @@ NAN_METHOD(machineState::WriteDynamicGeometrySTEP)
     char * fname;
     v8StringToChar(info[0], fname);
     ms->_ms->ExportDynamicGeometrySTEP(fname);
+	auto rtnpmise = v8::Promise::Resolver::New(info.GetIsolate());
+	rtnpmise->Resolve(Nan::Null());
+	info.GetReturnValue().Set(rtnpmise);
     return;
 }
 
@@ -263,7 +270,10 @@ NAN_METHOD(machineState::GetDynamicGeometryVersion)
     if (!ms || !(ms->_ms)) return;
     if (!info[0]->IsUndefined()) return; //This function takes no arguments.
     int rtnval = ms->_ms->GetDynamicGeometryVersion();
-    info.GetReturnValue().Set(Nan::New(rtnval));
+
+	auto rtnpmise = v8::Promise::Resolver::New(info.GetIsolate());
+	rtnpmise->Resolve(Nan::New(rtnval));
+	info.GetReturnValue().Set(rtnpmise);
     return;
 }
 
@@ -273,6 +283,9 @@ NAN_METHOD(machineState::ResetDynamicGeometry)
     if (!ms || !(ms->_ms)) return;
     if (!info[0]->IsUndefined()) return; //This function takes no arguments.
     ms->_ms->ResetDynamicGeometry();
+	auto rtnpmise = v8::Promise::Resolver::New(info.GetIsolate());
+	rtnpmise->Resolve(Nan::Null());
+	info.GetReturnValue().Set(rtnpmise);
     return;
 }
 
@@ -283,7 +296,9 @@ NAN_METHOD(machineState::GetDeltaStateJSON)
     if (!info[0]->IsUndefined()) return; //This function takes no arguments.
     RoseStringObject rtn;
     ms->_ms->GetStateJSON(rtn,false);
-    info.GetReturnValue().Set(CharTov8String(rtn.as_const()));
+	auto rtnpmise = v8::Promise::Resolver::New(info.GetIsolate());
+	rtnpmise->Resolve(CharTov8String(rtn.as_const()));
+	info.GetReturnValue().Set(rtnpmise);
     return;
 }
 
@@ -294,7 +309,9 @@ NAN_METHOD(machineState::GetKeyStateJSON)
     if (!info[0]->IsUndefined()) return; //This function takes no arguments.
     RoseStringObject rtn;
     ms->_ms->GetStateJSON(rtn,true);
-    info.GetReturnValue().Set(CharTov8String(rtn.as_const()));
+	auto rtnpmise = v8::Promise::Resolver::New(info.GetIsolate());
+	rtnpmise->Resolve(CharTov8String(rtn.as_const()));
+	info.GetReturnValue().Set(rtnpmise);
     return;
 }
 
@@ -333,7 +350,9 @@ NAN_METHOD(machineState::GetEIDfromUUID)
     if (!obj)
 	return;
     int rtnval = obj->entity_id();
-    info.GetReturnValue().Set(Nan::New(rtnval));
+	auto rtnpmise = v8::Promise::Resolver::New(info.GetIsolate());
+	rtnpmise->Resolve(Nan::New(rtnval));
+	info.GetReturnValue().Set(rtnpmise);
     return;
 }
 
@@ -369,7 +388,9 @@ NAN_METHOD(machineState::GetPrevWSID)
     if (!ms || !(ms->_ms)) return;
     if (!info[0]->IsUndefined()) return; //This function takes no arguments.
     int id = ms->_ms->GetPrevWSID();
-    info.GetReturnValue().Set(id);
+	auto rtnpmise = v8::Promise::Resolver::New(info.GetIsolate());
+	rtnpmise->Resolve(Nan::New(id));
+	info.GetReturnValue().Set(rtnpmise);
     return;
 }
 
@@ -379,7 +400,9 @@ NAN_METHOD(machineState::GetWSID)
     if (!ms || !(ms->_ms)) return;
     if (!info[0]->IsUndefined()) return; //This function takes no arguments.
     int id = ms->_ms->GetWSID();
-    info.GetReturnValue().Set(id);
+	auto rtnpmise = v8::Promise::Resolver::New(info.GetIsolate());
+	rtnpmise->Resolve(Nan::New(id));
+	info.GetReturnValue().Set(rtnpmise);
     return;
 }
 
@@ -389,7 +412,9 @@ NAN_METHOD(machineState::GetNextWSID)
     if (!ms || !(ms->_ms)) return;
     if (!info[0]->IsUndefined()) return; //This function takes no arguments.
     int id = ms->_ms->GetNextWSID();
-    info.GetReturnValue().Set(id);
+	auto rtnpmise = v8::Promise::Resolver::New(info.GetIsolate());
+	rtnpmise->Resolve(Nan::New(id));
+	info.GetReturnValue().Set(rtnpmise);
     return;
 }
 
@@ -399,7 +424,9 @@ NAN_METHOD(machineState::GetCurrentFeedrate)
     if (!ms || !(ms->_ms)) return;
     if (!info[0]->IsUndefined()) return; //This function takes no arguments.
     double feed = ms->_ms->GetCurrentFeedrate();
-    info.GetReturnValue().Set(feed);
+	auto rtnpmise = v8::Promise::Resolver::New(info.GetIsolate());
+	rtnpmise->Resolve(Nan::New(feed));
+	info.GetReturnValue().Set(rtnpmise);
     return;
 }
 
@@ -409,7 +436,9 @@ NAN_METHOD(machineState::GetCurrentSpindleSpeed)
     if (!ms || !(ms->_ms)) return;
     if (!info[0]->IsUndefined()) return; //This function takes no arguments.
     double speed = ms->_ms->GetCurrentSpindleSpeed();
-    info.GetReturnValue().Set(speed);
+	auto rtnpmise = v8::Promise::Resolver::New(info.GetIsolate());
+	rtnpmise->Resolve(Nan::New(speed));
+	info.GetReturnValue().Set(rtnpmise);
     return;
 }
 
@@ -459,6 +488,9 @@ NAN_METHOD(machineState::WorkingstepTransitionDisableToolMove)
     if (!ms || !(ms->_ms)) return;
     if (!info[0]->IsUndefined()) return; //This function takes no arguments.
     ms->_ms->WorkingstepTransitionDisableToolMove();
+	auto rtnpmise = v8::Promise::Resolver::New(info.GetIsolate());
+	rtnpmise->Resolve(Nan::Null());
+	info.GetReturnValue().Set(rtnpmise);
     return;
 }
 
