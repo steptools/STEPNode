@@ -482,6 +482,23 @@ NAN_METHOD(machineState::SetToolPosition)
     return;
 }
 
+NAN_METHOD(machineState::SetDumpDir)
+{
+    machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
+    if (!ms || !(ms->_ms)) return;
+    if (info.Length() != 1) //Function takes one argument
+	return;
+    if (!info[0]->IsString()) { // argument of wrong type
+	return;
+    }
+    char * fname;
+    v8StringToChar(info[0], fname);
+    ms->_ms->SetDumpDirectory(fname);
+	auto rtnpmise = v8::Promise::Resolver::New(info.GetIsolate());
+	rtnpmise->Resolve(Nan::Null());
+	info.GetReturnValue().Set(rtnpmise);
+    return;
+}
 NAN_METHOD(machineState::WorkingstepTransitionDisableToolMove)
 {
     machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
@@ -518,6 +535,7 @@ NAN_MODULE_INIT(machineState::Init)
     Nan::SetPrototypeMethod(tpl, "GetCurrentFeedrate", GetCurrentFeedrate);
     Nan::SetPrototypeMethod(tpl, "GetCurrentSpindleSpeed", GetCurrentSpindleSpeed);
     Nan::SetPrototypeMethod(tpl, "SetToolPosition", SetToolPosition);
+    Nan::SetPrototypeMethod(tpl, "SetDumpDir", SetDumpDir);
     Nan::SetPrototypeMethod(tpl, "ResetDynamicGeometry", ResetDynamicGeometry);
     Nan::SetPrototypeMethod(tpl, "WorkingstepTransitionDisableToolMove",WorkingstepTransitionDisableToolMove);
     constructor().Reset(Nan::GetFunction(tpl).ToLocalChecked());

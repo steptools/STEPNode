@@ -90,6 +90,9 @@ public:
     //double GetCurrentSpindleSpeed
     static NAN_METHOD(GetCurrentSpindleSpeed);
 
+    //void SetDumpDir(string dir)
+    static NAN_METHOD(SetDumpDir);
+
     // void SetToolPosition(double x,double y,double z,double i,double j,double k);
 	// void SetToolPosition(double x,double y,double z,double a,double c);
     static NAN_METHOD(SetToolPosition);
