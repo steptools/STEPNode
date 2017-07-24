@@ -87,7 +87,7 @@ public:
     //double GetCurrentFeedrate
     static NAN_METHOD(GetCurrentFeedrate);
 
-    //double GetCurrentFeedrate
+    //double GetCurrentSpindleSpeed
     static NAN_METHOD(GetCurrentSpindleSpeed);
 
     // void SetToolPosition(double x,double y,double z,double i,double j,double k);
