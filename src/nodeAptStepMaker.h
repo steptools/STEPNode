@@ -63,6 +63,10 @@ public:
 		
     static NAN_METHOD(GetWorkpiecePlacement);
 
+    static NAN_METHOD(PutWorkpiecePlacement);
+
+    static NAN_METHOD(PutWorkplanSetup);
+
     static NAN_METHOD(OpenProject);
 
     // void OpenSTEP (string file_name)

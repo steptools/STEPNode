@@ -62,6 +62,8 @@ NAN_MODULE_INIT(AptStepMaker::Init)
     Nan::SetPrototypeMethod(tpl, "GetCurrentWorkpiece", GetCurrentWorkpiece);
     Nan::SetPrototypeMethod(tpl, "GetCurrentWorkplan", GetCurrentWorkplan);
     Nan::SetPrototypeMethod(tpl, "GetWorkplanSetup", GetWorkplanSetup);
+    Nan::SetPrototypeMethod(tpl, "PutWorkplanSetup", PutWorkplanSetup);
+    Nan::SetPrototypeMethod(tpl, "PutWorkpiecePlacement", PutWorkpiecePlacement);
     Nan::SetPrototypeMethod(tpl, "OpenProject", OpenProject);
     Nan::SetPrototypeMethod(tpl, "OpenSTEP", OpenSTEP);
     Nan::SetPrototypeMethod(tpl, "SaveAsModules", SaveAsModules);
@@ -289,6 +291,72 @@ NAN_METHOD(AptStepMaker::GetWorkplanSetup) {
     array->Set(8, Nan::New(c));
 	
     info.GetReturnValue().Set(array);
+    return;
+}
+
+NAN_METHOD(AptStepMaker::PutWorkpiecePlacement) {
+    AptStepMaker * apt = Nan::ObjectWrap::Unwrap<AptStepMaker>(info.This());
+    if (apt == 0) //Throw Exception
+	return;
+    if (info.Length() != 10) //Function should get ten argument.
+	return;
+    if (!info[0]->IsInt32())
+	return;
+    for (int i=1; i<10; i++) {
+        if (info[i]->IsUndefined())
+            return;
+	    if (!info[i]->IsNumber())
+            return;
+    }
+	
+    Nan::Maybe<int32_t> wpid = Nan::To<int32_t>(info[0]);
+    Nan::Maybe<double> x = Nan::To<double>(info[1]);
+    Nan::Maybe<double> y = Nan::To<double>(info[2]);
+    Nan::Maybe<double> z = Nan::To<double>(info[3]);
+    Nan::Maybe<double> i = Nan::To<double>(info[4]);
+    Nan::Maybe<double> j = Nan::To<double>(info[5]);
+    Nan::Maybe<double> k = Nan::To<double>(info[6]);
+    Nan::Maybe<double> a = Nan::To<double>(info[7]);
+    Nan::Maybe<double> b = Nan::To<double>(info[8]);
+    Nan::Maybe<double> c = Nan::To<double>(info[9]);
+
+    if (!apt->_apt->put_workpiece_placement(wpid.FromJust(), x.FromJust(), y.FromJust(),
+                                    z.FromJust(), i.FromJust(), j.FromJust(), k.FromJust(),
+                                    a.FromJust(), b.FromJust(), c.FromJust())) //TODO: Handle error
+	return;
+    return;
+}
+
+NAN_METHOD(AptStepMaker::PutWorkplanSetup) {
+    AptStepMaker * apt = Nan::ObjectWrap::Unwrap<AptStepMaker>(info.This());
+    if (apt == 0) //Throw Exception
+	return;
+    if (info.Length() != 10) //Function should get ten argument.
+	return;
+    if (!info[0]->IsInt32())
+	return;
+    for (int i=1; i<10; i++) {
+        if (info[i]->IsUndefined())
+            return;
+	    if (!info[i]->IsNumber())
+            return;
+    }
+	
+    Nan::Maybe<int32_t> wpid = Nan::To<int32_t>(info[0]);
+    Nan::Maybe<double> x = Nan::To<double>(info[1]);
+    Nan::Maybe<double> y = Nan::To<double>(info[2]);
+    Nan::Maybe<double> z = Nan::To<double>(info[3]);
+    Nan::Maybe<double> i = Nan::To<double>(info[4]);
+    Nan::Maybe<double> j = Nan::To<double>(info[5]);
+    Nan::Maybe<double> k = Nan::To<double>(info[6]);
+    Nan::Maybe<double> a = Nan::To<double>(info[7]);
+    Nan::Maybe<double> b = Nan::To<double>(info[8]);
+    Nan::Maybe<double> c = Nan::To<double>(info[9]);
+
+    if (!apt->_apt->workplan_setup_put(wpid.FromJust(), x.FromJust(), y.FromJust(),
+                                    z.FromJust(), i.FromJust(), j.FromJust(), k.FromJust(),
+                                    a.FromJust(), b.FromJust(), c.FromJust())) //TODO: Handle error
+	return;
     return;
 }
 
