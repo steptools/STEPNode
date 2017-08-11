@@ -101,4 +101,23 @@ public:
 
     //void SetToleranceMeasuredValue(string tolUUID, double val)
     static NAN_METHOD(SetToleranceMeasuredValue);
+
+    /*void WorkpiecePlacementUsingFaces(
+        int wp_id,
+        int face1a_id,
+        int face1b_id,
+        int face1c_id,
+        int face2a_id,
+        int face2b_id,
+        int face2c_id
+    )*/
+    static NAN_METHOD(WorkpiecePlacementUsingFaces);
+
+    /*void WorkplanSetupPlacementUsingFaces(
+        int plan_id,
+        int faceA_id,
+        int faceB_id,
+        int faceC_id
+    )*/
+    static NAN_METHOD(WorkplanSetupPlacementUsingFaces);
 };

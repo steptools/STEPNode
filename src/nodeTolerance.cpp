@@ -67,6 +67,8 @@ NAN_MODULE_INIT(Tolerance::Init)
     Nan::SetPrototypeMethod(tpl, "NavigateToleranceToWorkingstepAll", NavigateToleranceToWorkingstepAll);
     Nan::SetPrototypeMethod(tpl, "ResetAllToleranceMeasuredValue", ResetAllToleranceMeasuredValue);
     Nan::SetPrototypeMethod(tpl, "SetToleranceMeasuredValue", SetToleranceMeasuredValue);
+    Nan::SetPrototypeMethod(tpl, "WorkpiecePlacementUsingFaces", WorkpiecePlacementUsingFaces);
+    Nan::SetPrototypeMethod(tpl, "WorkplanSetupPlacementUsingFaces", WorkplanSetupPlacementUsingFaces);
 
 
     constructor().Reset(Nan::GetFunction(tpl).ToLocalChecked());
@@ -541,5 +543,57 @@ NAN_METHOD(Tolerance::SetToleranceMeasuredValue){
     v8StringToChar(info[0], uuid);
     Nan::Maybe<double> value = Nan::To<double>(info[1]);
     tol->_tol->set_tolerance_current_value(uuid,value.FromJust());
+    return;
+}
+
+NAN_METHOD(Tolerance::WorkpiecePlacementUsingFaces) {
+    Tolerance * tol = Nan::ObjectWrap::Unwrap<Tolerance>(info.This());
+    if (tol == 0)
+    return;
+    if (info.Length() != 7)
+    return;
+    for (int i = 0; i < info.Length(); i++) {
+        if (info[i]->IsUndefined())
+        return;
+        if (!info[i]->IsNumber())
+        return;
+    }
+
+    Nan::Maybe<int32_t> wp_id = Nan::To<int32_t>(info[0]);
+    Nan::Maybe<int32_t> face1a_id = Nan::To<int32_t>(info[1]);
+    Nan::Maybe<int32_t> face1b_id = Nan::To<int32_t>(info[2]);
+    Nan::Maybe<int32_t> face1c_id = Nan::To<int32_t>(info[3]);
+    Nan::Maybe<int32_t> face2a_id = Nan::To<int32_t>(info[4]);
+    Nan::Maybe<int32_t> face2b_id = Nan::To<int32_t>(info[5]);
+    Nan::Maybe<int32_t> face2c_id = Nan::To<int32_t>(info[6]);
+
+    if (!tol->_tol->workpiece_placement_using_faces(wp_id.FromJust(), face1a_id.FromJust(),
+                                face1b_id.FromJust(), face1c_id.FromJust(), face2a_id.FromJust(),
+                                face2b_id.FromJust(), face2c_id.FromJust()))
+    return;
+    return; 
+}
+
+NAN_METHOD(Tolerance::WorkplanSetupPlacementUsingFaces) {
+    Tolerance * tol = Nan::ObjectWrap::Unwrap<Tolerance>(info.This());
+    if (tol == 0)
+    return;
+    if (info.Length() != 4)
+    return;
+    for (int i = 0; i < info.Length(); i++) {
+        if (info[i]->IsUndefined())
+        return;
+        if (!info[i]->IsNumber())
+        return; 
+    }
+
+    Nan::Maybe<int32_t> plan_id = Nan::To<int32_t>(info[0]);
+    Nan::Maybe<int32_t> faceA_id = Nan::To<int32_t>(info[1]);
+    Nan::Maybe<int32_t> faceB_id = Nan::To<int32_t>(info[2]);
+    Nan::Maybe<int32_t> faceC_id = Nan::To<int32_t>(info[3]);
+
+    if (!tol->_tol->setup_placement_using_faces(plan_id.FromJust(), faceA_id.FromJust(),
+                                                         faceB_id.FromJust(), faceC_id.FromJust()))
+    return;
     return;
 }
