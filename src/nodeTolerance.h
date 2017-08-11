@@ -45,6 +45,9 @@ public:
     //char * GetDatumLabel()
     static NAN_METHOD(GetDatumLabel);
 
+    // string GetFaceMeasureGeometryType(int face_id)
+    static NAN_METHOD(GetFaceMeasureGeometryType);
+
     //string[] GetProbeResults()
     static NAN_METHOD(GetProbeResults);
 

@@ -48,6 +48,7 @@ NAN_MODULE_INIT(Tolerance::Init)
 
     Nan::SetPrototypeMethod(tpl, "GetDatumFaceAll", GetDatumFaceAll);
     Nan::SetPrototypeMethod(tpl, "GetDatumLabel", GetDatumLabel);
+    Nan::SetPrototypeMethod(tpl, "GetFaceMeasureGeometryType", GetFaceMeasureGeometryType);
     Nan::SetPrototypeMethod(tpl, "GetProbeResults", GetProbeResults);
     Nan::SetPrototypeMethod(tpl, "GetToleranceAllCount", GetToleranceAllCount);
     Nan::SetPrototypeMethod(tpl, "GetToleranceAllNext", GetToleranceAllNext);
@@ -123,6 +124,23 @@ NAN_METHOD(Tolerance::GetDatumLabel)
     if(!tol->_tol->get_datum_label(dat_id.FromJust(), (const char *&)label))
 	return;
     info.GetReturnValue().Set(CharTov8String(label));
+    return;
+}
+
+NAN_METHOD(Tolerance::GetFaceMeasureGeometryType)
+{
+    Tolerance* tol = Nan::ObjectWrap::Unwrap<Tolerance>(info.This());
+    if(!tol)
+    return;
+    if(info.Length()!=1)
+    return;
+    if(!info[0]->IsNumber())
+    return;
+    const char * type = 0;
+    Nan::Maybe<int32_t> face_id = Nan::To<int32_t>(info[0]);
+    if (!tol->_tol->face_measure_geometry_type(face_id.FromJust(), type))
+    return;
+    info.GetReturnValue().Set(CharTov8String((char*) type));
     return;
 }
 
