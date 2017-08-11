@@ -59,6 +59,7 @@ NAN_MODULE_INIT(AptStepMaker::Init)
     Nan::SetPrototypeMethod(tpl, "GetWorkpieceExecutableAll", GetWorkpieceExecutableAll);
     Nan::SetPrototypeMethod(tpl, "GetWorkpiecePlacement", GetWorkpiecePlacement);
     Nan::SetPrototypeMethod(tpl, "GetExecutableWorkpieceToBe", GetExecutableWorkpieceToBe);
+    Nan::SetPrototypeMethod(tpl, "GetExecutableWorkpieceFixture", GetExecutableWorkpieceFixture);
     Nan::SetPrototypeMethod(tpl, "GetCurrentWorkpiece", GetCurrentWorkpiece);
     Nan::SetPrototypeMethod(tpl, "GetCurrentWorkplan", GetCurrentWorkplan);
     Nan::SetPrototypeMethod(tpl, "GetWorkplanSetup", GetWorkplanSetup);
@@ -224,6 +225,25 @@ NAN_METHOD(AptStepMaker::GetExecutableWorkpieceToBe) {
     int wpid;
 	
     if (!apt->_apt->executable_removal_workpiece(wsid.FromJust(), wpid)) //TODO: Handle error
+	return;
+	
+    info.GetReturnValue().Set(wpid);
+    return;
+}
+
+NAN_METHOD(AptStepMaker::GetExecutableWorkpieceFixture) {
+    AptStepMaker * apt = Nan::ObjectWrap::Unwrap<AptStepMaker>(info.This());
+    if (apt == 0) //Throw Exception
+	return;
+    if (info.Length() != 1) //Function should get one argument.
+	return;
+    if (!info[0]->IsInt32())
+	return;
+	
+    Nan::Maybe<int32_t> wsid = Nan::To<int32_t>(info[0]);
+    int wpid;
+	
+    if (!apt->_apt->executable_fixture_workpiece(wsid.FromJust(), wpid)) //TODO: Handle error
 	return;
 	
     info.GetReturnValue().Set(wpid);
