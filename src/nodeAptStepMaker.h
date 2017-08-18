@@ -45,6 +45,8 @@ public:
     static NAN_METHOD(GetToolIdentifier);
 		
     static NAN_METHOD(GetExecutableWorkpieceToBe);
+
+    static NAN_METHOD(GetExecutableWorkpieceFixture);
 		
     static NAN_METHOD(GetCurrentWorkpiece);
 		
@@ -62,6 +64,10 @@ public:
     static NAN_METHOD(GetWorkpieceExecutableAll);
 		
     static NAN_METHOD(GetWorkpiecePlacement);
+
+    static NAN_METHOD(PutWorkpiecePlacement);
+
+    static NAN_METHOD(PutWorkplanSetup);
 
     static NAN_METHOD(OpenProject);
 
