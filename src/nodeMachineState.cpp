@@ -150,6 +150,24 @@ NAN_METHOD(machineState::New)
 	    ms->Wrap(info.This());
             info.GetReturnValue().Set(info.This());
 	}
+	else if (info.Length() == 4) {
+            char * fname;
+            v8StringToChar(info[0], fname);
+			char * toolfname;
+			v8StringToChar(info[2], toolfname);
+			bool c = info[1]->BooleanValue();
+			bool coloring = info[3]->BooleanValue();
+            machineState * ms = new machineState();
+            ms->_ms = MachineState::InitializeState(fname, c,toolfname,coloring);
+            delete[] fname;
+			delete[] toolfname;
+			uv_async_init(uv_default_loop(), &ms->async, messager);
+			uv_thread_create(&ms->waitqueue, __waiterFunction, (void*)ms);
+			uv_mutex_init(&pp_mutex);
+			ms->Wrap(info.This());
+			info.GetReturnValue().Set(info.This());
+		
+	}
         else{
             return;
         }
