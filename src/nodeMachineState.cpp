@@ -210,42 +210,25 @@ NAN_METHOD(machineState::GetGeometryJSON)
 {
     machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
     if (!ms || !(ms->_ms)) return;
-    //This function has a 2 argument and a no argument version.
-    if (info.Length() == 0)
+    //This function takes one argument.
+    if (info.Length() != 1) return; // invalid number of arguments
+    if (info[0]->IsUndefined()) return; //No Given ID
+    if (!info[0]->IsString()) return; //ID is not valid
+    char * id;
+    v8StringToChar(info[0], id);
+    RoseObject * obj = ms->_ms->FindObjectByID(id);
+    if (!obj)
     {
-	RoseStringObject rtn;
-	ms->_ms->GetGeometryJSON(rtn);
-	auto rtnpmise = v8::Promise::Resolver::New(info.GetIsolate());
-	rtnpmise->Resolve(CharTov8String(rtn.as_const()));
-	info.GetReturnValue().Set(rtnpmise->GetPromise());
-	return;
-    }
-    else
-    {
-	if (info.Length() != 2) return; // invalid number of arguments
-	if (info[0]->IsUndefined()) return; //No Given ID
-	if (info[1]->IsUndefined()) return; //No Given Typ
-	if (!info[0]->IsString()) return; //ID is not valid
-	if (!info[1]->IsString()) return; //Typ is not valid
-	char * id;
-	v8StringToChar(info[0], id);
-	RoseObject * obj = ms->_ms->FindObjectByID(id);
-	if (!obj)
-	{
-	    delete[] id;
-	    return; //No Object Associated with given ID
-	}
-	char * typ;
-	v8StringToChar(info[1], typ);
-	RoseStringObject rtn;
-	ms->_ms->GetGeometryJSON(rtn, id, obj, GeomTypeFromString(typ));
-	auto rtnpmise = v8::Promise::Resolver::New(info.GetIsolate());
-	rtnpmise->Resolve(CharTov8String(rtn.as_const()));
-	info.GetReturnValue().Set(rtnpmise->GetPromise());
 	delete[] id;
-	delete[] typ;
-	return;
+	return; //No Object Associated with given ID
     }
+    RoseStringObject rtn;
+    ms->_ms->GetGeometryJSON(rtn, obj);
+    auto rtnpmise = v8::Promise::Resolver::New(info.GetIsolate());
+    rtnpmise->Resolve(CharTov8String(rtn.as_const()));
+    info.GetReturnValue().Set(rtnpmise->GetPromise());
+    delete[] id;
+    return;
 }
 
 NAN_METHOD(machineState::GetDynamicGeometryJSON)
