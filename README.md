@@ -5,4 +5,4 @@ This package implements a number of functions to interface with StepNC files.
 Documentation
 ==========
 
-Full documentation of all implemented functions can be found [here](http://www.steptools.com/support/stepnc_docs/ncapi/Finder.html "STEPNode Documentation")
+Full documentation of all implemented functions can be found [here](http://www.steptools.com/docs/stepnc_api/Finder.html "STEPNode Documentation")
