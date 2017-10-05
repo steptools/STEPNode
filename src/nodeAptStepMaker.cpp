@@ -1,5 +1,5 @@
 // 
-// Copyright (c) 1991-2016 by STEP Tools Inc. 
+// Copyright (c) 1991-2017 by STEP Tools Inc. 
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
