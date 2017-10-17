@@ -31,7 +31,9 @@ private:
 	static Nan::Persistent<v8::Function> my_constructor;
 	return my_constructor;
     }
-    ~machineState() {};
+    // initialize and clean up private data
+    machineState() { _ms=0; }
+    ~machineState() { delete _ms; };
     uv_async_t async;
     uv_thread_t waitqueue;
 public:

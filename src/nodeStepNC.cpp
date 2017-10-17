@@ -20,13 +20,19 @@
 #include "nodeFinder.h"
 #include "nodeTolerance.h"
 #include "nodeMachineState.h"
+#include "nodeAdaptive.h"
 
+
+// PACKAGE INIT -
+// call node inits for all classes and force step c++ init
+// 
 NAN_MODULE_INIT(Init) {
     stplib_init();
     machineState::Init(target);
     Tolerance::Init(target);
     Finder::Init(target);
     AptStepMaker::Init(target);
+    Adaptive::Init(target);
 }
 
 NODE_MODULE(StepNC, Init)  
