@@ -177,6 +177,10 @@ public:
 
     // Components of a position.  The Get functions return undefined
     // if the value is null.
+
+    // object GetPosAll (int pos)  all fields 
+    static NAN_METHOD(GetPosAll);
+    
     // double[3] GetPosXYZ(CtlPos p, optional RoseUnit u);
     static NAN_METHOD(GetPosXYZ);
 
@@ -240,6 +244,8 @@ public:
 
     // Arc parameters - Use with the GetMoveArc() position to Get
     // curve parameters.
+    static NAN_METHOD(GetArcAll);
+
     // double[3] GetArcCenter (CtlPos p, RoseUnit u);
     static NAN_METHOD(GetArcCenter);
     // double[3] GetArcAxis (CtlPos p);

@@ -107,6 +107,7 @@ NAN_MODULE_INIT(Adaptive::Init)
     Nan::SetPrototypeMethod(tpl, "GetMoveIsMistCoolant", GetMoveIsMistCoolant);
     Nan::SetPrototypeMethod(tpl, "GetMoveIsThruCoolant", GetMoveIsThruCoolant);
 
+    Nan::SetPrototypeMethod(tpl, "GetPosAll", GetPosAll);
     Nan::SetPrototypeMethod(tpl, "GetPosXYZ", GetPosXYZ);
     Nan::SetPrototypeMethod(tpl, "GetPosDirZ", GetPosDirZ);
     Nan::SetPrototypeMethod(tpl, "GetPosDirX", GetPosDirX);
@@ -129,6 +130,8 @@ NAN_MODULE_INIT(Adaptive::Init)
     Nan::SetPrototypeMethod(tpl, "GetPosParam", GetPosParam);
     Nan::SetPrototypeMethod(tpl, "SetPosParam", SetPosParam);
     Nan::SetPrototypeMethod(tpl, "GetPosIsEqual", GetPosIsEqual);
+
+    Nan::SetPrototypeMethod(tpl, "GetArcAll", GetArcAll);
     Nan::SetPrototypeMethod(tpl, "GetArcCenter", GetArcCenter);
     Nan::SetPrototypeMethod(tpl, "GetArcAxis", GetArcAxis);
     Nan::SetPrototypeMethod(tpl, "GetArcRadius", GetArcRadius);
@@ -347,7 +350,10 @@ NAN_METHOD(Adaptive::GetActiveParam)
     Adaptive* ao = Nan::ObjectWrap::Unwrap<Adaptive>(info.This());
     if (!ao) return; // exception
 
-    info.GetReturnValue().Set(ao->f_ctl->getActiveParam());
+    double val = ao->f_ctl->getActiveParam();
+    if (!ROSE_FLOAT_IS_NULL(val)) {
+	info.GetReturnValue().Set(val);
+    }
 }
 
 // CtlType GetActiveType();
@@ -679,6 +685,294 @@ NAN_METHOD(Adaptive::GetMoveIsThruCoolant)
 }
 
 
+
+// object GetPosAll (int pos)
+NAN_METHOD(Adaptive::GetPosAll)
+{
+    Trace t(tc, "GetPosAll");
+    Adaptive* ao = Nan::ObjectWrap::Unwrap<Adaptive>(info.This());
+    if (!ao) return; // exception
+    if (!info.Length()) return;
+
+    RoseUnit u = roseunit_as_is;
+    StixCtlPos pos = (StixCtlPos) Nan::To<int32_t>(info[0]).FromJust();
+
+    if (info.Length() > 1) {
+	u = (RoseUnit) Nan::To<int32_t>(info[1]).FromJust();
+    }
+
+    RoseObject * obj;
+    double vals[7];
+
+    v8::Local<v8::Object> ret = Nan::New<v8::Object>();
+    v8::Local<v8::Value> att;
+
+    Nan::Set(ret, CharTov8String("Type"), Nan::New((int32_t)ao->f_ctl->getPosType(pos)));
+    Nan::Set(ret, CharTov8String("Csys"), Nan::New((int32_t)ao->f_ctl->getPosCsys(pos)));    
+
+    // ------------------------------
+    if (ao->f_ctl->getPosXYZ(vals, pos, u)) {
+	v8::Local<v8::Array> arr = Nan::New<v8::Array>(3);
+	arr->Set(0, Nan::New(vals[0]));
+	arr->Set(1, Nan::New(vals[1]));
+	arr->Set(2, Nan::New(vals[2]));
+	att = arr;
+    }
+    else {
+        att = Nan::Undefined();
+    }
+    Nan::Set(ret, CharTov8String("XYZ"), att);
+
+    obj = ao->f_ctl->getPosXYZObj(pos);
+    Nan::Set(
+	ret, CharTov8String("XYZObj"),
+	Nan::New((int32_t)(obj? obj->entity_id(): 0))
+	);
+    
+    // ------------------------------
+    if (ao->f_ctl->getPosDirZ(vals, pos)) {
+	v8::Local<v8::Array> arr = Nan::New<v8::Array>(3);
+	arr->Set(0, Nan::New(vals[0]));
+	arr->Set(1, Nan::New(vals[1]));
+	arr->Set(2, Nan::New(vals[2]));
+	att = arr;
+    }
+    else {
+        att = Nan::Undefined();
+    }
+    Nan::Set(ret, CharTov8String("DirZ"), att);
+
+    obj = ao->f_ctl->getPosDirZObj(pos);
+    Nan::Set(
+	ret, CharTov8String("DirZObj"),
+	Nan::New((int32_t)(obj? obj->entity_id(): 0))
+	);
+
+    // ------------------------------
+    if (ao->f_ctl->getPosDirX(vals, pos)) {
+	v8::Local<v8::Array> arr = Nan::New<v8::Array>(3);
+	arr->Set(0, Nan::New(vals[0]));
+	arr->Set(1, Nan::New(vals[1]));
+	arr->Set(2, Nan::New(vals[2]));
+	att = arr;
+    }
+    else {
+        att = Nan::Undefined();
+    }
+    Nan::Set(ret, CharTov8String("DirX"), att);
+
+    obj = ao->f_ctl->getPosDirXObj(pos);
+    Nan::Set(
+	ret, CharTov8String("DirXObj"),
+	Nan::New((int32_t)(obj? obj->entity_id(): 0))
+	);
+    
+    // ------------------------------
+    if (ao->f_ctl->getPosDirSnorm(vals, pos)) {
+	v8::Local<v8::Array> arr = Nan::New<v8::Array>(3);
+	arr->Set(0, Nan::New(vals[0]));
+	arr->Set(1, Nan::New(vals[1]));
+	arr->Set(2, Nan::New(vals[2]));
+	att = arr;
+    }
+    else {
+        att = Nan::Undefined();
+    }
+    Nan::Set(ret, CharTov8String("DirSnorm"), att);
+
+    obj = ao->f_ctl->getPosDirSnormObj(pos);
+    Nan::Set(
+	ret, CharTov8String("DirSnormObj"),
+	Nan::New((int32_t)(obj? obj->entity_id(): 0))
+	);
+    
+    // ------------------------------
+    if (ao->f_ctl->getPosDirMove(vals, pos)) {
+	v8::Local<v8::Array> arr = Nan::New<v8::Array>(3);
+	arr->Set(0, Nan::New(vals[0]));
+	arr->Set(1, Nan::New(vals[1]));
+	arr->Set(2, Nan::New(vals[2]));
+	att = arr;
+    }
+    else {
+        att = Nan::Undefined();
+    }
+    Nan::Set(ret, CharTov8String("DirMove"), att);
+
+
+    // ------------------------------
+    if (ao->f_ctl->getPosSpeedRatio(vals[0], pos)) {
+	att = Nan::New(vals[0]);
+    }
+    else {
+        att = Nan::Undefined();
+    }
+    Nan::Set(ret, CharTov8String("SpeedRatio"), att);
+	
+    obj = ao->f_ctl->getPosSpeedRatioObj(pos);
+    Nan::Set(
+	ret, CharTov8String("SpeedRatioObj"),
+	Nan::New((int32_t)(obj? obj->entity_id(): 0))
+	);
+
+    // ------------------------------
+    if (ao->f_ctl->getPosXsectParms(vals, pos, u))
+    {
+	// isnt there something about templates which would make this faster?
+	v8::Local<v8::Object> att = Nan::New<v8::Object>();
+	Nan::Set(att, CharTov8String("admax"), Nan::New(vals[0]));
+	Nan::Set(att, CharTov8String("rdmax"), Nan::New(vals[1]));
+	Nan::Set(att, CharTov8String("xmaxofs"), Nan::New(vals[2]));
+	Nan::Set(att, CharTov8String("ymaxofs"), Nan::New(vals[3]));
+	Nan::Set(att, CharTov8String("csa"), Nan::New(vals[4]));
+	Nan::Set(att, CharTov8String("xcgofs"), Nan::New(vals[5]));
+	Nan::Set(att, CharTov8String("ycgofs"), Nan::New(vals[6]));
+    }
+    else {
+        att = Nan::Undefined();
+    }
+    Nan::Set(ret, CharTov8String("XsectParms"), att);
+	
+    obj = ao->f_ctl->getPosSpeedRatioObj(pos);
+    Nan::Set(
+	ret, CharTov8String("XsectParmsObj"),
+	Nan::New((int32_t)(obj? obj->entity_id(): 0))
+	);
+
+    
+    // ------------------------------
+    vals[0] = ao->f_ctl->getPosParam(pos);
+    if (!ROSE_FLOAT_IS_NULL(vals[0])) {
+	att = Nan::New(vals[0]);
+    }
+    else {
+        att = Nan::Undefined();
+    }
+    Nan::Set(ret, CharTov8String("Param"), att);
+
+    if (u == roseunit_as_is) u = ao->f_ctl->getPosLenUnit(pos);
+    Nan::Set(ret, CharTov8String("LenUnit"), Nan::New((int32_t)u));
+	
+    Nan::Set(ret, CharTov8String("AngUnit"), Nan::New((int32_t)ao->f_ctl->getPosAngUnit(pos)));    
+    
+    info.GetReturnValue().Set(ret);
+}
+
+
+// object GetPosAll (int pos)
+NAN_METHOD(Adaptive::GetArcAll)
+{
+    Trace t(tc, "GetArcAll");
+    Adaptive* ao = Nan::ObjectWrap::Unwrap<Adaptive>(info.This());
+    if (!ao) return; // exception
+    if (!info.Length()) return;
+
+    RoseUnit u = roseunit_as_is;
+    RoseUnit au = roseunit_deg;
+    StixCtlPos pos = (StixCtlPos) Nan::To<int32_t>(info[0]).FromJust();
+
+    if (info.Length() > 1) {
+	u = (RoseUnit) Nan::To<int32_t>(info[1]).FromJust();
+    }
+    if (info.Length() > 2) {
+	au = (RoseUnit) Nan::To<int32_t>(info[2]).FromJust();
+    }
+
+    double vals[3];
+    v8::Local<v8::Object> ret = Nan::New<v8::Object>();
+    v8::Local<v8::Value> att;
+
+    Nan::Set(ret, CharTov8String("Type"), Nan::New((int32_t)ao->f_ctl->getPosType(pos)));
+    Nan::Set(ret, CharTov8String("Csys"), Nan::New((int32_t)ao->f_ctl->getPosCsys(pos)));    
+
+    // ------------------------------
+    if (ao->f_ctl->getArcCenter(vals, pos, u)) {
+	v8::Local<v8::Array> arr = Nan::New<v8::Array>(3);
+	arr->Set(0, Nan::New(vals[0]));
+	arr->Set(1, Nan::New(vals[1]));
+	arr->Set(2, Nan::New(vals[2]));
+	att = arr;
+    }
+    else {
+        att = Nan::Undefined();
+    }
+    Nan::Set(ret, CharTov8String("Center"), att);
+    
+    // ------------------------------
+    if (ao->f_ctl->getArcAxis(vals, pos)) {
+	v8::Local<v8::Array> arr = Nan::New<v8::Array>(3);
+	arr->Set(0, Nan::New(vals[0]));
+	arr->Set(1, Nan::New(vals[1]));
+	arr->Set(2, Nan::New(vals[2]));
+	att = arr;
+    }
+    else {
+        att = Nan::Undefined();
+    }
+    Nan::Set(ret, CharTov8String("Axis"), att);
+
+    
+    // ------------------------------
+    vals[0] = ao->f_ctl->getArcRadius(pos, u);
+    if (!ROSE_FLOAT_IS_NULL(vals[0])) {
+	att = Nan::New(vals[0]);
+    }
+    else {
+        att = Nan::Undefined();
+    }
+    Nan::Set(ret, CharTov8String("Radius"), att);
+
+
+    
+    // ------------------------------
+    vals[0] = ao->f_ctl->getArcAngle(pos, au);
+    if (!ROSE_FLOAT_IS_NULL(vals[0])) {
+	att = Nan::New(vals[0]);
+    }
+    else {
+        att = Nan::Undefined();
+    }
+    Nan::Set(ret, CharTov8String("Angle"), att);
+
+    
+    // ------------------------------
+    vals[0] = ao->f_ctl->getArcHeight(pos, u);
+    if (!ROSE_FLOAT_IS_NULL(vals[0])) {
+	att = Nan::New(vals[0]);
+    }
+    else {
+        att = Nan::Undefined();
+    }
+    Nan::Set(ret, CharTov8String("Height"), att);
+
+    // ------------------------------
+    Nan::Set(
+	ret, CharTov8String("IsCW"),
+	Nan::New(ao->f_ctl->getArcIsCW(pos) != 0)
+	);
+
+    Nan::Set(
+	ret, CharTov8String("IsFullCircle"),
+	Nan::New(ao->f_ctl->getArcIsFullCircle(pos) != 0)
+	);
+
+    Nan::Set(
+	ret, CharTov8String("IsOver180"),
+	Nan::New(ao->f_ctl->getArcIsOver180(pos) != 0)
+	);
+
+    if (u == roseunit_as_is) u = ao->f_ctl->getPosLenUnit(pos);
+    Nan::Set(ret, CharTov8String("LenUnit"), Nan::New((int32_t)u));
+	
+    if (au == roseunit_as_is) au = ao->f_ctl->getPosAngUnit(pos);
+    Nan::Set(ret, CharTov8String("AngUnit"), Nan::New((int32_t)au));
+
+    info.GetReturnValue().Set(ret);
+}
+
+
+
+
 // double[3] GetPosXYZ(CtlPos p, optional RoseUnit u);
 NAN_METHOD(Adaptive::GetPosXYZ)
 {
@@ -989,8 +1283,10 @@ NAN_METHOD(Adaptive::GetPosParam)
     if (!info.Length()) return;
 
     StixCtlPos pos = (StixCtlPos) Nan::To<int32_t>(info[0]).FromJust();
-
-    info.GetReturnValue().Set((int32_t)ao->f_ctl->getPosParam(pos));
+    double val = ao->f_ctl->getPosParam(pos);
+    if (!ROSE_FLOAT_IS_NULL(val)) {
+	info.GetReturnValue().Set(val);
+    }
 }
 
 // void SetPosParam(CtlPos p, double val);
@@ -1003,7 +1299,7 @@ NAN_METHOD(Adaptive::SetPosParam)
 
     StixCtlPos pos = (StixCtlPos) Nan::To<int32_t>(info[0]).FromJust();
     double val = Nan::To<double>(info[1]).FromJust();
-
+    // convert undefined to rose null real
     ao->f_ctl->setPosParam(pos, val);
 }
 
@@ -1013,7 +1309,7 @@ NAN_METHOD(Adaptive::SetPosParam)
 // bool GetPosIsEqual (CtlPos p1, CtlPos p2);
 NAN_METHOD(Adaptive::GetPosIsEqual)
 {
-    Trace t(tc, "GetPosParam");
+    Trace t(tc, "GetPosIsEqual");
     Adaptive* ao = Nan::ObjectWrap::Unwrap<Adaptive>(info.This());
     if (!ao) return; // exception
     if (info.Length() != 2) return;
@@ -1059,7 +1355,7 @@ NAN_METHOD(Adaptive::GetArcAxis)
     Trace t(tc, "GetArcAxis");
     Adaptive* ao = Nan::ObjectWrap::Unwrap<Adaptive>(info.This());
     if (!ao) return; // exception
-    if (!info.Length()) return;
+    if (info.Length() != 1) return;
 
     StixCtlPos pos = (StixCtlPos) Nan::To<int32_t>(info[0]).FromJust();
     double vals[3];
@@ -1125,7 +1421,9 @@ NAN_METHOD(Adaptive::GetArcHeight)
 	u = (RoseUnit) Nan::To<int32_t>(info[1]).FromJust();
     }
     double val = ao->f_ctl->getArcHeight(pos, u);
-    info.GetReturnValue().Set(val);
+    if (!ROSE_FLOAT_IS_NULL(val)) {
+	info.GetReturnValue().Set(val);
+    }
 }
 
 // bool GetArcIsCW  (CtlPos p)
@@ -1211,7 +1509,10 @@ NAN_METHOD(Adaptive::GetFrameParam)
     if (!info.Length()) return;
 
     int pos = Nan::To<int32_t>(info[0]).FromJust();
-    info.GetReturnValue().Set(ao->f_ctl->getFrameParam(pos));
+    double val = ao->f_ctl->getFrameParam(pos);
+    if (!ROSE_FLOAT_IS_NULL(val)) {
+	info.GetReturnValue().Set(val);
+    }
 }
 
 // CtlType GetFrameType (long stack_pos)
@@ -1329,3 +1630,5 @@ NAN_METHOD(Adaptive::GetFrameMfun)
     RoseObject * obj = ao->f_ctl->getFrameMfun(pos);
     info.GetReturnValue().Set((int32_t)(obj? obj->entity_id(): 0));
 }
+
+
