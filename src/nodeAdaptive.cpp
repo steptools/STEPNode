@@ -36,6 +36,8 @@ v8::Local<v8::Object> CtlEventEnum::singleton()
     v8::Local<v8::ObjectTemplate> target = Nan::New<v8::ObjectTemplate>();
     target->SetInternalFieldCount(1);
 
+    Nan::SetMethod(target, "Name", Name);
+
     // Declare from last to first.  When printed, properties show up
     // in reverse of the order that they are declared.
     //
@@ -76,8 +78,49 @@ v8::Local<v8::Object> CtlEventEnum::singleton()
     return obj;
 }
 
-NAN_MODULE_INIT(CtlEventEnum::Init) {}
+// return string constants for name
+NAN_METHOD(CtlEventEnum::Name)
+{
+    Trace t(tc, "CtlEvent::Name");
+    Adaptive* ao = Nan::ObjectWrap::Unwrap<Adaptive>(info.This());
+    if (!ao) return; // exception
+    if (!info.Length()) return;
 
+    StixCtlEvent u = (StixCtlEvent) Nan::To<int32_t>(info[0]).FromJust();
+    const char * nm;
+    switch (u) {
+    case STIXCTL_DONE: nm = "DONE"; break;
+    case STIXCTL_ERROR: nm = "ERROR"; break;
+    case STIXCTL_MOVE: nm = "MOVE"; break;
+    case STIXCTL_TOOL_CHANGE: nm = "TOOL_CHANGE"; break;
+    case STIXCTL_PROJECT_START: nm = "PROJECT_START"; break;
+    case STIXCTL_PROJECT_END: nm = "PROJECT_END"; break;
+    case STIXCTL_SETUP_START: nm = "SETUP_START"; break;
+    case STIXCTL_SETUP_END: nm = "SETUP_END"; break;
+    case STIXCTL_EXEC_WORKPLAN_START: nm = "EXEC_WORKPLAN_START"; break;
+    case STIXCTL_EXEC_WORKPLAN_NEXT: nm = "EXEC_WORKPLAN_NEXT"; break;
+    case STIXCTL_EXEC_WORKPLAN_END: nm = "EXEC_WORKPLAN_END"; break;
+    case STIXCTL_EXEC_SELECT_START: nm = "EXEC_SELECT_START"; break;
+    case STIXCTL_EXEC_SELECT_NEXT: nm = "EXEC_SELECT_NEXT"; break;
+    case STIXCTL_EXEC_SELECT_END: nm = "EXEC_SELECT_END"; break;
+    case STIXCTL_EXEC_WORKSTEP_START: nm = "EXEC_WORKSTEP_START"; break;
+    case STIXCTL_EXEC_WORKSTEP_END: nm = "EXEC_WORKSTEP_END"; break;
+    case STIXCTL_EXEC_OTHER_START: nm = "EXEC_OTHER_START"; break;
+    case STIXCTL_EXEC_OTHER_END: nm = "EXEC_OTHER_END"; break;
+    case STIXCTL_EXEC_NCFUN: nm = "EXEC_NCFUN"; break;
+    case STIXCTL_OPERATION_START: nm = "OPERATION_START"; break;
+    case STIXCTL_OPERATION_NEXTPATH: nm = "OPERATION_NEXTPATH"; break;
+    case STIXCTL_OPERATION_END: nm = "OPERATION_END"; break;
+    case STIXCTL_TOOLPATH_START: nm = "TOOLPATH_START"; break;
+    case STIXCTL_TOOLPATH_END: nm = "TOOLPATH_END"; break;
+    case STIXCTL_CURVE_START: nm = "CURVE_START"; break;
+    case STIXCTL_CURVE_END: nm = "CURVE_END"; break;
+    case STIXCTL_LAST_EVENT: nm = "LAST_EVENT"; break;
+    default: nm = "unknown"; break;
+    }
+    
+    info.GetReturnValue().Set(CharTov8String(nm));
+}
 
 //==================================================
 // Global object for CtlType enumeration
@@ -86,6 +129,8 @@ v8::Local<v8::Object> CtlTypeEnum::singleton()
 {
     v8::Local<v8::ObjectTemplate> target = Nan::New<v8::ObjectTemplate>();
     target->SetInternalFieldCount(1);
+
+    Nan::SetMethod(target, "Name", Name);
 
     // Declare from last to first.  When printed, properties show up
     // in reverse of the order that they are declared.
@@ -155,8 +200,77 @@ v8::Local<v8::Object> CtlTypeEnum::singleton()
     return obj;
 }
 
-NAN_MODULE_INIT(CtlTypeEnum::Init) {}
 
+NAN_METHOD(CtlTypeEnum::Name)
+{
+    Trace t(tc, "CtlType::Name");
+    Adaptive* ao = Nan::ObjectWrap::Unwrap<Adaptive>(info.This());
+    if (!ao) return; // exception
+    if (!info.Length()) return;
+
+    StixCtlType u = (StixCtlType) Nan::To<int32_t>(info[0]).FromJust();
+    const char * nm;
+    switch (u) {
+    case STIXCTL_TYPE_UNKNOWN: nm = "UNKNOWN"; break;
+    case STIXCTL_TYPE_PROJECT: nm = "PROJECT"; break;
+    case STIXCTL_TYPE_EXEC: nm = "EXEC"; break;
+    case STIXCTL_TYPE_EXEC_ASSIGN: nm = "EXEC_ASSIGN"; break;
+    case STIXCTL_TYPE_EXEC_IF: nm = "EXEC_IF"; break;
+    case STIXCTL_TYPE_EXEC_NONSEQ: nm = "EXEC_NONSEQ"; break;
+    case STIXCTL_TYPE_EXEC_PARALLEL: nm = "EXEC_PARALLEL"; break;
+    case STIXCTL_TYPE_EXEC_RAPID: nm = "EXEC_RAPID"; break;
+    case STIXCTL_TYPE_EXEC_SELECT: nm = "EXEC_SELECT"; break;
+    case STIXCTL_TYPE_EXEC_WHILE: nm = "EXEC_WHILE"; break;
+    case STIXCTL_TYPE_EXEC_WORKPLAN: nm = "EXEC_WORKPLAN"; break;
+    case STIXCTL_TYPE_EXEC_WORKSTEP: nm = "EXEC_WORKSTEP"; break;
+    case STIXCTL_TYPE_EXEC_NCFUN: nm = "EXEC_NCFUN"; break;
+    case STIXCTL_TYPE_EXEC_OP_COMBO: nm = "EXEC_OP_COMBO"; break;
+
+    case STIXCTL_TYPE_OP: nm = "OP"; break;
+    case STIXCTL_TYPE_OP_MILL_FREEFORM: nm = "OP_MILL_FREEFORM"; break;
+    case STIXCTL_TYPE_OP_MILL_BOTSIDE: nm = "OP_MILL_BOTSIDE"; break;
+    case STIXCTL_TYPE_OP_MILL_BOTSIDE_ROUGH: nm = "OP_MILL_BOTSIDE_ROUGH"; break;
+    case STIXCTL_TYPE_OP_MILL_PLANE: nm = "OP_MILL_PLANE"; break;
+    case STIXCTL_TYPE_OP_MILL_PLANE_ROUGH: nm = "OP_MILL_PLANE_ROUGH"; break;
+    case STIXCTL_TYPE_OP_MILL_SIDE: nm = "OP_MILL_SIDE"; break;
+    case STIXCTL_TYPE_OP_MILL_SIDE_ROUGH: nm = "OP_MILL_SIDE_ROUGH"; break;
+
+    case STIXCTL_TYPE_OP_DRILL_BASE: nm = "OP_DRILL_BASE"; break;
+    case STIXCTL_TYPE_OP_BORE: nm = "OP_BORE"; break;
+    case STIXCTL_TYPE_OP_BACK_BORE: nm = "OP_BACK_BORE"; break;
+    case STIXCTL_TYPE_OP_DRILL: nm = "OP_DRILL"; break;
+    case STIXCTL_TYPE_OP_DRILL_CENTER: nm = "OP_DRILL_CENTER"; break;
+    case STIXCTL_TYPE_OP_DRILL_CSINK: nm = "OP_DRILL_CSINK"; break;
+    case STIXCTL_TYPE_OP_DRILL_MULTISTEP: nm = "OP_DRILL_MULTISTEP"; break;
+    case STIXCTL_TYPE_OP_REAM: nm = "OP_REAM"; break;
+    case STIXCTL_TYPE_OP_TAP: nm = "OP_TAP"; break;
+    case STIXCTL_TYPE_OP_THREAD_DRILL: nm = "OP_THREAD_DRILL"; break;
+
+    case STIXCTL_TYPE_OP_PROBE: nm = "OP_PROBE"; break;
+    case STIXCTL_TYPE_OP_PROBE_COMPLETE: nm = "OP_PROBE_COMPLETE"; break;
+    case STIXCTL_TYPE_OP_PROBE_TLEN: nm = "OP_PROBE_TLEN"; break;
+    case STIXCTL_TYPE_OP_PROBE_TRAD: nm = "OP_PROBE_TRAD"; break;
+
+    case STIXCTL_TYPE_TP: nm = "TP"; break;
+    case STIXCTL_TYPE_TP_FEEDSTOP: nm = "TP_FEEDSTOP"; break; 
+    case STIXCTL_TYPE_TP_CUTLOC: nm = "TP_CUTLOC"; break; 	
+    case STIXCTL_TYPE_TP_CUTCON: nm = "TP_CUTCON"; break; 	
+    case STIXCTL_TYPE_TP_AXIS: nm = "TP_AXIS"; break; 	
+    case STIXCTL_TYPE_TP_ANGLE: nm = "TP_ANGLE"; break; 	
+    case STIXCTL_TYPE_TP_TAN: nm = "TP_TAN"; break; 	
+    case STIXCTL_TYPE_TP_CONSEC: nm = "TP_CONSEC"; break; 	
+    case STIXCTL_TYPE_TP_CONDIR: nm = "TP_CONDIR"; break;	
+
+    case STIXCTL_TYPE_CURVE: nm = "CURVE"; break;
+
+    case STIXCTL_TYPE_MOVE: nm = "MOVE"; break;	
+    case STIXCTL_TYPE_MOVE_ARC: nm = "MOVE_ARC"; break;	
+    case STIXCTL_TYPE_MOVE_HELIX: nm = "MOVE_HELIX"; break;	
+    default: nm = "unknown"; break;
+    }
+    
+    info.GetReturnValue().Set(CharTov8String(nm));
+}
 
 
 
@@ -167,6 +281,8 @@ v8::Local<v8::Object> CtlCsysEnum::singleton()
 {
     v8::Local<v8::ObjectTemplate> target = Nan::New<v8::ObjectTemplate>();
     target->SetInternalFieldCount(1);
+
+    Nan::SetMethod(target, "Name", Name);
 
     // Declare from last to first.  When printed, properties show up
     // in reverse of the order that they are declared.
@@ -182,6 +298,26 @@ v8::Local<v8::Object> CtlCsysEnum::singleton()
     v8::Local<v8::Object> obj = target->NewInstance();
     foo->Wrap(obj);
     return obj;
+}
+
+
+NAN_METHOD(CtlCsysEnum::Name)
+{
+    Trace t(tc, "CtlType::Name");
+    Adaptive* ao = Nan::ObjectWrap::Unwrap<Adaptive>(info.This());
+    if (!ao) return; // exception
+    if (!info.Length()) return;
+
+    StixCtlCsys u = (StixCtlCsys) Nan::To<int32_t>(info[0]).FromJust();
+    const char * nm;
+    switch (u) {
+    case STIXCTL_CSYS_WCS:  nm = "WCS"; break;
+    case STIXCTL_CSYS_PART: nm = "PART"; break;
+    case STIXCTL_CSYS_RAW:  nm = "RAW"; break;
+    default: nm = "unknown"; break;
+    }
+    
+    info.GetReturnValue().Set(CharTov8String(nm));
 }
 
 
@@ -225,6 +361,9 @@ v8::Local<v8::Object> RoseUnitEnum::singleton()
 {
     v8::Local<v8::ObjectTemplate> target = Nan::New<v8::ObjectTemplate>();
     target->SetInternalFieldCount(1);
+
+    Nan::SetMethod(target, "Name", Name);
+    Nan::SetMethod(target, "FullName", FullName);
 
     // Declare from last to first.  When printed, properties show up
     // in reverse of the order that they are declared.
@@ -318,7 +457,29 @@ v8::Local<v8::Object> RoseUnitEnum::singleton()
     return obj;
 }
 
-NAN_MODULE_INIT(RoseUnitEnum::Init) {}
+// return string constants for name
+NAN_METHOD(RoseUnitEnum::Name)
+{
+    Trace t(tc, "Unit::Name");
+    Adaptive* ao = Nan::ObjectWrap::Unwrap<Adaptive>(info.This());
+    if (!ao) return; // exception
+    if (!info.Length()) return;
+
+    RoseUnit u = (RoseUnit) Nan::To<int32_t>(info[0]).FromJust();
+    info.GetReturnValue().Set(CharTov8String(rose_get_unit_name(u)));
+}
+NAN_METHOD(RoseUnitEnum::FullName)
+{
+    Trace t(tc, "Unit::FullName");
+    Adaptive* ao = Nan::ObjectWrap::Unwrap<Adaptive>(info.This());
+    if (!ao) return; // exception
+    if (!info.Length()) return;
+
+    RoseUnit u = (RoseUnit) Nan::To<int32_t>(info[0]).FromJust();
+    info.GetReturnValue().Set(CharTov8String(rose_get_unit_fullname(u)));
+}
+
+
 
 //==================================================
 // Global object for Adaptive object

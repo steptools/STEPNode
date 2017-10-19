@@ -304,29 +304,30 @@ public:
 class CtlEventEnum : public Nan::ObjectWrap {
 public:
     static v8::Local<v8::Object> singleton();
-    static NAN_MODULE_INIT(Init);
+    static NAN_METHOD(Name);
 };
 
 class CtlTypeEnum : public Nan::ObjectWrap {
 public:
     static v8::Local<v8::Object> singleton();
-    static NAN_MODULE_INIT(Init);
+    static NAN_METHOD(Name);
 };
 
 class CtlCsysEnum : public Nan::ObjectWrap {
 public:
     static v8::Local<v8::Object> singleton();
-    static NAN_MODULE_INIT(Init);
+    static NAN_METHOD(Name);
 };
 
 class CtlStatusEnum : public Nan::ObjectWrap {
 public:
     static v8::Local<v8::Object> singleton();
-    static NAN_MODULE_INIT(Init);
 };
 
 class RoseUnitEnum : public Nan::ObjectWrap {
 public:
     static v8::Local<v8::Object> singleton();
-    static NAN_MODULE_INIT(Init);
+
+    static NAN_METHOD(Name);
+    static NAN_METHOD(FullName);
 };
