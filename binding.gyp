@@ -30,6 +30,8 @@
 			"./src/nodeAptStepMaker.cpp",
 			"./src/nodeTolerance.h",
 			"./src/nodeTolerance.cpp",
+			"./src/nodeAdaptive.h",
+			"./src/nodeAdaptive.cpp",
 		],
 		"include_dirs": [
 			"<!(node -e \"require('nan')\")",
