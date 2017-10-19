@@ -61,8 +61,7 @@ public:
     //int GetEIDfromUUID(int uuid);
     static NAN_METHOD(GetEIDfromUUID);
 
-    //String GetGeometryJSON() //Get all Geometry
-    //String GetGeometryJSON(string id,string typ) //Get a specific piece of geometry data. types are "NONE" "MESH" and "POLYLINE"
+    //String GetGeometryJSON(string id) //Get a specific piece of geometry data.
     static NAN_METHOD(GetGeometryJSON);
     //String GetDynamicGeometryJSON(unsigned prev); //Get the geometry associated with the inprocess geometry.
     static NAN_METHOD(GetDynamicGeometryJSON);
