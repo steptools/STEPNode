@@ -150,6 +150,24 @@ NAN_METHOD(machineState::New)
 	    ms->Wrap(info.This());
             info.GetReturnValue().Set(info.This());
 	}
+	else if (info.Length() == 4) {
+            char * fname;
+            v8StringToChar(info[0], fname);
+			char * toolfname;
+			v8StringToChar(info[2], toolfname);
+			bool c = info[1]->BooleanValue();
+			bool coloring = info[3]->BooleanValue();
+            machineState * ms = new machineState();
+            ms->_ms = MachineState::InitializeState(fname, c,toolfname,coloring);
+            delete[] fname;
+			delete[] toolfname;
+			uv_async_init(uv_default_loop(), &ms->async, messager);
+			uv_thread_create(&ms->waitqueue, __waiterFunction, (void*)ms);
+			uv_mutex_init(&pp_mutex);
+			ms->Wrap(info.This());
+			info.GetReturnValue().Set(info.This());
+		
+	}
         else{
             return;
         }
@@ -168,7 +186,7 @@ NAN_METHOD(machineState::AdvanceState)
     auto pased = new Nan::Global<v8::Promise::Resolver>(pmise);
     pased->Reset(pmise);
     ms->_ms->AdvanceState((pased));
-    info.GetReturnValue().Set(pmise);
+    info.GetReturnValue().Set(pmise->GetPromise());
     return;
 }
 
@@ -184,7 +202,7 @@ NAN_METHOD(machineState::AdvanceStateByT)
     auto pased = new Nan::Global<v8::Promise::Resolver>(pmise);
     pased->Reset(pmise);
     ms->_ms->AdvanceStateByT(t,(pased));
-    info.GetReturnValue().Set(pmise);
+    info.GetReturnValue().Set(pmise->GetPromise());
     return;
 }
 
@@ -192,40 +210,25 @@ NAN_METHOD(machineState::GetGeometryJSON)
 {
     machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
     if (!ms || !(ms->_ms)) return;
-    //This function has a 2 argument and a no argument version.
-    if (info.Length() == 0)
+    //This function takes one argument.
+    if (info.Length() != 1) return; // invalid number of arguments
+    if (info[0]->IsUndefined()) return; //No Given ID
+    if (!info[0]->IsString()) return; //ID is not valid
+    char * id;
+    v8StringToChar(info[0], id);
+    RoseObject * obj = ms->_ms->FindObjectByID(id);
+    if (!obj)
     {
-	RoseStringObject rtn;
-	ms->_ms->GetGeometryJSON(rtn);
-	info.GetReturnValue().Set(CharTov8String(rtn.as_const()));
-	return;
-    }
-    else
-    {
-	if (info.Length() != 2) return; // invalid number of arguments
-	if (info[0]->IsUndefined()) return; //No Given ID
-	if (info[1]->IsUndefined()) return; //No Given Typ
-	if (!info[0]->IsString()) return; //ID is not valid
-	if (!info[1]->IsString()) return; //Typ is not valid
-	char * id;
-	v8StringToChar(info[0], id);
-	RoseObject * obj = ms->_ms->FindObjectByID(id);
-	if (!obj)
-	{
-	    delete[] id;
-	    return; //No Object Associated with given ID
-	}
-	char * typ;
-	v8StringToChar(info[1], typ);
-	RoseStringObject rtn;
-	ms->_ms->GetGeometryJSON(rtn, id, obj, GeomTypeFromString(typ));
-	auto rtnpmise = v8::Promise::Resolver::New(info.GetIsolate());
-	rtnpmise->Resolve(CharTov8String(rtn.as_const()));
-	info.GetReturnValue().Set(rtnpmise);
 	delete[] id;
-	delete[] typ;
-	return;
+	return; //No Object Associated with given ID
     }
+    RoseStringObject rtn;
+    ms->_ms->GetGeometryJSON(rtn, obj);
+    auto rtnpmise = v8::Promise::Resolver::New(info.GetIsolate());
+    rtnpmise->Resolve(CharTov8String(rtn.as_const()));
+    info.GetReturnValue().Set(rtnpmise->GetPromise());
+    delete[] id;
+    return;
 }
 
 NAN_METHOD(machineState::GetDynamicGeometryJSON)
@@ -242,7 +245,7 @@ NAN_METHOD(machineState::GetDynamicGeometryJSON)
     ms->_ms->GetDynamicGeometryJSON(rtn, in);
 	auto rtnpmise = v8::Promise::Resolver::New(info.GetIsolate());
 	rtnpmise->Resolve(CharTov8String(rtn.as_const()));
-	info.GetReturnValue().Set(rtnpmise);
+	info.GetReturnValue().Set(rtnpmise->GetPromise());
     return;
 }
 
@@ -260,7 +263,7 @@ NAN_METHOD(machineState::WriteDynamicGeometrySTEP)
     ms->_ms->ExportDynamicGeometrySTEP(fname);
 	auto rtnpmise = v8::Promise::Resolver::New(info.GetIsolate());
 	rtnpmise->Resolve(Nan::Null());
-	info.GetReturnValue().Set(rtnpmise);
+	info.GetReturnValue().Set(rtnpmise->GetPromise());
     return;
 }
 
@@ -273,7 +276,7 @@ NAN_METHOD(machineState::GetDynamicGeometryVersion)
 
 	auto rtnpmise = v8::Promise::Resolver::New(info.GetIsolate());
 	rtnpmise->Resolve(Nan::New(rtnval));
-	info.GetReturnValue().Set(rtnpmise);
+	info.GetReturnValue().Set(rtnpmise->GetPromise());
     return;
 }
 
@@ -285,7 +288,7 @@ NAN_METHOD(machineState::ResetDynamicGeometry)
     ms->_ms->ResetDynamicGeometry();
 	auto rtnpmise = v8::Promise::Resolver::New(info.GetIsolate());
 	rtnpmise->Resolve(Nan::Null());
-	info.GetReturnValue().Set(rtnpmise);
+	info.GetReturnValue().Set(rtnpmise->GetPromise());
     return;
 }
 
@@ -298,7 +301,7 @@ NAN_METHOD(machineState::GetDeltaStateJSON)
     ms->_ms->GetStateJSON(rtn,false);
 	auto rtnpmise = v8::Promise::Resolver::New(info.GetIsolate());
 	rtnpmise->Resolve(CharTov8String(rtn.as_const()));
-	info.GetReturnValue().Set(rtnpmise);
+	info.GetReturnValue().Set(rtnpmise->GetPromise());
     return;
 }
 
@@ -311,7 +314,7 @@ NAN_METHOD(machineState::GetKeyStateJSON)
     ms->_ms->GetStateJSON(rtn,true);
 	auto rtnpmise = v8::Promise::Resolver::New(info.GetIsolate());
 	rtnpmise->Resolve(CharTov8String(rtn.as_const()));
-	info.GetReturnValue().Set(rtnpmise);
+	info.GetReturnValue().Set(rtnpmise->GetPromise());
     return;
 }
 
@@ -332,7 +335,7 @@ NAN_METHOD(machineState::GoToWS)
     auto globalpmise = new Nan::Global<v8::Promise::Resolver>(localpmise);
     globalpmise->Reset(localpmise);
     ms->_ms->GoToWS(ws,(globalpmise));
-    info.GetReturnValue().Set(localpmise);
+    info.GetReturnValue().Set(localpmise->GetPromise());
     return;
 }
 
@@ -352,7 +355,7 @@ NAN_METHOD(machineState::GetEIDfromUUID)
     int rtnval = obj->entity_id();
 	auto rtnpmise = v8::Promise::Resolver::New(info.GetIsolate());
 	rtnpmise->Resolve(Nan::New(rtnval));
-	info.GetReturnValue().Set(rtnpmise);
+	info.GetReturnValue().Set(rtnpmise->GetPromise());
     return;
 }
 
@@ -365,7 +368,7 @@ NAN_METHOD(machineState::NextWS)
     auto globalpmise = new Nan::Global<v8::Promise::Resolver>(localpmise);
     globalpmise->Reset(localpmise);
     ms->_ms->GoToNextWS((globalpmise));
-    info.GetReturnValue().Set(localpmise);
+    info.GetReturnValue().Set(localpmise->GetPromise());
     return;
 }
 
@@ -378,7 +381,7 @@ NAN_METHOD(machineState::PrevWS)
     auto globalpmise = new Nan::Global<v8::Promise::Resolver>(localpmise);
     globalpmise->Reset(localpmise);
     ms->_ms->GoToPrevWS((globalpmise));
-    info.GetReturnValue().Set(localpmise);
+    info.GetReturnValue().Set(localpmise->GetPromise());
     return;
 }
 
@@ -390,7 +393,7 @@ NAN_METHOD(machineState::GetPrevWSID)
     int id = ms->_ms->GetPrevWSID();
 	auto rtnpmise = v8::Promise::Resolver::New(info.GetIsolate());
 	rtnpmise->Resolve(Nan::New(id));
-	info.GetReturnValue().Set(rtnpmise);
+	info.GetReturnValue().Set(rtnpmise->GetPromise());
     return;
 }
 
@@ -402,7 +405,7 @@ NAN_METHOD(machineState::GetWSID)
     int id = ms->_ms->GetWSID();
 	auto rtnpmise = v8::Promise::Resolver::New(info.GetIsolate());
 	rtnpmise->Resolve(Nan::New(id));
-	info.GetReturnValue().Set(rtnpmise);
+	info.GetReturnValue().Set(rtnpmise->GetPromise());
     return;
 }
 
@@ -414,7 +417,7 @@ NAN_METHOD(machineState::GetNextWSID)
     int id = ms->_ms->GetNextWSID();
 	auto rtnpmise = v8::Promise::Resolver::New(info.GetIsolate());
 	rtnpmise->Resolve(Nan::New(id));
-	info.GetReturnValue().Set(rtnpmise);
+	info.GetReturnValue().Set(rtnpmise->GetPromise());
     return;
 }
 
@@ -426,7 +429,7 @@ NAN_METHOD(machineState::GetCurrentFeedrate)
     double feed = ms->_ms->GetCurrentFeedrate();
 	auto rtnpmise = v8::Promise::Resolver::New(info.GetIsolate());
 	rtnpmise->Resolve(Nan::New(feed));
-	info.GetReturnValue().Set(rtnpmise);
+	info.GetReturnValue().Set(rtnpmise->GetPromise());
     return;
 }
 
@@ -438,7 +441,7 @@ NAN_METHOD(machineState::GetCurrentSpindleSpeed)
     double speed = ms->_ms->GetCurrentSpindleSpeed();
 	auto rtnpmise = v8::Promise::Resolver::New(info.GetIsolate());
 	rtnpmise->Resolve(Nan::New(speed));
-	info.GetReturnValue().Set(rtnpmise);
+	info.GetReturnValue().Set(rtnpmise->GetPromise());
     return;
 }
 
@@ -478,7 +481,7 @@ NAN_METHOD(machineState::SetToolPosition)
     pased->Reset(pmise);
     if(isAC==false) ms->_ms->SetToolPositionIJK(xyz, ijk,(pased));
 	else ms->_ms->SetToolPositionAC(xyz, ijk, (pased));
-	info.GetReturnValue().Set(pmise);
+	info.GetReturnValue().Set(pmise->GetPromise());
     return;
 }
 
@@ -496,7 +499,7 @@ NAN_METHOD(machineState::SetDumpDir)
     ms->_ms->SetDumpDirectory(fname);
 	auto rtnpmise = v8::Promise::Resolver::New(info.GetIsolate());
 	rtnpmise->Resolve(Nan::Null());
-	info.GetReturnValue().Set(rtnpmise);
+	info.GetReturnValue().Set(rtnpmise->GetPromise());
     return;
 }
 NAN_METHOD(machineState::WorkingstepTransitionDisableToolMove)
@@ -507,7 +510,7 @@ NAN_METHOD(machineState::WorkingstepTransitionDisableToolMove)
     ms->_ms->WorkingstepTransitionDisableToolMove();
 	auto rtnpmise = v8::Promise::Resolver::New(info.GetIsolate());
 	rtnpmise->Resolve(Nan::Null());
-	info.GetReturnValue().Set(rtnpmise);
+	info.GetReturnValue().Set(rtnpmise->GetPromise());
     return;
 }
 

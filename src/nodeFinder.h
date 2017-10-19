@@ -147,7 +147,7 @@ public:
     //No .Net Dll implementation
     //static NAN_METHOD(GetGeometryJSON);
 
-    //string GetJSONGeometry(string uuid, int usage)
+    //string GetJSONGeometry(string uuid)
     static NAN_METHOD(GetJSONGeometry);
 
     //string GetJSONProduct(int eid)
