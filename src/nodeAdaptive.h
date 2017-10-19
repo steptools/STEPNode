@@ -297,3 +297,36 @@ public:
     // long GetFrameMfun (long stack_pos);
     static NAN_METHOD(GetFrameMfun);
 };
+
+
+//--------------------------------------------------
+// 
+class CtlEventEnum : public Nan::ObjectWrap {
+public:
+    static v8::Local<v8::Object> singleton();
+    static NAN_MODULE_INIT(Init);
+};
+
+class CtlTypeEnum : public Nan::ObjectWrap {
+public:
+    static v8::Local<v8::Object> singleton();
+    static NAN_MODULE_INIT(Init);
+};
+
+class CtlCsysEnum : public Nan::ObjectWrap {
+public:
+    static v8::Local<v8::Object> singleton();
+    static NAN_MODULE_INIT(Init);
+};
+
+class CtlStatusEnum : public Nan::ObjectWrap {
+public:
+    static v8::Local<v8::Object> singleton();
+    static NAN_MODULE_INIT(Init);
+};
+
+class RoseUnitEnum : public Nan::ObjectWrap {
+public:
+    static v8::Local<v8::Object> singleton();
+    static NAN_MODULE_INIT(Init);
+};

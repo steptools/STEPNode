@@ -25,9 +25,304 @@
 #include <stncapt/Id_manager.h>
 #include <stncapt/save.h>
 
-
 static TraceContext tc("Adaptive");
 
+
+//==================================================
+// Global object for CtlEvent enumeration
+//
+v8::Local<v8::Object> CtlEventEnum::singleton()
+{
+    v8::Local<v8::ObjectTemplate> target = Nan::New<v8::ObjectTemplate>();
+    target->SetInternalFieldCount(1);
+
+    // Declare from last to first.  When printed, properties show up
+    // in reverse of the order that they are declared.
+    //
+    ENUM_PROPERTY("LAST_EVENT", STIXCTL_LAST_EVENT);
+    ENUM_PROPERTY("CURVE_END", STIXCTL_CURVE_END);
+    ENUM_PROPERTY("CURVE_START", STIXCTL_CURVE_START);
+    ENUM_PROPERTY("TOOLPATH_END", STIXCTL_TOOLPATH_END);
+    ENUM_PROPERTY("TOOLPATH_START", STIXCTL_TOOLPATH_START);
+    ENUM_PROPERTY("OPERATION_END", STIXCTL_OPERATION_END);
+    ENUM_PROPERTY("OPERATION_NEXTPATH", STIXCTL_OPERATION_NEXTPATH);
+    ENUM_PROPERTY("OPERATION_START", STIXCTL_OPERATION_START);
+    ENUM_PROPERTY("EXEC_NCFUN", STIXCTL_EXEC_NCFUN);
+    ENUM_PROPERTY("EXEC_OTHER_END", STIXCTL_EXEC_OTHER_END);
+    ENUM_PROPERTY("EXEC_OTHER_START", STIXCTL_EXEC_OTHER_START);
+    ENUM_PROPERTY("EXEC_WORKSTEP_END", STIXCTL_EXEC_WORKSTEP_END);
+    ENUM_PROPERTY("EXEC_WORKSTEP_START", STIXCTL_EXEC_WORKSTEP_START);
+    ENUM_PROPERTY("EXEC_SELECT_END", STIXCTL_EXEC_SELECT_END);
+    ENUM_PROPERTY("EXEC_SELECT_NEXT", STIXCTL_EXEC_SELECT_NEXT);
+    ENUM_PROPERTY("EXEC_SELECT_START", STIXCTL_EXEC_SELECT_START);
+    ENUM_PROPERTY("EXEC_WORKPLAN_END", STIXCTL_EXEC_WORKPLAN_END);
+    ENUM_PROPERTY("EXEC_WORKPLAN_NEXT", STIXCTL_EXEC_WORKPLAN_NEXT);
+    ENUM_PROPERTY("EXEC_WORKPLAN_START", STIXCTL_EXEC_WORKPLAN_START);
+    ENUM_PROPERTY("SETUP_END", STIXCTL_SETUP_END);
+    ENUM_PROPERTY("SETUP_START", STIXCTL_SETUP_START);
+    ENUM_PROPERTY("PROJECT_END", STIXCTL_PROJECT_END);
+    ENUM_PROPERTY("PROJECT_START", STIXCTL_PROJECT_START);
+    ENUM_PROPERTY("TOOL_CHANGE", STIXCTL_TOOL_CHANGE);
+    ENUM_PROPERTY("MOVE", STIXCTL_MOVE);
+    ENUM_PROPERTY("ERROR", STIXCTL_ERROR);
+    ENUM_PROPERTY("DONE", STIXCTL_DONE);
+
+    // create an instance on the stack.  Trying to wrap a static
+    // object seems to fail an IsNearDeath assertion when the static
+    // constructor fires.
+    CtlEventEnum * foo = new CtlEventEnum;
+    v8::Local<v8::Object> obj = target->NewInstance();
+    foo->Wrap(obj);
+    return obj;
+}
+
+NAN_MODULE_INIT(CtlEventEnum::Init) {}
+
+
+//==================================================
+// Global object for CtlType enumeration
+//
+v8::Local<v8::Object> CtlTypeEnum::singleton()
+{
+    v8::Local<v8::ObjectTemplate> target = Nan::New<v8::ObjectTemplate>();
+    target->SetInternalFieldCount(1);
+
+    // Declare from last to first.  When printed, properties show up
+    // in reverse of the order that they are declared.
+    //
+    ENUM_PROPERTY("MOVE_HELIX", STIXCTL_TYPE_MOVE_HELIX);	
+    ENUM_PROPERTY("MOVE_ARC", STIXCTL_TYPE_MOVE_ARC);	
+    ENUM_PROPERTY("MOVE", STIXCTL_TYPE_MOVE);	
+
+    ENUM_PROPERTY("CURVE", STIXCTL_TYPE_CURVE);
+
+    ENUM_PROPERTY("TP_CONDIR", STIXCTL_TYPE_TP_CONDIR);	
+    ENUM_PROPERTY("TP_CONSEC", STIXCTL_TYPE_TP_CONSEC); 	
+    ENUM_PROPERTY("TP_TAN", STIXCTL_TYPE_TP_TAN); 	
+    ENUM_PROPERTY("TP_ANGLE", STIXCTL_TYPE_TP_ANGLE); 	
+    ENUM_PROPERTY("TP_AXIS", STIXCTL_TYPE_TP_AXIS); 	
+    ENUM_PROPERTY("TP_CUTCON", STIXCTL_TYPE_TP_CUTCON); 	
+    ENUM_PROPERTY("TP_CUTLOC", STIXCTL_TYPE_TP_CUTLOC); 	
+    ENUM_PROPERTY("TP_FEEDSTOP", STIXCTL_TYPE_TP_FEEDSTOP); 
+    ENUM_PROPERTY("TP", STIXCTL_TYPE_TP);
+
+    ENUM_PROPERTY("OP_PROBE_TRAD", STIXCTL_TYPE_OP_PROBE_TRAD);
+    ENUM_PROPERTY("OP_PROBE_TLEN", STIXCTL_TYPE_OP_PROBE_TLEN);
+    ENUM_PROPERTY("OP_PROBE_COMPLETE", STIXCTL_TYPE_OP_PROBE_COMPLETE);
+    ENUM_PROPERTY("OP_PROBE", STIXCTL_TYPE_OP_PROBE);
+
+    ENUM_PROPERTY("OP_THREAD_DRILL", STIXCTL_TYPE_OP_THREAD_DRILL);
+    ENUM_PROPERTY("OP_TAP", STIXCTL_TYPE_OP_TAP);
+    ENUM_PROPERTY("OP_REAM", STIXCTL_TYPE_OP_REAM);
+    ENUM_PROPERTY("OP_DRILL_MULTISTEP", STIXCTL_TYPE_OP_DRILL_MULTISTEP);
+    ENUM_PROPERTY("OP_DRILL_CSINK", STIXCTL_TYPE_OP_DRILL_CSINK);
+    ENUM_PROPERTY("OP_DRILL_CENTER", STIXCTL_TYPE_OP_DRILL_CENTER);
+    ENUM_PROPERTY("OP_DRILL", STIXCTL_TYPE_OP_DRILL);
+    ENUM_PROPERTY("OP_BACK_BORE", STIXCTL_TYPE_OP_BACK_BORE);
+    ENUM_PROPERTY("OP_BORE", STIXCTL_TYPE_OP_BORE);
+    ENUM_PROPERTY("OP_DRILL_BASE", STIXCTL_TYPE_OP_DRILL_BASE);
+
+    ENUM_PROPERTY("OP_MILL_SIDE_ROUGH", STIXCTL_TYPE_OP_MILL_SIDE_ROUGH);
+    ENUM_PROPERTY("OP_MILL_SIDE", STIXCTL_TYPE_OP_MILL_SIDE);
+    ENUM_PROPERTY("OP_MILL_PLANE_ROUGH", STIXCTL_TYPE_OP_MILL_PLANE_ROUGH);
+    ENUM_PROPERTY("OP_MILL_PLANE", STIXCTL_TYPE_OP_MILL_PLANE);
+    ENUM_PROPERTY("OP_MILL_BOTSIDE_ROUGH", STIXCTL_TYPE_OP_MILL_BOTSIDE_ROUGH);
+    ENUM_PROPERTY("OP_MILL_BOTSIDE", STIXCTL_TYPE_OP_MILL_BOTSIDE);
+    ENUM_PROPERTY("OP_MILL_FREEFORM", STIXCTL_TYPE_OP_MILL_FREEFORM);
+    ENUM_PROPERTY("OP", STIXCTL_TYPE_OP);
+
+    ENUM_PROPERTY("EXEC_OP_COMBO", STIXCTL_TYPE_EXEC_OP_COMBO);
+    ENUM_PROPERTY("EXEC_NCFUN", STIXCTL_TYPE_EXEC_NCFUN);
+    ENUM_PROPERTY("EXEC_WORKSTEP", STIXCTL_TYPE_EXEC_WORKSTEP);
+    ENUM_PROPERTY("EXEC_WORKPLAN", STIXCTL_TYPE_EXEC_WORKPLAN);
+    ENUM_PROPERTY("EXEC_WHILE", STIXCTL_TYPE_EXEC_WHILE);
+    ENUM_PROPERTY("EXEC_SELECT", STIXCTL_TYPE_EXEC_SELECT);
+    ENUM_PROPERTY("EXEC_RAPID", STIXCTL_TYPE_EXEC_RAPID);
+    ENUM_PROPERTY("EXEC_PARALLEL", STIXCTL_TYPE_EXEC_PARALLEL);
+    ENUM_PROPERTY("EXEC_NONSEQ", STIXCTL_TYPE_EXEC_NONSEQ);
+    ENUM_PROPERTY("EXEC_IF", STIXCTL_TYPE_EXEC_IF);
+    ENUM_PROPERTY("EXEC_ASSIGN", STIXCTL_TYPE_EXEC_ASSIGN);
+    ENUM_PROPERTY("EXEC", STIXCTL_TYPE_EXEC);
+    ENUM_PROPERTY("PROJECT", STIXCTL_TYPE_PROJECT);
+    ENUM_PROPERTY("UNKNOWN", STIXCTL_TYPE_UNKNOWN);
+
+    // create an instance on the stack.  Trying to wrap a static
+    // object seems to fail an IsNearDeath assertion when the static
+    // constructor fires.
+    CtlTypeEnum * foo = new CtlTypeEnum;
+    v8::Local<v8::Object> obj = target->NewInstance();
+    foo->Wrap(obj);
+    return obj;
+}
+
+NAN_MODULE_INIT(CtlTypeEnum::Init) {}
+
+
+
+
+//==================================================
+// Global object for CtlCsys enumeration
+//
+v8::Local<v8::Object> CtlCsysEnum::singleton()
+{
+    v8::Local<v8::ObjectTemplate> target = Nan::New<v8::ObjectTemplate>();
+    target->SetInternalFieldCount(1);
+
+    // Declare from last to first.  When printed, properties show up
+    // in reverse of the order that they are declared.
+    //
+    ENUM_PROPERTY("RAW", STIXCTL_CSYS_RAW);
+    ENUM_PROPERTY("PART", STIXCTL_CSYS_PART);
+    ENUM_PROPERTY("WCS", STIXCTL_CSYS_WCS);
+
+    // create an instance on the stack.  Trying to wrap a static
+    // object seems to fail an IsNearDeath assertion when the static
+    // constructor fires.
+    CtlCsysEnum * foo = new CtlCsysEnum;
+    v8::Local<v8::Object> obj = target->NewInstance();
+    foo->Wrap(obj);
+    return obj;
+}
+
+
+
+//==================================================
+// Global object for CtlCsys enumeration
+//
+v8::Local<v8::Object> CtlStatusEnum::singleton()
+{
+    v8::Local<v8::ObjectTemplate> target = Nan::New<v8::ObjectTemplate>();
+    target->SetInternalFieldCount(1);
+
+    // Declare from last to first.  When printed, properties show up
+    // in reverse of the order that they are declared.
+    //
+    ENUM_PROPERTY("ERROR", STIXCTL_STATUS_ERROR);
+    ENUM_PROPERTY("END", STIXCTL_STATUS_END);
+    ENUM_PROPERTY("END_BODY", STIXCTL_STATUS_END_BODY);
+    ENUM_PROPERTY("END_STEP", STIXCTL_STATUS_END_STEP);
+    ENUM_PROPERTY("WORKING", STIXCTL_STATUS_WORKING);
+    ENUM_PROPERTY("START_STEP", STIXCTL_STATUS_START_STEP);
+    ENUM_PROPERTY("START_BODY", STIXCTL_STATUS_START_BODY);
+    ENUM_PROPERTY("START", STIXCTL_STATUS_START);
+    ENUM_PROPERTY("UNSEEN", STIXCTL_STATUS_UNSEEN);
+
+    // create an instance on the stack.  Trying to wrap a static
+    // object seems to fail an IsNearDeath assertion when the static
+    // constructor fires.
+    CtlStatusEnum * foo = new CtlStatusEnum;
+    v8::Local<v8::Object> obj = target->NewInstance();
+    foo->Wrap(obj);
+    return obj;
+}
+
+
+
+//==================================================
+// Global object for RoseUnit enumeration
+//
+v8::Local<v8::Object> RoseUnitEnum::singleton()
+{
+    v8::Local<v8::ObjectTemplate> target = Nan::New<v8::ObjectTemplate>();
+    target->SetInternalFieldCount(1);
+
+    // Declare from last to first.  When printed, properties show up
+    // in reverse of the order that they are declared.
+    //
+    ENUM_PROPERTY("MAX_VALUE", ROSEUNIT_MAX_VALUE);
+
+    ENUM_PROPERTY("tooth", roseunit_tooth);
+    ENUM_PROPERTY("revolution", roseunit_revolution);
+    ENUM_PROPERTY("ratio", roseunit_ratio);
+    ENUM_PROPERTY("parameter", roseunit_parameter);
+    ENUM_PROPERTY("count", roseunit_count);
+    
+    ENUM_PROPERTY("rankine", roseunit_rankine);
+    ENUM_PROPERTY("fahrenheit", roseunit_fahrenheit);
+    ENUM_PROPERTY("kelvin", roseunit_kelvin); 
+    ENUM_PROPERTY("celsius", roseunit_celsius); 		
+
+    ENUM_PROPERTY("pound_foot", roseunit_pound_foot);	
+    ENUM_PROPERTY("newton_meter", roseunit_newton_meter);	
+
+    ENUM_PROPERTY("hp", roseunit_hp);	
+    ENUM_PROPERTY("kw", roseunit_kw);	
+    ENUM_PROPERTY("watt", roseunit_watt);	
+
+    ENUM_PROPERTY("lbf", roseunit_lbf);	
+    ENUM_PROPERTY("newton", roseunit_newton);	
+
+    ENUM_PROPERTY("psi", roseunit_psi);	
+    ENUM_PROPERTY("mpa", roseunit_mpa);	
+    ENUM_PROPERTY("kpa", roseunit_kpa);	
+    ENUM_PROPERTY("pa", roseunit_pa);	
+
+    ENUM_PROPERTY("rpm", roseunit_rpm);	
+    ENUM_PROPERTY("hertz", roseunit_hertz);	
+
+    ENUM_PROPERTY("iptooth", roseunit_iptooth);	
+    ENUM_PROPERTY("mmptooth", roseunit_mmptooth);	
+
+    ENUM_PROPERTY("iprev", roseunit_iprev);	
+    ENUM_PROPERTY("mmprev", roseunit_mmprev);	
+
+    ENUM_PROPERTY("fpm", roseunit_fpm);	
+    ENUM_PROPERTY("fps", roseunit_fps);	
+    ENUM_PROPERTY("ipm", roseunit_ipm);	
+    ENUM_PROPERTY("ips", roseunit_ips);	
+    ENUM_PROPERTY("mps", roseunit_mps);	
+    ENUM_PROPERTY("cmps", roseunit_cmps);	
+    ENUM_PROPERTY("mmpm", roseunit_mmpm);	
+    ENUM_PROPERTY("mmps", roseunit_mmps);	
+
+    ENUM_PROPERTY("hour", roseunit_hour);	
+    ENUM_PROPERTY("min", roseunit_min);	
+    ENUM_PROPERTY("sec", roseunit_sec);	
+
+    ENUM_PROPERTY("steradian", roseunit_steradian);	
+
+    ENUM_PROPERTY("rad", roseunit_rad); 	
+    ENUM_PROPERTY("deg", roseunit_deg);	
+
+    ENUM_PROPERTY("ft3", roseunit_ft3);	
+    ENUM_PROPERTY("in3", roseunit_in3);	
+    ENUM_PROPERTY("m3", roseunit_m3);	
+    ENUM_PROPERTY("cm3", roseunit_cm3);	
+    ENUM_PROPERTY("mm3", roseunit_mm3);	
+
+    ENUM_PROPERTY("ft2", roseunit_ft2);	
+    ENUM_PROPERTY("in2", roseunit_in2);	
+    ENUM_PROPERTY("m2", roseunit_m2);	
+    ENUM_PROPERTY("cm2", roseunit_cm2);	
+    ENUM_PROPERTY("mm2", roseunit_mm2);	
+
+    ENUM_PROPERTY("microinch", roseunit_microinch);	
+    ENUM_PROPERTY("milliinch", roseunit_milliinch);      
+    ENUM_PROPERTY("nanometre", roseunit_nanometre);	
+    ENUM_PROPERTY("micrometre", roseunit_micrometre);	
+    ENUM_PROPERTY("ft", roseunit_ft); 	
+    ENUM_PROPERTY("inch", roseunit_in);	
+    ENUM_PROPERTY("m", roseunit_m);	
+    ENUM_PROPERTY("cm", roseunit_cm);	
+    ENUM_PROPERTY("mm", roseunit_mm);	
+
+    ENUM_PROPERTY("as_is", roseunit_as_is);	
+    ENUM_PROPERTY("unknown", roseunit_unknown);
+
+    // create an instance on the stack.  Trying to wrap a static
+    // object seems to fail an IsNearDeath assertion when the static
+    // constructor fires.
+    RoseUnitEnum * foo = new RoseUnitEnum;
+    v8::Local<v8::Object> obj = target->NewInstance();
+    foo->Wrap(obj);
+    return obj;
+}
+
+NAN_MODULE_INIT(RoseUnitEnum::Init) {}
+
+//==================================================
+// Global object for Adaptive object
+//
 Adaptive::Adaptive()
 {
     f_ctl = new StixCtlCursor();

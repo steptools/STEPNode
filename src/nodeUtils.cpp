@@ -30,3 +30,9 @@ v8::Local<v8::Value> CharTov8String(const char* arr)
 {
     return Nan::Encode(arr, strlen(arr), Nan::Encoding::UTF8);
 }
+
+
+NAN_GETTER(GetterStaticVal) {
+    info.GetReturnValue().Set(info.Data());
+}
+
