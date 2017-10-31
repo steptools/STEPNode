@@ -1,6 +1,6 @@
 {
   "name": "STEPNode",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "Step-NC Node.js library",
   "main": "main.js",
   "license": "Apache-2.0",
