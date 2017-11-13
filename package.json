@@ -3,7 +3,7 @@
   "version": "4.0.3",
   "description": "Step-NC Node.js library",
   "author": "STEP Tools, Inc.",
-  "homepage": "https://github.com/steptools/STEPNode"
+  "homepage": "https://github.com/steptools/STEPNode",
   "main": "main.js",
   "license": "Apache-2.0",
   "directories": {
