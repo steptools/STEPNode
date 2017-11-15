@@ -85,6 +85,11 @@ public:
     //int GetNextWSID
     static NAN_METHOD(GetNextWSID);
 
+	//0xRRGGBB GetWSColor(int wsid)
+	static NAN_METHOD(GetWSColor);
+	//0xRRGGBB GetCurrentWSColor(int wsid)
+	static NAN_METHOD(GetCurrentWSColor);
+
     //double GetCurrentFeedrate
     static NAN_METHOD(GetCurrentFeedrate);
 

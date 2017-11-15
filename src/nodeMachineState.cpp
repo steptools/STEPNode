@@ -421,6 +421,37 @@ NAN_METHOD(machineState::GetNextWSID)
     return;
 }
 
+NAN_METHOD(machineState::GetWSColor) 
+{
+    machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
+    if (!ms || !(ms->_ms)) return;
+    if (info.Length() != 1) //Function takes one argument
+	return;
+    if (!info[0]->IsNumber()) { // argument of wrong type
+	return;
+    }
+	int id = Nan::To<int32_t>(info[0]).FromJust();
+    int rtn = ms->_ms->GetWSColor(id);
+	auto rtnpmise = v8::Promise::Resolver::New(info.GetIsolate());
+	rtnpmise->Resolve(Nan::New(rtn));
+	info.GetReturnValue().Set(rtnpmise->GetPromise());
+    return;
+}
+
+NAN_METHOD(machineState::GetCurrentWSColor) 
+{
+    machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
+    if (!ms || !(ms->_ms)) return;
+    if (info.Length() != 0) //Function takes no arguments
+	return;
+    int rtn = ms->_ms->GetCurrentWSColor();
+	auto rtnpmise = v8::Promise::Resolver::New(info.GetIsolate());
+	rtnpmise->Resolve(Nan::New(rtn));
+	info.GetReturnValue().Set(rtnpmise->GetPromise());
+    return;
+
+}
+
 NAN_METHOD(machineState::GetCurrentFeedrate)
 {
     machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
@@ -535,6 +566,8 @@ NAN_MODULE_INIT(machineState::Init)
     Nan::SetPrototypeMethod(tpl, "GetPrevWSID", GetPrevWSID);
     Nan::SetPrototypeMethod(tpl, "GetWSID", GetWSID);
     Nan::SetPrototypeMethod(tpl, "GetNextWSID", GetNextWSID);
+    Nan::SetPrototypeMethod(tpl, "GetWSColor", GetWSColor);
+    Nan::SetPrototypeMethod(tpl, "GetCurrentWSColor", GetCurrentWSColor);
     Nan::SetPrototypeMethod(tpl, "GetCurrentFeedrate", GetCurrentFeedrate);
     Nan::SetPrototypeMethod(tpl, "GetCurrentSpindleSpeed", GetCurrentSpindleSpeed);
     Nan::SetPrototypeMethod(tpl, "SetToolPosition", SetToolPosition);
