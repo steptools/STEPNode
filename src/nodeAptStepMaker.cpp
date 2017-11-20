@@ -163,12 +163,6 @@ NAN_METHOD(AptStepMaker::GetIDFromUUID)
 	return;
     info.GetReturnValue().Set(EID);
     return;
-		
-    const char * uuid;
-    if (!apt->_apt->get_uuid(eid.FromJust(), uuid)) //TODO: Handle error
-	return;
-    info.GetReturnValue().Set(CharTov8String((char *)uuid));
-    return;
 }
 
 NAN_METHOD(AptStepMaker::GetWorkpieceExecutableAll)
