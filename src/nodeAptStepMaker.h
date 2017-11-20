@@ -60,6 +60,9 @@ public:
     //string GetUUID(int EID)
     static NAN_METHOD(GetUUID);
 
+    //string GetIDFromUUID(string UUID)
+    static NAN_METHOD(GetIDFromUUID);
+
     //int[] GetWorkpieceExecutableAll(int wp_id)
     static NAN_METHOD(GetWorkpieceExecutableAll);
 		

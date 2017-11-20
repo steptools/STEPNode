@@ -56,6 +56,7 @@ NAN_MODULE_INIT(AptStepMaker::Init)
     Nan::SetPrototypeMethod(tpl, "GetToolIdentifier", GetToolIdentifier);
     Nan::SetPrototypeMethod(tpl, "GetToolNumber", GetToolNumber);
     Nan::SetPrototypeMethod(tpl, "GetUUID", GetUUID);
+    Nan::SetPrototypeMethod(tpl, "GetIDFromUUID", GetIDFromUUID);
     Nan::SetPrototypeMethod(tpl, "GetWorkpieceExecutableAll", GetWorkpieceExecutableAll);
     Nan::SetPrototypeMethod(tpl, "GetWorkpiecePlacement", GetWorkpiecePlacement);
     Nan::SetPrototypeMethod(tpl, "GetExecutableWorkpieceToBe", GetExecutableWorkpieceToBe);
@@ -139,6 +140,30 @@ NAN_METHOD(AptStepMaker::GetUUID)
     if (!info[0]->IsInt32())
 	return;
     Nan::Maybe<int32_t> eid = Nan::To<int32_t>(info[0]);
+    const char * uuid;
+    if (!apt->_apt->get_uuid(eid.FromJust(), uuid)) //TODO: Handle error
+	return;
+    info.GetReturnValue().Set(CharTov8String((char *)uuid));
+    return;
+}
+
+NAN_METHOD(AptStepMaker::GetIDFromUUID)
+{
+    AptStepMaker * apt = Nan::ObjectWrap::Unwrap<AptStepMaker>(info.This());
+    if (apt == 0) //Throw Exception
+	return;
+    if (info.Length() != 1) //Function should get one argument.
+	return;
+    if (!info[0]->IsString())
+	return;
+    char * UUID = 0;
+    v8StringToChar(info[0], UUID);
+    int EID;
+    if (!apt->_apt->get_id_from_uuid(UUID,EID)) //TODO: Handle error
+	return;
+    info.GetReturnValue().Set(EID);
+    return;
+		
     const char * uuid;
     if (!apt->_apt->get_uuid(eid.FromJust(), uuid)) //TODO: Handle error
 	return;
