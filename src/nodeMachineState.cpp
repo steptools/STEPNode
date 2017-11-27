@@ -457,9 +457,17 @@ NAN_METHOD(machineState::GetWSColor)
 	return;
     }
 	int id = Nan::To<int32_t>(info[0]).FromJust();
-    int rtn = ms->_ms->GetWSColor(id);
+    unsigned int color = ms->_ms->GetWSColor(id);
+	//XRGB (24-bit packing) needs to be unpacked.
+	unsigned char R = ((color >> 16)&0xFF);
+	unsigned char G = ((color >> 8)&0xFF);
+	unsigned char B = ((color)&0xFF);
+	v8::Local<v8::Array> rtn = Nan::New<v8::Array>();
+	rtn->Set(0, Nan::New(R));
+	rtn->Set(1, Nan::New(G));
+	rtn->Set(2, Nan::New(B));
 	auto rtnpmise = v8::Promise::Resolver::New(info.GetIsolate());
-	rtnpmise->Resolve(Nan::New(rtn));
+	rtnpmise->Resolve(rtn);
 	info.GetReturnValue().Set(rtnpmise->GetPromise());
     return;
 }
