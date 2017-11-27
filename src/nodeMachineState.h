@@ -71,6 +71,14 @@ public:
     static NAN_METHOD(GetDynamicGeometryVersion);
     //void ResetDynamicGeometry(); //Reset the inprocess geometry.
     static NAN_METHOD(ResetDynamicGeometry);
+
+	//Get the geometry associated with the inprocess geometry, 
+	//with a 'heatmap' showing how close the facets are to tolerance on the to-be.
+	//String GetToleranceGeometryJSON(); 
+	static NAN_METHOD(GetToleranceGeometryJSON);
+	//void ResetToleranceGeometry(); //Call to instantiate the Tolerance Geometry (for above function)
+	static NAN_METHOD(ResetToleranceGeometry);
+    
     //String GetDeltaStateJSON(); //Get changed geometry
     static NAN_METHOD(GetDeltaStateJSON);
     //String GetKeyStateJSON(); //Get All keyframe geometry.

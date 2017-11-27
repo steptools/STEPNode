@@ -292,6 +292,32 @@ NAN_METHOD(machineState::ResetDynamicGeometry)
     return;
 }
 
+NAN_METHOD(machineState::GetToleranceGeometryJSON)
+{
+    machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
+    if (!ms || !(ms->_ms)) return;
+    if (!info[0]->IsUndefined()) return; //This function takes no arguments.
+	RoseStringObject rtn;
+    ms->_ms->GetToleranceGeometryJSON(rtn);
+	auto rtnpmise = v8::Promise::Resolver::New(info.GetIsolate());
+	rtnpmise->Resolve(CharTov8String(rtn.as_const()));
+	info.GetReturnValue().Set(rtnpmise->GetPromise());
+    return;
+}
+
+NAN_METHOD(machineState::ResetToleranceGeometry)
+{
+    machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
+    if (!ms || !(ms->_ms)) return;
+    if (!info[0]->IsUndefined()) return; //This function takes no arguments.
+    ms->_ms->ResetToleranceGeometry();
+	auto rtnpmise = v8::Promise::Resolver::New(info.GetIsolate());
+	rtnpmise->Resolve(Nan::Null());
+	info.GetReturnValue().Set(rtnpmise->GetPromise());
+    return;
+}
+
+
 NAN_METHOD(machineState::GetDeltaStateJSON)
 {
     machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
@@ -557,6 +583,8 @@ NAN_MODULE_INIT(machineState::Init)
     Nan::SetPrototypeMethod(tpl, "GetDynamicGeometryJSON", GetDynamicGeometryJSON);
     Nan::SetPrototypeMethod(tpl, "WriteDynamicGeometrySTEP", WriteDynamicGeometrySTEP);
     Nan::SetPrototypeMethod(tpl, "GetDynamicGeometryVersion", GetDynamicGeometryVersion);
+    Nan::SetPrototypeMethod(tpl, "GetToleranceGeometryJSON", GetToleranceGeometryJSON);
+    Nan::SetPrototypeMethod(tpl, "ResetToleranceGeometry", ResetToleranceGeometry);
     Nan::SetPrototypeMethod(tpl, "GetDeltaStateJSON", GetDeltaStateJSON);
     Nan::SetPrototypeMethod(tpl, "GetKeyStateJSON", GetKeyStateJSON);
     Nan::SetPrototypeMethod(tpl, "GoToWS", GoToWS);
