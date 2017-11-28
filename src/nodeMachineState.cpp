@@ -459,9 +459,9 @@ NAN_METHOD(machineState::GetWSColor)
 	int id = Nan::To<int32_t>(info[0]).FromJust();
     unsigned int color = ms->_ms->GetWSColor(id);
 	//XRGB (24-bit packing) needs to be unpacked.
-	int R = ((color >> 16)&0xFF);
-	int G = ((color >> 8)&0xFF);
-	int B = ((color)&0xFF);
+	double R = ((color >> 16)&0xFF) / 255;
+	double G = ((color >> 8)&0xFF) /255;
+	double B = ((color)&0xFF) /255;
 	v8::Local<v8::Array> rtn = Nan::New<v8::Array>();
 	rtn->Set(0, Nan::New(R));
 	rtn->Set(1, Nan::New(G));
