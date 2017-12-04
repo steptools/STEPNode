@@ -557,11 +557,12 @@ NAN_METHOD(Tolerance::SetToleranceMeasuredValue){
 	return;
     if (!info[1]->IsNumber())
 	return;
+
     char * uuid;
     v8StringToChar(info[0], uuid);
     Nan::Maybe<double> value = Nan::To<double>(info[1]);
     tol->_tol->set_tolerance_current_value(uuid,value.FromJust());
-    return;
+    delete [] uuid;
 }
 
 NAN_METHOD(Tolerance::WorkpiecePlacementUsingFaces) {
@@ -588,7 +589,7 @@ NAN_METHOD(Tolerance::WorkpiecePlacementUsingFaces) {
     if (!tol->_tol->workpiece_placement_using_faces(wp_id.FromJust(), face1a_id.FromJust(),
                                 face1b_id.FromJust(), face1c_id.FromJust(), face2a_id.FromJust(),
                                 face2b_id.FromJust(), face2c_id.FromJust()))
-    return;
+	return;
     return; 
 }
 

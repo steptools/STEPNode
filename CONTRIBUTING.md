@@ -111,7 +111,7 @@ size_t v8StringToChar(v8::Local<v8::Value> in, char* &arr);	//To C++
 
 v8::Local<v8::Value> CharTov8String(char* arr);	     		//To JS
 
-// See below for usage in functions
+// See following section for examples
 
 ```
 
@@ -134,12 +134,11 @@ long eid = Nan::To<int64_t>(info[0]).FromJust();
 bool flg = Nan::To<bool>(info[0]).FromJust();
 double x = Nan::To<double>(info[0]).FromJust();
 
-// string must convert from v8 to C string.  We have
-// wrote these functions to wrap the nan encode/decode.
-// They assume UTF8
-// size_t v8StringToChar(v8::Local<v8::Value> inval, char* & cstr);
-char * buf
-v8StringToChar(info[0], buf);
+// String must convert from v8 to C string.  This conversion 
+// function assumes UTF8 encoding.
+// 
+char * cstr;
+v8StringToChar(info[0], cstr);
 delete[] cstr;  // clean up before returning
 
 // Returning values
@@ -148,9 +147,11 @@ info.GetReturnValue().Set((int32_t)eid); // entity id
 info.GetReturnValue().Set((int32_t)(obj? obj->entity_id(): 0));
 info.GetReturnValue().Set(x);       // double
 
-// string must convert from C to v8 string.  Assumes UTF8
-// v8::Local<v8::Value> CharTov8String(char* cstr);
-info.GetReturnValue().Set(CharTov8String((char*) buf));
+// string must convert from C null-terminated to v8 string.  The CSTR
+// is assumed to have UTF8 encoding.
+//
+const char * errmsg = "Danger Will Robinson!";
+info.GetReturnValue().Set(CharTov8String(errmsg));
 ```
 
 

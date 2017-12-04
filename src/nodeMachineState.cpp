@@ -217,8 +217,7 @@ NAN_METHOD(machineState::GetGeometryJSON)
     char * id;
     v8StringToChar(info[0], id);
     RoseObject * obj = ms->_ms->FindObjectByID(id);
-    if (!obj)
-    {
+    if (!obj) {
 	delete[] id;
 	return; //No Object Associated with given ID
     }
@@ -228,7 +227,6 @@ NAN_METHOD(machineState::GetGeometryJSON)
     rtnpmise->Resolve(CharTov8String(rtn.as_const()));
     info.GetReturnValue().Set(rtnpmise->GetPromise());
     delete[] id;
-    return;
 }
 
 NAN_METHOD(machineState::GetDynamicGeometryJSON)
@@ -261,10 +259,10 @@ NAN_METHOD(machineState::WriteDynamicGeometrySTEP)
     char * fname;
     v8StringToChar(info[0], fname);
     ms->_ms->ExportDynamicGeometrySTEP(fname);
-	auto rtnpmise = v8::Promise::Resolver::New(info.GetIsolate());
-	rtnpmise->Resolve(Nan::Null());
-	info.GetReturnValue().Set(rtnpmise->GetPromise());
-    return;
+    auto rtnpmise = v8::Promise::Resolver::New(info.GetIsolate());
+    rtnpmise->Resolve(Nan::Null());
+    info.GetReturnValue().Set(rtnpmise->GetPromise());
+    delete [] fname;
 }
 
 NAN_METHOD(machineState::GetDynamicGeometryVersion)
@@ -376,13 +374,15 @@ NAN_METHOD(machineState::GetEIDfromUUID)
     char * uuid = 0;
     v8StringToChar(info[0], uuid);
     RoseObject * obj = ms->_ms->FindObjectByID(uuid);
-    if (!obj)
+    if (!obj) {
+	delete [] uuid;
 	return;
+    }
     int rtnval = obj->entity_id();
-	auto rtnpmise = v8::Promise::Resolver::New(info.GetIsolate());
-	rtnpmise->Resolve(Nan::New(rtnval));
-	info.GetReturnValue().Set(rtnpmise->GetPromise());
-    return;
+    auto rtnpmise = v8::Promise::Resolver::New(info.GetIsolate());
+    rtnpmise->Resolve(Nan::New(rtnval));
+    info.GetReturnValue().Set(rtnpmise->GetPromise());
+    delete [] uuid;
 }
 
 NAN_METHOD(machineState::NextWS)
@@ -562,10 +562,10 @@ NAN_METHOD(machineState::SetDumpDir)
     char * fname;
     v8StringToChar(info[0], fname);
     ms->_ms->SetDumpDirectory(fname);
-	auto rtnpmise = v8::Promise::Resolver::New(info.GetIsolate());
-	rtnpmise->Resolve(Nan::Null());
-	info.GetReturnValue().Set(rtnpmise->GetPromise());
-    return;
+    auto rtnpmise = v8::Promise::Resolver::New(info.GetIsolate());
+    rtnpmise->Resolve(Nan::Null());
+    info.GetReturnValue().Set(rtnpmise->GetPromise());
+    delete [] fname;
 }
 NAN_METHOD(machineState::WorkingstepTransitionDisableToolMove)
 {

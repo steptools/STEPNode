@@ -86,13 +86,16 @@ NAN_METHOD(AptStepMaker::GetToolEID)
 	return;
     if (!info[0]->IsString())
 	return;
+
+    int toolEID;
     char * toolNum = 0;
     v8StringToChar(info[0], toolNum);
-    int toolEID;
-    if (!apt->_apt->get_tool_id(toolNum, toolEID)) //TODO: Handle error
-	return;
+    if (!apt->_apt->get_tool_id(toolNum, toolEID)) {
+	delete [] toolNum;
+	return; //TODO: Handle error
+    }
     info.GetReturnValue().Set(toolEID);
-    return;
+    delete [] toolNum;
 }
 
 NAN_METHOD(AptStepMaker::GetToolIdentifier)
@@ -104,13 +107,16 @@ NAN_METHOD(AptStepMaker::GetToolIdentifier)
 	return;
     if (!info[0]->IsString())
 	return;
+
     char * toolNum = 0;
-    v8StringToChar(info[0], toolNum);
     const char * toolID = 0;
-    if (!apt->_apt->get_tool_identifier(toolNum, toolID)) // TODO: Handle error
-	return;
+    v8StringToChar(info[0], toolNum);
+    if (!apt->_apt->get_tool_identifier(toolNum, toolID)) {
+	delete [] toolNum;
+	return; // TODO: Handle error
+    }
     info.GetReturnValue().Set(CharTov8String((char *)toolNum));
-    return;
+    delete [] toolNum;
 }
 
 NAN_METHOD(AptStepMaker::GetToolNumber)
@@ -122,12 +128,12 @@ NAN_METHOD(AptStepMaker::GetToolNumber)
 	return;
     if (!info[0]->IsInt32())
 	return;
+
     Nan::Maybe<int32_t> id = Nan::To<int32_t>(info[0]);
     const char * tlNum = 0;
     if (!apt->_apt->get_tool_number(id.FromJust(), tlNum)) //TODO: Handle Error
 	return;
     info.GetReturnValue().Set(CharTov8String((char *)tlNum));
-    return;
 }
 
 NAN_METHOD(AptStepMaker::GetUUID)
@@ -156,13 +162,16 @@ NAN_METHOD(AptStepMaker::GetIDFromUUID)
 	return;
     if (!info[0]->IsString())
 	return;
+
+    int EID;
     char * UUID = 0;
     v8StringToChar(info[0], UUID);
-    int EID;
-    if (!apt->_apt->get_id_from_uuid(UUID,EID)) //TODO: Handle error
-	return;
+    if (!apt->_apt->get_id_from_uuid(UUID,EID)) {
+	delete [] UUID;
+	return;  //TODO: Handle error
+    }
     info.GetReturnValue().Set(EID);
-    return;
+    delete [] UUID;
 }
 
 NAN_METHOD(AptStepMaker::GetWorkpieceExecutableAll)
@@ -407,11 +416,14 @@ NAN_METHOD(AptStepMaker::OpenProject) {
 	return;
     if (!info[0]->IsString())
 	return;
+
     char * fname = 0;
     v8StringToChar(info[0], fname);
-    if (!apt->_apt->read_238_file(fname)) //TODO: Handle Error.
-	return;
-    return; //Success finding, return.
+    if (!apt->_apt->read_238_file(fname)) {
+	delete [] fname;
+	return; //TODO: Handle Error.
+    }
+    delete [] fname;
 }
 
 NAN_METHOD(AptStepMaker::OpenSTEP) {
@@ -422,11 +434,14 @@ NAN_METHOD(AptStepMaker::OpenSTEP) {
 	return;
     if (!info[0]->IsString())
 	return;
+
     char * fname = 0;
     v8StringToChar(info[0], fname);
-    if (!apt->_apt->read_203_file(fname)) //TODO: Handle Error.
-	return;
-    return; //Success finding, return.
+    if (!apt->_apt->read_203_file(fname)) {
+	delete [] fname;
+	return; //TODO: Handle Error.
+    }
+    delete [] fname;
 }
 
 NAN_METHOD(AptStepMaker::SaveAsModules)
@@ -443,10 +458,11 @@ NAN_METHOD(AptStepMaker::SaveAsModules)
 
     char* file_name_utf8;
     v8StringToChar(info[0], file_name_utf8);
-
-
-    if (!apt->_apt->save_file(file_name_utf8, true)) //Throw Exception
-	return;
+    if (!apt->_apt->save_file(file_name_utf8, true)) {
+	delete [] file_name_utf8;
+	return; //TODO: Handle Error.
+    }
+    delete [] file_name_utf8;
 }
 
 
@@ -466,10 +482,11 @@ NAN_METHOD(AptStepMaker::SaveAsP21)
 
     char* file_name_utf8;
     v8StringToChar(info[0], file_name_utf8);
-
-
-    if (!apt->_apt->save_file(file_name_utf8, false)) //Throw Exception
-	return;
+    if (!apt->_apt->save_file(file_name_utf8, false)) {
+	delete [] file_name_utf8;
+	return; //TODO: Handle Error.
+    }
+    delete [] file_name_utf8;
 }
 
 NAN_METHOD(AptStepMaker::SetNameGet)
