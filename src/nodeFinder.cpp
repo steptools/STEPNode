@@ -163,11 +163,13 @@ NAN_METHOD(Finder::APIUnitsFeed) {
 	return;
     if (!info[0]->IsString()) //Throw Exception
 	return;
-    char * b;
-    v8StringToChar(info[0], b);
-    if (!find->_find->api_unit_feed(b)) //Throw Exception
-	return;
-    delete[] b;
+    char * unit_name;
+    v8StringToChar(info[0], unit_name);
+    if (!find->_find->api_unit_feed(unit_name)) {
+	delete[] unit_name;
+	return;		//Throw Exception
+    }
+    delete[] unit_name;
 }
 NAN_METHOD(Finder::APIUnitsInch) {
 
@@ -227,11 +229,14 @@ NAN_METHOD(Finder::APIUnitsSpeed) {
 	return;
     if (!info[0]->IsString()) //Throw Exception
 	return;
-    char * b;
-    v8StringToChar(info[0], b);
-    if (!find->_find->api_unit_speed(b)) //Throw Exception
-	return;
-    delete[] b;
+
+    char * unit_name;
+    v8StringToChar(info[0], unit_name);
+    if (!find->_find->api_unit_speed(unit_name)) {
+	delete[] unit_name;
+	return; //Throw Exception
+    }
+    delete[] unit_name;
 }
 
 
@@ -748,14 +753,17 @@ NAN_METHOD(Finder::GetJSONGeometry) {
 	return;
 
     char * uuid = 0;
-    v8StringToChar(info[0], uuid);
     char * json = 0;
-    if (!find->_find->geometry_as_json((const char *)uuid, (char* &)json))
+    v8StringToChar(info[0], uuid);
+    if (!find->_find->geometry_as_json(uuid, (char* &)json)) {
+	delete [] uuid;
 	return;
-    info.GetReturnValue().Set(CharTov8String((char *)json));
+    }
+    info.GetReturnValue().Set(CharTov8String(json));
+    delete [] uuid;
     delete [] json;
-    return;
 }
+
 
 NAN_METHOD(Finder::GetJSONProduct) {
     Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
@@ -1650,15 +1658,12 @@ NAN_METHOD(Finder::GetToolUsingNumber)
     int tool_id = 0;
     char* id = 0;
     v8StringToChar(info[0], id);
-
-    if (!find->_find->find_tool_using_its_id(id, tool_id))
+    if (!find->_find->find_tool_using_its_id(id, tool_id)) {
+	delete[] id;
 	return; // error in cpp
-
+    }
     info.GetReturnValue().Set(tool_id);
-
     delete[] id;
-
-    return;
 }
 
 NAN_METHOD(Finder::GetToolWorkpiece)
@@ -2444,9 +2449,11 @@ NAN_METHOD(Finder::OpenProject) {
 	return;
     char * fname = 0;
     v8StringToChar(info[0], fname);
-    if(!find->_find->search(fname)) //TODO: Handle Error.
-	return;
-    return; //Success finding, return.
+    if(!find->_find->search(fname))  {
+	delete [] fname;
+	return; //TODO: Handle Error.
+    }
+    delete [] fname;
 }
 
 NAN_METHOD(Finder::SaveAsModules)
@@ -2466,10 +2473,11 @@ NAN_METHOD(Finder::SaveAsModules)
 
     char* file_name_utf8;
     v8StringToChar(info[0], file_name_utf8);
-
-
-    if (!find->_find->save_file(file_name_utf8, true)) //Throw Exception
-	return;
+    if (!find->_find->save_file(file_name_utf8, true)) {
+	delete [] file_name_utf8;
+	return; //Throw Exception
+    }
+    delete [] file_name_utf8;
 }
 
 NAN_METHOD(Finder::SaveAsP21)
@@ -2489,8 +2497,9 @@ NAN_METHOD(Finder::SaveAsP21)
 
     char* file_name_utf8;
     v8StringToChar(info[0], file_name_utf8);
-
-
-    if (!find->_find->save_file(file_name_utf8, false)) //Throw Exception
-	return;
+    if (!find->_find->save_file(file_name_utf8, false)) {
+	delete [] file_name_utf8;
+	return; //Throw Exception
+    }
+    delete [] file_name_utf8;
 }
