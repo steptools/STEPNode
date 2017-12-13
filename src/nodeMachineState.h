@@ -36,8 +36,10 @@ private:
     ~machineState() { delete _ms; };
     uv_async_t async;
     uv_thread_t waitqueue;
+    uv_thread_t resetthread;
 public:
     void Wait();
+	void ToleranceResetThread(Nan::Global<v8::Promise::Resolver>* promiseContainer);
     static NAN_MODULE_INIT(Init);
 
     //void WorkingstepTransitionDisableToolMove();

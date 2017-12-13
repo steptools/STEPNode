@@ -50,9 +50,11 @@ v8::Local<v8::Object> makeProbeResult(double probe_contact_pt[3], double probe_l
 	    return proberesult;
 }
 
+enum class waittype {msWaitThread,msResetThread};
 typedef struct { 
     /*SECRETLY A Nan::Global<v8::Promise::Resolver>* */
     void* pmise; 
+	waittype type;
     double rtn; 
     bool more;
     bool probe_hit;
@@ -61,19 +63,15 @@ typedef struct {
 } waitstruct;
 std::vector<waitstruct> promisepool;
 uv_mutex_t pp_mutex;
-void messager(uv_async_t *hanlde) {
-
-    uv_mutex_lock(&pp_mutex);
-    v8::HandleScope handle(v8::Isolate::GetCurrent());
-    for(auto v:promisepool){
-	auto ppmise = (Nan::Global<v8::Promise::Resolver>*)v.pmise;
-	v8::Local<v8::Number> valrtn = Nan::New(v.rtn);
-	v8::Local<v8::Boolean> morertn = Nan::New(v.more);
+void messager_handle_msWaitThread(waitstruct w){
+	auto ppmise = (Nan::Global<v8::Promise::Resolver>*)w.pmise;
+	v8::Local<v8::Number> valrtn = Nan::New(w.rtn);
+	v8::Local<v8::Boolean> morertn = Nan::New(w.more);
 	v8::Local<v8::Object> rtn = Nan::New<v8::Object>();
 	Nan::Set(rtn,CharTov8String("value"), valrtn);
 	Nan::Set(rtn, CharTov8String("more"), morertn);
-	if (v.probe_hit) { //Probe result!
-	    v8::Local <v8::Object> proberesult = makeProbeResult(v.probe_contact_pt,v.probe_loc);
+	if (w.probe_hit) { //Probe result!
+	    v8::Local <v8::Object> proberesult = makeProbeResult(w.probe_contact_pt,w.probe_loc);
 	    Nan::Set(rtn, CharTov8String("probe"), proberesult);
 	}
 	v8::Local<v8::Promise::Resolver> pmise = Nan::New(*(ppmise));
@@ -81,7 +79,31 @@ void messager(uv_async_t *hanlde) {
 	//If node is just waiting for this promise, it will continue waiting until something else happens.
 	pmise->Resolve(rtn);
 	ppmise->Reset();
-	delete v.pmise;
+	delete w.pmise;
+}
+void messager_handle_msResetThread(waitstruct w){
+	auto ppmise = (Nan::Global<v8::Promise::Resolver>*)w.pmise;
+	v8::Local<v8::Promise::Resolver> pmise = Nan::New(*(ppmise));
+	pmise->Resolve(Nan::Null());
+	ppmise->Reset();
+	delete w.pmise;
+
+}
+void messager(uv_async_t *hanlde) {
+
+    uv_mutex_lock(&pp_mutex);
+    v8::HandleScope handle(v8::Isolate::GetCurrent());
+    for(auto v:promisepool){
+		switch (v.type) {
+		case waittype::msWaitThread: 
+			messager_handle_msWaitThread(v);
+			break;
+		case waittype::msResetThread:
+			messager_handle_msResetThread(v);
+			break;
+		default:
+			break;
+		}
     }
     promisepool.clear();
     uv_mutex_unlock(&pp_mutex);
@@ -94,6 +116,7 @@ void machineState::Wait() {
     bool wait = true;
     while (wait) {
 	waitstruct waiter;
+	waiter.type = waittype::msWaitThread;
 	wait = _ms->WaitForStateUpdate(waiter.pmise, waiter.rtn,waiter.more,waiter.probe_hit,waiter.probe_contact_pt,waiter.probe_loc);
 	if (waiter.pmise == nullptr) continue; //Oops.
 	uv_mutex_lock(&pp_mutex);
@@ -305,14 +328,41 @@ NAN_METHOD(machineState::GetToleranceGeometryJSON)
     return;
 }
 
+typedef struct{
+	machineState *ms;
+    /*SECRETLY A Nan::Global<v8::Promise::Resolver>* */
+	void*pmise;
+} reset_thread_data;
+void tolerance_reset_thread(void* data) {
+	reset_thread_data* rtd = (reset_thread_data*)data;
+	auto ppmise = (Nan::Global<v8::Promise::Resolver>*)rtd->pmise;
+	rtd->ms->ToleranceResetThread(ppmise);
+	delete rtd;
+	return;
+}
+
+void machineState::ToleranceResetThread(Nan::Global<v8::Promise::Resolver>* promiseContainer) {
+	waitstruct waiter;
+	waiter.type = waittype::msResetThread;
+	waiter.pmise = promiseContainer;
+	_ms->ResetToleranceGeometry();
+	uv_mutex_lock(&pp_mutex);
+	promisepool.push_back(waiter);
+	uv_mutex_unlock(&pp_mutex);
+	uv_async_send(&async);
+}
 NAN_METHOD(machineState::ResetToleranceGeometry)
 {
     machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
     if (!ms || !(ms->_ms)) return;
     if (!info[0]->IsUndefined()) return; //This function takes no arguments.
-    ms->_ms->ResetToleranceGeometry();
 	auto rtnpmise = v8::Promise::Resolver::New(info.GetIsolate());
-	rtnpmise->Resolve(Nan::Null());
+	reset_thread_data* rtd = new reset_thread_data;
+	rtd->ms = ms;
+	auto passedpmise = new Nan::Global<v8::Promise::Resolver>(rtnpmise);
+	passedpmise->Reset(rtnpmise);
+	rtd->pmise = (void*)passedpmise;
+	uv_thread_create(&ms->resetthread, tolerance_reset_thread, (void*)rtd);
 	info.GetReturnValue().Set(rtnpmise->GetPromise());
     return;
 }
