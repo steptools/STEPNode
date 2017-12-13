@@ -23,7 +23,7 @@ size_t v8StringToChar(v8::Local<v8::Value> in, char* &arr)
     ssize_t len = Nan::DecodeBytes(in, Nan::Encoding::UTF8);
     arr = new char[len + 1]();
     Nan::DecodeWrite(arr, len, in, Nan::Encoding::UTF8);
-    arr[len + 1] = '\0';
+    arr[len] = '\0';
     return len;
 }
 v8::Local<v8::Value> CharTov8String(const char* arr)
