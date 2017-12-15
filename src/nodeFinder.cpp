@@ -69,6 +69,8 @@ NAN_MODULE_INIT(Finder::Init)
     Nan::SetPrototypeMethod(tpl, "GetFeatureID", GetFeatureID);
     Nan::SetPrototypeMethod(tpl, "GetFeatureName", GetFeatureName);
     Nan::SetPrototypeMethod(tpl, "GetFeatureOutsideProfileClosedCircular", GetFeatureOutsideProfileClosedCircular);
+    Nan::SetPrototypeMethod(tpl, "GetFunctionDisplayMessage", GetFunctionDisplayMessage);
+    Nan::SetPrototypeMethod(tpl, "GetFunctionExtendedNcDescription", GetFunctionExtendedNcDescription);
     //Nan::SetPrototypeMethod(tpl, "GetGeometryJSON", GetGeometryJSON);
     Nan::SetPrototypeMethod(tpl, "GetJSONGeometry", GetJSONGeometry);
     Nan::SetPrototypeMethod(tpl, "GetJSONProduct", GetJSONProduct);
@@ -720,6 +722,39 @@ NAN_METHOD(Finder::GetFeatureOutsideProfileClosedCircular) {
     Nan::Set(obj, CharTov8String("z"), Nan::New(z));
 
     info.GetReturnValue().Set(obj);
+}
+
+NAN_METHOD(Finder::GetFunctionDisplayMessage) {
+	Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (info.Length() != 1)
+	return;
+    if (info[0]->IsUndefined())
+	return;
+    if (!info[0]->IsInt32())
+	return;
+    Nan::Maybe<int32_t> t = Nan::To<int32_t>(info[0]);
+	const char * msg;
+	const char * szName;
+	if(!find->_find->display_function(t.FromJust(), szName, msg)) 
+		return;
+	info.GetReturnValue().Set(CharTov8String(msg));
+	return;
+}
+
+NAN_METHOD(Finder::GetFunctionExtendedNcDescription) {
+	Finder* find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (info.Length() != 1)
+	return;
+    if (info[0]->IsUndefined())
+	return;
+    if (!info[0]->IsInt32())
+	return;
+    Nan::Maybe<int32_t> t = Nan::To<int32_t>(info[0]);
+	const char * desc;
+	if(!find->_find->extended_nc_function(t.FromJust(), desc))
+		return;
+	info.GetReturnValue().Set(CharTov8String(desc));
+	return;
 }
 
 /*NAN_METHOD(Finder::GetGeometryJSON) {

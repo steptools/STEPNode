@@ -135,6 +135,12 @@ public:
     //bool GetFeatureOutsideProfileClosedCircular(feature_id, prof_id, depth, diameter, x,y,z)
     static NAN_METHOD(GetFeatureOutsideProfileClosedCircular);
 
+	//string GetFunctionDisplayMessage(long id)
+	static NAN_METHOD(GetFunctionDisplayMessage);
+
+	//string GetFunctionExtendedNcDescription(long id)
+	static NAN_METHOD(GetFunctionExtendedNcDescription);
+
     //int GetMainWorkplan();
     static NAN_METHOD(GetMainWorkplan);
 
