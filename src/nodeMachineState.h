@@ -74,12 +74,12 @@ public:
     //void ResetDynamicGeometry(); //Reset the inprocess geometry.
     static NAN_METHOD(ResetDynamicGeometry);
 
-	//Get the geometry associated with the inprocess geometry, 
-	//with a 'heatmap' showing how close the facets are to tolerance on the to-be.
-	//String GetToleranceGeometryJSON(); 
-	static NAN_METHOD(GetToleranceGeometryJSON);
-	//void ResetToleranceGeometry(); //Call to instantiate the Tolerance Geometry (for above function)
-	static NAN_METHOD(ResetToleranceGeometry);
+    //Get the geometry associated with the inprocess geometry, 
+    //with a 'heatmap' showing how close the facets are to tolerance on the to-be.
+    //String GetToleranceGeometryJSON(); 
+    static NAN_METHOD(GetToleranceGeometryJSON);
+    //void ResetToleranceGeometry(); //Call to instantiate the Tolerance Geometry (for above function)
+    static NAN_METHOD(ResetToleranceGeometry);
     
     //String GetDeltaStateJSON(); //Get changed geometry
     static NAN_METHOD(GetDeltaStateJSON);
@@ -95,10 +95,11 @@ public:
     //int GetNextWSID
     static NAN_METHOD(GetNextWSID);
 
-	//0xRRGGBB GetWSColor(int wsid)
-	static NAN_METHOD(GetWSColor);
-	//0xRRGGBB GetCurrentWSColor(int wsid)
-	static NAN_METHOD(GetCurrentWSColor);
+    //0xRRGGBB GetWSColor(int wsid)
+    static NAN_METHOD(GetWSColor);
+    
+    //0xRRGGBB GetCurrentWSColor(int wsid)
+    static NAN_METHOD(GetCurrentWSColor);
 
     //double GetCurrentFeedrate
     static NAN_METHOD(GetCurrentFeedrate);
@@ -110,8 +111,13 @@ public:
     static NAN_METHOD(SetDumpDir);
 
     // void SetToolPosition(double x,double y,double z,double i,double j,double k);
-	// void SetToolPosition(double x,double y,double z,double a,double c);
+    // void SetToolPosition(double x,double y,double z,double a,double c);
     static NAN_METHOD(SetToolPosition);
+
+    // void Update();
+    //If the workingsteps are manipulated (E.G. selective enabled/disabled)
+    //We need to call this update to fix the MachineState's WS cache.
+    static NAN_METHOD(Update);
 };
 
 

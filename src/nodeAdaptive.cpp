@@ -880,7 +880,7 @@ NAN_METHOD(Adaptive::GetActivePos)
 
     if (info.Length() == 2) {
 	int typ = Nan::To<int32_t>(info[0]).FromJust();
-	int cs =  Nan::To<int32_t>(info[0]).FromJust();
+	int cs =  Nan::To<int32_t>(info[1]).FromJust();
 	info.GetReturnValue().Set(
 	    (int32_t)ao->f_ctl->getActivePos(typ,(StixCtlCsys)cs)
 	    );
