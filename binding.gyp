@@ -32,6 +32,8 @@
 			"./src/nodeTolerance.cpp",
 			"./src/nodeAdaptive.h",
 			"./src/nodeAdaptive.cpp",
+			"./src/nodeProcess.h",
+			"./src/nodeProcess.cpp",
 		],
 		"include_dirs": [
 			"<!(node -e \"require('nan')\")",

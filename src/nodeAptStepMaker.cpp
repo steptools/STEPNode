@@ -21,7 +21,7 @@
 
 #include <stncapt/Trace.h>
 
-static TraceContext tc("Adaptive");
+static TraceContext tc("AptStepMaker");
 
 #define THROW_ERROR(t) return;
 // { t.error(); throw gcnew InvalidOperationException(); }

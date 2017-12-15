@@ -21,6 +21,7 @@
 #include "nodeTolerance.h"
 #include "nodeMachineState.h"
 #include "nodeAdaptive.h"
+#include "nodeProcess.h"
 #include "nodeUtils.h"
 
 #include <StixCtlCursor.h>
@@ -41,6 +42,7 @@ NAN_MODULE_INIT(Init) {
     Finder::Init(target);
     AptStepMaker::Init(target);
     Adaptive::Init(target);
+    Process::Init(target);
 
     READ_ONLY_OBJECT("CtlEvent",CtlEventEnum::singleton());
     READ_ONLY_OBJECT("CtlType",CtlTypeEnum::singleton());
