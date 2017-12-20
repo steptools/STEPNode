@@ -18,6 +18,14 @@
 
 #include "nodeFinder.h"
 #include "nodeUtils.h"
+
+#include <stncapt/Trace.h>
+
+static TraceContext tc("Finder");
+
+#define THROW_ERROR(t) return;
+// { t.error(); throw gcnew InvalidOperationException(); }
+
 Finder *Finder::_singleton = nullptr;
 
 NAN_METHOD(Finder::New)
@@ -113,6 +121,7 @@ NAN_MODULE_INIT(Finder::Init)
     Nan::SetPrototypeMethod(tpl, "GetToolRadiusUpperReason", GetToolRadiusUpperReason);
     Nan::SetPrototypeMethod(tpl, "GetToolReferenceDataName", GetToolReferenceDataName);
     Nan::SetPrototypeMethod(tpl, "GetToolType", GetToolType);
+    Nan::SetPrototypeMethod(tpl, "GetToolUsingIdentifier", GetToolUsingIdentifier);
     Nan::SetPrototypeMethod(tpl, "GetToolUsingNumber", GetToolUsingNumber);
     Nan::SetPrototypeMethod(tpl, "GetToolWorkpiece", GetToolWorkpiece);
     Nan::SetPrototypeMethod(tpl, "GetWorkingstep", GetWorkingstep);
@@ -1676,6 +1685,29 @@ NAN_METHOD(Finder::GetToolType) {
 
     info.GetReturnValue().Set(CharTov8String((char *)type));
 }
+
+
+//int GetToolUsingNumber(string id)
+NAN_METHOD(Finder::GetToolUsingIdentifier)
+{
+    Trace t(tc, "GetToolUsingIdentifier");
+    Finder * find = Nan::ObjectWrap::Unwrap<Finder>(info.This());
+    if (!find) return;
+    if (info.Length() != 1) return;
+    if (!info[0]->IsString()) return;
+
+    int tool_id = 0;
+    char* id = 0;
+    v8StringToChar(info[0], id);
+    int ok = find->_find->find_tool_using_its_identifier(id, tool_id);
+    delete[] id;
+
+    if (!ok) {
+	THROW_ERROR(t);
+    }
+    info.GetReturnValue().Set(tool_id);
+}
+
 
 NAN_METHOD(Finder::GetToolUsingNumber)
 {

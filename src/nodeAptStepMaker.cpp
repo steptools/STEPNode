@@ -111,6 +111,7 @@ NAN_MODULE_INIT(AptStepMaker::Init)
     Nan::SetPrototypeMethod(tpl, "GoToXYZ_IJK_ABC", GoToXYZ_IJK_ABC);
     Nan::SetPrototypeMethod(tpl, "GoToXYZ_IJK_REF_ABC", GoToXYZ_IJK_REF_ABC);
     Nan::SetPrototypeMethod(tpl, "Inches", Inches);
+    Nan::SetPrototypeMethod(tpl, "IsToolDefined", IsToolDefined);
     Nan::SetPrototypeMethod(tpl, "LoadTool", LoadTool);
     Nan::SetPrototypeMethod(tpl, "MakeRawBox", MakeRawBox);
     Nan::SetPrototypeMethod(tpl, "Millimeters", Millimeters);
@@ -121,6 +122,7 @@ NAN_MODULE_INIT(AptStepMaker::Init)
     Nan::SetPrototypeMethod(tpl, "PutWorkpiecePlacement", PutWorkpiecePlacement);
     Nan::SetPrototypeMethod(tpl, "PutWorkplanSetup", PutWorkplanSetup);
     Nan::SetPrototypeMethod(tpl, "Rapid", Rapid);
+    Nan::SetPrototypeMethod(tpl, "Rawpiece", Rawpiece);
     Nan::SetPrototypeMethod(tpl, "Reset", Reset);
     Nan::SetPrototypeMethod(tpl, "SELCTLTool", SELCTLTool);
     Nan::SetPrototypeMethod(tpl, "SaveAsModules", SaveAsModules);
@@ -1190,6 +1192,23 @@ NAN_METHOD(AptStepMaker::Inches)
     }
 }
 
+
+// bool IsToolDefined(int num)
+NAN_METHOD(AptStepMaker::IsToolDefined)
+{
+    Trace t(tc, "IsToolDefined");
+    AptStepMaker * apt = Nan::ObjectWrap::Unwrap<AptStepMaker>(info.This());
+    if (!apt) return;
+
+    if (info.Length() != 1) return;
+    if (!info[0]->IsInt32()) return;
+
+    int num = Nan::To<int32_t>(info[0]).FromJust();
+    info.GetReturnValue().Set((apt->_apt->is_tool_defined(num) != 0));
+}
+
+
+
 // void LoadTool(int num);
 NAN_METHOD(AptStepMaker::LoadTool)
 {
@@ -1393,6 +1412,26 @@ NAN_METHOD(AptStepMaker::Rapid)
     if (!apt) return;
     
     int ok = apt->_apt->rapid();
+    if (!ok) {
+	THROW_ERROR(t);
+    }
+}
+
+
+NAN_METHOD(AptStepMaker::Rawpiece)
+{
+    Trace t(tc, "Rawpiece");
+    AptStepMaker* apt = Nan::ObjectWrap::Unwrap<AptStepMaker>(info.This());
+    if (!apt) return;
+    
+    if (info.Length() != 1) return;
+    if (!info[0]->IsString()) return;
+
+    char * fname = 0;
+    v8StringToChar(info[0], fname);
+    int ok = apt->_apt->rawpiece(fname);
+    delete [] fname;
+
     if (!ok) {
 	THROW_ERROR(t);
     }

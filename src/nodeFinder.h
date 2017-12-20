@@ -54,33 +54,6 @@ public:
     //void APIUnitsSpeed(System::String^ units);
     static NAN_METHOD(APIUnitsSpeed);
 
-    //bool IsEnabled(int exe_id);
-    static NAN_METHOD(IsEnabled);
-
-    //bool IsNcFunction(long exe_id);
-    static NAN_METHOD(IsNcFunction);
-
-    //bool IsSelective(long exe_id);
-    static NAN_METHOD(IsSelective);
-
-    //bool IsWorkingstep(long exe_id);
-    static NAN_METHOD(IsWorkingstep);
-
-    //bool IsWorkplan(long exe_id);
-    static NAN_METHOD(IsWorkplan);
-
-    //bool IsWorkplanWIthSetupAndFixture(long exe_id);
-    static NAN_METHOD(IsWorkplanWIthSetupAndFixture);
-
-    //bool IsWorkplanWithSetup(long exe_id);
-    static NAN_METHOD(IsWorkplanWithSetup);
-
-    //bool IsWorkplanWithSetupAndFixtureMount(long exe_id);
-    static NAN_METHOD(IsWorkplanWithSetupAndFixtureMount);
-
-    //bool IsWorkplanWithSetupAndWorkpieceMount(long exe_id);
-    static NAN_METHOD(IsWorkplanWithSetupAndWorkpieceMount);
-
     //long GetCompoundFeatureCount(long compound_id)
     static NAN_METHOD(GetCompoundFeatureCount);
 
@@ -135,11 +108,11 @@ public:
     //bool GetFeatureOutsideProfileClosedCircular(feature_id, prof_id, depth, diameter, x,y,z)
     static NAN_METHOD(GetFeatureOutsideProfileClosedCircular);
 
-	//string GetFunctionDisplayMessage(long id)
-	static NAN_METHOD(GetFunctionDisplayMessage);
+    //string GetFunctionDisplayMessage(long id)
+    static NAN_METHOD(GetFunctionDisplayMessage);
 
-	//string GetFunctionExtendedNcDescription(long id)
-	static NAN_METHOD(GetFunctionExtendedNcDescription);
+    //string GetFunctionExtendedNcDescription(long id)
+    static NAN_METHOD(GetFunctionExtendedNcDescription);
 
     //int GetMainWorkplan();
     static NAN_METHOD(GetMainWorkplan);
@@ -268,6 +241,9 @@ public:
     static NAN_METHOD(GetToolReferenceDataName);
 
     //int GetToolUsingNumber(string id)
+    static NAN_METHOD(GetToolUsingIdentifier);
+
+    //int GetToolUsingNumber(string id)
     static NAN_METHOD(GetToolUsingNumber);
 
     //string GetToolType (int ws_id)
@@ -347,6 +323,33 @@ public:
 
     //int GetWorkplanToolNext();
     static NAN_METHOD(GetWorkplanToolNext);
+
+    //bool IsEnabled(int exe_id);
+    static NAN_METHOD(IsEnabled);
+
+    //bool IsNcFunction(long exe_id);
+    static NAN_METHOD(IsNcFunction);
+
+    //bool IsSelective(long exe_id);
+    static NAN_METHOD(IsSelective);
+
+    //bool IsWorkingstep(long exe_id);
+    static NAN_METHOD(IsWorkingstep);
+
+    //bool IsWorkplan(long exe_id);
+    static NAN_METHOD(IsWorkplan);
+
+    //bool IsWorkplanWIthSetupAndFixture(long exe_id);
+    static NAN_METHOD(IsWorkplanWIthSetupAndFixture);
+
+    //bool IsWorkplanWithSetup(long exe_id);
+    static NAN_METHOD(IsWorkplanWithSetup);
+
+    //bool IsWorkplanWithSetupAndFixtureMount(long exe_id);
+    static NAN_METHOD(IsWorkplanWithSetupAndFixtureMount);
+
+    //bool IsWorkplanWithSetupAndWorkpieceMount(long exe_id);
+    static NAN_METHOD(IsWorkplanWithSetupAndWorkpieceMount);
 
     //void Open238(String file_name);
     static NAN_METHOD(OpenProject);

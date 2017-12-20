@@ -183,6 +183,9 @@ public:
     // void Inches()
     static NAN_METHOD(Inches);
 
+    // bool IsToolDefined(int num)
+    static NAN_METHOD(IsToolDefined);
+    
     // void LoadTool(int num);
     static NAN_METHOD(LoadTool);
 
@@ -212,6 +215,9 @@ public:
 
     // void Rapid()
     static NAN_METHOD(Rapid);
+
+    // void Rawpiece(string name)
+    static NAN_METHOD(Rawpiece);
 
     // void Reset()
     static NAN_METHOD(Reset);
