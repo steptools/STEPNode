@@ -10,6 +10,10 @@ that provide namespace segregation and some state. API calls are mostly
 plain functions and there is no object heiarchy. The API is documented
 [here](http://www.steptools.com/docs/stepnc_api/).
 
+The [examples](examples/README.md) directory contains several examples
+showing how to use the STEPNode interface to build digital thread
+models from a variety of source material.
+
 The STEPNode module is used by the digital thread server in the [NC.js
 Package](https://github.com/steptools/NC.js/).
 
