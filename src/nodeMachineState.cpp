@@ -592,6 +592,44 @@ NAN_METHOD(machineState::SetToolPosition)
     info.GetReturnValue().Set(pmise->GetPromise());
 }
 
+NAN_METHOD(machineState::SetWorkpieceOffset)
+{
+  machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
+  if (!ms || !(ms->_ms)) return;
+  if (info.Length() < 3 || info.Length() > 5) return;    // bad input
+
+  double xyz[3];
+  double ac[2]; //ac or bc, if applicable.
+  bool isAC = false; //true if 5 args, false if 3
+  for (int i = 0; i < 3; i++) {
+	if (info[i]->IsUndefined()) return; // throw ex
+	if (!info[i]->IsNumber()) return; // needs to be a number
+	Nan::Maybe<double> num = Nan::To<double>(info[i]);
+	xyz[i] = num.FromJust();
+  }
+  for (int i=3; i<5; i++) {
+    if (info[i]->IsUndefined()) {
+      if(i<5) return; // bad input, need A(or B) and C!
+	  isAC = true;
+	  break;
+    }
+    if (!info[i]->IsNumber()) return;
+	Nan::Maybe<double> num = Nan::To<double>(info[i]);
+	ac[i - 3] = num.FromJust();
+  }
+
+  if (isAC == false) { //3 Axis
+    ms->_ms->SetWorkpieceOffset(xyz);
+  }
+  else if (ms->BCMode == false) {//AC 5-Axis
+    ms->_ms->SetWorkpieceOffsetAC(xyz, ac);
+  } 
+  else { //BC 5-Axis
+    ms->_ms->SetWorkpieceOffsetBC(xyz, ac);
+  }
+  return;
+}
+
 NAN_METHOD(machineState::SetDumpDir)
 {
     machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
@@ -660,6 +698,7 @@ NAN_MODULE_INIT(machineState::Init)
     Nan::SetPrototypeMethod(tpl, "GetCurrentFeedrate", GetCurrentFeedrate);
     Nan::SetPrototypeMethod(tpl, "GetCurrentSpindleSpeed", GetCurrentSpindleSpeed);
     Nan::SetPrototypeMethod(tpl, "SetBCMode", SetBCMode);
+    Nan::SetPrototypeMethod(tpl, "SetWorkpieceOffset", SetWorkpieceOffset);
     Nan::SetPrototypeMethod(tpl, "SetToolPosition", SetToolPosition);
     Nan::SetPrototypeMethod(tpl, "SetDumpDir", SetDumpDir);
     Nan::SetPrototypeMethod(tpl, "ResetDynamicGeometry", ResetDynamicGeometry);

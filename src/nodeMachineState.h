@@ -115,6 +115,9 @@ public:
     // void SetToolPosition(double x,double y,double z,double a(b),double c);
     static NAN_METHOD(SetToolPosition);
 
+	// void SetWorkpieceOffset(double x,double y, double z[,{double a | double b}, double c]);
+	static NAN_METHOD(SetWorkpieceOffset);
+
 	// If true then SetToolPosition will act as BC machine instead of AC machine
 	// void SetBCMode(bool en);
 	static NAN_METHOD(SetBCMode);
