@@ -545,7 +545,13 @@ NAN_METHOD(machineState::GetCurrentSpindleSpeed)
     rtnpmise->Resolve(Nan::New(speed));
     info.GetReturnValue().Set(rtnpmise->GetPromise());
 }
-
+NAN_METHOD(machineState::SetBCMode)
+{
+    machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
+    if (!ms || !(ms->_ms)) return;
+    if (!info[0]->IsBoolean()) return;
+	ms->BCMode = Nan::To<bool>(info[0]).FromJust();
+}
 NAN_METHOD(machineState::SetToolPosition)
 {
     machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
@@ -581,7 +587,8 @@ NAN_METHOD(machineState::SetToolPosition)
     auto pased = new Nan::Global<v8::Promise::Resolver>(pmise);
     pased->Reset(pmise);
     if(isAC==false) ms->_ms->SetToolPositionIJK(xyz, ijk,(pased));
-    else ms->_ms->SetToolPositionAC(xyz, ijk, (pased));
+    else if(ms->BCMode==false) ms->_ms->SetToolPositionAC(xyz, ijk, (pased));
+	else ms->_ms->SetToolPositionBC(xyz, ijk, (pased));
     info.GetReturnValue().Set(pmise->GetPromise());
 }
 
@@ -652,6 +659,7 @@ NAN_MODULE_INIT(machineState::Init)
     Nan::SetPrototypeMethod(tpl, "GetCurrentWSColor", GetCurrentWSColor);
     Nan::SetPrototypeMethod(tpl, "GetCurrentFeedrate", GetCurrentFeedrate);
     Nan::SetPrototypeMethod(tpl, "GetCurrentSpindleSpeed", GetCurrentSpindleSpeed);
+    Nan::SetPrototypeMethod(tpl, "SetBCMode", SetBCMode);
     Nan::SetPrototypeMethod(tpl, "SetToolPosition", SetToolPosition);
     Nan::SetPrototypeMethod(tpl, "SetDumpDir", SetDumpDir);
     Nan::SetPrototypeMethod(tpl, "ResetDynamicGeometry", ResetDynamicGeometry);

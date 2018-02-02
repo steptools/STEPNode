@@ -37,6 +37,7 @@ private:
     uv_async_t async;
     uv_thread_t waitqueue;
     uv_thread_t resetthread;
+	bool BCMode = false;
 public:
     void Wait();
 	void ToleranceResetThread(Nan::Global<v8::Promise::Resolver>* promiseContainer);
@@ -111,8 +112,12 @@ public:
     static NAN_METHOD(SetDumpDir);
 
     // void SetToolPosition(double x,double y,double z,double i,double j,double k);
-    // void SetToolPosition(double x,double y,double z,double a,double c);
+    // void SetToolPosition(double x,double y,double z,double a(b),double c);
     static NAN_METHOD(SetToolPosition);
+
+	// If true then SetToolPosition will act as BC machine instead of AC machine
+	// void SetBCMode(bool en);
+	static NAN_METHOD(SetBCMode);
 
     // void Update();
     //If the workingsteps are manipulated (E.G. selective enabled/disabled)
