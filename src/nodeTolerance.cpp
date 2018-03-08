@@ -155,7 +155,7 @@ NAN_METHOD(Tolerance::GetProbeResults) {
 	Nan::Maybe<double> x = Nan::To<double>(info[1]);
 	Nan::Maybe<double> y = Nan::To<double>(info[2]);
 	Nan::Maybe<double> z = Nan::To<double>(info[3]);
-	tol->_tol->mtconnect_face_probe_result_data(wsid.FromJust(), x.FromJust(), y.FromJust(), z.FromJust(),outstring);
+	tol->_tol->mtconnect_face_probe_result_data_five_axis(wsid.FromJust(), x.FromJust(), y.FromJust(), z.FromJust(),outstring);
 	info.GetReturnValue().Set(CharTov8String(outstring));
 	return;
 }
