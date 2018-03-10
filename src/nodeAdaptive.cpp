@@ -135,6 +135,8 @@ v8::Local<v8::Object> CtlTypeEnum::singleton()
     // Declare from last to first.  When printed, properties show up
     // in reverse of the order that they are declared.
     //
+    ENUM_PROPERTY("LAST_TYPE", STIXCTL_LAST_TYPE);
+
     ENUM_PROPERTY("MOVE_HELIX", STIXCTL_TYPE_MOVE_HELIX);	
     ENUM_PROPERTY("MOVE_ARC", STIXCTL_TYPE_MOVE_ARC);	
     ENUM_PROPERTY("MOVE", STIXCTL_TYPE_MOVE);	
@@ -156,24 +158,13 @@ v8::Local<v8::Object> CtlTypeEnum::singleton()
     ENUM_PROPERTY("OP_PROBE_COMPLETE", STIXCTL_TYPE_OP_PROBE_COMPLETE);
     ENUM_PROPERTY("OP_PROBE", STIXCTL_TYPE_OP_PROBE);
 
-    ENUM_PROPERTY("OP_THREAD_DRILL", STIXCTL_TYPE_OP_THREAD_DRILL);
+    ENUM_PROPERTY("OP_RAPID", STIXCTL_TYPE_OP_RAPID);
     ENUM_PROPERTY("OP_TAP", STIXCTL_TYPE_OP_TAP);
-    ENUM_PROPERTY("OP_REAM", STIXCTL_TYPE_OP_REAM);
-    ENUM_PROPERTY("OP_DRILL_MULTISTEP", STIXCTL_TYPE_OP_DRILL_MULTISTEP);
-    ENUM_PROPERTY("OP_DRILL_CSINK", STIXCTL_TYPE_OP_DRILL_CSINK);
-    ENUM_PROPERTY("OP_DRILL_CENTER", STIXCTL_TYPE_OP_DRILL_CENTER);
-    ENUM_PROPERTY("OP_DRILL", STIXCTL_TYPE_OP_DRILL);
     ENUM_PROPERTY("OP_BACK_BORE", STIXCTL_TYPE_OP_BACK_BORE);
     ENUM_PROPERTY("OP_BORE", STIXCTL_TYPE_OP_BORE);
-    ENUM_PROPERTY("OP_DRILL_BASE", STIXCTL_TYPE_OP_DRILL_BASE);
-
-    ENUM_PROPERTY("OP_MILL_SIDE_ROUGH", STIXCTL_TYPE_OP_MILL_SIDE_ROUGH);
-    ENUM_PROPERTY("OP_MILL_SIDE", STIXCTL_TYPE_OP_MILL_SIDE);
-    ENUM_PROPERTY("OP_MILL_PLANE_ROUGH", STIXCTL_TYPE_OP_MILL_PLANE_ROUGH);
-    ENUM_PROPERTY("OP_MILL_PLANE", STIXCTL_TYPE_OP_MILL_PLANE);
-    ENUM_PROPERTY("OP_MILL_BOTSIDE_ROUGH", STIXCTL_TYPE_OP_MILL_BOTSIDE_ROUGH);
-    ENUM_PROPERTY("OP_MILL_BOTSIDE", STIXCTL_TYPE_OP_MILL_BOTSIDE);
-    ENUM_PROPERTY("OP_MILL_FREEFORM", STIXCTL_TYPE_OP_MILL_FREEFORM);
+    ENUM_PROPERTY("OP_DRILL", STIXCTL_TYPE_OP_DRILL);
+    ENUM_PROPERTY("OP_TURN", STIXCTL_TYPE_OP_TURN);
+    ENUM_PROPERTY("OP_MILL", STIXCTL_TYPE_OP_MILL);
     ENUM_PROPERTY("OP", STIXCTL_TYPE_OP);
 
     ENUM_PROPERTY("EXEC_OP_COMBO", STIXCTL_TYPE_EXEC_OP_COMBO);
@@ -182,7 +173,6 @@ v8::Local<v8::Object> CtlTypeEnum::singleton()
     ENUM_PROPERTY("EXEC_WORKPLAN", STIXCTL_TYPE_EXEC_WORKPLAN);
     ENUM_PROPERTY("EXEC_WHILE", STIXCTL_TYPE_EXEC_WHILE);
     ENUM_PROPERTY("EXEC_SELECT", STIXCTL_TYPE_EXEC_SELECT);
-    ENUM_PROPERTY("EXEC_RAPID", STIXCTL_TYPE_EXEC_RAPID);
     ENUM_PROPERTY("EXEC_PARALLEL", STIXCTL_TYPE_EXEC_PARALLEL);
     ENUM_PROPERTY("EXEC_NONSEQ", STIXCTL_TYPE_EXEC_NONSEQ);
     ENUM_PROPERTY("EXEC_IF", STIXCTL_TYPE_EXEC_IF);
@@ -218,7 +208,6 @@ NAN_METHOD(CtlTypeEnum::Name)
     case STIXCTL_TYPE_EXEC_IF: nm = "EXEC_IF"; break;
     case STIXCTL_TYPE_EXEC_NONSEQ: nm = "EXEC_NONSEQ"; break;
     case STIXCTL_TYPE_EXEC_PARALLEL: nm = "EXEC_PARALLEL"; break;
-    case STIXCTL_TYPE_EXEC_RAPID: nm = "EXEC_RAPID"; break;
     case STIXCTL_TYPE_EXEC_SELECT: nm = "EXEC_SELECT"; break;
     case STIXCTL_TYPE_EXEC_WHILE: nm = "EXEC_WHILE"; break;
     case STIXCTL_TYPE_EXEC_WORKPLAN: nm = "EXEC_WORKPLAN"; break;
@@ -227,24 +216,13 @@ NAN_METHOD(CtlTypeEnum::Name)
     case STIXCTL_TYPE_EXEC_OP_COMBO: nm = "EXEC_OP_COMBO"; break;
 
     case STIXCTL_TYPE_OP: nm = "OP"; break;
-    case STIXCTL_TYPE_OP_MILL_FREEFORM: nm = "OP_MILL_FREEFORM"; break;
-    case STIXCTL_TYPE_OP_MILL_BOTSIDE: nm = "OP_MILL_BOTSIDE"; break;
-    case STIXCTL_TYPE_OP_MILL_BOTSIDE_ROUGH: nm = "OP_MILL_BOTSIDE_ROUGH"; break;
-    case STIXCTL_TYPE_OP_MILL_PLANE: nm = "OP_MILL_PLANE"; break;
-    case STIXCTL_TYPE_OP_MILL_PLANE_ROUGH: nm = "OP_MILL_PLANE_ROUGH"; break;
-    case STIXCTL_TYPE_OP_MILL_SIDE: nm = "OP_MILL_SIDE"; break;
-    case STIXCTL_TYPE_OP_MILL_SIDE_ROUGH: nm = "OP_MILL_SIDE_ROUGH"; break;
-
-    case STIXCTL_TYPE_OP_DRILL_BASE: nm = "OP_DRILL_BASE"; break;
+    case STIXCTL_TYPE_OP_MILL: nm = "OP_MILL"; break;
+    case STIXCTL_TYPE_OP_TURN: nm = "OP_TURN"; break;
+    case STIXCTL_TYPE_OP_DRILL: nm = "OP_DRILL"; break;
     case STIXCTL_TYPE_OP_BORE: nm = "OP_BORE"; break;
     case STIXCTL_TYPE_OP_BACK_BORE: nm = "OP_BACK_BORE"; break;
-    case STIXCTL_TYPE_OP_DRILL: nm = "OP_DRILL"; break;
-    case STIXCTL_TYPE_OP_DRILL_CENTER: nm = "OP_DRILL_CENTER"; break;
-    case STIXCTL_TYPE_OP_DRILL_CSINK: nm = "OP_DRILL_CSINK"; break;
-    case STIXCTL_TYPE_OP_DRILL_MULTISTEP: nm = "OP_DRILL_MULTISTEP"; break;
-    case STIXCTL_TYPE_OP_REAM: nm = "OP_REAM"; break;
     case STIXCTL_TYPE_OP_TAP: nm = "OP_TAP"; break;
-    case STIXCTL_TYPE_OP_THREAD_DRILL: nm = "OP_THREAD_DRILL"; break;
+    case STIXCTL_TYPE_OP_RAPID: nm = "OP_RAPID"; break;
 
     case STIXCTL_TYPE_OP_PROBE: nm = "OP_PROBE"; break;
     case STIXCTL_TYPE_OP_PROBE_COMPLETE: nm = "OP_PROBE_COMPLETE"; break;
@@ -525,6 +503,7 @@ NAN_MODULE_INIT(Adaptive::Init)
     Nan::SetPrototypeMethod(tpl, "GetActiveExec", GetActiveExec);
     Nan::SetPrototypeMethod(tpl, "GetActiveWorkplan", GetActiveWorkplan);
     Nan::SetPrototypeMethod(tpl, "GetActiveWorkingstep", GetActiveWorkingstep);
+    Nan::SetPrototypeMethod(tpl, "GetActiveFeature", GetActiveFeature);
     Nan::SetPrototypeMethod(tpl, "GetActiveOperation", GetActiveOperation);
     Nan::SetPrototypeMethod(tpl, "GetActiveToolpath", GetActiveToolpath);
     Nan::SetPrototypeMethod(tpl, "GetActiveTool", GetActiveTool);
@@ -553,6 +532,7 @@ NAN_MODULE_INIT(Adaptive::Init)
     Nan::SetPrototypeMethod(tpl, "GetMoveStart", GetMoveStart);
     Nan::SetPrototypeMethod(tpl, "GetMoveEnd", GetMoveEnd);
     Nan::SetPrototypeMethod(tpl, "GetMoveArc", GetMoveArc);
+    Nan::SetPrototypeMethod(tpl, "GetMoveProbe", GetMoveProbe);
 
     Nan::SetPrototypeMethod(tpl, "GetMoveFeed", GetMoveFeed);
     Nan::SetPrototypeMethod(tpl, "GetMoveSpindle", GetMoveSpindle);
@@ -566,7 +546,9 @@ NAN_MODULE_INIT(Adaptive::Init)
     Nan::SetPrototypeMethod(tpl, "GetPosAll", GetPosAll);
     Nan::SetPrototypeMethod(tpl, "GetPosXYZ", GetPosXYZ);
     Nan::SetPrototypeMethod(tpl, "GetPosDirZ", GetPosDirZ);
+    Nan::SetPrototypeMethod(tpl, "GetPosDefaultDirZ", GetPosDefaultDirZ);
     Nan::SetPrototypeMethod(tpl, "GetPosDirX", GetPosDirX);
+    Nan::SetPrototypeMethod(tpl, "GetPosDefaultDirX", GetPosDefaultDirX);
     Nan::SetPrototypeMethod(tpl, "GetPosDirSnorm", GetPosDirSnorm);
     Nan::SetPrototypeMethod(tpl, "GetPosDirMove", GetPosDirMove);
     Nan::SetPrototypeMethod(tpl, "GetPosSpeedRatio", GetPosSpeedRatio);
@@ -597,7 +579,19 @@ NAN_MODULE_INIT(Adaptive::Init)
     Nan::SetPrototypeMethod(tpl, "GetArcIsOver180", GetArcIsOver180);
     Nan::SetPrototypeMethod(tpl, "GetArcIsFullCircle", GetArcIsFullCircle);
 
+    Nan::SetPrototypeMethod(tpl, "GetProbeDirection", GetProbeDirection);
+    Nan::SetPrototypeMethod(tpl, "GetProbeDirectionObj", GetProbeDirectionObj);
+    Nan::SetPrototypeMethod(tpl, "GetProbeEnd", GetProbeEnd);
+    Nan::SetPrototypeMethod(tpl, "GetProbeExpected", GetProbeExpected);
+    Nan::SetPrototypeMethod(tpl, "GetProbeExpectedObj", GetProbeExpectedObj);
+    Nan::SetPrototypeMethod(tpl, "GetProbeStart", GetProbeStart);
+    Nan::SetPrototypeMethod(tpl, "GetProbeStartObj", GetProbeStartObj);
+    Nan::SetPrototypeMethod(tpl, "GetProbeVar", GetProbeVar);
+    Nan::SetPrototypeMethod(tpl, "GetProbeVarObj", GetProbeVarObj);
+    Nan::SetPrototypeMethod(tpl, "GetProbeWorkpiece", GetProbeWorkpiece);
+
     Nan::SetPrototypeMethod(tpl, "GetStackSize", GetStackSize);
+    Nan::SetPrototypeMethod(tpl, "GetStackPosOfType", GetStackPosOfType);
     Nan::SetPrototypeMethod(tpl, "GetFrameObj", GetFrameObj);
     Nan::SetPrototypeMethod(tpl, "GetFrameAux", GetFrameAux);
     Nan::SetPrototypeMethod(tpl, "GetFrameParam", GetFrameParam);
@@ -716,6 +710,16 @@ NAN_METHOD(Adaptive::GetActiveWorkingstep)
     if (!ao) return; // exception
 
     RoseObject * obj = ao->f_ctl->getActiveWorkingstep();
+    info.GetReturnValue().Set((int32_t)(obj? obj->entity_id(): 0));
+}
+
+NAN_METHOD(Adaptive::GetActiveFeature)
+{
+    Trace t(tc, "GetActiveFeature");
+    Adaptive* ao = Nan::ObjectWrap::Unwrap<Adaptive>(info.This());
+    if (!ao) return; // exception
+
+    RoseObject * obj = ao->f_ctl->getActiveFeature();
     info.GetReturnValue().Set((int32_t)(obj? obj->entity_id(): 0));
 }
 
@@ -1041,6 +1045,23 @@ NAN_METHOD(Adaptive::GetMoveArc)
     }
     
     info.GetReturnValue().Set((int32_t)ao->f_ctl->getMoveArc(cs));
+}
+
+
+// CtlPos GetMoveProbe (CtlCsys cs);
+// CtlPos GetMoveProbe() { return GetMoveProbe(CtlCsys::WCS); }
+NAN_METHOD(Adaptive::GetMoveProbe)
+{
+    Trace t(tc, "GetMoveProbe");
+    Adaptive* ao = Nan::ObjectWrap::Unwrap<Adaptive>(info.This());
+    if (!ao) return; // exception
+
+    StixCtlCsys cs = STIXCTL_CSYS_WCS;
+    if (info.Length() > 0) {
+	cs = (StixCtlCsys) Nan::To<int32_t>(info[0]).FromJust();
+    }
+    
+    info.GetReturnValue().Set((int32_t)ao->f_ctl->getMoveProbe(cs));
 }
 
 
@@ -1476,6 +1497,26 @@ NAN_METHOD(Adaptive::GetPosDirZ)
     }
 }
 
+// double[3] GetPosDefaultDirZ(CtlPos p);
+NAN_METHOD(Adaptive::GetPosDefaultDirZ)
+{
+    Trace t(tc, "GetPosDefaultDirZ");
+    Adaptive* ao = Nan::ObjectWrap::Unwrap<Adaptive>(info.This());
+    if (!ao) return; // exception
+    if (!info.Length()) return;
+
+    StixCtlPos pos = (StixCtlPos) Nan::To<int32_t>(info[0]).FromJust();
+    double vals[3];
+    if (ao->f_ctl->getPosDefaultDirZ(vals, pos)) {
+	v8::Local<v8::Array> ret = Nan::New<v8::Array>(3);
+	ret->Set(0, Nan::New(vals[0]));
+	ret->Set(1, Nan::New(vals[1]));
+	ret->Set(2, Nan::New(vals[2]));
+    
+	info.GetReturnValue().Set(ret);
+    }
+}
+
 
 
 // double[3] GetPosDirX(CtlPos p);
@@ -1489,6 +1530,26 @@ NAN_METHOD(Adaptive::GetPosDirX)
     StixCtlPos pos = (StixCtlPos) Nan::To<int32_t>(info[0]).FromJust();
     double vals[3];
     if (ao->f_ctl->getPosDirX(vals, pos)) {
+	v8::Local<v8::Array> ret = Nan::New<v8::Array>(3);
+	ret->Set(0, Nan::New(vals[0]));
+	ret->Set(1, Nan::New(vals[1]));
+	ret->Set(2, Nan::New(vals[2]));
+    
+	info.GetReturnValue().Set(ret);
+    }
+}
+
+// double[3] GetPosDefaultDirX(CtlPos p);
+NAN_METHOD(Adaptive::GetPosDefaultDirX)
+{
+    Trace t(tc, "GetPosDefaultDirX");
+    Adaptive* ao = Nan::ObjectWrap::Unwrap<Adaptive>(info.This());
+    if (!ao) return; // exception
+    if (!info.Length()) return;
+
+    StixCtlPos pos = (StixCtlPos) Nan::To<int32_t>(info[0]).FromJust();
+    double vals[3];
+    if (ao->f_ctl->getPosDefaultDirX(vals, pos)) {
 	v8::Local<v8::Array> ret = Nan::New<v8::Array>(3);
 	ret->Set(0, Nan::New(vals[0]));
 	ret->Set(1, Nan::New(vals[1]));
@@ -1919,6 +1980,190 @@ NAN_METHOD(Adaptive::GetArcIsFullCircle)
 }
 
 
+// double[3] GetProbeDirection (CtlPos p);
+NAN_METHOD(Adaptive::GetProbeDirection)
+{
+    Trace t(tc, "GetProbeDirection");
+    Adaptive* ao = Nan::ObjectWrap::Unwrap<Adaptive>(info.This());
+    if (!ao) return; // exception
+    if (info.Length() != 1) return;
+
+    StixCtlPos pos = (StixCtlPos) Nan::To<int32_t>(info[0]).FromJust();
+    double vals[3];
+    if (ao->f_ctl->getProbeDirection(vals, pos)) {
+	v8::Local<v8::Array> ret = Nan::New<v8::Array>(3);
+	ret->Set(0, Nan::New(vals[0]));
+	ret->Set(1, Nan::New(vals[1]));
+	ret->Set(2, Nan::New(vals[2]));
+    
+	info.GetReturnValue().Set(ret);
+    }
+}
+
+// double[3] GetProbeEnd (CtlPos p, RoseUnit u);
+NAN_METHOD(Adaptive::GetProbeEnd)
+{
+    Trace t(tc, "GetProbeEnd");
+    Adaptive* ao = Nan::ObjectWrap::Unwrap<Adaptive>(info.This());
+    if (!ao) return; // exception
+    if (!info.Length()) return;
+
+    RoseUnit u = roseunit_as_is;
+    StixCtlPos pos = (StixCtlPos) Nan::To<int32_t>(info[0]).FromJust();
+
+    if (info.Length() > 1) {
+	u = (RoseUnit) Nan::To<int32_t>(info[1]).FromJust();
+    }
+
+    double vals[3];
+    if (ao->f_ctl->getProbeEnd(vals, pos, u)) {
+	v8::Local<v8::Array> ret = Nan::New<v8::Array>(3);
+	ret->Set(0, Nan::New(vals[0]));
+	ret->Set(1, Nan::New(vals[1]));
+	ret->Set(2, Nan::New(vals[2]));
+    
+	info.GetReturnValue().Set(ret);
+    }
+}
+
+// double GetProbeExpected (CtlPos p, RoseUnit u);
+NAN_METHOD(Adaptive::GetProbeExpected)
+{
+    Trace t(tc, "GetProbeExpected");
+    Adaptive* ao = Nan::ObjectWrap::Unwrap<Adaptive>(info.This());
+    if (!ao) return; // exception
+    if (!info.Length()) return;
+
+    RoseUnit u = roseunit_as_is;
+    StixCtlPos pos = (StixCtlPos) Nan::To<int32_t>(info[0]).FromJust();
+
+    if (info.Length() > 1) {
+	u = (RoseUnit) Nan::To<int32_t>(info[1]).FromJust();
+    }
+    double val = ao->f_ctl->getProbeExpected(pos, u);
+    info.GetReturnValue().Set(val);
+}
+
+
+// double[3] GetProbeStart (CtlPos p, RoseUnit u);
+NAN_METHOD(Adaptive::GetProbeStart)
+{
+    Trace t(tc, "GetProbeStart");
+    Adaptive* ao = Nan::ObjectWrap::Unwrap<Adaptive>(info.This());
+    if (!ao) return; // exception
+    if (!info.Length()) return;
+
+    RoseUnit u = roseunit_as_is;
+    StixCtlPos pos = (StixCtlPos) Nan::To<int32_t>(info[0]).FromJust();
+
+    if (info.Length() > 1) {
+	u = (RoseUnit) Nan::To<int32_t>(info[1]).FromJust();
+    }
+
+    double vals[3];
+    if (ao->f_ctl->getProbeStart(vals, pos, u)) {
+	v8::Local<v8::Array> ret = Nan::New<v8::Array>(3);
+	ret->Set(0, Nan::New(vals[0]));
+	ret->Set(1, Nan::New(vals[1]));
+	ret->Set(2, Nan::New(vals[2]));
+    
+	info.GetReturnValue().Set(ret);
+    }
+}
+
+
+// string GetProbeVar(CtlPos p);
+NAN_METHOD(Adaptive::GetProbeVar)
+{
+    Trace t(tc, "GetProbeVar");
+    Adaptive* ao = Nan::ObjectWrap::Unwrap<Adaptive>(info.This());
+    if (!ao) return; // exception
+    if (!info.Length()) return;
+
+    StixCtlPos pos = (StixCtlPos) Nan::To<int32_t>(info[0]).FromJust();
+
+    const char * val = ao->f_ctl->getProbeVar(pos);
+    info.GetReturnValue().Set(CharTov8String(val));
+}
+
+
+// long GetProbeDirectionObj(CtlPos p);
+NAN_METHOD(Adaptive::GetProbeDirectionObj)
+{
+    Trace t(tc, "GetProbeDirectionObj");
+    Adaptive* ao = Nan::ObjectWrap::Unwrap<Adaptive>(info.This());
+    if (!ao) return; // exception
+    if (!info.Length()) return;
+
+    StixCtlPos pos = (StixCtlPos) Nan::To<int32_t>(info[0]).FromJust();
+
+    RoseObject * obj = ao->f_ctl->getProbeDirectionObj(pos);
+    info.GetReturnValue().Set((int32_t)(obj? obj->entity_id(): 0));
+}
+
+
+
+// long GetProbeExpectedObj(CtlPos p);
+NAN_METHOD(Adaptive::GetProbeExpectedObj)
+{
+    Trace t(tc, "GetProbeExpectedObj");
+    Adaptive* ao = Nan::ObjectWrap::Unwrap<Adaptive>(info.This());
+    if (!ao) return; // exception
+    if (!info.Length()) return;
+
+    StixCtlPos pos = (StixCtlPos) Nan::To<int32_t>(info[0]).FromJust();
+
+    RoseObject * obj = ao->f_ctl->getProbeExpectedObj(pos);
+    info.GetReturnValue().Set((int32_t)(obj? obj->entity_id(): 0));
+}
+
+
+// long GetProbeStartObj(CtlPos p);
+NAN_METHOD(Adaptive::GetProbeStartObj)
+{
+    Trace t(tc, "GetProbeStartObj");
+    Adaptive* ao = Nan::ObjectWrap::Unwrap<Adaptive>(info.This());
+    if (!ao) return; // exception
+    if (!info.Length()) return;
+
+    StixCtlPos pos = (StixCtlPos) Nan::To<int32_t>(info[0]).FromJust();
+
+    RoseObject * obj = ao->f_ctl->getProbeStartObj(pos);
+    info.GetReturnValue().Set((int32_t)(obj? obj->entity_id(): 0));
+}
+
+// long GetProbeVarObj(CtlPos p);
+NAN_METHOD(Adaptive::GetProbeVarObj)
+{
+    Trace t(tc, "GetProbeVarObj");
+    Adaptive* ao = Nan::ObjectWrap::Unwrap<Adaptive>(info.This());
+    if (!ao) return; // exception
+    if (!info.Length()) return;
+
+    StixCtlPos pos = (StixCtlPos) Nan::To<int32_t>(info[0]).FromJust();
+
+    RoseObject * obj = ao->f_ctl->getProbeVarObj(pos);
+    info.GetReturnValue().Set((int32_t)(obj? obj->entity_id(): 0));
+}
+
+
+// long GetProbeWorkpiece(CtlPos p);
+NAN_METHOD(Adaptive::GetProbeWorkpiece)
+{
+    Trace t(tc, "GetProbeWorkpiece");
+    Adaptive* ao = Nan::ObjectWrap::Unwrap<Adaptive>(info.This());
+    if (!ao) return; // exception
+    if (!info.Length()) return;
+
+    StixCtlPos pos = (StixCtlPos) Nan::To<int32_t>(info[0]).FromJust();
+
+    RoseObject * obj = ao->f_ctl->getProbeWorkpiece(pos);
+    info.GetReturnValue().Set((int32_t)(obj? obj->entity_id(): 0));
+}
+
+
+
+
 // long GetStackSize()
 NAN_METHOD(Adaptive::GetStackSize)
 {
@@ -1927,6 +2172,19 @@ NAN_METHOD(Adaptive::GetStackSize)
     if (!ao) return; // exception
 
     info.GetReturnValue().Set((int32_t)ao->f_ctl->getStackSize());
+}
+
+// long GetStackPosOfType(CtlType t);
+NAN_METHOD(Adaptive::GetStackPosOfType)
+{
+    Trace t(tc, "GetStackPosOfType");
+    Adaptive* ao = Nan::ObjectWrap::Unwrap<Adaptive>(info.This());
+    if (!ao) return; // exception
+    if (!info.Length()) return;
+
+    StixCtlType u = (StixCtlType) Nan::To<int32_t>(info[0]).FromJust();
+
+    info.GetReturnValue().Set((int32_t)ao->f_ctl->getStackPosOfType(u));
 }
 
 // long GetFrameObj (long stack_pos)

@@ -72,6 +72,8 @@ public:
     static NAN_METHOD(GetActiveWorkplan);
     // long GetActiveWorkingstep();
     static NAN_METHOD(GetActiveWorkingstep);
+    // long GetActiveFeature();
+    static NAN_METHOD(GetActiveFeature);
     // long GetActiveOperation();
     static NAN_METHOD(GetActiveOperation);
     // long GetActiveToolpath();
@@ -153,6 +155,10 @@ public:
     // CtlPos GetMoveArc() { return GetMoveArc(CtlCsys::WCS); }
     static NAN_METHOD(GetMoveArc);
 
+    // CtlPos GetMoveProbe (CtlCsys cs);
+    // CtlPos GetMoveProbe() { return GetMoveProbe(CtlCsys::WCS); }
+    static NAN_METHOD(GetMoveProbe);
+    
     // // process parameters
     // double GetMoveFeed (RoseUnit u);
     // double GetMoveFeed() { return GetMoveFeed(RoseUnit::as_is); }
@@ -187,8 +193,14 @@ public:
     // double[3] GetPosDirZ(CtlPos p);
     static NAN_METHOD(GetPosDirZ);
 
+    // double[3] GetPosDefaultDirZ(CtlPos p);
+    static NAN_METHOD(GetPosDefaultDirZ);
+
     // double[3] GetPosDirX(CtlPos p);
     static NAN_METHOD(GetPosDirX);
+
+    // double[3] GetPosDefaultDirX(CtlPos p);
+    static NAN_METHOD(GetPosDefaultDirX);
 
     // double[3] GetPosDirSnorm(CtlPos p);
     static NAN_METHOD(GetPosDirSnorm);
@@ -265,12 +277,41 @@ public:
     // bool GetArcIsFullCircle  (CtlPos p);
     static NAN_METHOD(GetArcIsFullCircle);
 
+
+    // Probing parameters - Use with the GetMoveProbe() position
+    // to get operation parameters.
+    
+    // double[3] GetProbeDirection (CtlPos p);
+    static NAN_METHOD(GetProbeDirection);
+    // long GetProbeDirectionObj(CtlPos p);
+    static NAN_METHOD(GetProbeDirectionObj);
+    // double[3] GetProbeEnd (CtlPos p, RoseUnit u);
+    static NAN_METHOD(GetProbeEnd);
+    // double GetProbeExpected (CtlPos p, RoseUnit u);
+    static NAN_METHOD(GetProbeExpected);
+    // long GetProbeExpectedObj(CtlPos p);
+    static NAN_METHOD(GetProbeExpectedObj);
+    // double[3] GetProbeStart (CtlPos p, RoseUnit u);
+    static NAN_METHOD(GetProbeStart);
+    // long GetProbeStartObj(CtlPos p);
+    static NAN_METHOD(GetProbeStartObj);
+    // string GetProbeVar(CtlPos p);
+    static NAN_METHOD(GetProbeVar);
+    // long GetProbeVarObj(CtlPos p);
+    static NAN_METHOD(GetProbeVarObj);
+    // long GetProbeWorkpiece(CtlPos p);
+    static NAN_METHOD(GetProbeWorkpiece);
+
+    
     //--------------------
     // PROCESS STACK FRAMES - Get values for a specific position on
     // the process stack
     //
+
     // long GetStackSize();
     static NAN_METHOD(GetStackSize);
+    // long GetStackPosOfType(CtlType t);
+    static NAN_METHOD(GetStackPosOfType);
 		      
     // long GetFrameObj (long stack_pos);
     static NAN_METHOD(GetFrameObj);
