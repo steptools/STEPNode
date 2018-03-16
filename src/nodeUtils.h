@@ -18,6 +18,7 @@
 
 #pragma once
 #include <nan.h>
+#include <RoseString.h>
 
 #define READ_ONLY_PROPERTY(nm,fn) Nan::SetAccessor(target, Nan::New(nm).ToLocalChecked(),fn, 0, v8::Local<v8::Value>(), v8::DEFAULT, v8::ReadOnly)
 
@@ -27,6 +28,7 @@
 
 //NOTE: caller needs to delete[] lest we end up with a memory leak.
 size_t v8StringToChar(v8::Local<v8::Value> in, char* &arr);
+RoseStringObject v8StringToRose(v8::Local<v8::Value> in);
 
 v8::Local<v8::Value> CharTov8String(const char* arr);
 

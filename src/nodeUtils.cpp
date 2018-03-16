@@ -26,8 +26,21 @@ size_t v8StringToChar(v8::Local<v8::Value> in, char* &arr)
     arr[len] = '\0';
     return len;
 }
+
+RoseStringObject v8StringToRose(v8::Local<v8::Value> in)
+{
+    RoseStringObject ret;
+    ssize_t len = Nan::DecodeBytes(in, Nan::Encoding::UTF8);
+    char * s = ret.resize(len+1);
+    Nan::DecodeWrite(s, len, in, Nan::Encoding::UTF8);
+    s[len] = '\0';
+    return ret;
+}
+
+
 v8::Local<v8::Value> CharTov8String(const char* arr)
 {
+    if (!arr) return Nan::EmptyString();
     return Nan::Encode(arr, strlen(arr), Nan::Encoding::UTF8);
 }
 
@@ -35,4 +48,6 @@ v8::Local<v8::Value> CharTov8String(const char* arr)
 NAN_GETTER(GetterStaticVal) {
     info.GetReturnValue().Set(info.Data());
 }
+
+
 

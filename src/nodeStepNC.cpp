@@ -21,6 +21,8 @@
 #include "nodeTolerance.h"
 #include "nodeMachineState.h"
 #include "nodeAdaptive.h"
+#include "nodeGenerate.h"
+#include "nodeGenerateState.h"
 #include "nodeProcess.h"
 #include "nodeUtils.h"
 
@@ -42,6 +44,8 @@ NAN_MODULE_INIT(Init) {
     Finder::Init(target);
     AptStepMaker::Init(target);
     Adaptive::Init(target);
+    Generate::Init(target);
+    GenerateState::Init(target);
     Process::Init(target);
 
     READ_ONLY_OBJECT("CtlEvent",CtlEventEnum::singleton());

@@ -37,6 +37,8 @@ private:
     ~Adaptive();
 
 public:
+    StixCtlCursor * asUnmanaged() { return f_ctl; }
+
     static NAN_MODULE_INIT(Init);
 
     //void Reset();
