@@ -61,12 +61,19 @@ public:
     // string FormatBlockNonum(GenerateState, string str);
     // string FormatComment(GenerateState, string str);
     // string FormatComment(GenerateState, string header, string str);
-
+    static NAN_METHOD(Generate::FormatBlock);
+    static NAN_METHOD(Generate::FormatBlockNonum);
+    static NAN_METHOD(Generate::FormatComment);
+	
     // Move to an arbitrary XYZ/IJK position in the program units.
     // string FormatMoveXYZ (GenerateState, Adaptive, double x,y,z);
     // string FormatMoveXYZ_IJK (GenerateState, Adaptive, double x,y,z, i,j,k);
     // string FormatRapidXYZ (GenerateState, Adaptive, double x, y, z);
     // string FormatRapidXYZ_IJK (GenerateState, Adaptive, double x,y,z, i,j,k);
+    static NAN_METHOD(Generate::FormatMoveXYZ);
+    static NAN_METHOD(Generate::FormatMoveXYZ_IJK);
+    static NAN_METHOD(Generate::FormatRapidXYZ);
+    static NAN_METHOD(Generate::FormatRapidXYZ_IJK);
 
     // --------------------
     // STRING BUILDING AND NUMBER HANDLING -- 

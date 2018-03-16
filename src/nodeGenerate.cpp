@@ -69,6 +69,16 @@ NAN_MODULE_INIT(Generate::Init)
     Nan::SetPrototypeMethod(tpl, "FormatType", FormatType);
     Nan::SetPrototypeMethod(tpl, "FormatOther", FormatOther);
     
+    Nan::SetPrototypeMethod(tpl, "FormatBlock", FormatBlock);
+    Nan::SetPrototypeMethod(tpl, "FormatBlockNonum", FormatBlockNonum);
+    Nan::SetPrototypeMethod(tpl, "FormatComment", FormatComment);
+    
+    Nan::SetPrototypeMethod(tpl, "FormatMoveXYZ", FormatMoveXYZ);
+    Nan::SetPrototypeMethod(tpl, "FormatMoveXYZ_IJK", FormatMoveXYZ_IJK);
+    Nan::SetPrototypeMethod(tpl, "FormatRapidXYZ", FormatRapidXYZ);
+    Nan::SetPrototypeMethod(tpl, "FormatRapidXYZ_IJK", FormatRapidXYZ_IJK);
+
+    
 // boilerplate for construction
     constructor().Reset(Nan::GetFunction(tpl).ToLocalChecked());
     Nan::Set(target, Nan::New("Generate").ToLocalChecked(), Nan::GetFunction(tpl).ToLocalChecked());
@@ -181,3 +191,259 @@ NAN_METHOD(Generate::FormatOther)
 
     info.GetReturnValue().Set(CharTov8String(ret));
 }
+
+
+// string FormatBlock(GenerateState, string str);
+NAN_METHOD(Generate::FormatBlock)
+{
+    Trace t(tc, "FormatBlock");
+    Generate* ao = Nan::ObjectWrap::Unwrap<Generate>(info.This());
+    if (!ao) return; // exception
+
+    if (info.Length() != 2) return;
+    if (!info[1]->IsString()) return;
+
+    Nan::MaybeLocal<v8::Object> maybe1 = Nan::To<v8::Object>(info[0]);
+    RoseStringObject str = v8StringToRose(info[1]);
+    if (maybe1.IsEmpty()) return;
+
+    GenerateState* vars =
+	Nan::ObjectWrap::Unwrap<GenerateState>(maybe1.ToLocalChecked());
+    if (!vars) return; // exception
+
+    RoseStringObject ret = ao->f_fmt->formatBlock(*(vars->asUnmanaged()), str);
+    info.GetReturnValue().Set(CharTov8String(ret));
+}
+
+
+
+
+
+// string FormatBlockNonum(GenerateState, string str);
+NAN_METHOD(Generate::FormatBlockNonum)
+{
+    Trace t(tc, "FormatBlockNonum");
+    Generate* ao = Nan::ObjectWrap::Unwrap<Generate>(info.This());
+    if (!ao) return; // exception
+
+    if (info.Length() != 2) return;
+    if (!info[1]->IsString()) return;
+
+    Nan::MaybeLocal<v8::Object> maybe1 = Nan::To<v8::Object>(info[0]);
+    RoseStringObject str = v8StringToRose(info[1]);
+    if (maybe1.IsEmpty()) return;
+
+    GenerateState* vars =
+	Nan::ObjectWrap::Unwrap<GenerateState>(maybe1.ToLocalChecked());
+    if (!vars) return; // exception
+
+    RoseStringObject ret = ao->f_fmt->formatBlockNonum(
+	*(vars->asUnmanaged()), str
+	);
+    info.GetReturnValue().Set(CharTov8String(ret));
+}
+
+
+
+// string FormatComment(GenerateState, string str);
+// string FormatComment(GenerateState, string header, string str);
+NAN_METHOD(Generate::FormatComment)
+{
+    Trace t(tc, "FormatComment");
+    Generate* ao = Nan::ObjectWrap::Unwrap<Generate>(info.This());
+    if (!ao) return; // exception
+
+    if (info.Length() == 2) {
+	if (!info[1]->IsString()) return;
+    }
+    else if (info.Length() == 3) {
+	if (!info[1]->IsString()) return;
+	if (!info[2]->IsString()) return;
+    }
+    else return;
+
+    Nan::MaybeLocal<v8::Object> maybe1 = Nan::To<v8::Object>(info[0]);
+    if (maybe1.IsEmpty()) return;
+    GenerateState* vars =
+	Nan::ObjectWrap::Unwrap<GenerateState>(maybe1.ToLocalChecked());
+    if (!vars) return; // exception
+
+    if (info.Length() == 2) {
+	RoseStringObject str = v8StringToRose(info[1]);
+	RoseStringObject ret = ao->f_fmt->formatComment(
+	    *(vars->asUnmanaged()), str
+	    );
+	info.GetReturnValue().Set(CharTov8String(ret));
+    }
+    if (info.Length() == 3) {
+	RoseStringObject head = v8StringToRose(info[1]);
+	RoseStringObject str = v8StringToRose(info[2]);
+	RoseStringObject ret = ao->f_fmt->formatComment(
+	    *(vars->asUnmanaged()), head, str
+	    );
+	info.GetReturnValue().Set(CharTov8String(ret));
+    }
+}
+
+
+
+// string FormatMoveXYZ (GenerateState, Adaptive, double x,y,z);
+NAN_METHOD(Generate::FormatMoveXYZ)
+{
+    Trace t(tc, "FormatMoveXYZ");
+    Generate* ao = Nan::ObjectWrap::Unwrap<Generate>(info.This());
+    if (!ao) return; // exception
+
+    if (info.Length() != 5) return;
+
+    Nan::MaybeLocal<v8::Object> maybe1 = Nan::To<v8::Object>(info[0]);
+    Nan::MaybeLocal<v8::Object> maybe2 = Nan::To<v8::Object>(info[1]);
+    if (maybe1.IsEmpty() || maybe2.IsEmpty()) return;
+
+    GenerateState* vars =
+	Nan::ObjectWrap::Unwrap<GenerateState>(maybe1.ToLocalChecked());
+    Adaptive *ctl =
+	Nan::ObjectWrap::Unwrap<Adaptive>(maybe2.ToLocalChecked());
+    if (!vars || !ctl) return; // exception
+
+    RosePoint pt(
+	Nan::To<double>(info[2]).FromJust(),
+	Nan::To<double>(info[3]).FromJust(),
+	Nan::To<double>(info[4]).FromJust()
+	);
+
+    RoseStringObject ret = ao->f_fmt->formatMoveXYZ(
+	*(vars->asUnmanaged()), *(ctl->asUnmanaged()), pt
+	);
+
+    info.GetReturnValue().Set(CharTov8String(ret));
+}
+
+
+
+// string FormatMoveXYZ_IJK (GenerateState, Adaptive, double x,y,z, i,j,k);
+NAN_METHOD(Generate::FormatMoveXYZ_IJK)
+{
+    Trace t(tc, "FormatMoveXYZ_IJK");
+    Generate* ao = Nan::ObjectWrap::Unwrap<Generate>(info.This());
+    if (!ao) return; // exception
+
+    if (info.Length() != 8) return;
+
+    Nan::MaybeLocal<v8::Object> maybe1 = Nan::To<v8::Object>(info[0]);
+    Nan::MaybeLocal<v8::Object> maybe2 = Nan::To<v8::Object>(info[1]);
+    if (maybe1.IsEmpty() || maybe2.IsEmpty()) return;
+
+    GenerateState* vars =
+	Nan::ObjectWrap::Unwrap<GenerateState>(maybe1.ToLocalChecked());
+    Adaptive *ctl =
+	Nan::ObjectWrap::Unwrap<Adaptive>(maybe2.ToLocalChecked());
+    if (!vars || !ctl) return; // exception
+
+    RosePoint pt(
+	Nan::To<double>(info[2]).FromJust(),
+	Nan::To<double>(info[3]).FromJust(),
+	Nan::To<double>(info[4]).FromJust()
+	);
+    RoseDirection dir(
+	Nan::To<double>(info[5]).FromJust(),
+	Nan::To<double>(info[6]).FromJust(),
+	Nan::To<double>(info[7]).FromJust()
+	);
+
+    RoseStringObject ret = ao->f_fmt->formatMoveXYZ_IJK(
+	*(vars->asUnmanaged()), *(ctl->asUnmanaged()), pt, dir
+	);
+
+    info.GetReturnValue().Set(CharTov8String(ret));
+}
+
+
+
+// string FormatRapidXYZ (GenerateState, Adaptive, double x, y, z);
+NAN_METHOD(Generate::FormatRapidXYZ)
+{
+    Trace t(tc, "FormatRapidXYZ");
+    Generate* ao = Nan::ObjectWrap::Unwrap<Generate>(info.This());
+    if (!ao) return; // exception
+
+    if (info.Length() != 5) return;
+
+    Nan::MaybeLocal<v8::Object> maybe1 = Nan::To<v8::Object>(info[0]);
+    Nan::MaybeLocal<v8::Object> maybe2 = Nan::To<v8::Object>(info[1]);
+    if (maybe1.IsEmpty() || maybe2.IsEmpty()) return;
+
+    GenerateState* vars =
+	Nan::ObjectWrap::Unwrap<GenerateState>(maybe1.ToLocalChecked());
+    Adaptive *ctl =
+	Nan::ObjectWrap::Unwrap<Adaptive>(maybe2.ToLocalChecked());
+    if (!vars || !ctl) return; // exception
+
+    RosePoint pt(
+	Nan::To<double>(info[2]).FromJust(),
+	Nan::To<double>(info[3]).FromJust(),
+	Nan::To<double>(info[4]).FromJust()
+	);
+
+    RoseStringObject ret = ao->f_fmt->formatRapidXYZ(
+	*(vars->asUnmanaged()), *(ctl->asUnmanaged()), pt
+	);
+
+    info.GetReturnValue().Set(CharTov8String(ret));
+}
+
+
+// string FormatRapidXYZ_IJK (GenerateState, Adaptive, double x,y,z, i,j,k);
+NAN_METHOD(Generate::FormatRapidXYZ_IJK)
+{
+    Trace t(tc, "FormatRapidXYZ_IJK");
+    Generate* ao = Nan::ObjectWrap::Unwrap<Generate>(info.This());
+    if (!ao) return; // exception
+
+    if (info.Length() != 8) return;
+
+    Nan::MaybeLocal<v8::Object> maybe1 = Nan::To<v8::Object>(info[0]);
+    Nan::MaybeLocal<v8::Object> maybe2 = Nan::To<v8::Object>(info[1]);
+    if (maybe1.IsEmpty() || maybe2.IsEmpty()) return;
+
+    GenerateState* vars =
+	Nan::ObjectWrap::Unwrap<GenerateState>(maybe1.ToLocalChecked());
+    Adaptive *ctl =
+	Nan::ObjectWrap::Unwrap<Adaptive>(maybe2.ToLocalChecked());
+    if (!vars || !ctl) return; // exception
+
+    RosePoint pt(
+	Nan::To<double>(info[2]).FromJust(),
+	Nan::To<double>(info[3]).FromJust(),
+	Nan::To<double>(info[4]).FromJust()
+	);
+    RoseDirection dir(
+	Nan::To<double>(info[5]).FromJust(),
+	Nan::To<double>(info[6]).FromJust(),
+	Nan::To<double>(info[7]).FromJust()
+	);
+
+    RoseStringObject ret = ao->f_fmt->formatRapidXYZ_IJK(
+	*(vars->asUnmanaged()), *(ctl->asUnmanaged()), pt, dir
+	);
+
+    info.GetReturnValue().Set(CharTov8String(ret));
+}
+
+
+    // string CatSpace (string s); 
+    // string CatRequiredSpace (string s);
+
+    // string CatNumber(string s, double num);
+    // string CatNumber(string s, double num, int max_digits, int min_digits);
+
+    // string CatParam(string s, string param);
+    // string CatParam(string s, string param, double num);
+    // string CatParam(string s, string param, double num, int max, min_digits);
+
+    // bool IsFormattedNumber(double num1, double num2);
+    // bool IsFormattedNumber(double num1, double num2, int max_digits);
+
+    // bool IsFormattedXYZ(double x1, y1, z1, double x2, y2, z2);
+    // bool IsFormattedIJK(double i1, j1, k1, double i2, j2, k2);
+	
