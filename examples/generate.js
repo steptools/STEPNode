@@ -49,7 +49,7 @@ function main(argv) {
   ctl.SetWantedAll(true);
 
   gen.SetStyle("okuma");
-//  gen.SetUnitSystem(ctl);
+  gen.SetUnitSystem(ctl);
 
   while (ctl.Next() != stp.CtlEvent.DONE) {
     switch (ctl.Event())
@@ -72,6 +72,10 @@ function main(argv) {
     }
   }
 
+  // Do our own move either with separate coords, or an array
+  process.stdout.write(gen.FormatMoveXYZ(genstate,ctl,900,950,999));
+  process.stdout.write(gen.FormatMoveXYZ(genstate,ctl,[1900,1950,1999]));
+  
   return 0;
 }
 

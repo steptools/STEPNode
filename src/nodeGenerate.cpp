@@ -369,7 +369,7 @@ NAN_METHOD(Generate::FormatMoveXYZ)
     Generate* ao = Nan::ObjectWrap::Unwrap<Generate>(info.This());
     if (!ao) return; // exception
 
-    if (info.Length() != 5) return;
+    if (info.Length() < 3) return;
 
     Nan::MaybeLocal<v8::Object> maybe1 = Nan::To<v8::Object>(info[0]);
     Nan::MaybeLocal<v8::Object> maybe2 = Nan::To<v8::Object>(info[1]);
@@ -381,11 +381,22 @@ NAN_METHOD(Generate::FormatMoveXYZ)
 	Nan::ObjectWrap::Unwrap<Adaptive>(maybe2.ToLocalChecked());
     if (!vars || !ctl) return; // exception
 
-    RosePoint pt(
-	Nan::To<double>(info[2]).FromJust(),
-	Nan::To<double>(info[3]).FromJust(),
-	Nan::To<double>(info[4]).FromJust()
-	);
+    RosePoint pt;
+    if (info.Length() == 3 && info[2]->IsArray())
+    {
+	v8::Local<v8::Array> a1 = v8::Local<v8::Array>::Cast(info[2]);
+
+	pt.m[0] = Nan::To<double>(a1->Get(0)).FromJust();
+	pt.m[1] = Nan::To<double>(a1->Get(1)).FromJust();
+	pt.m[2] = Nan::To<double>(a1->Get(2)).FromJust();
+    }
+    else if (info.Length() == 5)
+    {
+	pt.m[0] = Nan::To<double>(info[2]).FromJust();
+	pt.m[1] = Nan::To<double>(info[3]).FromJust();
+	pt.m[2] = Nan::To<double>(info[4]).FromJust();
+    }
+    else return;  // unrecognized args
 
     RoseStringObject ret = ao->f_fmt->formatMoveXYZ(
 	*(vars->asUnmanaged()), *(ctl->asUnmanaged()), pt
@@ -403,7 +414,7 @@ NAN_METHOD(Generate::FormatMoveXYZ_IJK)
     Generate* ao = Nan::ObjectWrap::Unwrap<Generate>(info.This());
     if (!ao) return; // exception
 
-    if (info.Length() != 8) return;
+    if (info.Length() < 4) return;
 
     Nan::MaybeLocal<v8::Object> maybe1 = Nan::To<v8::Object>(info[0]);
     Nan::MaybeLocal<v8::Object> maybe2 = Nan::To<v8::Object>(info[1]);
@@ -415,16 +426,33 @@ NAN_METHOD(Generate::FormatMoveXYZ_IJK)
 	Nan::ObjectWrap::Unwrap<Adaptive>(maybe2.ToLocalChecked());
     if (!vars || !ctl) return; // exception
 
-    RosePoint pt(
-	Nan::To<double>(info[2]).FromJust(),
-	Nan::To<double>(info[3]).FromJust(),
-	Nan::To<double>(info[4]).FromJust()
-	);
-    RoseDirection dir(
-	Nan::To<double>(info[5]).FromJust(),
-	Nan::To<double>(info[6]).FromJust(),
-	Nan::To<double>(info[7]).FromJust()
-	);
+    RosePoint pt;
+    RoseDirection dir;
+
+    if (info.Length() == 4 && info[2]->IsArray() && info[3]->IsArray())
+    {
+	v8::Local<v8::Array> a1 = v8::Local<v8::Array>::Cast(info[2]);
+	v8::Local<v8::Array> a2 = v8::Local<v8::Array>::Cast(info[3]);
+
+	pt.m[0] = Nan::To<double>(a1->Get(0)).FromJust();
+	pt.m[1] = Nan::To<double>(a1->Get(1)).FromJust();
+	pt.m[2] = Nan::To<double>(a1->Get(2)).FromJust();
+	
+	dir.m[0] = Nan::To<double>(a2->Get(0)).FromJust();
+	dir.m[1] = Nan::To<double>(a2->Get(1)).FromJust();
+	dir.m[2] = Nan::To<double>(a2->Get(2)).FromJust();
+    }
+    else if (info.Length() == 8)
+    {
+	pt.m[0] = Nan::To<double>(info[2]).FromJust();
+	pt.m[1] = Nan::To<double>(info[3]).FromJust();
+	pt.m[2] = Nan::To<double>(info[4]).FromJust();
+	
+	dir.m[0] = Nan::To<double>(info[5]).FromJust();
+	dir.m[1] = Nan::To<double>(info[6]).FromJust();
+	dir.m[2] = Nan::To<double>(info[7]).FromJust();
+    }
+    else return;  // unrecognized args
 
     RoseStringObject ret = ao->f_fmt->formatMoveXYZ_IJK(
 	*(vars->asUnmanaged()), *(ctl->asUnmanaged()), pt, dir
@@ -442,7 +470,7 @@ NAN_METHOD(Generate::FormatRapidXYZ)
     Generate* ao = Nan::ObjectWrap::Unwrap<Generate>(info.This());
     if (!ao) return; // exception
 
-    if (info.Length() != 5) return;
+    if (info.Length() < 3) return;
 
     Nan::MaybeLocal<v8::Object> maybe1 = Nan::To<v8::Object>(info[0]);
     Nan::MaybeLocal<v8::Object> maybe2 = Nan::To<v8::Object>(info[1]);
@@ -454,11 +482,22 @@ NAN_METHOD(Generate::FormatRapidXYZ)
 	Nan::ObjectWrap::Unwrap<Adaptive>(maybe2.ToLocalChecked());
     if (!vars || !ctl) return; // exception
 
-    RosePoint pt(
-	Nan::To<double>(info[2]).FromJust(),
-	Nan::To<double>(info[3]).FromJust(),
-	Nan::To<double>(info[4]).FromJust()
-	);
+    RosePoint pt;
+    if (info.Length() == 3 && info[2]->IsArray())
+    {
+	v8::Local<v8::Array> a1 = v8::Local<v8::Array>::Cast(info[2]);
+
+	pt.m[0] = Nan::To<double>(a1->Get(0)).FromJust();
+	pt.m[1] = Nan::To<double>(a1->Get(1)).FromJust();
+	pt.m[2] = Nan::To<double>(a1->Get(2)).FromJust();
+    }
+    else if (info.Length() == 5)
+    {
+	pt.m[0] = Nan::To<double>(info[2]).FromJust();
+	pt.m[1] = Nan::To<double>(info[3]).FromJust();
+	pt.m[2] = Nan::To<double>(info[4]).FromJust();
+    }
+    else return;  // unrecognized args
 
     RoseStringObject ret = ao->f_fmt->formatRapidXYZ(
 	*(vars->asUnmanaged()), *(ctl->asUnmanaged()), pt
@@ -469,13 +508,14 @@ NAN_METHOD(Generate::FormatRapidXYZ)
 
 
 // string FormatRapidXYZ_IJK (GenerateState, Adaptive, double x,y,z, i,j,k);
+// string FormatRapidXYZ_IJK (GenerateState, Adaptive, double[3] pt, double[3]dir);
 NAN_METHOD(Generate::FormatRapidXYZ_IJK)
 {
     Trace t(tc, "FormatRapidXYZ_IJK");
     Generate* ao = Nan::ObjectWrap::Unwrap<Generate>(info.This());
     if (!ao) return; // exception
 
-    if (info.Length() != 8) return;
+    if (info.Length() < 4) return;
 
     Nan::MaybeLocal<v8::Object> maybe1 = Nan::To<v8::Object>(info[0]);
     Nan::MaybeLocal<v8::Object> maybe2 = Nan::To<v8::Object>(info[1]);
@@ -487,16 +527,33 @@ NAN_METHOD(Generate::FormatRapidXYZ_IJK)
 	Nan::ObjectWrap::Unwrap<Adaptive>(maybe2.ToLocalChecked());
     if (!vars || !ctl) return; // exception
 
-    RosePoint pt(
-	Nan::To<double>(info[2]).FromJust(),
-	Nan::To<double>(info[3]).FromJust(),
-	Nan::To<double>(info[4]).FromJust()
-	);
-    RoseDirection dir(
-	Nan::To<double>(info[5]).FromJust(),
-	Nan::To<double>(info[6]).FromJust(),
-	Nan::To<double>(info[7]).FromJust()
-	);
+    RosePoint pt;
+    RoseDirection dir;
+
+    if (info.Length() == 4 && info[2]->IsArray() && info[3]->IsArray())
+    {
+	v8::Local<v8::Array> a1 = v8::Local<v8::Array>::Cast(info[2]);
+	v8::Local<v8::Array> a2 = v8::Local<v8::Array>::Cast(info[3]);
+
+	pt.m[0] = Nan::To<double>(a1->Get(0)).FromJust();
+	pt.m[1] = Nan::To<double>(a1->Get(1)).FromJust();
+	pt.m[2] = Nan::To<double>(a1->Get(2)).FromJust();
+	
+	dir.m[0] = Nan::To<double>(a2->Get(0)).FromJust();
+	dir.m[1] = Nan::To<double>(a2->Get(1)).FromJust();
+	dir.m[2] = Nan::To<double>(a2->Get(2)).FromJust();
+    }
+    else if (info.Length() == 8)
+    {
+	pt.m[0] = Nan::To<double>(info[2]).FromJust();
+	pt.m[1] = Nan::To<double>(info[3]).FromJust();
+	pt.m[2] = Nan::To<double>(info[4]).FromJust();
+	
+	dir.m[0] = Nan::To<double>(info[5]).FromJust();
+	dir.m[1] = Nan::To<double>(info[6]).FromJust();
+	dir.m[2] = Nan::To<double>(info[7]).FromJust();
+    }
+    else return;  // unrecognized args
 
     RoseStringObject ret = ao->f_fmt->formatRapidXYZ_IJK(
 	*(vars->asUnmanaged()), *(ctl->asUnmanaged()), pt, dir
@@ -636,48 +693,81 @@ NAN_METHOD(Generate::IsFormattedNumber)
 
 
 // bool IsFormattedXYZ(double x1, y1, z1, double x2, y2, z2);
+// bool IsFormattedXYZ(double[3] val1, double[3] val2);
 NAN_METHOD(Generate::IsFormattedXYZ)
 {
     Trace t(tc, "IsFormattedXYZ");
     Generate* ao = Nan::ObjectWrap::Unwrap<Generate>(info.This());
     if (!ao) return; // exception
 
-    if (info.Length() != 6) return;
-    double x1 = Nan::To<double>(info[0]).FromJust();
-    double y1 = Nan::To<double>(info[1]).FromJust();
-    double z1 = Nan::To<double>(info[2]).FromJust();
-    double x2 = Nan::To<double>(info[3]).FromJust();
-    double y2 = Nan::To<double>(info[4]).FromJust();
-    double z2 = Nan::To<double>(info[5]).FromJust();
-    info.GetReturnValue().Set(
-	ao-> f_fmt->isFormattedXYZ(
-	    RosePoint(x1,y1,z1), RosePoint(x2,y2,z2)
-	    ) != 0
-	);
+    RosePoint pt1, pt2;
+
+    if (info.Length() == 2 && info[0]->IsArray() && info[1]->IsArray())
+    {
+	v8::Local<v8::Array> a1 = v8::Local<v8::Array>::Cast(info[0]);
+	v8::Local<v8::Array> a2 = v8::Local<v8::Array>::Cast(info[1]);
+
+	pt1.m[0] = Nan::To<double>(a1->Get(0)).FromJust();
+	pt1.m[1] = Nan::To<double>(a1->Get(1)).FromJust();
+	pt1.m[2] = Nan::To<double>(a1->Get(2)).FromJust();
+	
+	pt2.m[0] = Nan::To<double>(a2->Get(0)).FromJust();
+	pt2.m[1] = Nan::To<double>(a2->Get(1)).FromJust();
+	pt2.m[2] = Nan::To<double>(a2->Get(2)).FromJust();
+    }
+    else if (info.Length() == 6)
+    {
+	pt1.m[0] = Nan::To<double>(info[0]).FromJust();
+	pt1.m[1] = Nan::To<double>(info[1]).FromJust();
+	pt1.m[2] = Nan::To<double>(info[2]).FromJust();
+	
+	pt2.m[0] = Nan::To<double>(info[3]).FromJust();
+	pt2.m[1] = Nan::To<double>(info[4]).FromJust();
+	pt2.m[2] = Nan::To<double>(info[5]).FromJust();
+    }
+    else return;  // unrecognized args
+
+    info.GetReturnValue().Set(ao-> f_fmt->isFormattedXYZ(pt1,pt2) != 0);
 }
 
 
 
 
 // bool IsFormattedIJK(double i1, j1, k1, double i2, j2, k2);
+// bool IsFormattedIJK(double[3] val1, double[3] val2);
 NAN_METHOD(Generate::IsFormattedIJK)
 {
     Trace t(tc, "IsFormattedIJK");
     Generate* ao = Nan::ObjectWrap::Unwrap<Generate>(info.This());
     if (!ao) return; // exception
+    RoseDirection dir1, dir2;
 
-    if (info.Length() != 6) return;
-    double i1 = Nan::To<double>(info[0]).FromJust();
-    double j1 = Nan::To<double>(info[1]).FromJust();
-    double k1 = Nan::To<double>(info[2]).FromJust();
-    double i2 = Nan::To<double>(info[3]).FromJust();
-    double j2 = Nan::To<double>(info[4]).FromJust();
-    double k2 = Nan::To<double>(info[5]).FromJust();
-    info.GetReturnValue().Set(
-	ao-> f_fmt->isFormattedIJK(
-	    RoseDirection(i1,j1,k1), RoseDirection(i2,j2,k2)
-	    ) != 0
-	);
+    if (info.Length() == 2 && info[0]->IsArray() && info[1]->IsArray())
+    {
+	v8::Local<v8::Array> a1 = v8::Local<v8::Array>::Cast(info[0]);
+	v8::Local<v8::Array> a2 = v8::Local<v8::Array>::Cast(info[1]);
+
+	dir1.m[0] = Nan::To<double>(a1->Get(0)).FromJust();
+	dir1.m[1] = Nan::To<double>(a1->Get(1)).FromJust();
+	dir1.m[2] = Nan::To<double>(a1->Get(2)).FromJust();
+	
+	dir2.m[0] = Nan::To<double>(a2->Get(0)).FromJust();
+	dir2.m[1] = Nan::To<double>(a2->Get(1)).FromJust();
+	dir2.m[2] = Nan::To<double>(a2->Get(2)).FromJust();
+    }
+    else if (info.Length() == 6)
+    {
+	dir1.m[0] = Nan::To<double>(info[0]).FromJust();
+	dir1.m[1] = Nan::To<double>(info[1]).FromJust();
+	dir1.m[2] = Nan::To<double>(info[2]).FromJust();
+	
+	dir2.m[0] = Nan::To<double>(info[3]).FromJust();
+	dir2.m[1] = Nan::To<double>(info[4]).FromJust();
+	dir2.m[2] = Nan::To<double>(info[5]).FromJust();
+    }
+    else return;  // unrecognized args
+
+    info.GetReturnValue().Set(ao-> f_fmt->isFormattedIJK(dir1, dir2) != 0);
 }
 	
 
@@ -888,21 +978,33 @@ NAN_METHOD(Generate::GetOutArcAxis)
 }
 
 // double[3] GetOutXformedPoint (double in_x, double in_y, double in_z);
+// double[3] GetOutXformedPoint (double[3] in);
 NAN_METHOD(Generate::GetOutXformedPoint)
 {
     Trace t(tc, "GetOutXformedPoint");
     Generate* ao = Nan::ObjectWrap::Unwrap<Generate>(info.This());
     if (!ao) return; // exception
-
-    if (info.Length() != 3) return;
     double vals[3], in[3];
-    in[0] = Nan::To<double>(info[0]).FromJust(); 
-    in[1] = Nan::To<double>(info[1]).FromJust();
-    in[2] = Nan::To<double>(info[2]).FromJust();
-    
+
+    if (info.Length() == 1 && info[0]->IsArray())
+    {
+	v8::Local<v8::Array> arr = v8::Local<v8::Array>::Cast(info[0]);
+	if (arr->Length() != 3) return;
+	in[0] = Nan::To<double>(arr->Get(0)).FromJust();
+	in[1] = Nan::To<double>(arr->Get(1)).FromJust();
+	in[2] = Nan::To<double>(arr->Get(2)).FromJust();
+    }
+    else if (info.Length() == 3)
+    {
+	in[0] = Nan::To<double>(info[0]).FromJust(); 
+	in[1] = Nan::To<double>(info[1]).FromJust();
+	in[2] = Nan::To<double>(info[2]).FromJust();
+    }
+    else return;  // unrecognized args
+
     ao-> f_fmt->getOutXformedPoint(vals, in);
-    
     v8::Local<v8::Array> ret = Nan::New<v8::Array>(3);
+
     ret->Set(0, Nan::New(vals[0]));
     ret->Set(1, Nan::New(vals[1]));
     ret->Set(2, Nan::New(vals[2]));
@@ -911,17 +1013,29 @@ NAN_METHOD(Generate::GetOutXformedPoint)
 
 
 // double[3] GetOutXformedDir(double in_i, double in_j, double in_k);
+// double[3] GetOutXformedDir(double[3] in);
 NAN_METHOD(Generate::GetOutXformedDir)
 {
     Trace t(tc, "GetOutXformedDir");
     Generate* ao = Nan::ObjectWrap::Unwrap<Generate>(info.This());
     if (!ao) return; // exception
-
-    if (info.Length() != 3) return;
     double vals[3], in[3];
-    in[0] = Nan::To<double>(info[0]).FromJust(); 
-    in[1] = Nan::To<double>(info[1]).FromJust();
-    in[2] = Nan::To<double>(info[2]).FromJust();
+
+    if (info.Length() == 1 && info[0]->IsArray())
+    {
+	v8::Local<v8::Array> arr = v8::Local<v8::Array>::Cast(info[0]);
+	if (arr->Length() != 3) return;
+	in[0] = Nan::To<double>(arr->Get(0)).FromJust();
+	in[1] = Nan::To<double>(arr->Get(1)).FromJust();
+	in[2] = Nan::To<double>(arr->Get(2)).FromJust();
+    }
+    else if (info.Length() == 3)
+    {
+	in[0] = Nan::To<double>(info[0]).FromJust(); 
+	in[1] = Nan::To<double>(info[1]).FromJust();
+	in[2] = Nan::To<double>(info[2]).FromJust();
+    }
+    else return;  // unrecognized args
     
     ao-> f_fmt->getOutXformedDir(vals, in);
     
@@ -1226,12 +1340,6 @@ NAN_METHOD(Generate::SetDstXform)
     if (!ao) return; // exception
     if (info.Length() != 1) return;
     if (!info[0]->IsArray()) return;
-
-    // Nan::MaybeLocal<v8::Object> maybe1 = Nan::To<v8::Object>(info[0]);
-    // if (maybe1.IsEmpty()) return;
-    
-    // v8::Local<v8::Array> xf = maybe1.ToLocalChecked().As<v8::Array>();
-    // if (xf->Length() != 16) return;
 
     v8::Local<v8::Array> xf = v8::Local<v8::Array>::Cast(info[0]);
     if (xf->Length() != 16) return;
