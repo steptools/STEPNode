@@ -180,6 +180,15 @@ public:
     //string GetUUID(int EID)
     static NAN_METHOD(GetUUID);
 
+    // void ImportFaunc(string fname)
+    static NAN_METHOD(ImportFanuc);
+
+    // void ImportHaas(string fname)
+    static NAN_METHOD(ImportHaas);
+    
+    // void ImportSiemens(string fname)
+    static NAN_METHOD(ImportSiemens);
+
     // void Inches()
     static NAN_METHOD(Inches);
 

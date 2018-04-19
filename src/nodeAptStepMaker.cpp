@@ -110,6 +110,9 @@ NAN_MODULE_INIT(AptStepMaker::Init)
     Nan::SetPrototypeMethod(tpl, "GoToXYZ_IJK", GoToXYZ_IJK);
     Nan::SetPrototypeMethod(tpl, "GoToXYZ_IJK_ABC", GoToXYZ_IJK_ABC);
     Nan::SetPrototypeMethod(tpl, "GoToXYZ_IJK_REF_ABC", GoToXYZ_IJK_REF_ABC);
+    Nan::SetPrototypeMethod(tpl, "ImportFanuc", ImportFanuc);
+    Nan::SetPrototypeMethod(tpl, "ImportHaas", ImportHaas);
+    Nan::SetPrototypeMethod(tpl, "ImportSiemens", ImportSiemens);
     Nan::SetPrototypeMethod(tpl, "Inches", Inches);
     Nan::SetPrototypeMethod(tpl, "IsToolDefined", IsToolDefined);
     Nan::SetPrototypeMethod(tpl, "LoadTool", LoadTool);
@@ -1179,6 +1182,44 @@ NAN_METHOD(AptStepMaker::GoToXYZ_IJK_REF_ABC)
     }
 }
 
+NAN_METHOD(AptStepMaker::ImportFanuc) 
+{
+    Trace t(tc, "ImportFanuc");
+    AptStepMaker* apt = Nan::ObjectWrap::Unwrap<AptStepMaker>(info.This());
+    if (!apt) return;
+    if (info.Length() != 1) return;
+    if (!info[0]->IsString()) return;
+
+    char * fname = 0;
+    v8StringToChar(info[0],fname);
+    int rtn = apt->_apt->read_fanuc_gcode_file(fname);
+}
+
+NAN_METHOD(AptStepMaker::ImportHaas) 
+{
+    Trace t(tc, "ImportFanuc");
+    AptStepMaker* apt = Nan::ObjectWrap::Unwrap<AptStepMaker>(info.This());
+    if (!apt) return;
+    if (info.Length() != 1) return;
+    if (!info[0]->IsString()) return;
+
+    char * fname = 0;
+    v8StringToChar(info[0],fname);
+    int rtn = apt->_apt->read_haas_gcode_file(fname);
+}
+
+NAN_METHOD(AptStepMaker::ImportSiemens) 
+{
+    Trace t(tc, "ImportFanuc");
+    AptStepMaker* apt = Nan::ObjectWrap::Unwrap<AptStepMaker>(info.This());
+    if (!apt) return;
+    if (info.Length() != 1) return;
+    if (!info[0]->IsString()) return;
+
+    char * fname = 0;
+    v8StringToChar(info[0],fname);
+    int rtn = apt->_apt->read_siemens_gcode_file(fname);
+}
 
 NAN_METHOD(AptStepMaker::Inches)
 {
