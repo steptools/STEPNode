@@ -71,6 +71,7 @@ NAN_MODULE_INIT(AptStepMaker::Init)
     Nan::SetPrototypeMethod(tpl, "CoolantOn", CoolantOn);
     Nan::SetPrototypeMethod(tpl, "CoolantThru", CoolantThru);
     Nan::SetPrototypeMethod(tpl, "DefineTool", DefineTool);
+    Nan::SetPrototypeMethod(tpl, "DefineToolEndmill", DefineToolEndmill);
     Nan::SetPrototypeMethod(tpl, "ExecutableToSelective", ExecutableToSelective);
     Nan::SetPrototypeMethod(tpl, "ExecutableWorkpieceAsIs", ExecutableWorkpieceAsIs);
     Nan::SetPrototypeMethod(tpl, "ExecutableWorkpieceRemoval", ExecutableWorkpieceRemoval);
@@ -348,6 +349,34 @@ NAN_METHOD(AptStepMaker::DefineTool)
 	horizontal_distance, vertical_distance,
 	unused, angle, height
 	);
+    
+    if (!ok) {
+	THROW_ERROR(t);
+    }
+}
+
+NAN_METHOD(AptStepMaker::DefineToolEndmill)
+{
+    Trace t(tc, "DefineToolEndmill");
+    AptStepMaker* apt = Nan::ObjectWrap::Unwrap<AptStepMaker>(info.This());
+    if (!apt) return;
+
+    if (info.Length()<6) return;
+    double diameter = Nan::To<double>(info[0]).FromJust();
+    double overallLength   = Nan::To<double>(info[1]).FromJust();
+    double functionalLength   = Nan::To<double>(info[2]).FromJust();
+    double maxDOC  = Nan::To<double>(info[3]).FromJust();
+    double fluteCt   = Nan::To<double>(info[4]).FromJust();
+    double taperAngle   = Nan::To<double>(info[5]).FromJust();
+    
+    int ok = apt->_apt->tool_endmill(
+      diameter,
+      overallLength,
+      functionalLength,
+      maxDOC,
+      fluteCt,
+      taperAngle
+    );
     
     if (!ok) {
 	THROW_ERROR(t);

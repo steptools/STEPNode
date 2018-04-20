@@ -66,6 +66,16 @@ public:
     // 	)
     static NAN_METHOD(DefineTool);
 
+    // void DefineToolEndmill(
+    //  double diameter
+    //  double overallAssemblyLength
+    //  double functionalLength
+    //  double maxDepthOfCut
+    //  double fluteCt
+    //  double taperAngle
+    //  )
+    static NAN_METHOD(DefineToolEndmill);
+
     // void ExecutableToSelective(int id)
     static NAN_METHOD(ExecutableToSelective);
 
