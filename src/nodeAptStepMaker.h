@@ -206,6 +206,8 @@ public:
     // void Millimeters()
     static NAN_METHOD(Millimeters);
 
+    // void NestWorkplan(string plan_name)
+    static NAN_METHOD(NestWorkplan);
     // void NewProject(string project_name)
     static NAN_METHOD(NewProject);
 

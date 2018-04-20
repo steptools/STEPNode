@@ -119,6 +119,7 @@ NAN_MODULE_INIT(AptStepMaker::Init)
     Nan::SetPrototypeMethod(tpl, "LoadTool", LoadTool);
     Nan::SetPrototypeMethod(tpl, "MakeRawBox", MakeRawBox);
     Nan::SetPrototypeMethod(tpl, "Millimeters", Millimeters);
+    Nan::SetPrototypeMethod(tpl, "NestWorkplan", NestWorkplan);
     Nan::SetPrototypeMethod(tpl, "NewProject", NewProject);
     Nan::SetPrototypeMethod(tpl, "OpenProject", OpenProject);
     Nan::SetPrototypeMethod(tpl, "OpenSTEP", OpenSTEP);
@@ -1314,6 +1315,24 @@ NAN_METHOD(AptStepMaker::Millimeters)
 }
 
 
+NAN_METHOD(AptStepMaker::NestWorkplan)
+{
+    Trace t(tc, "NewProject");
+    AptStepMaker* apt = Nan::ObjectWrap::Unwrap<AptStepMaker>(info.This());
+    if (!apt) return;
+    
+    if (info.Length() != 1) return;
+    if (!info[0]->IsString()) return;
+
+    char * fname = 0;
+    v8StringToChar(info[0], fname);
+    int ok = apt->_apt->nest_workplan(fname);
+    delete [] fname;
+
+    if (!ok) {
+	THROW_ERROR(t);
+    }
+}
 
 NAN_METHOD(AptStepMaker::NewProject)
 {
