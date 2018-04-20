@@ -78,6 +78,7 @@ NAN_MODULE_INIT(AptStepMaker::Init)
     Nan::SetPrototypeMethod(tpl, "ExecutableWorkpieceReuseRemoval", ExecutableWorkpieceReuseRemoval);
     Nan::SetPrototypeMethod(tpl, "ExecutableWorkpieceReuseToBe", ExecutableWorkpieceReuseToBe);
     Nan::SetPrototypeMethod(tpl, "ExecutableWorkpieceToBe", ExecutableWorkpieceToBe);
+    Nan::SetPrototypeMethod(tpl, "EndWorkplan", EndWorkplan);
     Nan::SetPrototypeMethod(tpl, "Feedrate", Feedrate);
     Nan::SetPrototypeMethod(tpl, "FeedrateUnit", FeedrateUnit);
     Nan::SetPrototypeMethod(tpl, "Fixture", Fixture);
@@ -497,7 +498,16 @@ NAN_METHOD(AptStepMaker::ExecutableWorkpieceToBe)
 	THROW_ERROR(t);
     }
 }
+NAN_METHOD(AptStepMaker::EndWorkplan)
+{
+    Trace t(tc, "EndWorkplan");
+    AptStepMaker* apt = Nan::ObjectWrap::Unwrap<AptStepMaker>(info.This());
+    if (!apt) return;
 
+    if (info.Length() > 0) return;
+
+    apt->_apt->end_workplan();
+}
 
 // void Feedrate (double feed)
 NAN_METHOD(AptStepMaker::Feedrate)

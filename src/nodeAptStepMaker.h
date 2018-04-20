@@ -83,6 +83,8 @@ public:
     // void ExecutableWorkpieceToBe(int id, string filename)
     static NAN_METHOD(ExecutableWorkpieceToBe);
     
+    // void EndWorkplan()
+    static NAN_METHOD(EndWorkplan);
     // void Feedrate (double feed)
     static NAN_METHOD(Feedrate);
 
