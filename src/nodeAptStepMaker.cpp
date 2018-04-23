@@ -72,6 +72,7 @@ NAN_MODULE_INIT(AptStepMaker::Init)
     Nan::SetPrototypeMethod(tpl, "CoolantThru", CoolantThru);
     Nan::SetPrototypeMethod(tpl, "DefineTool", DefineTool);
     Nan::SetPrototypeMethod(tpl, "DefineToolEndmill", DefineToolEndmill);
+    Nan::SetPrototypeMethod(tpl, "DefineToolRadius", DefineToolRadius);
     Nan::SetPrototypeMethod(tpl, "ExecutableToSelective", ExecutableToSelective);
     Nan::SetPrototypeMethod(tpl, "ExecutableWorkpieceAsIs", ExecutableWorkpieceAsIs);
     Nan::SetPrototypeMethod(tpl, "ExecutableWorkpieceRemoval", ExecutableWorkpieceRemoval);
@@ -350,6 +351,23 @@ NAN_METHOD(AptStepMaker::DefineTool)
 	unused, angle, height
 	);
     
+    if (!ok) {
+	THROW_ERROR(t);
+    }
+}
+
+// void DefineToolRadius(double radius)
+NAN_METHOD(AptStepMaker::DefineToolRadius)
+{
+    Trace t(tc, "DefineToolRadius");
+    AptStepMaker* apt = Nan::ObjectWrap::Unwrap<AptStepMaker>(info.This());
+    if (!apt) return;
+
+    if (info.Length() != 1) return;
+    if (!info[0]->IsNumber()) return;
+
+    double radius = Nan::To<double>(info[0]).FromJust(); 
+    int ok = apt->_apt->tool_radius(radius);
     if (!ok) {
 	THROW_ERROR(t);
     }

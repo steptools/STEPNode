@@ -76,6 +76,9 @@ public:
     //  )
     static NAN_METHOD(DefineToolEndmill);
 
+    // void DefineToolRadius(double radius)
+    static NAN_METHOD(DefineToolRadius);
+
     // void ExecutableToSelective(int id)
     static NAN_METHOD(ExecutableToSelective);
 
