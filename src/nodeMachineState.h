@@ -46,6 +46,10 @@ public:
     //void WorkingstepTransitionDisableToolMove();
     static NAN_METHOD(WorkingstepTransitionDisableToolMove);
 
+    //void FirstWS();
+    static NAN_METHOD(FirstWS);
+    //void LastWS();
+    static NAN_METHOD(LastWS);
     //void nextWS();
     static NAN_METHOD(NextWS);
 

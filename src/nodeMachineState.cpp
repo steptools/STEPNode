@@ -431,6 +431,28 @@ NAN_METHOD(machineState::GetEIDfromUUID)
     delete [] uuid;
 }
 
+NAN_METHOD(machineState::FirstWS) 
+{
+    machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
+    if (!ms || !(ms->_ms)) return;
+    if (!info[0]->IsUndefined()) return; //This function takes no arguments.
+    v8::Local<v8::Promise::Resolver> localpmise = v8::Promise::Resolver::New(info.GetIsolate());
+    auto globalpmise = new Nan::Global<v8::Promise::Resolver>(localpmise);
+    globalpmise->Reset(localpmise);
+    ms->_ms->GoToFirstWS((globalpmise));
+    info.GetReturnValue().Set(localpmise->GetPromise());
+}
+NAN_METHOD(machineState::LastWS)
+{
+    machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
+    if (!ms || !(ms->_ms)) return;
+    if (!info[0]->IsUndefined()) return; //This function takes no arguments.
+    v8::Local<v8::Promise::Resolver> localpmise = v8::Promise::Resolver::New(info.GetIsolate());
+    auto globalpmise = new Nan::Global<v8::Promise::Resolver>(localpmise);
+    globalpmise->Reset(localpmise);
+    ms->_ms->GoToLastWS((globalpmise));
+    info.GetReturnValue().Set(localpmise->GetPromise());
+}
 NAN_METHOD(machineState::NextWS)
 {
     machineState * ms = Nan::ObjectWrap::Unwrap<machineState>(info.This());
@@ -688,6 +710,8 @@ NAN_MODULE_INIT(machineState::Init)
     Nan::SetPrototypeMethod(tpl, "GetKeyStateJSON", GetKeyStateJSON);
     Nan::SetPrototypeMethod(tpl, "GoToWS", GoToWS);
     Nan::SetPrototypeMethod(tpl, "GetEIDfromUUID", GetEIDfromUUID);
+    Nan::SetPrototypeMethod(tpl, "FirstWS", FirstWS);
+    Nan::SetPrototypeMethod(tpl, "LastWS", LastWS);
     Nan::SetPrototypeMethod(tpl, "NextWS", NextWS);
     Nan::SetPrototypeMethod(tpl, "PrevWS", PrevWS);
     Nan::SetPrototypeMethod(tpl, "GetPrevWSID", GetPrevWSID);
