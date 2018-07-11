@@ -22,21 +22,6 @@
 #include "nodeUtils.h"
 #include <stp_schema.h>
 
-StixSimGeomType GeomTypeFromString(char* typ)
-{
-    if (!strcmp(typ, "MESH"))
-    {
-	return STIXSIM_GT_MESH;
-    }
-    if (!strcmp(typ, "POLYLINE"))
-    {
-	return STIXSIM_GT_POLYLINE;
-    }
-    else
-    {
-	return STIXSIM_GT_NULL;
-    }
-}
 v8::Local<v8::Object> makeProbeResult(double probe_contact_pt[3], double probe_loc[3]) {
     v8::Local<v8::Object> proberesult = Nan::New<v8::Object>();
     v8::Local<v8::Array> contact = Nan::New<v8::Array>();
