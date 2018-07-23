@@ -66,6 +66,7 @@ NAN_MODULE_INIT(Tolerance::Init)
     Nan::SetPrototypeMethod(tpl, "GetWorkpieceOfTolerance", GetWorkpieceOfTolerance);
     Nan::SetPrototypeMethod(tpl, "GetWorkpieceToleranceAll", GetWorkpieceToleranceAll);
     Nan::SetPrototypeMethod(tpl, "NavigateToleranceToWorkingstepAll", NavigateToleranceToWorkingstepAll);
+    Nan::SetPrototypeMethod(tpl, "ReportProbeResult", ReportProbeResult);
     Nan::SetPrototypeMethod(tpl, "ResetAllToleranceMeasuredValue", ResetAllToleranceMeasuredValue);
     Nan::SetPrototypeMethod(tpl, "SetToleranceMeasuredValue", SetToleranceMeasuredValue);
     Nan::SetPrototypeMethod(tpl, "WorkpiecePlacementUsingFaces", WorkpiecePlacementUsingFaces);
@@ -536,6 +537,34 @@ NAN_METHOD(Tolerance::NavigateToleranceToWorkingstepAll) {
 	info.GetReturnValue().Set(rtnarray);
 	return;
 }
+
+NAN_METHOD(Tolerance::ReportProbeResult) {
+    Tolerance * tol = Nan::ObjectWrap::Unwrap<Tolerance>(info.This());
+    if (tol == 0) //Throw Exception
+		return;
+    if (info.Length() != 6) //Throw Exception
+		return;
+    if (!info[0]->IsString() 
+		|| !info[1]->IsNumber() 
+		|| !info[2]->IsNumber() 
+		|| !info[3]->IsNumber() 
+		|| !info[4]->IsNumber() 
+		|| !info[5]->IsNumber()
+	)
+		return;
+	char * feat_uuid;
+	v8StringToChar(info[0], feat_uuid);
+	Nan::Maybe<int32_t> order = Nan::To<int32_t>(info[1]);
+	Nan::Maybe<int32_t> count = Nan::To<int32_t>(info[2]);
+	Nan::Maybe<double> x = Nan::To<double>(info[3]);
+	Nan::Maybe<double> y = Nan::To<double>(info[3]);
+	Nan::Maybe<double> z = Nan::To<double>(info[3]);
+	int rtn;
+	tol->_tol->mtconnect_report_probe_result(feat_uuid, order.FromJust(), count.FromJust(), x.FromJust(), y.FromJust(), z.FromJust(), rtn);
+	delete[] feat_uuid;
+	info.GetReturnValue().Set(rtn);
+}
+
 NAN_METHOD(Tolerance::ResetAllToleranceMeasuredValue) {
     Tolerance * tol = Nan::ObjectWrap::Unwrap<Tolerance>(info.This());
     if (tol == 0) //Throw Exception
