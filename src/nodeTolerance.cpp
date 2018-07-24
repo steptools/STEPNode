@@ -557,8 +557,8 @@ NAN_METHOD(Tolerance::ReportProbeResult) {
 	Nan::Maybe<int32_t> order = Nan::To<int32_t>(info[1]);
 	Nan::Maybe<int32_t> count = Nan::To<int32_t>(info[2]);
 	Nan::Maybe<double> x = Nan::To<double>(info[3]);
-	Nan::Maybe<double> y = Nan::To<double>(info[3]);
-	Nan::Maybe<double> z = Nan::To<double>(info[3]);
+	Nan::Maybe<double> y = Nan::To<double>(info[4]);
+	Nan::Maybe<double> z = Nan::To<double>(info[5]);
 	int rtn;
 	tol->_tol->mtconnect_report_probe_result(feat_uuid, order.FromJust(), count.FromJust(), x.FromJust(), y.FromJust(), z.FromJust(), rtn);
 	delete[] feat_uuid;
