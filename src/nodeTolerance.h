@@ -99,6 +99,9 @@ public:
 	//int[] NavigateToleranceToWorkingstepAll(int TolId)
 	static NAN_METHOD(NavigateToleranceToWorkingstepAll);
 
+    //int ReportProbeResult(string feature_uuid, int order, int count, double x, double y, double z)
+    static NAN_METHOD(ReportProbeResult);
+
     //void ResetAllToleranceMeasuredValue()
     static NAN_METHOD(ResetAllToleranceMeasuredValue);
 
