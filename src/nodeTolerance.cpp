@@ -590,7 +590,7 @@ NAN_METHOD(Tolerance::SetToleranceMeasuredValue){
     char * uuid;
     v8StringToChar(info[0], uuid);
     Nan::Maybe<double> value = Nan::To<double>(info[1]);
-    tol->_tol->set_tolerance_current_value(uuid,value.FromJust());
+    tol->_tol->set_tolerance_measured_value(uuid,value.FromJust());
     delete [] uuid;
 }
 
