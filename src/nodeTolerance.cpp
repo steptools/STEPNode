@@ -55,6 +55,7 @@ NAN_MODULE_INIT(Tolerance::Init)
     Nan::SetPrototypeMethod(tpl, "GetToleranceAll", GetToleranceAll);
     Nan::SetPrototypeMethod(tpl, "GetToleranceDatumAll", GetToleranceDatumAll);
     Nan::SetPrototypeMethod(tpl, "GetToleranceFaceAll", GetToleranceFaceAll);
+    Nan::SetPrototypeMethod(tpl, "GetToleranceMeasuredAll", GetToleranceMeasuredAll);
     Nan::SetPrototypeMethod(tpl, "GetToleranceModifierAll", GetToleranceModifierAll);
     Nan::SetPrototypeMethod(tpl, "GetTolerancePlusMinus", GetTolerancePlusMinus);
     Nan::SetPrototypeMethod(tpl, "GetToleranceStatus", GetToleranceStatus);
@@ -279,6 +280,28 @@ NAN_METHOD(Tolerance::GetToleranceFaceAll) {
                 array->Set(i,Nan::New(face_id));
             }
         }
+    }
+
+    info.GetReturnValue().Set(array);
+    return;
+}
+
+NAN_METHOD(Tolerance::GetToleranceMeasuredAll) {
+    Tolerance * tol = Nan::ObjectWrap::Unwrap<Tolerance>(info.This());
+    if (tol == 0) //Throw Exception
+	return;
+    if (info.Length() != 0) //Throw Exception
+	return;
+
+    int size = 0;
+	rose_uint_vector tols;
+    if (!tol->_tol->tolerance_measured_all(tols)) //Throw Exception
+	return;
+
+    // Create a new empty array.
+    v8::Local<v8::Array> array = Nan::New<v8::Array>();
+	for (unsigned i = 0,sz=tols.size(); i <sz ; i++) {
+                array->Set(i,Nan::New(tols[i]));
     }
 
     info.GetReturnValue().Set(array);

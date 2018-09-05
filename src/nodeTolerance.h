@@ -66,6 +66,9 @@ public:
     // int[] GetToleranceFaceAll()
     static NAN_METHOD(GetToleranceFaceAll);
 
+	// int[] GetToleranceMeasuredAll()
+    static NAN_METHOD(GetToleranceMeasuredAll);
+
     // char[] GetToleranceModifierAll()
     static NAN_METHOD(GetToleranceModifierAll);
 
