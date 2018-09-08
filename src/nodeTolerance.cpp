@@ -56,7 +56,7 @@ NAN_MODULE_INIT(Tolerance::Init)
     Nan::SetPrototypeMethod(tpl, "GetToleranceDatumAll", GetToleranceDatumAll);
     Nan::SetPrototypeMethod(tpl, "GetToleranceFaceAll", GetToleranceFaceAll);
     Nan::SetPrototypeMethod(tpl, "GetToleranceMeasuredAll", GetToleranceMeasuredAll);
-    Nan::SetPrototypeMethod(tpl, "GetToleranceMeasuredVaule", GetToleranceMeasuredValue);
+    Nan::SetPrototypeMethod(tpl, "GetToleranceMeasuredValue", GetToleranceMeasuredValue);
     Nan::SetPrototypeMethod(tpl, "GetToleranceMeasuredLowerUpperValue", GetToleranceMeasuredLowerUpperValue);
     Nan::SetPrototypeMethod(tpl, "GetToleranceModifierAll", GetToleranceModifierAll);
     Nan::SetPrototypeMethod(tpl, "GetTolerancePlusMinus", GetTolerancePlusMinus);
