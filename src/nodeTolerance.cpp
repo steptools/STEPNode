@@ -325,8 +325,8 @@ NAN_METHOD(Tolerance::GetToleranceMeasuredValue) {
 	double rtn = 0.0;
     if (!tol->_tol->tolerance_measured_value(tol_id.FromJust(), dummy,rtn)) //Throw Exception
 		return;
-
-	info.GetReturnValue().Set(rtn);
+	if (rtn != ROSE_NULL_REAL)
+		info.GetReturnValue().Set(rtn);
 	return;
 }
 
