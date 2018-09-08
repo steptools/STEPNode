@@ -56,6 +56,8 @@ NAN_MODULE_INIT(Tolerance::Init)
     Nan::SetPrototypeMethod(tpl, "GetToleranceDatumAll", GetToleranceDatumAll);
     Nan::SetPrototypeMethod(tpl, "GetToleranceFaceAll", GetToleranceFaceAll);
     Nan::SetPrototypeMethod(tpl, "GetToleranceMeasuredAll", GetToleranceMeasuredAll);
+    Nan::SetPrototypeMethod(tpl, "GetToleranceMeasuredVaule", GetToleranceMeasuredValue);
+    Nan::SetPrototypeMethod(tpl, "GetToleranceMeasuredLowerUpperValue", GetToleranceMeasuredLowerUpperValue);
     Nan::SetPrototypeMethod(tpl, "GetToleranceModifierAll", GetToleranceModifierAll);
     Nan::SetPrototypeMethod(tpl, "GetTolerancePlusMinus", GetTolerancePlusMinus);
     Nan::SetPrototypeMethod(tpl, "GetToleranceStatus", GetToleranceStatus);
@@ -306,6 +308,50 @@ NAN_METHOD(Tolerance::GetToleranceMeasuredAll) {
 
     info.GetReturnValue().Set(array);
     return;
+}
+
+NAN_METHOD(Tolerance::GetToleranceMeasuredValue) {
+    Tolerance * tol = Nan::ObjectWrap::Unwrap<Tolerance>(info.This());
+    if (tol == 0) //Throw Exception
+	return;
+    if (info.Length() != 1) //Throw Exception
+	return;
+
+    if (!info[0]->IsNumber()) // throw exception
+	return;
+
+    Nan::Maybe<int32_t> tol_id = Nan::To<int32_t>(info[0]);
+	double dummy = 0.0;
+	double rtn = 0.0;
+    if (!tol->_tol->tolerance_measured_value(tol_id.FromJust(), dummy,rtn)) //Throw Exception
+		return;
+
+	info.GetReturnValue().Set(rtn);
+	return;
+}
+
+NAN_METHOD(Tolerance::GetToleranceMeasuredLowerUpperValue) {
+    Tolerance * tol = Nan::ObjectWrap::Unwrap<Tolerance>(info.This());
+    if (tol == 0) //Throw Exception
+	return;
+    if (info.Length() != 1) //Throw Exception
+	return;
+
+    if (!info[0]->IsNumber()) // throw exception
+	return;
+
+    Nan::Maybe<int32_t> tol_id = Nan::To<int32_t>(info[0]);
+
+	double dummy = 0.0;
+	double lower = 0.0;
+	double upper = 0.0;
+    if (!tol->_tol->tolerance_measured_lower_and_upper_value(tol_id.FromJust(), dummy,lower,upper)) //Throw Exception
+		return;
+    v8::Local<v8::Object> jsonReturn = Nan::New<v8::Object>();
+    Nan::Set(jsonReturn, CharTov8String("lower"), Nan::New(lower));
+    Nan::Set(jsonReturn, CharTov8String("upper"), Nan::New(upper));
+	info.GetReturnValue().Set(jsonReturn);
+	return;
 }
 
 NAN_METHOD(Tolerance::GetToleranceModifierAll) {

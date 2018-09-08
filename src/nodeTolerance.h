@@ -69,6 +69,12 @@ public:
 	// int[] GetToleranceMeasuredAll()
     static NAN_METHOD(GetToleranceMeasuredAll);
 
+	// double GetToleranceMeasuredVaule(int tol_id);
+	static NAN_METHOD(GetToleranceMeasuredValue);
+	
+	//{lower:double,upper:double} GetToleranceMeasuredLowerUpperValue(int tol_id);
+	static NAN_METHOD(GetToleranceMeasuredLowerUpperValue);
+
     // char[] GetToleranceModifierAll()
     static NAN_METHOD(GetToleranceModifierAll);
 
