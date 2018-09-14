@@ -264,10 +264,21 @@ NAN_METHOD(GenerateState::SetXYZpos)
     Trace t(tc, "SetXYZpos");
     GenerateState* ao = Nan::ObjectWrap::Unwrap<GenerateState>(info.This());
     if (!ao) return; // exception
-    if (info.Length() != 3) return;
-    ao->f_vars->setXpos(Nan::To<double>(info[0]).FromJust());
-    ao->f_vars->setYpos(Nan::To<double>(info[1]).FromJust());
-    ao->f_vars->setZpos(Nan::To<double>(info[2]).FromJust());
+
+    if (info.Length() == 1 && info[0]->IsArray())
+    {
+	v8::Local<v8::Array> a1 = v8::Local<v8::Array>::Cast(info[0]);
+
+	ao->f_vars->setXpos(Nan::To<double>(a1->Get(0)).FromJust());
+	ao->f_vars->setYpos(Nan::To<double>(a1->Get(1)).FromJust());
+	ao->f_vars->setZpos(Nan::To<double>(a1->Get(2)).FromJust());
+    }
+    else if (info.Length() == 3)
+    {
+	ao->f_vars->setXpos(Nan::To<double>(info[0]).FromJust());
+	ao->f_vars->setYpos(Nan::To<double>(info[1]).FromJust());
+	ao->f_vars->setZpos(Nan::To<double>(info[2]).FromJust());
+    }
 }
 
 // bool IsChangedXYZpos (double x, double y, double z);
@@ -276,13 +287,24 @@ NAN_METHOD(GenerateState::IsChangedXYZpos)
     Trace t(tc, "IsChangedXYZpos");
     GenerateState* ao = Nan::ObjectWrap::Unwrap<GenerateState>(info.This());
     if (!ao) return; // exception
-    if (info.Length() != 3) return;
-    RosePoint pt(
-	Nan::To<double>(info[0]).FromJust(),
-	Nan::To<double>(info[1]).FromJust(),
-	Nan::To<double>(info[2]).FromJust()
-	);
 
+    RosePoint pt;
+    if (info.Length() == 1 && info[0]->IsArray())
+    {
+	v8::Local<v8::Array> a1 = v8::Local<v8::Array>::Cast(info[0]);
+
+	pt.m[0] = Nan::To<double>(a1->Get(0)).FromJust();
+	pt.m[1] = Nan::To<double>(a1->Get(1)).FromJust();
+	pt.m[2] = Nan::To<double>(a1->Get(2)).FromJust();
+    }
+    else if (info.Length() == 3)
+    {
+	pt.m[0] = Nan::To<double>(info[0]).FromJust();
+	pt.m[1] = Nan::To<double>(info[1]).FromJust();
+	pt.m[2] = Nan::To<double>(info[2]).FromJust();
+    }
+    else return;
+    
     info.GetReturnValue().Set(ao->f_vars->isChangedXYZpos(pt) != 0);
 }
 
@@ -384,10 +406,21 @@ NAN_METHOD(GenerateState::SetIJKpos)
     Trace t(tc, "SetIJKpos");
     GenerateState* ao = Nan::ObjectWrap::Unwrap<GenerateState>(info.This());
     if (!ao) return; // exception
-    if (info.Length() != 3) return;
-    ao->f_vars->setIpos(Nan::To<double>(info[0]).FromJust());
-    ao->f_vars->setJpos(Nan::To<double>(info[1]).FromJust());
-    ao->f_vars->setKpos(Nan::To<double>(info[2]).FromJust());
+
+    if (info.Length() == 1 && info[0]->IsArray())
+    {
+	v8::Local<v8::Array> a1 = v8::Local<v8::Array>::Cast(info[0]);
+
+	ao->f_vars->setIpos(Nan::To<double>(a1->Get(0)).FromJust());
+	ao->f_vars->setJpos(Nan::To<double>(a1->Get(1)).FromJust());
+	ao->f_vars->setKpos(Nan::To<double>(a1->Get(2)).FromJust());
+    }
+    else if (info.Length() == 3)
+    {
+	ao->f_vars->setIpos(Nan::To<double>(info[0]).FromJust());
+	ao->f_vars->setJpos(Nan::To<double>(info[1]).FromJust());
+	ao->f_vars->setKpos(Nan::To<double>(info[2]).FromJust());
+    }
 }
 
 
@@ -399,13 +432,24 @@ NAN_METHOD(GenerateState::IsChangedIJKpos)
     Trace t(tc, "IsChangedIJKpos");
     GenerateState* ao = Nan::ObjectWrap::Unwrap<GenerateState>(info.This());
     if (!ao) return; // exception
-    if (info.Length() != 3) return;
-    RoseDirection dir(
-	Nan::To<double>(info[0]).FromJust(),
-	Nan::To<double>(info[1]).FromJust(),
-	Nan::To<double>(info[2]).FromJust()
-	);
 
+    RoseDirection dir;
+    if (info.Length() == 1 && info[0]->IsArray())
+    {
+	v8::Local<v8::Array> a1 = v8::Local<v8::Array>::Cast(info[0]);
+
+	dir.m[0] = Nan::To<double>(a1->Get(0)).FromJust();
+	dir.m[1] = Nan::To<double>(a1->Get(1)).FromJust();
+	dir.m[2] = Nan::To<double>(a1->Get(2)).FromJust();
+    }
+    else if (info.Length() == 3)
+    {
+	dir.m[0] = Nan::To<double>(info[0]).FromJust();
+	dir.m[1] = Nan::To<double>(info[1]).FromJust();
+	dir.m[2] = Nan::To<double>(info[2]).FromJust();
+    }
+    else return;
+    
     info.GetReturnValue().Set(ao->f_vars->isChangedIJKpos(dir) != 0);
 }
 
@@ -414,12 +458,23 @@ NAN_METHOD(GenerateState::IsChangedIJKposAssume3axis)
     Trace t(tc, "IsChangedIJKposAssume3axis");
     GenerateState* ao = Nan::ObjectWrap::Unwrap<GenerateState>(info.This());
     if (!ao) return; // exception
-    if (info.Length() != 3) return;
-    RoseDirection dir(
-	Nan::To<double>(info[0]).FromJust(),
-	Nan::To<double>(info[1]).FromJust(),
-	Nan::To<double>(info[2]).FromJust()
-	);
+
+    RoseDirection dir;
+    if (info.Length() == 1 && info[0]->IsArray())
+    {
+	v8::Local<v8::Array> a1 = v8::Local<v8::Array>::Cast(info[0]);
+
+	dir.m[0] = Nan::To<double>(a1->Get(0)).FromJust();
+	dir.m[1] = Nan::To<double>(a1->Get(1)).FromJust();
+	dir.m[2] = Nan::To<double>(a1->Get(2)).FromJust();
+    }
+    else if (info.Length() == 3)
+    {
+	dir.m[0] = Nan::To<double>(info[0]).FromJust();
+	dir.m[1] = Nan::To<double>(info[1]).FromJust();
+	dir.m[2] = Nan::To<double>(info[2]).FromJust();
+    }
+    else return;
 
     info.GetReturnValue().Set(ao->f_vars->isChangedIJKposAssume3axis(dir) != 0);
 }
