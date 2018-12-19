@@ -331,7 +331,20 @@ function command_GOTO(ctx, args) {
   if (ctx.pending !== undefined) {
     let arc = ctx.pending;
     ctx.pending = undefined;
-    ctx.apt.ArcXYPlane (lab, x,y,z, arc.cx, arc.cy, arc.cz, arc.radius, arc.ccw);
+    if (arc.ci === undefined ||
+     	((Math.abs(arc.ci) < Number.EPSILON) &&
+     	 (Math.abs(arc.cj) < Number.EPSILON) &&
+     	 (Math.abs(arc.ck) - 1 < Number.EPSILON)) ) {
+      ctx.apt.ArcXYPlane (lab, x,y,z, arc.cx, arc.cy, arc.cz, arc.radius, arc.ccw);
+    }
+    else {
+        // compute a reference direction and normalize
+      let [a,b,c] = [x-arc.cx, y-arc.cy, z-arc.cz];
+      let norm = Math.sqrt(a*a+b*b+c*c);
+      [a, b, c ] = [a/norm, b/norm, c/norm];
+      
+      ctx.apt.ArcGeneralPlane (lab, x,y,z, arc.cx, arc.cy, arc.cz, a,b,c, arc.radius, arc.ccw);
+    }
     return;
   }
   if (i === undefined) {
@@ -354,6 +367,9 @@ function command_CIRCLE(ctx, args) {
     cx: cx,
     cy: cy,
     cz: cz,
+    ci: ci,
+    cj: cj,
+    ck: ck,
     radius: radius,
     ccw: (ck < 0)
   };

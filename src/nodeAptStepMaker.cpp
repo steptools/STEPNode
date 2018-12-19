@@ -64,6 +64,7 @@ NAN_MODULE_INIT(AptStepMaker::Init)
     Nan::SetPrototypeMethod(tpl, "ArcXYPlane", ArcXYPlane);
     Nan::SetPrototypeMethod(tpl, "ArcYZPlane", ArcYZPlane);
     Nan::SetPrototypeMethod(tpl, "ArcZXPlane", ArcZXPlane);
+    Nan::SetPrototypeMethod(tpl, "ArcGeneralPlane", ArcGeneralPlane);
     Nan::SetPrototypeMethod(tpl, "CamModeOff", CamModeOff);
     Nan::SetPrototypeMethod(tpl, "CamModeOn", CamModeOn);
     Nan::SetPrototypeMethod(tpl, "CoolantMist", CoolantMist);
@@ -243,6 +244,48 @@ NAN_METHOD(AptStepMaker::ArcZXPlane)
     v8StringToChar(info[0], label);
     int ok = apt->_apt->zx_arc(
 	label, dstx,dsty,dstz, ctrx,ctry,ctrz, rad, ccw
+	);
+    delete [] label;
+
+    if (!ok) {
+	THROW_ERROR(t);
+    }
+}
+
+NAN_METHOD(AptStepMaker::ArcGeneralPlane)
+{
+    Trace t(tc, "ArcGeneralPlane");
+    AptStepMaker* apt = Nan::ObjectWrap::Unwrap<AptStepMaker>(info.This());
+    if (!apt) return;
+
+    if (info.Length() != 15) return;
+    if (!info[0]->IsString()) return;
+
+    double dstx = Nan::To<double>(info[1]).FromJust(); 
+    double dsty = Nan::To<double>(info[2]).FromJust();  
+    double dstz = Nan::To<double>(info[3]).FromJust(); 
+
+    double ctrx = Nan::To<double>(info[4]).FromJust();
+    double ctry = Nan::To<double>(info[5]).FromJust();
+    double ctrz = Nan::To<double>(info[6]).FromJust();
+
+    double ctri = Nan::To<double>(info[7]).FromJust();
+    double ctrj = Nan::To<double>(info[8]).FromJust();
+    double ctrk = Nan::To<double>(info[9]).FromJust();
+
+    double ctra = Nan::To<double>(info[10]).FromJust();
+    double ctrb = Nan::To<double>(info[11]).FromJust();
+    double ctrc = Nan::To<double>(info[12]).FromJust();
+    
+    double rad = Nan::To<double>(info[13]).FromJust();
+    bool ccw = Nan::To<bool>(info[14]).FromJust();
+
+    char * label = 0;
+    v8StringToChar(info[0], label);
+    int ok = apt->_apt->general_arc(
+	label, dstx,dsty,dstz, ctrx,ctry,ctrz,
+	ctri,ctrj,ctrk,	ctra,ctrb,ctrc,
+	rad, ccw
 	);
     delete [] label;
 

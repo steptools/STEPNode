@@ -41,9 +41,11 @@ public:
     // void ArcXYPlane(string label, double x,y,z, cx,cy,cz, rad, bool ccw);
     // void ArcYZPlane(string label, double x,y,z, cx,cy,cz, rad, bool ccw);
     // void ArcZXPlane(string label, double x,y,z, cx,cy,cz, rad, bool ccw);
+    // void ArcGeneralPlane(string label, double x,y,z, cx,cy,cz, ci,cj,ck, ca,cb,cc, rad, bool ccw);
     static NAN_METHOD(ArcXYPlane);
     static NAN_METHOD(ArcYZPlane);
     static NAN_METHOD(ArcZXPlane);
+    static NAN_METHOD(ArcGeneralPlane);
 
     // void CamModeOn/Off()
     static NAN_METHOD(CamModeOn);
