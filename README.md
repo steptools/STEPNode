@@ -1,3 +1,9 @@
+# ARCHIVED 
+
+Development of this package has moved internal to STEP Tools to be 
+closer to the C++ operations that it wraps, but this GitHub repository
+remains as a read-only reference. 
+
 # STEPNode
 
 The STEP-NC API provides high-level operations to create, manipulate,
